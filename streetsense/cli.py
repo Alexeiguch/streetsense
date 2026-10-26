@@ -62,6 +62,7 @@ def cmd_run(a: argparse.Namespace) -> int:
     raw_idx = 0
     t_start = time.perf_counter()
     proc_time = 0.0
+    last_shape = None
     while True:
         ok, frame = cap.read()
         if not ok:
@@ -72,6 +73,7 @@ def cmd_run(a: argparse.Namespace) -> int:
         if a.resize and frame.shape[1] > a.resize:
             s = a.resize / frame.shape[1]
             frame = cv2.resize(frame, (a.resize, int(frame.shape[0] * s)), interpolation=cv2.INTER_AREA)
+        last_shape = frame.shape
         if is_file:
             clock.t = a.start + (raw_idx - 1) / fps_in
         t0 = time.perf_counter()
@@ -107,7 +109,7 @@ def cmd_run(a: argparse.Namespace) -> int:
         "pipeline_fps": round(n / proc_time, 2) if proc_time else None,
         "wall_fps_incl_decode_and_encode": round(n / wall, 2) if wall else None,
         "mean_stage_ms": {k: round(v / max(1, n), 1) for k, v in pipe.timing_totals.items()},
-        "input_resolution": list(frame.shape[1::-1]) if n else None,
+        "input_resolution": list(last_shape[1::-1]) if last_shape else None,
         "yolo_imgsz": cfg.detector.imgsz,
         "surface_every_n_frames": cfg.surface.every_n_frames if pipe.surface_seg else None,
     }

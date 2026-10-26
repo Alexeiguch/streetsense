@@ -22,6 +22,7 @@ HUE_RANGES = {
 }
 MIN_SAT = 90
 MIN_VAL = 140
+MIN_DARK_FRAC = 0.2
 
 
 @dataclass
@@ -57,6 +58,11 @@ def classify_light(crop_bgr: np.ndarray, kind: str = "unknown") -> LightReading:
     sat, val = hsv[..., 1], hsv[..., 2]
     lit = (sat >= MIN_SAT) & (val >= MIN_VAL)
     H = hsv.shape[0]
+    # A real signal head is mostly dark housing around small lamps. Bright, uniformly lit boxes are
+    # screens/billboards/signs that the detector mistook for a light: refuse to read them.
+    dark_frac = float((val < 100).mean())
+    if dark_frac < MIN_DARK_FRAC:
+        return LightReading("unknown", 0.0, float(lit.mean()), None)
     total = lit.size
     counts = {name: int((lit & _hue_mask(hsv, r)).sum()) for name, r in HUE_RANGES.items()}
     n_lit = sum(counts.values())

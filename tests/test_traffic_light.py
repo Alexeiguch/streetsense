@@ -54,9 +54,9 @@ def test_white_sky_on_border_is_not_walk():
     assert classify_light(img, kind="unknown").state != "walk"
 
 
-@pytest.mark.parametrize("path", sorted(FIX.glob("dc_*.png")), ids=lambda p: p.stem)
+@pytest.mark.parametrize("path", sorted(FIX.glob("*.png")), ids=lambda p: p.stem)
 def test_real_crops(path):
-    """Crops from a CC BY 3.0 Wikimedia clip (Washington DC), labelled by eye."""
+    """Real crops (DC: CC BY 3.0; Tyumen: CC BY-SA 4.0, Wikimedia), labelled by eye; suffix = expected."""
     expected = path.stem.split("_")[-1]
     img = cv2.imread(str(path))
     h, w = img.shape[:2]
@@ -84,3 +84,10 @@ def test_smoother_needs_votes_and_resists_flicker():
     assert s.update(1, "red") == "green"
     assert s.update(1, "red") == "red"
     assert s.update(None, "red") == "red"  # untracked: pass-through
+
+
+def test_bright_screen_is_not_a_light():
+    """Regression: an advertising screen detected as 'traffic light' (Tyumen clip) read as green/red."""
+    screen = np.full((90, 90, 3), (60, 170, 90), np.uint8)  # bright green-ish panel, no dark housing
+    screen[:6] = 250  # white frame
+    assert classify_light(screen).state == "unknown"

@@ -129,3 +129,10 @@ def test_parse_sam_boxes_doc_example():
 def test_parse_json_reply_tolerates_fences():
     assert parse_json_reply('```json\n{"safe_to_cross": "no"}\n```')["safe_to_cross"] == "no"
     assert parse_json_reply("just prose")["summary"] == "just prose"
+
+
+def test_one_light_announced_pedestrian_preferred():
+    big_vehicle = Detection("traffic light", Box(100, 50, 160, 200), 0.9, attrs={"light_state": "green", "signal_kind": "vehicle"})
+    small_ped = Detection("traffic light", Box(600, 50, 620, 90), 0.8, attrs={"light_state": "red", "signal_kind": "pedestrian"})
+    lights = [a for a in build_alerts(FrameFacts(1280, 720, [big_vehicle, small_ped])) if a.key.startswith("light:")]
+    assert len(lights) == 1 and lights[0].text == "pedestrian light is red"

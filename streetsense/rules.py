@@ -29,6 +29,16 @@ def _where(zone: str) -> str:
     return {"left": "on your left", "right": "on your right", "ahead": "ahead"}[zone]
 
 
+def most_relevant_light(dets: list[Detection]) -> Detection | None:
+    """Several heads are usually in view; speak about one. Pedestrian heads win, then the biggest
+    (nearest) one, so the walker hears a single consistent state instead of a chorus."""
+    lights = [d for d in dets if d.label == "traffic light" and d.attrs.get("light_state", "unknown") != "unknown"]
+    if not lights:
+        return None
+    rank = {"pedestrian": 2, "unknown": 1, "vehicle": 0}
+    return max(lights, key=lambda d: (rank.get(d.attrs.get("signal_kind", "unknown"), 1), d.box.area))
+
+
 def build_alerts(f: FrameFacts, hfov_deg: float = 70.0) -> list[Alert]:
     out: list[Alert] = []
     for d in f.detections:
@@ -57,20 +67,18 @@ def build_alerts(f: FrameFacts, hfov_deg: float = 70.0) -> list[Alert]:
             if path and dist is not None and dist < 5:
                 out.append(Alert(f"obstacle:{zone}", f"{d.label} {_where(zone)}, {round_distance(dist)}",
                                  Priority.WARNING, data={"label": d.label, "distance_m": dist}))
-        elif d.label == "traffic light":
-            state = d.attrs.get("light_state", "unknown")
-            kind = d.attrs.get("signal_kind", "unknown")
-            if state == "unknown":
-                continue
-            name = "pedestrian light" if kind == "pedestrian" else "traffic light"
-            if state == "walk":
-                text = "walk signal on" + (", countdown running" if d.attrs.get("countdown") else "")
-            else:
-                text = f"{name} is " + {"red": "red", "yellow": "amber", "green": "green"}[state]
-            prio = Priority.NOTICE
-            if f.crosswalk and f.crosswalk.found and kind != "vehicle":
-                prio = Priority.WARNING  # at a crossing, the pedestrian light is what matters most
-            out.append(Alert(f"light:{kind}:{state}", text, prio, data={"state": state, "kind": kind}))
+    light = most_relevant_light(f.detections)
+    if light is not None:
+        state, kind = light.attrs["light_state"], light.attrs.get("signal_kind", "unknown")
+        name = "pedestrian light" if kind == "pedestrian" else "traffic light"
+        if state == "walk":
+            text = "walk signal on" + (", countdown running" if light.attrs.get("countdown") else "")
+        else:
+            text = f"{name} is " + {"red": "red", "yellow": "amber", "green": "green"}[state]
+        prio = Priority.NOTICE
+        if f.crosswalk and f.crosswalk.found and kind != "vehicle":
+            prio = Priority.WARNING  # at a crossing, the pedestrian light is what matters most
+        out.append(Alert(f"light:{kind}:{state}", text, prio, data={"state": state, "kind": kind}))
 
     if f.crosswalk and f.crosswalk.found and f.crosswalk.box is not None:
         zone = horizontal_zone(f.crosswalk.box, f.width)
