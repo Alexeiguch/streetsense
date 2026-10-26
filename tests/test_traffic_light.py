@@ -91,3 +91,31 @@ def test_bright_screen_is_not_a_light():
     screen = np.full((90, 90, 3), (60, 170, 90), np.uint8)  # bright green-ish panel, no dark housing
     screen[:6] = 250  # white frame
     assert classify_light(screen).state == "unknown"
+
+
+def _ped_head(top=None, bottom=None):
+    img = np.full((120, 60, 3), 25, np.uint8)
+    if top == "white":
+        img[15:50, 18:42] = (235, 235, 235)
+    if top == "orange":
+        img[15:50, 18:42] = (0, 110, 255)
+    if bottom == "orange":
+        img[75:105, 15:45] = (0, 110, 255)
+    return img
+
+
+def test_countdown_only_is_not_red():
+    r = classify_light(_ped_head(bottom="orange"), "pedestrian")
+    assert r.state == "countdown" and r.countdown
+    assert classify_light(_ped_head(top="orange"), "pedestrian").state == "red"
+    assert classify_light(_ped_head(top="white", bottom="orange"), "pedestrian").state == "walk"
+
+
+def test_countdown_frames_hold_walk_and_hand_still_flips():
+    s = LightStateSmoother()
+    for st in ["walk", "walk", "walk", "countdown", "countdown", "countdown", "countdown", "walk", "countdown"]:
+        out = s.update(1, st)
+    assert out == "walk"
+    for st in ["red", "countdown", "red", "red"]:
+        out = s.update(1, st)
+    assert out == "red"

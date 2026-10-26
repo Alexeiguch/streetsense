@@ -27,7 +27,7 @@ MIN_DARK_FRAC = 0.2
 
 @dataclass
 class LightReading:
-    state: str  # "red" | "yellow" | "green" | "walk" | "unknown"
+    state: str  # "red" | "yellow" | "green" | "walk" | "countdown" | "unknown"
     confidence: float  # fraction of lit pixels that agree with `state`
     lit_fraction: float  # lit pixels / crop pixels
     lamp_position: float | None  # 0 = top of housing, 1 = bottom, for the dominant colour
@@ -103,6 +103,11 @@ def classify_light(crop_bgr: np.ndarray, kind: str = "unknown") -> LightReading:
         hue |= _hue_mask(hsv, HUE_RANGES["orange"])
     ys = np.nonzero(lit & hue)[0]
     pos = float(ys.mean() / max(1, H - 1)) if ys.size else None
+    if state == "red" and kind != "vehicle" and pos is not None and pos > 0.62 and coloured_top < 0.01:
+        # Stop lamps / hands sit at the top of every standard head. Red-orange light only in the
+        # lower part, with the top dark, is a countdown display while the walk figure is between
+        # LED refreshes (or the camera missed it). Not a colour vote: the smoother ignores it.
+        return LightReading("countdown", float(conf), n_lit / total, pos, True)
     return LightReading(state, float(conf), n_lit / total, pos)
 
 
@@ -132,7 +137,10 @@ class LightStateSmoother:
         if track_id is None:
             return state
         q = self._hist.setdefault(track_id, deque(maxlen=self.window))
-        q.append(state)
+        # A countdown-only frame says "the crossing phase is still running" but not which colour:
+        # hold the current vote instead of diluting it. A steady hand (red, top) still flips it.
+        if state != "countdown":
+            q.append(state)
         known = [s for s in q if s != "unknown"]
         if not known:
             return "unknown"

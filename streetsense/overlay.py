@@ -13,7 +13,7 @@ COLORS = {
     "person": (255, 180, 0), "car": (0, 0, 255), "bus": (0, 0, 255), "truck": (0, 0, 255),
     "motorcycle": (0, 0, 255), "bicycle": (0, 120, 255), "traffic light": (0, 255, 255),
 }
-LIGHT_BGR = {"red": (0, 0, 255), "yellow": (0, 200, 255), "green": (0, 220, 0), "walk": (255, 255, 255), "unknown": (160, 160, 160)}
+LIGHT_BGR = {"red": (0, 0, 255), "yellow": (0, 200, 255), "green": (0, 220, 0), "walk": (255, 255, 255), "unknown": (160, 160, 160), "countdown": (0, 140, 255)}
 _LUT = np.zeros((256, 3), np.uint8)
 _LUT_ON = np.zeros(256, bool)
 for _c, _col in PALETTE.items():
