@@ -1,0 +1,201 @@
+{
+  "baseline": {
+    "fps": 22.01,
+    "mean_ms": {
+      "detect": 25.4,
+      "lights": 0.5,
+      "open_vocab": 0.0,
+      "surface": 5.3,
+      "depth": 0.0,
+      "crosswalk": 1.4,
+      "overlay": 12.6
+    },
+    "n_dist": 588,
+    "sample_dists": [
+      {
+        "label": "car",
+        "box": null,
+        "depth": null,
+        "used": 7.0039442476241645,
+        "src": null
+      },
+      {
+        "label": "car",
+        "box": null,
+        "depth": null,
+        "used": 18.464943925554614,
+        "src": null
+      },
+      {
+        "label": "person",
+        "box": null,
+        "depth": null,
+        "used": 6.141600914369251,
+        "src": null
+      },
+      {
+        "label": "car",
+        "box": null,
+        "depth": null,
+        "used": 22.826590409530574,
+        "src": null
+      },
+      {
+        "label": "car",
+        "box": null,
+        "depth": null,
+        "used": 34.93049901840586,
+        "src": null
+      },
+      {
+        "label": "person",
+        "box": null,
+        "depth": null,
+        "used": 11.098750223824434,
+        "src": null
+      },
+      {
+        "label": "person",
+        "box": null,
+        "depth": null,
+        "used": 10.172340630673785,
+        "src": null
+      },
+      {
+        "label": "person",
+        "box": null,
+        "depth": null,
+        "used": 22.02054960262775,
+        "src": null
+      },
+      {
+        "label": "car",
+        "box": null,
+        "depth": null,
+        "used": 33.23689906599831,
+        "src": null
+      },
+      {
+        "label": "person",
+        "box": null,
+        "depth": null,
+        "used": 8.608448927066043,
+        "src": null
+      },
+      {
+        "label": "person",
+        "box": null,
+        "depth": null,
+        "used": 20.68319509265119,
+        "src": null
+      },
+      {
+        "label": "car",
+        "box": null,
+        "depth": null,
+        "used": 36.867820812704004,
+        "src": null
+      }
+    ]
+  },
+  "depth": {
+    "fps": 17.13,
+    "mean_ms": {
+      "detect": 24.6,
+      "lights": 0.6,
+      "open_vocab": 0.0,
+      "surface": 5.0,
+      "depth": 9.7,
+      "crosswalk": 1.6,
+      "overlay": 16.7
+    },
+    "n_dist": 587,
+    "sample_dists": [
+      {
+        "label": "car",
+        "box": 7.0039442476241645,
+        "depth": 9.020111262454787,
+        "used": 9.020111262454787,
+        "src": "depth"
+      },
+      {
+        "label": "car",
+        "box": 18.402981026475572,
+        "depth": 19.542341753436713,
+        "used": 19.542341753436713,
+        "src": "depth"
+      },
+      {
+        "label": "person",
+        "box": 6.141600914369251,
+        "depth": 5.93181732678222,
+        "used": 5.93181732678222,
+        "src": "depth"
+      },
+      {
+        "label": "car",
+        "box": 22.826590409530574,
+        "depth": 21.61634882226899,
+        "used": 21.61634882226899,
+        "src": "depth"
+      },
+      {
+        "label": "person",
+        "box": 11.098750223824434,
+        "depth": 11.32261248645372,
+        "used": 11.32261248645372,
+        "src": "depth"
+      },
+      {
+        "label": "car",
+        "box": 34.93049901840586,
+        "depth": 41.438838727937835,
+        "used": 41.438838727937835,
+        "src": "depth"
+      },
+      {
+        "label": "person",
+        "box": 10.18901659892079,
+        "depth": 10.18901659892079,
+        "used": 10.18901659892079,
+        "src": "depth"
+      },
+      {
+        "label": "person",
+        "box": 22.02054960262775,
+        "depth": 21.694761529347527,
+        "used": 21.694761529347527,
+        "src": "depth"
+      },
+      {
+        "label": "car",
+        "box": 33.23689906599831,
+        "depth": 35.59858718933663,
+        "used": 35.59858718933663,
+        "src": "depth"
+      },
+      {
+        "label": "person",
+        "box": 8.608448927066043,
+        "depth": 7.899785791070288,
+        "used": 7.899785791070288,
+        "src": "depth"
+      },
+      {
+        "label": "person",
+        "box": 20.68319509265119,
+        "depth": 22.127520856371657,
+        "used": 22.127520856371657,
+        "src": "depth"
+      },
+      {
+        "label": "car",
+        "box": 37.054650985741354,
+        "depth": 36.267069048296285,
+        "used": 36.267069048296285,
+        "src": "depth"
+      }
+    ]
+  },
+  "depth_alone_ms": 47.02839849778684
+}

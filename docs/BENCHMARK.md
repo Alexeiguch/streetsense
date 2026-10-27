@@ -326,3 +326,70 @@ python -m streetsense run --source samples/dc_ped_light.ogv --no-vlm \
 # optional: --weights models/yolo11n.pt | models/yolo11m.pt | models/rtdetr-l.pt
 # optional: --open-vocab   # YOLO-World hazard prompts every 15 frames
 ```
+
+---
+
+## 8. Depth Anything V2 Small + RF-DETR retry + hazard clips (27 Oct 2026)
+
+**Box:** same 8-vCPU CPU, no GPU. Raw JSON: `docs/benchmark/depth_tyumen.json`, `rfdetr_retry.json`, `rfdetr_export.json`, `openvocab_hazards_new.json`.
+
+### 8a. Monocular depth (Depth Anything V2 Small, Apache-2.0)
+
+Model: `depth-anything/Depth-Anything-V2-Small-hf` (Small only — Apache-2.0; larger variants are different licences).  
+OpenVINO IR auto-exported to `models/depth_anything_v2_small_openvino/` (gitignored). Relative depth polarity on our clips: **nearer → larger**. Metres ≈ `scale / rel` with EMA scale from box-height priors on person/vehicle boxes.
+
+| Mode | Result |
+|---|---|
+| Depth alone (OV, 518-wide IR → full-res upsample) | **median 47.0 ms / p90 52.4 ms** (20 runs, Tyumen 1280×720) |
+| Full pipeline **without** depth (YOLO11s OV + Seg OV + overlay) | **22.0 FPS** |
+| Full pipeline **with** `--depth` every 6 frames | **17.1 FPS** (amortised depth stage ~9.7 ms) |
+| ≥15 FPS with overlay? | **yes** (17.1) |
+
+**Distance sanity (Tyumen):** depth metres track box-height estimates closely after calibration (e.g. person ~6–12 m mid-scene). Far cars still read high (~30–40 m) because the scale is **anchored to the same biased box-height prior** — depth improves relative consistency across objects in a frame but does **not** independently fix absolute scale. Overlay shows a corner depth heatmap + `distance_source=depth|box`.
+
+**Decision: `--depth` is opt-in, not default.** Holds ≥15 FPS, but absolute metres are still prior-limited; enabling by default would cut ~5 FPS for a partial win. Prefer `openvino`; `--depth-backend torch` / `--depth-every N` available.
+
+Image: [depth_tyumen_overlay.png](benchmark/depth_tyumen_overlay.png)
+
+### 8b. RF-DETR Nano retry (Apache-2.0) — fixed COCO-91 / `class_name`
+
+Previous pass used wrong KEEP/id map → P≈0. This pass uses `det.data['class_name']` with COCO-91 fallback (`streetsense/rfdetr_detector.py`). Selectable: `--weights rfdetr-nano` (or `rfdetr-small`).
+
+| | YOLO11s OV (recheck) | RF-DETR Nano torch |
+|---|---|---|
+| Hand P / R / F1 (14 frames, count-based) | 0.82 / 0.68 / **0.74** | 0.72 / **0.85** / **0.78** |
+| Detect median / p90 ms | **16.2 / 17.4** | 52.7 / 58.4 |
+| Full pipeline FPS (overlay on, Tyumen) | **21.5** | **13.1** |
+| ByteTrack | yes | **no** (untracked boxes) |
+| Licence | AGPL-3.0 | **Apache-2.0** |
+
+ONNX export via `RFDETRNano.export()` → `output/rfdetr-nano.onnx` (114 MB). OpenVINO convert works at fixed **384×384**; raw forward **~55 ms** median — **no win vs torch** on this CPU. Postprocess/NMS not wired as an OV detector backend yet.
+
+**Decision: selectable, not default.** Higher recall/F1 on the small hand sample, but **13.1 FPS < 15** with overlay and no tracking. Image: [compare_yolo11s_vs_rfdetr_tyumen.png](benchmark/compare_yolo11s_vs_rfdetr_tyumen.png)
+
+### 8c. Hazard clips + `--open-vocab`
+
+New Wikimedia samples (via `scripts/get_samples.sh`):
+
+| File | Licence | Result @ conf=0.10 (30 processed frames) |
+|---|---|---|
+| `katowice_scooter.webm` | CC BY-SA 4.0 | 0 hits (probe peak scooter conf **0.08** — below floor) |
+| `tomaszow_scooter.ogv` | Public domain | **7/30** frames with `scooter` |
+| `mazatlan_sidewalk.webm` | CC0 | **4/30** frames (`scooter`×3, `bollard`×1) |
+
+Default open-vocab conf lowered **0.15 → 0.10** after measuring scooter scores often 0.05–0.25. Pipeline with `--open-vocab` ≈ **4–6 FPS** (slow loop ~120–150 ms when it runs) — keep opt-in / every-Nth. Comparison collage: [openvocab_hazard_compare.png](benchmark/openvocab_hazard_compare.png)
+
+### Defaults after this pass
+
+| Component | Default | Why |
+|---|---|---|
+| Detector | YOLO11s OpenVINO + class conf | Still best speed/accuracy/track trade-off |
+| Depth | **off** (`--depth` to enable) | ≥15 FPS but absolute metres still prior-bound |
+| RF-DETR | **off** (`--weights rfdetr-nano`) | Apache-2.0 + recall, but &lt;15 FPS, no ByteTrack |
+| Open-vocab | **off** (`--open-vocab`) | Useful on hazard clips; ~5 FPS when on |
+
+### Rejected / deferred
+
+- Depth as default (FPS OK, absolute scale not fixed).
+- RF-DETR as default (FPS &lt;15; OV raw ≈ torch).
+- Open-vocab as default (too slow; false negatives at conf≥0.10 on some scooter angles).

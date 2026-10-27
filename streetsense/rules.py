@@ -54,9 +54,11 @@ def build_alerts(f: FrameFacts, hfov_deg: float = 70.0) -> list[Alert]:
     out: list[Alert] = []
     for d in f.detections:
         zone = horizontal_zone(d.box, f.width)
-        dist = estimate_distance_m(d.box, d.label, f.width, f.height, hfov_deg)
+        dist = d.attrs.get("distance_m")
+        if dist is None:
+            dist = estimate_distance_m(d.box, d.label, f.width, f.height, hfov_deg)
+            d.attrs["distance_m"] = dist
         d.attrs["zone"] = zone
-        d.attrs["distance_m"] = dist
         path = in_walking_path(d.box, f.width, f.height)
 
         if d.label in VEHICLES:

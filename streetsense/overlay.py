@@ -23,7 +23,8 @@ PRIO_BGR = {Priority.CRITICAL: (0, 0, 255), Priority.WARNING: (0, 140, 255), Pri
 
 
 def draw(frame: np.ndarray, dets: list[Detection], cw: CrosswalkResult | None, surf: SurfaceResult | None,
-         recent_alerts: list[Alert], stats: str = "", vlm_text: str | None = None) -> np.ndarray:
+         recent_alerts: list[Alert], stats: str = "", vlm_text: str | None = None,
+         depth_map: np.ndarray | None = None) -> np.ndarray:
     out = frame.copy()
     H, W = out.shape[:2]
     if surf is not None:
@@ -33,6 +34,19 @@ def draw(frame: np.ndarray, dets: list[Detection], cw: CrosswalkResult | None, s
         # copyTo is cheaper than np.where on full HxWx3 and bit-identical here
         mask = (m.astype(np.uint8)) * 255
         cv2.copyTo(blended, mask, out)
+    if depth_map is not None:
+        # small corner preview (does not obscure the walking corridor)
+        dh, dw = depth_map.shape[:2]
+        preview_w = max(120, W // 5)
+        preview_h = int(preview_w * dh / max(1, dw))
+        dnorm = depth_map.astype(np.float32)
+        dnorm = (dnorm - dnorm.min()) / (dnorm.max() - dnorm.min() + 1e-6)
+        heat = (dnorm * 255).astype(np.uint8)
+        heat = cv2.applyColorMap(heat, cv2.COLORMAP_INFERNO)
+        heat = cv2.resize(heat, (preview_w, preview_h), interpolation=cv2.INTER_AREA)
+        y0, x0 = 8, W - preview_w - 8
+        out[y0:y0 + preview_h, x0:x0 + preview_w] = heat
+        cv2.putText(out, "depth", (x0 + 4, y0 + 16), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (255, 255, 255), 1)
     if cw is not None and cw.found:
         cv2.polylines(out, cw.stripes, True, (255, 255, 255), 2)
         b = cw.box

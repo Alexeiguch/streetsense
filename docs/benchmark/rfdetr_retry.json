@@ -1,0 +1,49 @@
+{
+  "rfdetr-nano_fixed": {
+    "tp": 172,
+    "fp": 68,
+    "fn": 31,
+    "precision": 0.717,
+    "recall": 0.847,
+    "f1": 0.777,
+    "median_ms": 52.7,
+    "p90_ms": 58.4,
+    "n_frames": 14,
+    "backend": "torch",
+    "license": "Apache-2.0",
+    "mapping": "class_name / COCO-91",
+    "pipeline_fps_overlay": 13.13,
+    "pipeline_mean_ms": {
+      "detect": 57.0,
+      "lights": 0.7,
+      "open_vocab": 0.0,
+      "surface": 4.3,
+      "depth": 0.0,
+      "crosswalk": 1.5,
+      "overlay": 12.6
+    }
+  },
+  "yolo11s_recheck": {
+    "tp": 137,
+    "fp": 30,
+    "fn": 66,
+    "precision": 0.82,
+    "recall": 0.675,
+    "f1": 0.741,
+    "median_ms": 16.2,
+    "p90_ms": 17.4,
+    "n_frames": 14,
+    "backend": "openvino",
+    "pipeline_fps_overlay": 21.45,
+    "pipeline_mean_ms": {
+      "detect": 25.3,
+      "lights": 0.6,
+      "open_vocab": 0.0,
+      "surface": 5.0,
+      "depth": 0.0,
+      "crosswalk": 1.4,
+      "overlay": 14.2
+    }
+  },
+  "note": "Small 14-frame hand count sample; not box-IoU GT. RF-DETR has no ByteTrack here."
+}

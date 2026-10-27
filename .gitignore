@@ -16,3 +16,7 @@ runs/
 models/*.ts
 models/yoloe*.pt
 weights/
+models/depth_anything_v2_small_openvino/
+models/rfdetr_nano_openvino/
+output/
+*.egg-info/

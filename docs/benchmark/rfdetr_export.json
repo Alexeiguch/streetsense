@@ -1,0 +1,25 @@
+{
+  "onnx_path": "output/rfdetr-nano.onnx",
+  "onnx_mb": 114.4,
+  "convert_s": 0.9,
+  "ov_input_shape": [
+    1,
+    3,
+    384,
+    384
+  ],
+  "ov_try_560": "RuntimeError: Exception from src/inference/src/cpp/infer_request.cpp:117:\nException from src/inference/src/cpp/infer_request.cpp:67:\nCheck 'shape.compatible(ov::PartialShape(tensor->get_shape()))' failed at src/plugins/intel_cpu/src/infer_request.cpp:385:\nCan't set the input tensor with index: 0, because the model input (shape=[1,3,384,384]) and the tensor (shape=(1.3.560.560)) are incompatible\n\n\n",
+  "ov_try_640": "RuntimeError: Exception from src/inference/src/cpp/infer_request.cpp:117:\nException from src/inference/src/cpp/infer_request.cpp:67:\nCheck 'shape.compatible(ov::PartialShape(tensor->get_shape()))' failed at src/plugins/intel_cpu/src/infer_request.cpp:385:\nCan't set the input tensor with index: 0, because the model input (shape=[1,3,384,384]) and the tensor (shape=(1.3.640.640)) are incompatible\n\n\n",
+  "ov_try_432": "RuntimeError: Exception from src/inference/src/cpp/infer_request.cpp:117:\nException from src/inference/src/cpp/infer_request.cpp:67:\nCheck 'shape.compatible(ov::PartialShape(tensor->get_shape()))' failed at src/plugins/intel_cpu/src/infer_request.cpp:385:\nCan't set the input tensor with index: 0, because the model input (shape=[1,3,384,384]) and the tensor (shape=(1.3.432.432)) are incompatible\n\n\n",
+  "ov_try_512": "RuntimeError: Exception from src/inference/src/cpp/infer_request.cpp:117:\nException from src/inference/src/cpp/infer_request.cpp:67:\nCheck 'shape.compatible(ov::PartialShape(tensor->get_shape()))' failed at src/plugins/intel_cpu/src/infer_request.cpp:385:\nCan't set the input tensor with index: 0, because the model input (shape=[1,3,384,384]) and the tensor (shape=(1.3.512.512)) are incompatible\n\n\n",
+  "openvino": {
+    "ok": true,
+    "path": "models/rfdetr_nano_openvino",
+    "note": "raw forward only; NMS/post not wired into StreetSense detector"
+  },
+  "ov_raw_384": {
+    "median_ms": 55.3,
+    "p90_ms": 79.3
+  },
+  "note": "ONNX+OV convert works at 384x384; StreetSense keeps torch RF-DETR path (postprocess via supervision). OV not wired as detector backend yet."
+}

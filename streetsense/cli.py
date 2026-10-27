@@ -53,12 +53,18 @@ def cmd_run(a: argparse.Namespace) -> int:
     cfg.open_vocab.enabled = bool(getattr(a, "open_vocab", False))
     if getattr(a, "open_vocab_weights", None):
         cfg.open_vocab.weights = a.open_vocab_weights
+    cfg.depth.enabled = bool(getattr(a, "depth", False))
+    if getattr(a, "depth_backend", None):
+        cfg.depth.backend = a.depth_backend
+    if getattr(a, "depth_every", None):
+        cfg.depth.every_n_frames = int(a.depth_every)
     clock = VideoClock() if is_file else time.monotonic
     pipe = Pipeline(cfg, use_surface=not a.no_surface, clock=clock)
     speaker = Speaker(enabled=a.speak)
     surf_b = pipe.surface_seg.backend if pipe.surface_seg else "off"
+    depth_b = pipe.depth.backend if pipe.depth else "off"
     print(f"[streetsense] source={a.source} fps_in={fps_in:.1f} detect={pipe.detector.backend} "
-          f"surface={surf_b} "
+          f"surface={surf_b} depth={depth_b} "
           f"meta_api={'on' if pipe.vlm.enabled else 'off (no MODEL_API_KEY)'} speech={speaker.backend}")
 
     writer = None
@@ -173,7 +179,7 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--resize", type=int, default=1280, help="downscale wider frames to this width")
     r.add_argument("--imgsz", type=int, default=640)
     r.add_argument("--weights", default="models/yolo11s.pt",
-                    help="Ultralytics weights (default yolo11s; try yolo11n/yolo11m/rtdetr-l/yolo26n)")
+                    help="detector weights (default yolo11s; try yolo11n/yolo11m/rtdetr-l/rfdetr-nano/yolo26n)")
     r.add_argument("--conf", type=float, default=None,
                     help="global detector confidence floor (default 0.35; person uses 0.28)")
     r.add_argument("--backend", default="openvino", choices=["openvino", "torch"],
@@ -184,6 +190,12 @@ def main(argv: list[str] | None = None) -> int:
                     help="enable YOLO-World hazard loop every N frames (bollard/scooter/...)")
     r.add_argument("--open-vocab-weights", default=None,
                     help="open-vocab weights path (default models/yolov8s-worldv2.pt)")
+    r.add_argument("--depth", action="store_true",
+                    help="enable Depth Anything V2 Small (Apache-2.0) every N frames")
+    r.add_argument("--depth-backend", default=None, choices=["openvino", "torch"],
+                    help="depth backend (default: openvino)")
+    r.add_argument("--depth-every", type=int, default=None,
+                    help="run depth every N processed frames (default 6)")
     r.add_argument("--no-surface", action="store_true")
     r.add_argument("--no-vlm", action="store_true")
     r.add_argument("--speak", action="store_true")

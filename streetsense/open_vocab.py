@@ -47,7 +47,7 @@ class OpenVocabHazardDetector:
         self,
         weights: str = "models/yolov8s-worldv2.pt",
         prompts: list[str] | None = None,
-        conf: float = 0.15,
+        conf: float = 0.10,
         imgsz: int = 640,
         device: str = "cpu",
     ):

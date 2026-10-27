@@ -19,7 +19,7 @@ DEFAULT_CONF_BY_CLASS: dict[str, float] = {
 @dataclass
 class DetectorConfig:
     # Default YOLO11s + OpenVINO (see docs/BENCHMARK.md §7). Alternatives:
-    #   --weights models/yolo11n.pt | models/yolo11m.pt | models/rtdetr-l.pt | models/yolo26n.pt
+    #   --weights models/yolo11n.pt | models/yolo11m.pt | models/rtdetr-l.pt | rfdetr-nano | models/yolo26n.pt
     #   --backend torch
     weights: str = "models/yolo11s.pt"
     backend: str = "openvino"  # "openvino" (default) or "torch"; falls back to torch if OV unavailable
@@ -47,8 +47,20 @@ class OpenVocabConfig:
     enabled: bool = False
     weights: str = "models/yolov8s-worldv2.pt"
     every_n_frames: int = 15  # ~0.5 Hz at 30 FPS input
-    conf: float = 0.15
+    conf: float = 0.10  # measured: scooters often score 0.05–0.25 on sidewalk clips
     imgsz: int = 640
+
+
+@dataclass
+class DepthConfig:
+    """Monocular depth (Depth Anything V2 Small, Apache-2.0). Off by default; --depth enables."""
+
+    enabled: bool = False
+    model_id: str = "depth-anything/Depth-Anything-V2-Small-hf"
+    backend: str = "openvino"  # openvino|torch
+    every_n_frames: int = 6
+    input_width: int = 518
+    prefer_over_box: bool = True  # use calibrated depth metres when available
 
 
 @dataclass
@@ -87,6 +99,7 @@ class Config:
     detector: DetectorConfig = field(default_factory=DetectorConfig)
     surface: SurfaceConfig = field(default_factory=SurfaceConfig)
     open_vocab: OpenVocabConfig = field(default_factory=OpenVocabConfig)
+    depth: DepthConfig = field(default_factory=DepthConfig)
     camera: CameraConfig = field(default_factory=CameraConfig)
     alerts: AlertConfig = field(default_factory=AlertConfig)
     vlm: VisionLLMConfig = field(default_factory=VisionLLMConfig)

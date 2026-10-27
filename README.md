@@ -15,7 +15,7 @@ Two loops. The fast local loop handles safety-critical alerts at camera rate on 
 flowchart LR
     CAM[Camera / video file / phone browser] --> F[Frame]
     subgraph FAST["Fast loop (local, every frame, CPU)"]
-        F --> YOLO["YOLO11s OpenVINO + ByteTrack<br/>SegFormer OpenVINO (default)<br/>--backend torch / --weights yolo11n|11m|rtdetr"]
+        F --> YOLO["YOLO11s OpenVINO + ByteTrack<br/>SegFormer OpenVINO (default)<br/>--weights yolo11n|11m|rtdetr|rfdetr-nano<br/>optional --depth / --open-vocab"]
         F --> SEG["SegFormer-B0 (Cityscapes)<br/>road / sidewalk / pole<br/>(every 6th frame)"]
         YOLO --> TL["Traffic-light reader<br/>HSV lamp colour, walk figure,<br/>countdown, screen rejection,<br/>per-track vote"]
         SEG --> CW["Zebra-crossing detector<br/>stripe geometry on the ground mask<br/>+ hysteresis"]
@@ -38,12 +38,14 @@ flowchart LR
 
 | Module | Role |
 |---|---|
-| `streetsense/detector.py` | **YOLO11s** (COCO) via **OpenVINO by default** (auto-exports `models/yolo11s_openvino_model/`; falls back to PyTorch). Per-class conf (person 0.28). `--weights models/yolo11n.pt\|yolo11m.pt\|rtdetr-l.pt\|yolo26n.pt`. `ApproachTracker` flags growing boxes |
+| `streetsense/detector.py` | **YOLO11s** (COCO) via **OpenVINO by default** (auto-exports `models/yolo11s_openvino_model/`; falls back to PyTorch). Per-class conf (person 0.28). `--weights models/yolo11n.pt\|yolo11m.pt\|rtdetr-l.pt\|rfdetr-nano\|yolo26n.pt`. `ApproachTracker` flags growing boxes |
+| `streetsense/rfdetr_detector.py` | Optional **RF-DETR Nano** (Apache-2.0) via `--weights rfdetr-nano`; COCO-91 / `class_name` mapping. Not default (CPU ~53 ms, no ByteTrack, pipeline ~13 FPS) |
+| `streetsense/depth.py` | Optional **Depth Anything V2 Small** (Apache-2.0) via `--depth`; OpenVINO ~47 ms every N frames; metres calibrated to box-height priors. Not default |
 | `streetsense/traffic_light.py` | Lamp colour from HSV. Orange means amber on vehicle heads and the "hand" on pedestrian heads. US white walk figure + countdown; EU tall red/green man silhouette; rejects bright screens; votes over a track; ranking prefers walk/red over sticky green |
 | `streetsense/crosswalk.py` | Zebra stripes: bright, low-saturation, elongated, parallel bars on the road/sidewalk mask, with k-of-n hysteresis |
-| `streetsense/open_vocab.py` | Optional YOLO-World slow loop (`--open-vocab`) for bollard/scooter/kerb/pothole/… prompts (AGPL) |
+| `streetsense/open_vocab.py` | Optional YOLO-World slow loop (`--open-vocab`, conf 0.10) for bollard/scooter/kerb/pothole/… prompts (AGPL). Measured useful on Tomaszów/Mazatlán hazard clips |
 | `streetsense/surface.py` | SegFormer-B0 Cityscapes via **OpenVINO by default** (auto-converts to `models/segformer_b0_cityscapes_openvino/`; PyTorch fallback). Underfoot road/sidewalk + pole-ahead |
-| `streetsense/geometry.py` | Zones, clock-face direction, walking corridor, pinhole distance from class height priors |
+| `streetsense/geometry.py` | Zones, clock-face direction, walking corridor, pinhole distance from class height priors (overridden by `--depth` when calibrated) |
 | `streetsense/rules.py` | Perception to candidate alerts (one traffic light per frame, pedestrian heads first) |
 | `streetsense/alerts.py` | What gets said and when (see below) |
 | `streetsense/meta_api.py` | Muse Spark vision client (OpenAI-compatible, `MODEL_API_KEY`), JSON reply parsing, SAM 3.1 box parser |
@@ -75,6 +77,11 @@ python -m streetsense run --source samples/tyumen_crossing.webm \
 # webcam with spoken alerts
 python -m streetsense run --source 0 --speak
 
+# optional depth / open-vocab / RF-DETR
+# python -m streetsense run --source samples/tyumen_crossing.webm --depth --no-vlm
+# python -m streetsense run --source samples/tomaszow_scooter.ogv --open-vocab --no-vlm
+# python -m streetsense run --source samples/tyumen_crossing.webm --weights rfdetr-nano --no-vlm
+
 # phone demo (open http://<host>:8000; phone camera access needs HTTPS, e.g. a cloudflared/ngrok tunnel)
 python -m streetsense serve --port 8000
 
@@ -105,18 +112,18 @@ Web `/frame` server p50 (Tyumen JPEG): all-OpenVINO **13.2 ms** vs all-torch **1
 - SegFormer torch↔OpenVINO on 36 sampled frames: pixel agreement **0.996**, mIoU **0.967**, underfoot label match **100%** ([docs/BENCHMARK.md](docs/BENCHMARK.md) §6).
 - DC walk@10.8 s and pedestrian red@52.8 s still fire with OpenVINO surface.
 - **YOLO11s** is the default weights (hand recall 0.50→0.68 on a 14-frame sample; coco128 mAP50-95 0.50→0.57). YOLO11n / 11m / RT-DETR-l / YOLO26n via `--weights`. See [docs/BENCHMARK.md](docs/BENCHMARK.md) §7.
-- Optional `--open-vocab` runs YOLO-World every 15 frames for non-COCO hazards.
+- Optional `--open-vocab` runs YOLO-World every 15 frames for non-COCO hazards (conf 0.10); hits scooters/bollards on new Wikimedia clips.
+- Optional `--depth` (Depth Anything V2 Small, Apache-2.0, OpenVINO ~47 ms every 6th) keeps pipeline **~17 FPS**; absolute metres still prior-calibrated — not default.
+- RF-DETR Nano selectable (`--weights rfdetr-nano`, Apache-2.0); fixed COCO-91 mapping; hand F1 0.78 but **~13 FPS** — not default.
 
-`python -m pytest -q`: 88 tests passing.
+`python -m pytest -q`: 88+ tests passing.
 
 ## Known gaps
-- Distances use class height priors and an assumed 70° HFOV. They're rough and uncalibrated.
+- Distances use class height priors and an assumed 70° HFOV (optionally calibrated via `--depth`). Absolute metres remain rough; Tyumen far cars still overestimate.
 - Vehicle vs pedestrian signal heads can't be reliably told apart by shape alone. A head is called "pedestrian" on walk figure or EU tall red/green silhouette; ranking prefers walk/red over a larger sticky green head.
 - Crosswalk detection is a heuristic. It fails on faded paint, heavy crowds, and night glare.
-- No curb or step detection and no depth model yet. Holes and stairs aren't handled.
-- The YOLO COCO classes don't include bollards, kerbs, scooters, or potholes. Poles come from SegFormer; optional `--open-vocab` (YOLO-World) tries the rest at low frequency.
-- Ultralytics YOLO / YOLO-World are AGPL-3.0. RF-DETR (Apache-2.0) was tried but not adopted (CPU latency).
-- No monocular depth model yet (Depth Anything V2 still optional).
+- Open-vocab scooter scores often 0.05–0.25; some angles (Katowice) miss at conf 0.10. Stairs/potholes largely unproven.
+- Ultralytics YOLO / YOLO-World are AGPL-3.0. RF-DETR (Apache-2.0) and Depth Anything V2 Small (Apache-2.0) are optional escapes from AGPL for those stages.
 
 ## Licences of sample media
 See `samples/README.md` (Wikimedia Commons, CC BY / CC BY-SA).
