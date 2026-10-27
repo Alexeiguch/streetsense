@@ -6,8 +6,10 @@
 **Settings:** input resized to 1280×720, detector `imgsz=640`, `conf=0.35`, `iou=0.5`, ByteTrack on, device=cpu  
 **Script:** `scripts/benchmark_models.py` → raw JSON in `docs/benchmark/results.json` and `outputs/benchmark/`  
 
-**Decision: keep YOLO11n as the default.** YOLO26n is selectable via `--weights models/yolo26n.pt`.  
-Reason: on this CPU, PyTorch+track latency is comparable-to-slower on busy clips; coco128 mAP50-95 and a small hand-labelled sample slightly favour 11n; DC key alerts match for both, but 26n is noisier. OpenVINO helps both (~11 ms predict) with no clear 26n win. The advertised “up to 43% faster CPU ONNX” for 26n was **not** reproduced here (ONNX Runtime was much slower than PyTorch for both).
+**Model decision: keep YOLO11n as the default weights.** YOLO26n is selectable via `--weights models/yolo26n.pt`.  
+Reason: on this CPU, PyTorch+track latency is comparable-to-slower on busy clips; coco128 mAP50-95 and a small hand-labelled sample slightly favour 11n; DC key alerts match for both, but 26n is noisier. The advertised “up to 43% faster CPU ONNX” for 26n was **not** reproduced here.
+
+**Backend decision (27 Oct 2026): default inference is OpenVINO** (`--backend openvino`). PyTorch remains `--backend torch`. See [§5](#5-pytorch-vs-openvino-backend-yolo11n) below.
 
 ---
 
@@ -147,3 +149,62 @@ python -m streetsense run --source samples/dc_ped_light.ogv \
 - Pipeline FPS used 250 frames/clip (not full video) for wall-clock; detector-only used full clips.
 - ONNX/OpenVINO benches are predict-only (tracking not wired through those backends in this script).
 - Peak RSS includes SegFormer weights and decoded frames held in memory during detector-only passes.
+
+---
+
+## 5. PyTorch vs OpenVINO backend (YOLO11n)
+
+**Date:** 27 Oct 2026 · **Script:** `scripts/benchmark_backends.py` · raw JSON: `docs/benchmark/backend_results.json`  
+Same clips/settings as above; detector warm-up 10 frames; pipeline 200 frames/clip; ByteTrack on.
+
+First-run OpenVINO export (from `.pt`, scratch copy): **~2.0 s**. Export dir `models/yolo11n_openvino_model/` is gitignored and rebuilt automatically if missing. If `openvino` is missing or export fails, the detector logs a clear line and falls back to PyTorch.
+
+### Detector-only latency (ms / frame, 390 measured / clip)
+
+| Clip | Torch mean / p50 / p95 | OpenVINO mean / p50 / p95 | Speedup |
+|---|---|---|---|
+| Tyumen | 14.6 / 14.1 / 17.7 | **11.6 / 11.1 / 13.7** | ~21% |
+| DC | 14.3 / 13.6 / 16.8 | **11.0 / 10.4 / 13.2** | ~23% |
+| CDMX | 15.7 / 15.1 / 18.6 | **12.3 / 12.1 / 14.7** | ~22% |
+
+Track IDs present on every measured frame for both backends. `ApproachTracker` “approaching” frames: Tyumen 371 vs 370; CDMX 17 vs 15; DC 0 vs 0 — logic unchanged.
+
+### Full-pipeline FPS (overlay on / off)
+
+| Clip | Torch | OpenVINO |
+|---|---|---|
+| Tyumen | 21.1 / 36.8 | **22.8 / 40.6** |
+| DC | 23.8 / 37.5 | **24.7 / 42.0** |
+| CDMX | 21.9 / 33.7 | **24.1 / 35.3** |
+
+### Agreement (IoU≥0.5, class-aware)
+
+| Clip | Torch dets matched by OV | OV dets matched by torch |
+|---|---|---|
+| Tyumen | **0.996** | 0.971 |
+| DC | **0.997** | **1.000** |
+| CDMX | 0.981 | 0.876 |
+
+CDMX night crowd still has more OV boxes (same pattern as model-to-model noise); Tyumen/DC are effectively identical.
+
+### DC alerts
+
+| | Torch | OpenVINO |
+|---|---|---|
+| Count | 12 | 13 (one extra `traffic light is green` @ 21.0 s) |
+| Walk + countdown @ 10.80 s | yes | yes |
+| Pedestrian red @ 52.76 s | yes | yes |
+
+### Web `/frame` (Flask test client, Tyumen JPEG ~640 px, surface on, 40 frames after warm-up)
+
+| | Torch server p50 / mean | OpenVINO server p50 / mean |
+|---|---|---|
+| `server_ms` | 16.9 / 26.9 | **12.6 / 21.1** |
+
+### Reproduce
+
+```bash
+python scripts/benchmark_backends.py
+python -m streetsense run --source samples/dc_ped_light.ogv --backend openvino --no-vlm --alerts /tmp/a.jsonl
+python -m streetsense run --source samples/dc_ped_light.ogv --backend torch --no-vlm --alerts /tmp/b.jsonl
+```

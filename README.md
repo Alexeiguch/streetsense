@@ -15,7 +15,7 @@ Two loops. The fast local loop handles safety-critical alerts at camera rate on 
 flowchart LR
     CAM[Camera / video file / phone browser] --> F[Frame]
     subgraph FAST["Fast loop (local, every frame, CPU)"]
-        F --> YOLO["YOLO11n + ByteTrack (default)<br/>YOLO26n selectable<br/>people, vehicles, bikes,<br/>traffic lights, benches..."]
+        F --> YOLO["YOLO11n OpenVINO + ByteTrack (default)<br/>--backend torch / --weights yolo26n<br/>people, vehicles, bikes,<br/>traffic lights, benches..."]
         F --> SEG["SegFormer-B0 (Cityscapes)<br/>road / sidewalk / pole<br/>(every 6th frame)"]
         YOLO --> TL["Traffic-light reader<br/>HSV lamp colour, walk figure,<br/>countdown, screen rejection,<br/>per-track vote"]
         SEG --> CW["Zebra-crossing detector<br/>stripe geometry on the ground mask<br/>+ hysteresis"]
@@ -38,7 +38,7 @@ flowchart LR
 
 | Module | Role |
 |---|---|
-| `streetsense/detector.py` | YOLO11n (COCO) wrapper with ByteTrack ids by default; pass `--weights models/yolo26n.pt` for YOLO26n (see [docs/BENCHMARK.md](docs/BENCHMARK.md)). `ApproachTracker` flags boxes growing more than 25% within about 1 s |
+| `streetsense/detector.py` | YOLO11n (COCO) via **OpenVINO by default** (auto-exports `models/yolo11n_openvino_model/` on first run; falls back to PyTorch). `--backend torch` or `--weights models/yolo26n.pt` (see [docs/BENCHMARK.md](docs/BENCHMARK.md)). `ApproachTracker` flags boxes growing more than 25% within about 1 s |
 | `streetsense/traffic_light.py` | Lamp colour from HSV. Orange means amber on vehicle heads and the "hand" on pedestrian heads. Detects the US white walk figure and countdown, rejects bright screens, and votes over a track |
 | `streetsense/crosswalk.py` | Zebra stripes: bright, low-saturation, elongated, parallel bars on the road/sidewalk mask, with k-of-n hysteresis |
 | `streetsense/surface.py` | SegFormer-B0 Cityscapes classes give what's underfoot (road or sidewalk) and whether a pole is in the corridor ahead |
@@ -63,6 +63,7 @@ python3 -m venv .venv && . .venv/bin/activate
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 pip install -e '.[dev,speech]'
 mkdir -p models && python -c "from ultralytics import YOLO; YOLO('yolo11n.pt')" && mv yolo11n.pt models/
+# OpenVINO IR is auto-exported on first run to models/yolo11n_openvino_model/
 scripts/get_samples.sh
 
 # annotated video + alerts log (alerts timed in video seconds)
@@ -84,24 +85,25 @@ With `MODEL_API_KEY` set, `run` and `serve` also send a frame to Muse Spark ever
 
 Tests: `python -m pytest -q`
 
-## Measured on the dev box (8 vCPU x86, no GPU, 26 Oct 2026)
-Input resized to 1280x720, YOLO at 640 px, SegFormer every 6th frame, overlay on.
+## Measured on the dev box (8 vCPU x86, no GPU, 27 Oct 2026)
+Input resized to 1280×720, YOLO11n at 640 px (**OpenVINO** default), SegFormer every 6th frame, ByteTrack on.
 
-| Clip | Frames | Pipeline FPS | Wall FPS (incl. decode + H.264 encode) |
+| Clip | Pipeline FPS (overlay on / off) | Detector ms mean (OpenVINO) | Detector ms mean (PyTorch) |
 |---|---|---|---|
-| Tyumen crossing (CC BY-SA, 1080p) | 613 | 21.6 | 16.6 |
-| Washington DC pedestrian signal (CC BY, 1440x810) | 1569 | 21.8 | 17.2 |
-| Mexico City crossing (CC BY-SA, 720p), 20 s to 68 s | 1200 | 21.1 | 18.7 |
+| Tyumen crossing (CC BY-SA, 1080p) | **22.8 / 40.6** | **11.6** | 14.6 |
+| Washington DC pedestrian signal (CC BY, 1440×810) | **24.7 / 42.0** | **11.0** | 14.3 |
+| Mexico City crossing (CC BY-SA, 720p), 20 s to 68 s | **24.1 / 35.3** | **12.3** | 15.7 |
 
-Mean time per frame: YOLO+track 17-19 ms, SegFormer 10 ms amortised (about 60-100 ms per call), lights 0.4 ms, crosswalk 1-1.5 ms, overlay 17 ms. Without the overlay, perception runs at about 30 FPS.
+OpenVINO cuts detector latency by ~20–25% vs PyTorch on this CPU. Full-pipeline FPS with overlay is ~23–25 (SegFormer + overlay still dominate). First-run OpenVINO export from the `.pt` takes ~2 s and is gitignored under `models/*_openvino_model/`. Use `--backend torch` to force PyTorch.
+
+Web demo `/frame` server time (Tyumen JPEG, surface on): OpenVINO p50 **12.6 ms** vs PyTorch p50 **16.9 ms**.
 
 **Accuracy has not been measured on a labelled StreetSense dataset.** What has been checked:
 - The light classifier passes 9 hand-labelled real crops (`tests/fixtures`).
-- On the DC clip, the spoken timeline (red, then walk + countdown from 10.8 s, then "pedestrian light is red" at 52.8 s when the hand appears) matches what I saw by eye on the saved frames.
-- The crosswalk detector was spot-checked on 7 frames (5 correct).
-- YOLO11n vs YOLO26n on this box: [docs/BENCHMARK.md](docs/BENCHMARK.md) (speed, coco128 subset mAP, clip agreement, 14-frame hand counts, DC alerts). **Default stays YOLO11n**; YOLO26n is optional via `--weights models/yolo26n.pt`.
+- On the DC clip, walk+countdown at ~10.8 s and pedestrian red at ~52.8 s fire on both OpenVINO and PyTorch; cross-backend box agreement IoU≥0.5 is ≥0.97 on Tyumen/DC (see [docs/BENCHMARK.md](docs/BENCHMARK.md)).
+- YOLO11n vs YOLO26n model comparison (earlier): default stays **YOLO11n**; YOLO26n optional via `--weights models/yolo26n.pt`.
 
-`python -m pytest -q`: 63 tests passing.
+`python -m pytest -q`: 71 tests passing.
 
 ## Known gaps
 - Distances use class height priors and an assumed 70° HFOV. They're rough and uncalibrated.

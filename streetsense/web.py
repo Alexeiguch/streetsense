@@ -57,9 +57,14 @@ document.getElementById('ask').onclick=async()=>{
 COL = {"red": "#ff3030", "green": "#20e020", "yellow": "#ffc000", "walk": "#ffffff"}
 
 
-def create_app(no_surface: bool = False) -> Flask:
+def create_app(no_surface: bool = False, backend: str | None = None, weights: str | None = None) -> Flask:
     app = Flask(__name__)
-    pipe = Pipeline(Config(), use_surface=not no_surface)
+    cfg = Config()
+    if backend is not None:
+        cfg.detector.backend = backend
+    if weights is not None:
+        cfg.detector.weights = weights
+    pipe = Pipeline(cfg, use_surface=not no_surface)
     lock = threading.Lock()
 
     def decode(body: bytes) -> np.ndarray | None:

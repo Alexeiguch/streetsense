@@ -45,11 +45,13 @@ def cmd_run(a: argparse.Namespace) -> int:
     cfg = Config()
     cfg.detector.imgsz = a.imgsz
     cfg.detector.weights = a.weights
+    cfg.detector.backend = a.backend
     cfg.vlm.enabled = not a.no_vlm
     clock = VideoClock() if is_file else time.monotonic
     pipe = Pipeline(cfg, use_surface=not a.no_surface, clock=clock)
     speaker = Speaker(enabled=a.speak)
-    print(f"[streetsense] source={a.source} fps_in={fps_in:.1f} surface={'on' if pipe.surface_seg else 'off'} "
+    print(f"[streetsense] source={a.source} fps_in={fps_in:.1f} backend={pipe.detector.backend} "
+          f"surface={'on' if pipe.surface_seg else 'off'} "
           f"meta_api={'on' if pipe.vlm.enabled else 'off (no MODEL_API_KEY)'} speech={speaker.backend}")
 
     writer = None
@@ -142,7 +144,7 @@ def cmd_ask(a: argparse.Namespace) -> int:
 def cmd_serve(a: argparse.Namespace) -> int:
     from .web import create_app
 
-    app = create_app(no_surface=a.no_surface)
+    app = create_app(no_surface=a.no_surface, backend=a.backend)
     app.run(host=a.host, port=a.port, threaded=True)
     return 0
 
@@ -164,6 +166,8 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--imgsz", type=int, default=640)
     r.add_argument("--weights", default="models/yolo11n.pt",
                     help="Ultralytics weights path (default yolo11n; try models/yolo26n.pt)")
+    r.add_argument("--backend", default="openvino", choices=["openvino", "torch"],
+                    help="detector inference backend (default openvino; torch = PyTorch)")
     r.add_argument("--no-surface", action="store_true")
     r.add_argument("--no-vlm", action="store_true")
     r.add_argument("--speak", action="store_true")
@@ -177,6 +181,7 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--host", default="0.0.0.0")
     s.add_argument("--port", type=int, default=8000)
     s.add_argument("--no-surface", action="store_true")
+    s.add_argument("--backend", default="openvino", choices=["openvino", "torch"])
     s.set_defaults(fn=cmd_serve)
     a = p.parse_args(argv)
     return a.fn(a)

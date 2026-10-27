@@ -8,9 +8,11 @@ from dataclasses import dataclass, field
 
 @dataclass
 class DetectorConfig:
-    # Default YOLO11n (see docs/BENCHMARK.md). YOLO26n is selectable:
-    #   --weights models/yolo26n.pt   or set weights="models/yolo26n.pt"
+    # Default YOLO11n + OpenVINO (see docs/BENCHMARK.md). Alternatives:
+    #   --backend torch
+    #   --weights models/yolo26n.pt
     weights: str = "models/yolo11n.pt"
+    backend: str = "openvino"  # "openvino" (default) or "torch"; falls back to torch if OV unavailable
     imgsz: int = 640
     conf: float = 0.35
     iou: float = 0.5

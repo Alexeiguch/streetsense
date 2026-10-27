@@ -12,6 +12,7 @@ dependencies = [
   "torch",
   "flask>=3",
   "lap",
+  "openvino>=2024",
 ]
 
 [project.optional-dependencies]
