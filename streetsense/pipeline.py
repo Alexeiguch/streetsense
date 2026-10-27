@@ -13,7 +13,7 @@ from .config import Config
 from .crosswalk import CrosswalkHysteresis, CrosswalkResult, detect_crosswalk
 from .detector import ApproachTracker, YoloDetector
 from .geometry import estimate_distance_m
-from .meta_api import MetaVisionAssistant
+from .meta_api import MetaSamSegmenter, MetaVisionAssistant, sam_boxes_to_crosswalk
 from .open_vocab import OpenVocabHazardDetector
 from .overlay import draw
 from .rules import FrameFacts, build_alerts
@@ -84,6 +84,21 @@ class Pipeline:
         self.cw_hyst = CrosswalkHysteresis()
         self._kinds: dict[int, str] = {}
         self.vlm = MetaVisionAssistant(self.cfg.vlm)
+        self.sam = None
+        self._sam_last = -1e9
+        self._sam_segments = []
+        if getattr(self.cfg, "sam", None) is not None and self.cfg.sam.enabled:
+            try:
+                self.sam = MetaSamSegmenter(
+                    model=self.cfg.sam.model,
+                    max_image_side=self.cfg.sam.max_image_side,
+                    timeout_s=self.cfg.sam.timeout_s,
+                )
+                if not self.sam.enabled:
+                    self.sam = None
+            except Exception as e:
+                print(f"[sam] disabled: {type(e).__name__}: {e}")
+                self.sam = None
         self._i = 0
         self._last_surface: SurfaceResult | None = None
         self._last_cw: CrosswalkResult | None = None
@@ -178,6 +193,22 @@ class Pipeline:
         if self._i % self.cfg.crosswalk_every_n_frames == 0 or self._last_cw is None:
             ground = np.isin(self._last_surface.labels, (ROAD, SIDEWALK)) if self._last_surface is not None else None
             self._last_cw = self.cw_hyst.update(detect_crosswalk(frame, ground_mask=ground))
+        # Optional SAM 3.1 boost (slow): if classical missed a crosswalk, accept a text-prompted box.
+        if self.sam is not None and (t - self._sam_last) >= self.cfg.sam.interval_s:
+            self._sam_last = t
+            try:
+                segs = []
+                for prompt in self.cfg.sam.prompts:
+                    segs.append(self.sam.segment(frame, prompt, decode_masks=False))
+                self._sam_segments = segs
+                for seg in segs:
+                    if seg.prompt == "crosswalk" and seg.boxes:
+                        sam_cw = sam_boxes_to_crosswalk(seg.boxes, frame.shape)
+                        if sam_cw is not None and (self._last_cw is None or not self._last_cw.found):
+                            self._last_cw = sam_cw
+                            break
+            except Exception as e:
+                print(f"[sam] frame failed: {type(e).__name__}: {e}")
         tm["crosswalk"] = (time.perf_counter() - t0) * 1000
 
         approaching = self.approach.update(t, dets)

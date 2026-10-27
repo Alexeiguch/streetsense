@@ -1,0 +1,152 @@
+{
+  "n": 8,
+  "agreement_on_go_among_comparable": "3/6",
+  "mean_latency_s": 1.352,
+  "unsafe_fusion_go_count": 0,
+  "ledger": {
+    "n_calls": 11,
+    "total_usd": 0.015279,
+    "budget_usd": 20.0,
+    "remaining_usd": 19.984721,
+    "ledger": "outputs/meta_usage.jsonl"
+  },
+  "rows": [
+    {
+      "frame": "eval_dc_000.0s_red.jpg",
+      "local": "red",
+      "raw_states": [
+        "red",
+        "red"
+      ],
+      "muse_safe": "unsure",
+      "muse_signal": "none_visible",
+      "muse_summary": "Red traffic lights, no pedestrian signal visible ahead",
+      "fuse": "stop",
+      "fuse_reason": "local or Muse indicates stop",
+      "latency_s": 1.568,
+      "cost_usd": 0.00131,
+      "error": null,
+      "bucket_local": "stop",
+      "bucket_muse": "unsure",
+      "agree_go": true
+    },
+    {
+      "frame": "eval_dc_009.9s_countdown.jpg",
+      "local": "countdown",
+      "raw_states": [
+        "green",
+        "countdown"
+      ],
+      "muse_safe": "no",
+      "muse_signal": "red",
+      "muse_summary": "Pedestrian red signal, do not cross, vehicle traffic has green",
+      "fuse": "stop",
+      "fuse_reason": "local or Muse indicates stop",
+      "latency_s": 2.012,
+      "cost_usd": 0.001063,
+      "error": null,
+      "bucket_local": "stop",
+      "bucket_muse": "stop",
+      "agree_go": true
+    },
+    {
+      "frame": "eval_dc_010.0s_walk.jpg",
+      "local": "walk",
+      "raw_states": [
+        "green",
+        "walk"
+      ],
+      "muse_safe": "no",
+      "muse_signal": "red",
+      "muse_summary": "Do not cross, red pedestrian signal, traffic has green",
+      "fuse": "stop",
+      "fuse_reason": "local or Muse indicates stop",
+      "latency_s": 2.007,
+      "cost_usd": 0.001326,
+      "error": null,
+      "bucket_local": "go",
+      "bucket_muse": "stop",
+      "agree_go": false
+    },
+    {
+      "frame": "eval_dc_035.0s_green.jpg",
+      "local": "walk",
+      "raw_states": [
+        "green",
+        "walk"
+      ],
+      "muse_safe": "no",
+      "muse_signal": "red",
+      "muse_summary": "Don't cross, red pedestrian signal, green traffic light",
+      "fuse": "stop",
+      "fuse_reason": "local or Muse indicates stop",
+      "latency_s": 1.004,
+      "cost_usd": 0.001152,
+      "error": null,
+      "bucket_local": "go",
+      "bucket_muse": "stop",
+      "agree_go": false
+    },
+    {
+      "frame": "eval_extra_dc_ped_l_02.0s_red2.jpg",
+      "local": "red",
+      "raw_states": [
+        "red",
+        "red"
+      ],
+      "muse_safe": "unsure",
+      "muse_signal": "none_visible",
+      "muse_summary": "Red vehicle light, no crosswalk or walk signal visible",
+      "fuse": "stop",
+      "fuse_reason": "local or Muse indicates stop",
+      "latency_s": 0.82,
+      "cost_usd": 0.001385,
+      "error": null,
+      "bucket_local": "stop",
+      "bucket_muse": "unsure",
+      "agree_go": true
+    },
+    {
+      "frame": "eval_tyumen_000.0s_none.jpg",
+      "local": "none",
+      "raw_states": [],
+      "muse_safe": "unsure",
+      "muse_signal": "none_visible",
+      "muse_summary": "Crowd crossing ahead, vehicles nearby, signal not visible",
+      "fuse": "unsure",
+      "fuse_reason": "local or Muse unsure / no clear walk signal",
+      "latency_s": 1.099,
+      "cost_usd": 0.001351,
+      "error": null
+    },
+    {
+      "frame": "eval_extra_tyumen_c_05.0s_cross.jpg",
+      "local": "none",
+      "raw_states": [],
+      "muse_safe": "yes",
+      "muse_signal": "green",
+      "muse_summary": "Pedestrians crossing ahead, vehicles stopped, green walk signal",
+      "fuse": "unsure",
+      "fuse_reason": "local or Muse unsure / no clear walk signal",
+      "latency_s": 1.275,
+      "cost_usd": 0.00147,
+      "error": null,
+      "bucket_local": "unsure",
+      "bucket_muse": "go",
+      "agree_go": false
+    },
+    {
+      "frame": "eval_extra_cdmx_cro_30.0s_night.jpg",
+      "local": "none",
+      "raw_states": [],
+      "muse_safe": "unsure",
+      "muse_signal": "none_visible",
+      "muse_summary": "Large crowd crossing street at night, vehicles nearby",
+      "fuse": "unsure",
+      "fuse_reason": "local or Muse unsure / no clear walk signal",
+      "latency_s": 1.029,
+      "cost_usd": 0.001232,
+      "error": null
+    }
+  ]
+}

@@ -18,6 +18,7 @@ dependencies = [
 [project.optional-dependencies]
 speech = ["pyttsx3"]
 dev = ["pytest"]
+meta = ["meta-sam-parser>=0.0.6", "requests"]
 rfdetr = ["rfdetr>=1.11"]
 depth = ["transformers>=4.40", "openvino>=2024"]  # Depth Anything V2 Small; already in main deps too
 

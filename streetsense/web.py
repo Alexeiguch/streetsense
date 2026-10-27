@@ -7,6 +7,7 @@ and speaks alerts with the browser's speechSynthesis. "Can I cross?" calls Muse 
 from __future__ import annotations
 
 import threading
+from pathlib import Path
 import time
 
 import cv2
@@ -25,7 +26,7 @@ button{font-size:1.4rem;padding:1rem 1.6rem;margin:.4rem;border-radius:1rem;bord
 #go{background:#1db954}#ask{background:#ffd400}#info{font-size:.9rem;color:#aaa}
 </style></head><body>
 <div id=alert aria-live=assertive>Tap Start</div>
-<button id=go>Start</button><button id=ask>Can I cross?</button>
+<button id=go>Start</button><button id=ask>Can I cross?</button><button id=mic style="background:#6cf">Hold to ask (voice)</button>
 <video id=v playsinline muted></video><canvas id=c></canvas><div id=info></div>
 <script>
 const v=document.getElementById('v'),c=document.getElementById('c'),x=c.getContext('2d');
@@ -51,7 +52,33 @@ document.getElementById('ask').onclick=async()=>{
   const blob=await new Promise(r=>c.toBlob(r,'image/jpeg',0.85));
   al.textContent='asking Muse Spark...';
   const r=await fetch('/ask',{method:'POST',body:blob});const j=await r.json();
-  say(j.summary||j.error||'no answer');};
+  say(j.spoken||j.summary||j.error||'no answer');};
+
+document.getElementById('mic').onpointerdown=async(ev)=>{
+  ev.preventDefault();
+  if(!window.MediaRecorder){say('voice unsupported');return;}
+  try{
+    const s=await navigator.mediaDevices.getUserMedia({audio:true,video:false});
+    const rec=new MediaRecorder(s); const chunks=[];
+    rec.ondataavailable=e=>chunks.push(e.data);
+    rec.onstop=async()=>{
+      s.getTracks().forEach(t=>t.stop());
+      const blob=new Blob(chunks,{type:'audio/webm'});
+      al.textContent='transcribing...';
+      const r=await fetch('/transcribe',{method:'POST',body:blob});
+      const j=await r.json();
+      const q=(j.transcript||'').trim()||'Can I cross?';
+      say('heard: '+q);
+      const frameBlob=await new Promise(res=>c.toBlob(res,'image/jpeg',0.85));
+      const ar=await fetch('/ask?q='+encodeURIComponent(q),{method:'POST',body:frameBlob});
+      const aj=await ar.json();
+      say(aj.spoken||aj.summary||aj.error||'no answer');
+    };
+    rec.start(); al.textContent='listening... release to send';
+    const up=()=>{rec.stop(); window.removeEventListener('pointerup',up);};
+    window.addEventListener('pointerup',up);
+  }catch(e){say('mic error'); info.textContent=String(e);}
+};
 </script></body></html>"""
 
 COL = {"red": "#ff3030", "green": "#20e020", "yellow": "#ffc000", "walk": "#ffffff"}
@@ -108,6 +135,48 @@ def create_app(no_surface: bool = False, backend: str | None = None, weights: st
         img = decode(request.get_data())
         if img is None:
             return jsonify(error="bad image"), 400
-        return jsonify(pipe.vlm.ask_sync(img, request.args.get("q", "Is it safe to cross the street right now?")))
+        from .meta_api import fuse_crossing_decision
+        from .meta_usage import get_ledger
+        from .rules import most_relevant_light
+        q = request.args.get("q", "Is it safe to cross the street right now?")
+        with lock:
+            out = pipe.process(img, annotate=False)
+        muse = pipe.vlm.ask_sync(img, q)
+        light = most_relevant_light(out.detections)
+        local = light.attrs.get("light_state") if light else "unknown"
+        fused = fuse_crossing_decision(local, muse if "error" not in muse else None)
+        spoken = {
+            "go": "Walk signal looks clear. Still listen and check.",
+            "stop": "Do not cross.",
+            "unsure": "I am not sure. Wait.",
+        }[fused["decision"]]
+        return jsonify({**muse, "local_light": local, "fuse": fused, "spoken": spoken,
+                        "meta_usage": get_ledger().summary()})
+
+    @app.post("/transcribe")
+    def transcribe():
+        """Optional Muse Voice Transcribe. Browser may send webm; we remux to WAV when possible."""
+        import subprocess, tempfile
+        from .meta_api import MuseVoiceTranscribe
+        raw = request.get_data()
+        if not raw:
+            return jsonify(error="empty audio"), 400
+        vt = MuseVoiceTranscribe()
+        if not vt.enabled:
+            return jsonify(error="voice disabled: set MODEL_API_KEY"), 503
+        with tempfile.TemporaryDirectory() as td:
+            src = Path(td) / "in.webm"
+            wav = Path(td) / "out.wav"
+            src.write_bytes(raw)
+            # Convert to mono 24 kHz PCM WAV (Meta requirement).
+            try:
+                subprocess.run(
+                    ["ffmpeg", "-y", "-i", str(src), "-ac", "1", "-ar", "24000",
+                     "-c:a", "pcm_s16le", "-map_metadata", "-1", str(wav)],
+                    check=True, capture_output=True, timeout=30,
+                )
+            except Exception as e:
+                return jsonify(error=f"ffmpeg convert failed: {type(e).__name__}"), 400
+            return jsonify(vt.transcribe_wav(str(wav)))
 
     return app

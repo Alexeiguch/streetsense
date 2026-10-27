@@ -48,7 +48,9 @@ flowchart LR
 | `streetsense/geometry.py` | Zones, clock-face direction, walking corridor, pinhole distance from class height priors (overridden by `--depth` when calibrated) |
 | `streetsense/rules.py` | Perception to candidate alerts (one traffic light per frame, pedestrian heads first) |
 | `streetsense/alerts.py` | What gets said and when (see below) |
-| `streetsense/meta_api.py` | Muse Spark vision client (OpenAI-compatible, `MODEL_API_KEY`), JSON reply parsing, SAM 3.1 box parser |
+| `streetsense/meta_api.py` | Muse Spark vision client (OpenAI-compatible, `MODEL_API_KEY`), JSON reply parsing, SAM 3.1 segmenter + Voice Transcribe |
+| `streetsense/meta_usage.py` | Token/SAM/voice cost ledger + hard budget cap (`STREETSENSE_META_BUDGET_USD`) |
+| `docs/META.md` | How StreetSense uses each Meta model; measured latency, cost, crossing agreement |
 | `streetsense/web.py` | Phone demo: the browser camera posts frames, alerts are spoken with `speechSynthesis`, and a "Can I cross?" button asks Muse Spark |
 | `streetsense/cli.py` | `run` / `ask` / `serve` |
 

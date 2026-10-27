@@ -63,6 +63,19 @@ class DepthConfig:
     prefer_over_box: bool = True  # use calibrated depth metres when available
 
 
+
+@dataclass
+class SamConfig:
+    """On-demand / low-frequency SAM 3.1 text prompts (crosswalk, curb, ...). Off by default."""
+
+    enabled: bool = False
+    model: str = "sam-3.1"
+    interval_s: float = 8.0  # slow loop; classical CV stays on the fast path
+    max_image_side: int = 640
+    prompts: tuple[str, ...] = ("crosswalk",)  # curb/sidewalk/tactile on demand via CLI
+    timeout_s: float = 60.0
+
+
 @dataclass
 class CameraConfig:
     # Rough pinhole model used for distance estimates. Phone main cameras are ~65-75 deg HFOV.
@@ -85,8 +98,10 @@ class VisionLLMConfig:
     base_url: str = "https://api.meta.ai/v1"
     model: str = "muse-spark-1.3"
     interval_s: float = 10.0
-    timeout_s: float = 20.0
-    max_image_side: int = 768
+    timeout_s: float = 30.0
+    max_image_side: int = 512  # keep images small for cost/latency
+    max_tokens: int = 512  # must cover reasoning + JSON (see docs/META.md)
+    reasoning_effort: str = "minimal"  # shortest Muse Spark pass; "none" is 400
 
     @property
     def api_key(self) -> str | None:
@@ -100,6 +115,7 @@ class Config:
     surface: SurfaceConfig = field(default_factory=SurfaceConfig)
     open_vocab: OpenVocabConfig = field(default_factory=OpenVocabConfig)
     depth: DepthConfig = field(default_factory=DepthConfig)
+    sam: SamConfig = field(default_factory=SamConfig)
     camera: CameraConfig = field(default_factory=CameraConfig)
     alerts: AlertConfig = field(default_factory=AlertConfig)
     vlm: VisionLLMConfig = field(default_factory=VisionLLMConfig)

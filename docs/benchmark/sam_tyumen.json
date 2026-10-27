@@ -1,0 +1,34 @@
+{
+  "frame": "eval_extra_tyumen_c_05.0s_cross.jpg",
+  "prompts": [
+    {
+      "prompt": "crosswalk",
+      "n_boxes": 1,
+      "n_masks": 1,
+      "latency_s": 1.772,
+      "cost_usd": 0.0025
+    },
+    {
+      "prompt": "curb",
+      "n_boxes": 0,
+      "n_masks": 0,
+      "latency_s": 0.694,
+      "cost_usd": 0.0025
+    },
+    {
+      "prompt": "sidewalk",
+      "n_boxes": 0,
+      "n_masks": 0,
+      "latency_s": 1.274,
+      "cost_usd": 0.0025
+    }
+  ],
+  "overlay": "docs/benchmark/sam_tyumen_before_after.png",
+  "ledger": {
+    "n_calls": 14,
+    "total_usd": 0.022779,
+    "budget_usd": 20.0,
+    "remaining_usd": 19.977221,
+    "ledger": "outputs/meta_usage.jsonl"
+  }
+}

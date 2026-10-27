@@ -3,6 +3,7 @@
   python -m streetsense run   --source samples/street.webm --out outputs/annotated.mp4 --alerts outputs/alerts.jsonl
   python -m streetsense run   --source 0 --speak            # webcam, spoken alerts
   python -m streetsense ask   --image frame.png --question "Can I cross now?"   # Muse Spark, needs MODEL_API_KEY
+  python -m streetsense sam   --image frame.png --out docs/benchmark/sam.png
   python -m streetsense serve --port 8000                    # phone-camera web demo
 """
 
@@ -58,6 +59,7 @@ def cmd_run(a: argparse.Namespace) -> int:
         cfg.depth.backend = a.depth_backend
     if getattr(a, "depth_every", None):
         cfg.depth.every_n_frames = int(a.depth_every)
+    cfg.sam.enabled = bool(getattr(a, "sam", False))
     clock = VideoClock() if is_file else time.monotonic
     pipe = Pipeline(cfg, use_surface=not a.no_surface, clock=clock)
     speaker = Speaker(enabled=a.speak)
@@ -65,7 +67,7 @@ def cmd_run(a: argparse.Namespace) -> int:
     depth_b = pipe.depth.backend if pipe.depth else "off"
     print(f"[streetsense] source={a.source} fps_in={fps_in:.1f} detect={pipe.detector.backend} "
           f"surface={surf_b} depth={depth_b} "
-          f"meta_api={'on' if pipe.vlm.enabled else 'off (no MODEL_API_KEY)'} speech={speaker.backend}")
+          f"meta_api={'on' if pipe.vlm.enabled else 'off (no MODEL_API_KEY)'} sam={'on' if pipe.sam else 'off'} speech={speaker.backend}")
 
     writer = None
     alerts_f = open(a.alerts, "w") if a.alerts else None
@@ -150,7 +152,44 @@ def cmd_ask(a: argparse.Namespace) -> int:
         return 3
     t0 = time.perf_counter()
     res = vlm.ask_sync(img, a.question)
-    print(json.dumps({"latency_s": round(time.perf_counter() - t0, 2), **res}, indent=2))
+    from .meta_usage import get_ledger
+    out = {"latency_s": round(time.perf_counter() - t0, 2), **res, "meta_usage": get_ledger().summary()}
+    print(json.dumps(out, indent=2))
+    return 0
+
+
+
+def cmd_sam(a: argparse.Namespace) -> int:
+    """On-demand SAM 3.1 text prompts; writes an overlay PNG when --out is set."""
+    import cv2
+
+    from .meta_api import MetaSamSegmenter, overlay_sam_segments
+    from .meta_usage import get_ledger
+
+    img = cv2.imread(a.image)
+    if img is None:
+        print(f"cannot read {a.image}", file=sys.stderr)
+        return 2
+    sam = MetaSamSegmenter(model=a.model, max_image_side=a.max_side)
+    if not sam.enabled:
+        print("Meta SAM disabled: export MODEL_API_KEY=...", file=sys.stderr)
+        return 3
+    prompts = [p.strip() for p in a.prompts.split(",") if p.strip()]
+    segs = [sam.segment(img, p, decode_masks=not a.boxes_only) for p in prompts]
+    payload = {
+        "segments": [
+            {"prompt": s.prompt, "n_boxes": len(s.boxes), "n_masks": len(s.masks),
+             "boxes": s.boxes, "latency_s": s.latency_s, "cost_usd": s.cost_usd}
+            for s in segs
+        ],
+        "meta_usage": get_ledger().summary(),
+    }
+    if a.out:
+        ov = overlay_sam_segments(img, segs)
+        Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+        cv2.imwrite(a.out, ov)
+        payload["overlay"] = a.out
+    print(json.dumps(payload, indent=2))
     return 0
 
 
@@ -197,6 +236,8 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--depth-every", type=int, default=None,
                     help="run depth every N processed frames (default 6)")
     r.add_argument("--no-surface", action="store_true")
+    r.add_argument("--sam", action="store_true",
+                    help="enable SAM 3.1 crosswalk boost (slow; needs MODEL_API_KEY)")
     r.add_argument("--no-vlm", action="store_true")
     r.add_argument("--speak", action="store_true")
     r.set_defaults(fn=cmd_run)
@@ -205,6 +246,14 @@ def main(argv: list[str] | None = None) -> int:
     q.add_argument("--question", default="Is it safe to cross the street right now?")
     q.add_argument("--model", default="muse-spark-1.3")
     q.set_defaults(fn=cmd_ask)
+    m = sub.add_parser("sam", help="on-demand SAM 3.1 text-prompted segmentation")
+    m.add_argument("--image", required=True)
+    m.add_argument("--prompts", default="crosswalk,curb,tactile paving,sidewalk")
+    m.add_argument("--model", default="sam-3.1")
+    m.add_argument("--max-side", type=int, default=640)
+    m.add_argument("--out", help="write overlay PNG here")
+    m.add_argument("--boxes-only", action="store_true", help="skip mask decode")
+    m.set_defaults(fn=cmd_sam)
     s = sub.add_parser("serve", help="web demo: phone camera -> alerts spoken in the browser")
     s.add_argument("--host", default="0.0.0.0")
     s.add_argument("--port", type=int, default=8000)

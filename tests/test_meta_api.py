@@ -47,6 +47,7 @@ def test_image_goes_in_user_message(monkeypatch):
     assert out["safe_to_cross"] == "unsure"
     msgs = comp.calls[0]["messages"]
     assert comp.calls[0]["model"] == "muse-spark-1.3"
+    assert comp.calls[0].get("reasoning_effort") == "minimal"
     assert msgs[0]["role"] == "system" and isinstance(msgs[0]["content"], str)  # no image in system
     parts = msgs[1]["content"]
     assert msgs[1]["role"] == "user"
