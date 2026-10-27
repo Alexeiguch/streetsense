@@ -97,7 +97,8 @@ def cmd_run(a: argparse.Namespace) -> int:
         out = pipe.process(frame, annotate=bool(a.out or frames_dir))
         proc_time += time.perf_counter() - t0
         if out.spoken:
-            speaker.say(out.spoken.text)
+            delivered = speaker.say(out.spoken)
+            pipe.alerts.acknowledge_delivery(out.spoken, bool(delivered))
             rec = {"t_video_s": round(out.t, 2) if is_file else None, "frame": raw_idx - 1,
                    "priority": out.spoken.priority.name, "key": out.spoken.key, "text": out.spoken.text}
             if alerts_f:

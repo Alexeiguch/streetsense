@@ -57,9 +57,22 @@ flowchart LR
 ### Alert policy
 - Priorities: CRITICAL (vehicle close or approaching in path) > WARNING (person or obstacle in path, pedestrian light at a crossing, road underfoot, pole) > NOTICE (crossing ahead, light state) > INFO.
 - At most one phrase every 1.5 s. Only CRITICAL alerts can break that gap.
-- The same key isn't repeated within 6 s (2.5 s for CRITICAL) unless its priority goes up.
+- The same *state* isn't repeated within 6 s (2.5 s for CRITICAL) unless its priority goes up.
 - Pending alerts older than 2 s are dropped, because they no longer describe the scene.
-- A light state is announced only after 3 agreeing frames. Countdown-only frames, where the walk LED flickers between refreshes, hold the current state instead of reading as red. Unknown states are never announced, and when unsure the system says red (wait), never green.
+- A light state is announced only after 3 agreeing frames (tracked **or** IoU-matched untracked). Countdown-only frames hold the last colour for ~1 s of flicker, then report countdown/uncertain — they never refresh a stale walk forever. Internal states like `countdown` never reach the alert layer for untracked heads.
+- Unknown / unclear states are never announced as walk. When unsure the system says wait, never go.
+
+### Alert safety
+Guarantees added after the Oct 2026 external review:
+
+1. **No stale contradictory speech.** Light alerts share a pending family (`light:{kind}`) so walk/red replace each other; cooldown stays per `light:{kind}:{state}` so real transitions still speak. Pending speech is revalidated against current facts before emit.
+2. **Signal selection by relevance.** Prefer central, larger, crosswalk-associated heads. Conflicting relevant walk+red → announce "crossing signals unclear, wait" instead of picking walk. A sticky vehicle-green head does not silence a real walk.
+3. **Speech keeps urgency.** The speaker accepts structured `Alert`s, expires stale queue items, lets CRITICAL evict lower-priority phrases, supports interruption, and reports delivery so a dropped phrase is not counted as spoken.
+4. **Crossing answers have a contract.** Muse JSON must pass strict schema validation. Malformed / free-text replies become the fixed fallback *"I can't tell, please wait"*. Spoken go requires local walk **and** Muse yes; speech is rendered from validated fields only. Capture timestamps expire stale answers.
+5. **Per-session web state.** Each browser gets its own Pipeline (tracker, votes, cooldowns) keyed by session cookie, with TTL and reset on camera restart. Models/config are shared.
+6. **Open-vocab is rate-limited.** Empty success is not "not initialised"; errors back off; cached boxes expire.
+7. **Truncation is honest.** Single-edge clips return no precise distance; rules still warn with "very close" from visible footprint.
+8. **Demo `/ask` is gated.** Optional `STREETSENSE_DEMO_TOKEN`, per-session rate limit, and single-flight. Empty `/frame` bodies return HTTP 400 (not 500).
 
 ## Quick start
 
@@ -92,7 +105,9 @@ export MODEL_API_KEY=...        # never commit it
 python -m streetsense ask --image outputs/frames_tyumen/frame_00480.png --question "Can I cross now?"
 ```
 
-With `MODEL_API_KEY` set, `run` and `serve` also send a frame to Muse Spark every 10 s in a background thread. The summary is drawn on the overlay. Without a key the slow loop is skipped and nothing breaks.
+With `MODEL_API_KEY` set, `run` and `serve` also send a frame to Muse Spark every 10 s in a background thread. The summary is drawn on the overlay; validated hazard phrases are also offered to `AlertManager` at INFO priority. Without a key the slow loop is skipped and nothing breaks.
+
+For a public tunnel, set `STREETSENSE_DEMO_TOKEN` so `/ask` requires `X-Demo-Token`. See [docs/META.md](docs/META.md).
 
 Tests: `python -m pytest -q`
 
@@ -118,11 +133,11 @@ Web `/frame` server p50 (Tyumen JPEG): all-OpenVINO **13.2 ms** vs all-torch **1
 - Optional `--depth` (Depth Anything V2 Small, Apache-2.0, OpenVINO ~47 ms every 6th) keeps pipeline **~17 FPS**; absolute metres still prior-calibrated — not default.
 - RF-DETR Nano selectable (`--weights rfdetr-nano`, Apache-2.0); fixed COCO-91 mapping; hand F1 0.78 but **~13 FPS** — not default.
 
-`python -m pytest -q`: 88+ tests passing.
+`python -m pytest -q`: 100+ tests passing (see CI).
 
 ## Known gaps
 - Distances use class height priors and an assumed 70° HFOV (optionally calibrated via `--depth`). Absolute metres remain rough; Tyumen far cars still overestimate.
-- Vehicle vs pedestrian signal heads can't be reliably told apart by shape alone. A head is called "pedestrian" on walk figure or EU tall red/green silhouette; ranking prefers walk/red over a larger sticky green head.
+- Vehicle vs pedestrian signal heads can't be reliably told apart by shape alone. A head is called "pedestrian" on walk figure or EU tall red/green silhouette; ranking prefers position/relevance to the crossing ahead, and refuses walk when relevant heads conflict.
 - Crosswalk detection is a heuristic. It fails on faded paint, heavy crowds, and night glare.
 - Open-vocab scooter scores often 0.05–0.25; some angles (Katowice) miss at conf 0.10. Stairs/potholes largely unproven.
 - Ultralytics YOLO / YOLO-World are AGPL-3.0. RF-DETR (Apache-2.0) and Depth Anything V2 Small (Apache-2.0) are optional escapes from AGPL for those stages.

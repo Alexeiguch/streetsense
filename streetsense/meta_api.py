@@ -40,9 +40,22 @@ SYSTEM_PROMPT = (
     '"crossing_visible": true|false, '
     '"pedestrian_signal": "red"|"green"|"flashing"|"countdown"|"none_visible", '
     '"safe_to_cross": "yes"|"no"|"unsure"}. '
-    "Never say safe_to_cross=yes unless a pedestrian green/walk signal is clearly visible and no "
-    "vehicle is moving toward the crossing. When in doubt, say unsure."
+    "Never say safe_to_cross=yes unless a pedestrian green/walk signal is clearly visible and the "
+    "crossing looks clear of vehicles in this image. Do not claim vehicle motion from a single "
+    "still frame; if observation history is provided, you may use it. When in doubt, say unsure."
 )
+
+SAFE_CROSSING_FALLBACK = "I can't tell, please wait"
+
+_REQUIRED_CROSSING = {
+    "summary": str,
+    "hazards": list,
+    "crossing_visible": bool,
+    "pedestrian_signal": str,
+    "safe_to_cross": str,
+}
+_ALLOWED_SIGNAL = frozenset({"red", "green", "flashing", "countdown", "none_visible"})
+_ALLOWED_SAFE = frozenset({"yes", "no", "unsure"})
 
 # Local HSV reader states that mean "do not walk".
 _LOCAL_STOP = frozenset({"red", "yellow", "unknown", "countdown", "green", "none"})
@@ -70,6 +83,71 @@ def parse_json_reply(text: str) -> dict:
         return json.loads(m.group(0))
     except json.JSONDecodeError:
         return {"summary": (text or "").strip()[:200]}
+
+
+
+def validate_crossing_reply(raw: dict | None, *, capture_ts: float | None = None) -> dict:
+    """Strict schema check. Returns {ok, data|None, capture_ts, error}.
+
+    Anything malformed is not OK — speech must use SAFE_CROSSING_FALLBACK.
+    """
+    out: dict = {"ok": False, "data": None, "capture_ts": capture_ts, "error": "invalid"}
+    if not isinstance(raw, dict):
+        out["error"] = "not a dict"
+        return out
+    data: dict = {}
+    for key, typ in _REQUIRED_CROSSING.items():
+        if key not in raw:
+            out["error"] = f"missing {key}"
+            return out
+        val = raw[key]
+        if typ is bool:
+            if not isinstance(val, bool):
+                out["error"] = f"{key} not bool"
+                return out
+        elif typ is list:
+            if not isinstance(val, list) or not all(isinstance(x, str) for x in val):
+                out["error"] = f"{key} not string list"
+                return out
+        elif typ is str:
+            if not isinstance(val, str):
+                out["error"] = f"{key} not str"
+                return out
+        data[key] = val
+    sig = data["pedestrian_signal"].lower().strip()
+    safe = data["safe_to_cross"].lower().strip()
+    if sig not in _ALLOWED_SIGNAL:
+        out["error"] = "bad pedestrian_signal"
+        return out
+    if safe not in _ALLOWED_SAFE:
+        out["error"] = "bad safe_to_cross"
+        return out
+    data["pedestrian_signal"] = sig
+    data["safe_to_cross"] = safe
+    data["summary"] = data["summary"].strip()[:200]
+    out.update({"ok": True, "data": data, "error": None})
+    return out
+
+
+def render_crossing_speech(
+    validated: dict,
+    *,
+    local_state: str | None = None,
+    now: float | None = None,
+    max_age_s: float = 8.0,
+) -> str:
+    """Speech from validated fields + local fusion only — never a free model summary saying go."""
+    if not validated or not validated.get("ok") or not validated.get("data"):
+        return SAFE_CROSSING_FALLBACK
+    cap = validated.get("capture_ts")
+    if cap is not None and now is not None and (now - cap) > max_age_s:
+        return SAFE_CROSSING_FALLBACK
+    fused = fuse_crossing_decision(local_state, validated["data"])
+    return {
+        "go": "Walk signal looks clear. Still listen and check.",
+        "stop": "Do not cross.",
+        "unsure": SAFE_CROSSING_FALLBACK,
+    }.get(fused["decision"], SAFE_CROSSING_FALLBACK)
 
 
 def fuse_crossing_decision(local_state: str | None, muse: dict | None) -> dict:

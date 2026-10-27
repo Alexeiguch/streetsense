@@ -114,3 +114,12 @@ StreetSense is not a thin chat wrapper:
 4. **Voice Transcribe** so a blind user can ask “can I cross?” without finding a button  
 
 Together that is a glasses-ready perception stack on the same Meta Model API key.
+
+
+## Crossing output contract
+
+`/ask` and `streetsense ask` validate Muse JSON (`summary`, `hazards`, `crossing_visible`,
+`pedestrian_signal`, `safe_to_cross`) before speech. Malformed replies become
+*"I can't tell, please wait"*. Spoken **go** requires local walk **and** Muse `safe_to_cross=yes`.
+Free-text summaries never become an affirmative crossing instruction. Optional
+`STREETSENSE_DEMO_TOKEN` gates the web `/ask` endpoint.

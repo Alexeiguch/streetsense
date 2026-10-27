@@ -83,7 +83,8 @@ def test_smoother_needs_votes_and_resists_flicker():
     assert s.update(1, "red") == "green"  # one odd frame does not flip it
     assert s.update(1, "red") == "green"
     assert s.update(1, "red") == "red"
-    assert s.update(None, "red") == "red"  # untracked: pass-through
+    # Untracked detections need confirmation (same vote rule via IoU/position key).
+    assert s.update(None, "red", box=None) == "unknown"
 
 
 def test_bright_screen_is_not_a_light():

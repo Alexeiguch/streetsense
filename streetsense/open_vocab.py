@@ -104,3 +104,5 @@ class OpenVocabHazardDetector:
                 )
             )
         return out
+
+from .open_vocab_sched import OpenVocabScheduler  # noqa: E402,F401

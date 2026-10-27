@@ -94,8 +94,9 @@ def test_rules_light_and_crossing():
     tl = Detection("traffic light", Box(600, 50, 630, 120), 0.8, attrs={"light_state": "red", "signal_kind": "pedestrian"})
     cw = CrosswalkResult(True, Box(300, 500, 1000, 700), 5, 1.0, [])
     alerts = {a.key: a for a in build_alerts(FrameFacts(1280, 720, [tl], crosswalk=cw))}
-    assert alerts["light:pedestrian:red"].priority == Priority.WARNING
-    assert alerts["light:pedestrian:red"].text == "pedestrian light is red"
+    assert alerts["light:pedestrian"].priority == Priority.WARNING
+    assert alerts["light:pedestrian"].text == "pedestrian light is red"
+    assert alerts["light:pedestrian"].data.get("cooldown_key") == "light:pedestrian:red"
     assert "crossing" in alerts["crosswalk"].text
 
 
@@ -139,7 +140,7 @@ def test_one_light_announced_pedestrian_preferred():
 
 
 def test_most_relevant_light_prefers_walk_over_larger_green():
-    """Regression: a larger vehicle-green head sticky-labelled pedestrian must not beat walk."""
+    """A sticky vehicle-green head labelled pedestrian must not silence a real walk."""
     from streetsense.rules import most_relevant_light
     from streetsense.types import Box, Detection
 

@@ -44,20 +44,42 @@ def focal_length_px(image_width: int, hfov_deg: float) -> float:
     return (image_width / 2) / math.tan(math.radians(hfov_deg) / 2)
 
 
+def truncation_flags(box: Box, image_width: int, image_height: int, margin: float = 1.0) -> dict:
+    """Which frame edges the box touches. Single-edge clips make pinhole distance unreliable."""
+    top = box.y1 <= margin
+    bottom = box.y2 >= image_height - margin
+    left = box.x1 <= margin
+    right = box.x2 >= image_width - margin
+    both_vertical = top and bottom
+    any_vertical = top or bottom
+    uncertain = (any_vertical and not both_vertical) or left or right
+    return {
+        "top": top,
+        "bottom": bottom,
+        "left": left,
+        "right": right,
+        "both_vertical": both_vertical,
+        "uncertain": uncertain,
+    }
+
+
 def estimate_distance_m(
     box: Box, label: str, image_width: int, image_height: int, hfov_deg: float = 70.0
 ) -> float | None:
     """Distance from apparent height: d = f * H_real / h_px.
 
-    Returns None for unknown classes, or when the box is cut by the top/bottom frame edge
-    (its pixel height then underestimates the real height and the estimate would be wrong).
+    Returns None for unknown classes. Full vertical fill → 0.5 m. Single-edge (top XOR bottom)
+    truncation returns None so callers use a conservative proximity fallback instead of a
+    misleading far estimate from the visible partial height.
     """
     real_h = REAL_HEIGHT_M.get(label)
     if real_h is None or box.h < 2:
         return None
-    truncated = box.y1 <= 1 and box.y2 >= image_height - 1
-    if truncated:
-        return 0.5  # fills the whole frame vertically: it is right in front of the camera
+    flags = truncation_flags(box, image_width, image_height)
+    if flags["both_vertical"]:
+        return 0.5  # fills the whole frame vertically: right in front
+    if flags["top"] or flags["bottom"]:
+        return None  # partial height → do not claim a precise distance
     f = focal_length_px(image_width, hfov_deg)
     return f * real_h / box.h
 

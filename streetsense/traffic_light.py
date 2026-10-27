@@ -8,11 +8,17 @@ be asked to confirm on demand.
 
 from __future__ import annotations
 
+from typing import Callable
+
+import time
 from collections import Counter, deque
 from dataclasses import dataclass
 
 import cv2
 import numpy as np
+
+from .geometry import iou
+from .types import Box
 
 # OpenCV hue is 0..179.
 HUE_RANGES = {
@@ -170,24 +176,75 @@ def signal_kind(box_w: float, box_h: float) -> str:
 
 
 class LightStateSmoother:
-    """Majority vote over the last N readings per track, so one bad frame cannot flip red to green."""
+    """Majority vote over the last N readings per track, so one bad frame cannot flip red to green.
 
-    def __init__(self, window: int = 5, min_votes: int = 3):
+    Untracked detections (track_id is None) use an IoU/position key and the same vote rule —
+    internal states like `countdown` never leave this layer as-is for untracked heads.
+    Countdown frames hold the last positive colour only within `countdown_hold_s`.
+    """
+
+    def __init__(
+        self,
+        window: int = 5,
+        min_votes: int = 3,
+        countdown_hold_s: float = 1.0,
+        clock: Callable[[], float] | None = None,
+        iou_match: float = 0.4,
+    ):
         self.window = window
         self.min_votes = min_votes
-        self._hist: dict[int, deque[str]] = {}
+        self.countdown_hold_s = countdown_hold_s
+        self.clock = clock or time.monotonic
+        self.iou_match = iou_match
+        self._hist: dict[int | str, deque[str]] = {}
+        self._last_positive_ts: dict[int | str, float] = {}
+        self._last_positive_state: dict[int | str, str] = {}
+        self._untracked_boxes: dict[str, Box] = {}
+        self._next_uid = 0
 
-    def update(self, track_id: int | None, state: str) -> str:
+    def _key_for_untracked(self, box: Box | None) -> str:
+        if box is None:
+            # No position: never promote a single-frame walk.
+            self._next_uid += 1
+            return f"anon:{self._next_uid}"
+        for k, prev in list(self._untracked_boxes.items()):
+            if iou(prev, box) >= self.iou_match:
+                self._untracked_boxes[k] = box
+                return k
+        self._next_uid += 1
+        k = f"u:{self._next_uid}"
+        self._untracked_boxes[k] = box
+        return k
+
+    def update(self, track_id: int | None, state: str, box: Box | None = None) -> str:
+        key: int | str
         if track_id is None:
-            return state
-        q = self._hist.setdefault(track_id, deque(maxlen=self.window))
-        # A countdown-only frame says "the crossing phase is still running" but not which colour:
-        # hold the current vote instead of diluting it. A steady hand (red, top) still flips it.
-        if state != "countdown":
-            q.append(state)
-        known = [s for s in q if s != "unknown"]
+            key = self._key_for_untracked(box)
+            # Internal countdown must not reach the alert layer for untracked heads.
+            if state == "countdown":
+                return "unknown"
+        else:
+            key = track_id
+
+        now = float(self.clock())
+        q = self._hist.setdefault(key, deque(maxlen=self.window))
+
+        if state == "countdown":
+            last_ts = self._last_positive_ts.get(key)
+            last_st = self._last_positive_state.get(key)
+            if last_ts is not None and last_st in ("walk", "red", "yellow", "green"):
+                if now - last_ts <= self.countdown_hold_s:
+                    return last_st  # short flicker hold
+            # Hold expired: report uncertain / countdown, not a stale walk.
+            return "countdown" if last_st else "unknown"
+
+        q.append(state)
+        if state not in ("unknown", "countdown"):
+            self._last_positive_ts[key] = now
+            self._last_positive_state[key] = state
+
+        known = [s for s in q if s not in ("unknown", "countdown")]
         if not known:
             return "unknown"
         best, votes = Counter(known).most_common(1)[0]
-        # Absolute vote count: a brand-new track must agree on several frames before we announce it.
         return best if votes >= self.min_votes else "unknown"

@@ -15,11 +15,12 @@ from .detector import ApproachTracker, YoloDetector
 from .geometry import estimate_distance_m
 from .meta_api import MetaSamSegmenter, MetaVisionAssistant, sam_boxes_to_crosswalk
 from .open_vocab import OpenVocabHazardDetector
+from .open_vocab_sched import OpenVocabScheduler
 from .overlay import draw
 from .rules import FrameFacts, build_alerts
 from .surface import SIDEWALK, ROAD, SurfaceResult
 from .traffic_light import LightStateSmoother, classify_light, signal_kind
-from .types import Alert, Detection
+from .types import Alert, Detection, Priority
 
 
 def build_detector(cfg: Config):
@@ -103,6 +104,9 @@ class Pipeline:
         self._last_surface: SurfaceResult | None = None
         self._last_cw: CrosswalkResult | None = None
         self._last_hazards: list[Detection] = []
+        self._ov_sched = OpenVocabScheduler(
+            every_n_frames=getattr(getattr(self.cfg, 'open_vocab', None), 'every_n_frames', 15) or 15,
+        )
         self.open_vocab = None
         if getattr(self.cfg, "open_vocab", None) is not None and self.cfg.open_vocab.enabled:
             try:
@@ -148,18 +152,20 @@ class Pipeline:
                 d.attrs["countdown"] = r.countdown
                 d.attrs["light_raw"] = r.state
                 d.attrs["figure"] = bool(getattr(r, "figure", False))
-                d.attrs["light_state"] = self.smoother.update(d.track_id, r.state)
+                d.attrs["light_state"] = self.smoother.update(d.track_id, r.state, box=b)
         tm["lights"] = (time.perf_counter() - t0) * 1000
 
         t0 = time.perf_counter()
         if self.open_vocab is not None:
-            every = max(1, self.cfg.open_vocab.every_n_frames)
-            if self._i % every == 0 or not self._last_hazards:
+            if self._ov_sched.should_run(self._i):
+                self._ov_sched.mark_attempt(self._i)
                 try:
-                    self._last_hazards = self.open_vocab(frame)
+                    haz = self.open_vocab(frame)
+                    self._ov_sched.record_result(haz, failed=False, frame_i=self._i)
                 except Exception as e:
                     print(f"[open-vocab] frame failed: {type(e).__name__}: {e}")
-                    self._last_hazards = []
+                    self._ov_sched.record_result([], failed=True, frame_i=self._i)
+            self._last_hazards = self._ov_sched.cached(self._i)
             if self._last_hazards:
                 dets = list(dets) + list(self._last_hazards)
         tm["open_vocab"] = (time.perf_counter() - t0) * 1000
@@ -216,12 +222,24 @@ class Pipeline:
         cands = build_alerts(facts, self.cfg.camera.hfov_deg)
         for a in cands:
             self.alerts.submit(a)
+        self.alerts.revalidate(facts)
         spoken = self.alerts.pop_ready()
         if spoken:
             self.recent.insert(0, spoken)
             del self.recent[5:]
 
         self.vlm.maybe_request(frame, t)
+        # Route validated Muse hazard phrases into AlertManager (low priority).
+        latest = self.vlm.latest
+        if latest and isinstance(latest.data, dict):
+            for i, phrase in enumerate(latest.data.get("hazards") or []):
+                if isinstance(phrase, str) and phrase.strip():
+                    self.alerts.submit(Alert(
+                        f"muse_hazard:{phrase.strip().lower()[:40]}",
+                        phrase.strip()[:80],
+                        Priority.INFO,
+                        data={"source": "muse"},
+                    ))
 
         ann = None
         if annotate:
