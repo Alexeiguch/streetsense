@@ -30,7 +30,9 @@ def draw(frame: np.ndarray, dets: list[Detection], cw: CrosswalkResult | None, s
         tint = _LUT[surf.labels]  # one gather instead of a boolean mask per class
         m = _LUT_ON[surf.labels]
         blended = cv2.addWeighted(out, 0.65, tint, 0.35, 0)
-        out = np.where(m[..., None], blended, out)
+        # copyTo is cheaper than np.where on full HxWx3 and bit-identical here
+        mask = (m.astype(np.uint8)) * 255
+        cv2.copyTo(blended, mask, out)
     if cw is not None and cw.found:
         cv2.polylines(out, cw.stripes, True, (255, 255, 255), 2)
         b = cw.box

@@ -9,7 +9,7 @@
 **Model decision: keep YOLO11n as the default weights.** YOLO26n is selectable via `--weights models/yolo26n.pt`.  
 Reason: on this CPU, PyTorch+track latency is comparable-to-slower on busy clips; coco128 mAP50-95 and a small hand-labelled sample slightly favour 11n; DC key alerts match for both, but 26n is noisier. The advertised “up to 43% faster CPU ONNX” for 26n was **not** reproduced here.
 
-**Backend decision (27 Oct 2026): default inference is OpenVINO** (`--backend openvino`). PyTorch remains `--backend torch`. See [§5](#5-pytorch-vs-openvino-backend-yolo11n) below.
+**Backend decision (27 Oct 2026): default inference is OpenVINO** for both the YOLO detector and SegFormer surface (`--backend openvino`). PyTorch remains `--backend torch` (or `--surface-backend torch`). See [§5](#5-pytorch-vs-openvino-backend-yolo11n) and [§6](#6-segformer-pytorch-vs-openvino).
 
 ---
 
@@ -208,3 +208,52 @@ python scripts/benchmark_backends.py
 python -m streetsense run --source samples/dc_ped_light.ogv --backend openvino --no-vlm --alerts /tmp/a.jsonl
 python -m streetsense run --source samples/dc_ped_light.ogv --backend torch --no-vlm --alerts /tmp/b.jsonl
 ```
+
+---
+
+## 6. SegFormer PyTorch vs OpenVINO
+
+**Date:** 27 Oct 2026 · **Script:** `scripts/benchmark_surface.py` · JSON: `docs/benchmark/surface_results.json`  
+Model: `nvidia/segformer-b0-finetuned-cityscapes-512-1024`. Cache: `models/segformer_b0_cityscapes_openvino/` (gitignored). Detector held at OpenVINO YOLO11n for pipeline rows.
+
+First-run convert (HF torch → OV IR via `torch.jit.trace` + `ov.convert_model`, dynamic H×W): **~5.0 s**.
+
+### Segmenter-only (36 sampled frames across 3 clips, warm-up excluded)
+
+| Backend | mean / p50 / p95 ms |
+|---|---|
+| PyTorch | 116.2 / 73.7 / 389.2 |
+| OpenVINO | **20.5 / 18.5 / 30.8** |
+
+### Mask agreement (torch vs OV, same frames)
+
+| Metric | Value |
+|---|---|
+| Pixel agreement mean / min | **0.996 / 0.990** |
+| mIoU mean | **0.967** |
+| Underfoot label match | **36/36 (100%)** |
+
+### Full pipeline (OV detect; surface torch vs OV; 200 frames/clip)
+
+| Clip | Torch surface FPS on/off | OV surface FPS on/off | Surface when-runs ms (torch → OV) | Amortised (torch → OV) |
+|---|---|---|---|---|
+| Tyumen | 25.0 / 38.3 | **33.0 / 55.2** | 67 → **21** | 11.4 → **3.6** |
+| DC | 26.3 / 41.2 | **35.0 / 55.7** | 64 → **20** | 10.9 → **3.4** |
+| CDMX | 27.8 / 40.0 | **32.5 / 57.9** | 56 → **20** | 9.5 → **3.5** |
+
+Overlay stage ~12 ms after `cv2.copyTo` blend (was ~17 ms with `np.where`).
+
+### DC alerts (OV detect)
+
+| | Torch surface | OV surface |
+|---|---|---|
+| Count | 13 | 13 |
+| Walk @ 10.80 s | yes | yes |
+| Pedestrian red @ 52.76 s | yes | yes |
+| Underfoot on this upward-looking clip | unknown | unknown |
+
+### Web `/frame` (backend sets detect+surface)
+
+| | Torch p50 / mean server_ms | OpenVINO p50 / mean |
+|---|---|---|
+| Tyumen JPEG | 16.7 / 26.7 | **13.2 / 16.7** |

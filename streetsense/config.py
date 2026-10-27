@@ -24,6 +24,7 @@ class DetectorConfig:
 class SurfaceConfig:
     enabled: bool = True
     model_id: str = "nvidia/segformer-b0-finetuned-cityscapes-512-1024"
+    backend: str = "openvino"  # "openvino" (default) or "torch"; falls back to torch if OV unavailable
     every_n_frames: int = 6  # segmentation is the slowest local stage; refresh it periodically
     input_width: int = 512
 

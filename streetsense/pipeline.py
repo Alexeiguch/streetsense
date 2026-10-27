@@ -43,7 +43,11 @@ class Pipeline:
             try:
                 from .surface import SurfaceSegmenter
 
-                self.surface_seg = SurfaceSegmenter(self.cfg.surface.model_id, self.cfg.surface.input_width)
+                self.surface_seg = SurfaceSegmenter(
+                    self.cfg.surface.model_id,
+                    self.cfg.surface.input_width,
+                    backend=getattr(self.cfg.surface, "backend", "openvino"),
+                )
             except Exception as e:  # missing transformers / offline: run without it
                 print(f"[surface] disabled: {type(e).__name__}: {e}")
         self.alerts = AlertManager(self.cfg.alerts, clock=clock)

@@ -5,6 +5,7 @@ __pycache__/
 models/*.pt
 models/*.onnx
 models/*_openvino_model/
+models/segformer*_openvino/
 samples/*
 !samples/README.md
 outputs/*

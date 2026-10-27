@@ -1,0 +1,587 @@
+{
+  "export": {
+    "first_run_convert_s": 4.95,
+    "default_cache_present": true
+  },
+  "segmenter": {
+    "torch": {
+      "latency": {
+        "n": 34,
+        "mean_ms": 116.22,
+        "p50_ms": 73.67,
+        "p95_ms": 389.24,
+        "std_ms": 143.23
+      },
+      "underfoot": [
+        "road",
+        "road",
+        "road",
+        "road",
+        "road",
+        "road",
+        "road",
+        "road",
+        "road",
+        "road",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "road",
+        "unknown",
+        "road",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "road",
+        "road"
+      ],
+      "backend": "torch"
+    },
+    "openvino": {
+      "latency": {
+        "n": 34,
+        "mean_ms": 20.49,
+        "p50_ms": 18.49,
+        "p95_ms": 30.81,
+        "std_ms": 6.06
+      },
+      "underfoot": [
+        "road",
+        "road",
+        "road",
+        "road",
+        "road",
+        "road",
+        "road",
+        "road",
+        "road",
+        "road",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "road",
+        "unknown",
+        "road",
+        "unknown",
+        "unknown",
+        "unknown",
+        "unknown",
+        "road",
+        "road"
+      ],
+      "backend": "openvino"
+    }
+  },
+  "agreement": {
+    "n_frames": 36,
+    "pixel_agreement_mean": 0.9961,
+    "pixel_agreement_min": 0.99,
+    "miou_mean": 0.9674,
+    "underfoot_match_frac": 1.0
+  },
+  "pipeline": {
+    "torch_surface": {
+      "tyumen_overlay_on": {
+        "frames": 200,
+        "pipeline_fps": 24.97,
+        "mean_stage_ms": {
+          "detect": 15.3,
+          "lights": 0.4,
+          "surface": 11.6,
+          "crosswalk": 1.4,
+          "overlay": 12.4
+        },
+        "surface_when_runs": {
+          "n": 34,
+          "mean_ms": 67.31,
+          "p50_ms": 59.87,
+          "p95_ms": 105.66,
+          "std_ms": 16.76
+        },
+        "surface_amortised_ms": 11.44,
+        "detect_backend": "openvino",
+        "surface_backend": "torch",
+        "every_n": 6
+      },
+      "tyumen_overlay_off": {
+        "frames": 200,
+        "pipeline_fps": 38.27,
+        "mean_stage_ms": {
+          "detect": 15.3,
+          "lights": 0.4,
+          "surface": 10.0,
+          "crosswalk": 1.4
+        },
+        "surface_when_runs": {
+          "n": 34,
+          "mean_ms": 58.08,
+          "p50_ms": 57.34,
+          "p95_ms": 76.36,
+          "std_ms": 8.92
+        },
+        "surface_amortised_ms": 9.87,
+        "detect_backend": "openvino",
+        "surface_backend": "torch",
+        "every_n": 6
+      },
+      "dc_overlay_on": {
+        "frames": 200,
+        "pipeline_fps": 26.29,
+        "mean_stage_ms": {
+          "detect": 14.1,
+          "lights": 0.5,
+          "surface": 11.0,
+          "crosswalk": 1.0,
+          "overlay": 12.2
+        },
+        "surface_when_runs": {
+          "n": 34,
+          "mean_ms": 64.29,
+          "p50_ms": 60.8,
+          "p95_ms": 75.52,
+          "std_ms": 11.76
+        },
+        "surface_amortised_ms": 10.93,
+        "detect_backend": "openvino",
+        "surface_backend": "torch",
+        "every_n": 6
+      },
+      "dc_overlay_off": {
+        "frames": 200,
+        "pipeline_fps": 41.17,
+        "mean_stage_ms": {
+          "detect": 13.6,
+          "lights": 0.4,
+          "surface": 10.1,
+          "crosswalk": 1.0
+        },
+        "surface_when_runs": {
+          "n": 34,
+          "mean_ms": 58.83,
+          "p50_ms": 57.97,
+          "p95_ms": 71.24,
+          "std_ms": 5.25
+        },
+        "surface_amortised_ms": 10.0,
+        "detect_backend": "openvino",
+        "surface_backend": "torch",
+        "every_n": 6
+      },
+      "cdmx_overlay_on": {
+        "frames": 200,
+        "pipeline_fps": 27.83,
+        "mean_stage_ms": {
+          "detect": 14.0,
+          "lights": 0.0,
+          "surface": 9.5,
+          "crosswalk": 1.2,
+          "overlay": 11.8
+        },
+        "surface_when_runs": {
+          "n": 34,
+          "mean_ms": 55.8,
+          "p50_ms": 55.25,
+          "p95_ms": 63.24,
+          "std_ms": 4.1
+        },
+        "surface_amortised_ms": 9.49,
+        "detect_backend": "openvino",
+        "surface_backend": "torch",
+        "every_n": 6
+      },
+      "cdmx_overlay_off": {
+        "frames": 200,
+        "pipeline_fps": 40.03,
+        "mean_stage_ms": {
+          "detect": 14.6,
+          "lights": 0.0,
+          "surface": 10.0,
+          "crosswalk": 1.3
+        },
+        "surface_when_runs": {
+          "n": 34,
+          "mean_ms": 58.62,
+          "p50_ms": 56.71,
+          "p95_ms": 66.87,
+          "std_ms": 11.86
+        },
+        "surface_amortised_ms": 9.96,
+        "detect_backend": "openvino",
+        "surface_backend": "torch",
+        "every_n": 6
+      }
+    },
+    "openvino_surface": {
+      "tyumen_overlay_on": {
+        "frames": 200,
+        "pipeline_fps": 33.03,
+        "mean_stage_ms": {
+          "detect": 13.8,
+          "lights": 0.3,
+          "surface": 3.8,
+          "crosswalk": 1.3,
+          "overlay": 11.8
+        },
+        "surface_when_runs": {
+          "n": 34,
+          "mean_ms": 21.17,
+          "p50_ms": 20.43,
+          "p95_ms": 25.37,
+          "std_ms": 2.69
+        },
+        "surface_amortised_ms": 3.6,
+        "detect_backend": "openvino",
+        "surface_backend": "openvino",
+        "every_n": 6
+      },
+      "tyumen_overlay_off": {
+        "frames": 200,
+        "pipeline_fps": 55.21,
+        "mean_stage_ms": {
+          "detect": 13.8,
+          "lights": 0.3,
+          "surface": 3.5,
+          "crosswalk": 1.3
+        },
+        "surface_when_runs": {
+          "n": 34,
+          "mean_ms": 19.91,
+          "p50_ms": 19.72,
+          "p95_ms": 23.75,
+          "std_ms": 2.13
+        },
+        "surface_amortised_ms": 3.39,
+        "detect_backend": "openvino",
+        "surface_backend": "openvino",
+        "every_n": 6
+      },
+      "dc_overlay_on": {
+        "frames": 200,
+        "pipeline_fps": 35.03,
+        "mean_stage_ms": {
+          "detect": 13.2,
+          "lights": 0.4,
+          "surface": 3.6,
+          "crosswalk": 0.9,
+          "overlay": 11.5
+        },
+        "surface_when_runs": {
+          "n": 34,
+          "mean_ms": 20.18,
+          "p50_ms": 20.1,
+          "p95_ms": 23.38,
+          "std_ms": 1.61
+        },
+        "surface_amortised_ms": 3.43,
+        "detect_backend": "openvino",
+        "surface_backend": "openvino",
+        "every_n": 6
+      },
+      "dc_overlay_off": {
+        "frames": 200,
+        "pipeline_fps": 55.66,
+        "mean_stage_ms": {
+          "detect": 14.3,
+          "lights": 0.4,
+          "surface": 3.8,
+          "crosswalk": 0.9
+        },
+        "surface_when_runs": {
+          "n": 34,
+          "mean_ms": 21.01,
+          "p50_ms": 20.53,
+          "p95_ms": 23.22,
+          "std_ms": 1.27
+        },
+        "surface_amortised_ms": 3.57,
+        "detect_backend": "openvino",
+        "surface_backend": "openvino",
+        "every_n": 6
+      },
+      "cdmx_overlay_on": {
+        "frames": 200,
+        "pipeline_fps": 32.52,
+        "mean_stage_ms": {
+          "detect": 15.0,
+          "lights": 0.0,
+          "surface": 3.6,
+          "crosswalk": 1.2,
+          "overlay": 11.7
+        },
+        "surface_when_runs": {
+          "n": 34,
+          "mean_ms": 20.4,
+          "p50_ms": 20.25,
+          "p95_ms": 23.49,
+          "std_ms": 1.71
+        },
+        "surface_amortised_ms": 3.47,
+        "detect_backend": "openvino",
+        "surface_backend": "openvino",
+        "every_n": 6
+      },
+      "cdmx_overlay_off": {
+        "frames": 200,
+        "pipeline_fps": 57.92,
+        "mean_stage_ms": {
+          "detect": 13.6,
+          "lights": 0.0,
+          "surface": 3.4,
+          "crosswalk": 1.1
+        },
+        "surface_when_runs": {
+          "n": 34,
+          "mean_ms": 19.1,
+          "p50_ms": 18.24,
+          "p95_ms": 21.59,
+          "std_ms": 1.72
+        },
+        "surface_amortised_ms": 3.25,
+        "detect_backend": "openvino",
+        "surface_backend": "openvino",
+        "every_n": 6
+      }
+    }
+  },
+  "alerts": {
+    "torch_surface": {
+      "count": 13,
+      "events": [
+        {
+          "t_video_s": 0.08,
+          "key": "light:unknown:red",
+          "text": "traffic light is red",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 6.08,
+          "key": "light:unknown:red",
+          "text": "traffic light is red",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 9.28,
+          "key": "light:unknown:green",
+          "text": "traffic light is green",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 10.8,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 16.8,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 22.8,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 28.8,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 30.32,
+          "key": "light:unknown:green",
+          "text": "traffic light is green",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 34.84,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 40.84,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 46.84,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 52.76,
+          "key": "light:pedestrian:red",
+          "text": "pedestrian light is red",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 58.76,
+          "key": "light:pedestrian:red",
+          "text": "pedestrian light is red",
+          "priority": "NOTICE"
+        }
+      ],
+      "underfoot": {
+        "unknown": 1569
+      },
+      "has_walk_10_8": true,
+      "has_red_52_8": true,
+      "road_or_sidewalk_alerts": []
+    },
+    "openvino_surface": {
+      "count": 13,
+      "events": [
+        {
+          "t_video_s": 0.08,
+          "key": "light:unknown:red",
+          "text": "traffic light is red",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 6.08,
+          "key": "light:unknown:red",
+          "text": "traffic light is red",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 9.28,
+          "key": "light:unknown:green",
+          "text": "traffic light is green",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 10.8,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 16.8,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 22.8,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 28.04,
+          "key": "light:unknown:green",
+          "text": "traffic light is green",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 29.56,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 35.56,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 41.56,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 47.56,
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 52.76,
+          "key": "light:pedestrian:red",
+          "text": "pedestrian light is red",
+          "priority": "NOTICE"
+        },
+        {
+          "t_video_s": 58.76,
+          "key": "light:pedestrian:red",
+          "text": "pedestrian light is red",
+          "priority": "NOTICE"
+        }
+      ],
+      "underfoot": {
+        "unknown": 1569
+      },
+      "has_walk_10_8": true,
+      "has_red_52_8": true,
+      "road_or_sidewalk_alerts": []
+    }
+  },
+  "web": {
+    "torch": {
+      "client": {
+        "n": 40,
+        "mean_ms": 27.97,
+        "p50_ms": 18.1,
+        "p95_ms": 76.4,
+        "std_ms": 22.35
+      },
+      "server_ms": {
+        "n": 40,
+        "mean_ms": 26.67,
+        "p50_ms": 16.72,
+        "p95_ms": 75.16,
+        "std_ms": 22.35
+      },
+      "backend": "torch"
+    },
+    "openvino": {
+      "client": {
+        "n": 40,
+        "mean_ms": 17.97,
+        "p50_ms": 14.41,
+        "p95_ms": 33.87,
+        "std_ms": 7.49
+      },
+      "server_ms": {
+        "n": 40,
+        "mean_ms": 16.74,
+        "p50_ms": 13.21,
+        "p95_ms": 32.54,
+        "std_ms": 7.48
+      },
+      "backend": "openvino"
+    }
+  }
+}

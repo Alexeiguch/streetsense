@@ -46,12 +46,14 @@ def cmd_run(a: argparse.Namespace) -> int:
     cfg.detector.imgsz = a.imgsz
     cfg.detector.weights = a.weights
     cfg.detector.backend = a.backend
+    cfg.surface.backend = getattr(a, "surface_backend", None) or a.backend
     cfg.vlm.enabled = not a.no_vlm
     clock = VideoClock() if is_file else time.monotonic
     pipe = Pipeline(cfg, use_surface=not a.no_surface, clock=clock)
     speaker = Speaker(enabled=a.speak)
-    print(f"[streetsense] source={a.source} fps_in={fps_in:.1f} backend={pipe.detector.backend} "
-          f"surface={'on' if pipe.surface_seg else 'off'} "
+    surf_b = pipe.surface_seg.backend if pipe.surface_seg else "off"
+    print(f"[streetsense] source={a.source} fps_in={fps_in:.1f} detect={pipe.detector.backend} "
+          f"surface={surf_b} "
           f"meta_api={'on' if pipe.vlm.enabled else 'off (no MODEL_API_KEY)'} speech={speaker.backend}")
 
     writer = None
@@ -144,7 +146,8 @@ def cmd_ask(a: argparse.Namespace) -> int:
 def cmd_serve(a: argparse.Namespace) -> int:
     from .web import create_app
 
-    app = create_app(no_surface=a.no_surface, backend=a.backend)
+    app = create_app(no_surface=a.no_surface, backend=a.backend,
+                    surface_backend=getattr(a, "surface_backend", None))
     app.run(host=a.host, port=a.port, threaded=True)
     return 0
 
@@ -167,7 +170,9 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--weights", default="models/yolo11n.pt",
                     help="Ultralytics weights path (default yolo11n; try models/yolo26n.pt)")
     r.add_argument("--backend", default="openvino", choices=["openvino", "torch"],
-                    help="detector inference backend (default openvino; torch = PyTorch)")
+                    help="default inference backend for detector + surface (openvino|torch)")
+    r.add_argument("--surface-backend", default=None, choices=["openvino", "torch"],
+                    help="override surface segmenter backend (default: same as --backend)")
     r.add_argument("--no-surface", action="store_true")
     r.add_argument("--no-vlm", action="store_true")
     r.add_argument("--speak", action="store_true")
@@ -182,6 +187,7 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--port", type=int, default=8000)
     s.add_argument("--no-surface", action="store_true")
     s.add_argument("--backend", default="openvino", choices=["openvino", "torch"])
+    s.add_argument("--surface-backend", default=None, choices=["openvino", "torch"])
     s.set_defaults(fn=cmd_serve)
     a = p.parse_args(argv)
     return a.fn(a)

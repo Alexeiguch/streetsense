@@ -57,11 +57,16 @@ document.getElementById('ask').onclick=async()=>{
 COL = {"red": "#ff3030", "green": "#20e020", "yellow": "#ffc000", "walk": "#ffffff"}
 
 
-def create_app(no_surface: bool = False, backend: str | None = None, weights: str | None = None) -> Flask:
+def create_app(no_surface: bool = False, backend: str | None = None, weights: str | None = None,
+               surface_backend: str | None = None) -> Flask:
     app = Flask(__name__)
     cfg = Config()
     if backend is not None:
         cfg.detector.backend = backend
+        if surface_backend is None:
+            cfg.surface.backend = backend
+    if surface_backend is not None:
+        cfg.surface.backend = surface_backend
     if weights is not None:
         cfg.detector.weights = weights
     pipe = Pipeline(cfg, use_surface=not no_surface)
