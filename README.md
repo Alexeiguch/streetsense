@@ -15,7 +15,7 @@ Two loops. The fast local loop handles safety-critical alerts at camera rate on 
 flowchart LR
     CAM[Camera / video file / phone browser] --> F[Frame]
     subgraph FAST["Fast loop (local, every frame, CPU)"]
-        F --> YOLO["YOLO11n + ByteTrack<br/>people, vehicles, bikes,<br/>traffic lights, benches..."]
+        F --> YOLO["YOLO11n + ByteTrack (default)<br/>YOLO26n selectable<br/>people, vehicles, bikes,<br/>traffic lights, benches..."]
         F --> SEG["SegFormer-B0 (Cityscapes)<br/>road / sidewalk / pole<br/>(every 6th frame)"]
         YOLO --> TL["Traffic-light reader<br/>HSV lamp colour, walk figure,<br/>countdown, screen rejection,<br/>per-track vote"]
         SEG --> CW["Zebra-crossing detector<br/>stripe geometry on the ground mask<br/>+ hysteresis"]
@@ -38,7 +38,7 @@ flowchart LR
 
 | Module | Role |
 |---|---|
-| `streetsense/detector.py` | YOLO11n (COCO) wrapper with ByteTrack ids; `ApproachTracker` flags boxes growing more than 25% within about 1 s |
+| `streetsense/detector.py` | YOLO11n (COCO) wrapper with ByteTrack ids by default; pass `--weights models/yolo26n.pt` for YOLO26n (see [docs/BENCHMARK.md](docs/BENCHMARK.md)). `ApproachTracker` flags boxes growing more than 25% within about 1 s |
 | `streetsense/traffic_light.py` | Lamp colour from HSV. Orange means amber on vehicle heads and the "hand" on pedestrian heads. Detects the US white walk figure and countdown, rejects bright screens, and votes over a track |
 | `streetsense/crosswalk.py` | Zebra stripes: bright, low-saturation, elongated, parallel bars on the road/sidewalk mask, with k-of-n hysteresis |
 | `streetsense/surface.py` | SegFormer-B0 Cityscapes classes give what's underfoot (road or sidewalk) and whether a pole is in the corridor ahead |
@@ -95,10 +95,11 @@ Input resized to 1280x720, YOLO at 640 px, SegFormer every 6th frame, overlay on
 
 Mean time per frame: YOLO+track 17-19 ms, SegFormer 10 ms amortised (about 60-100 ms per call), lights 0.4 ms, crosswalk 1-1.5 ms, overlay 17 ms. Without the overlay, perception runs at about 30 FPS.
 
-**Accuracy has not been measured on a labelled dataset.** What has been checked:
+**Accuracy has not been measured on a labelled StreetSense dataset.** What has been checked:
 - The light classifier passes 9 hand-labelled real crops (`tests/fixtures`).
 - On the DC clip, the spoken timeline (red, then walk + countdown from 10.8 s, then "pedestrian light is red" at 52.8 s when the hand appears) matches what I saw by eye on the saved frames.
 - The crosswalk detector was spot-checked on 7 frames (5 correct).
+- YOLO11n vs YOLO26n on this box: [docs/BENCHMARK.md](docs/BENCHMARK.md) (speed, coco128 subset mAP, clip agreement, 14-frame hand counts, DC alerts). **Default stays YOLO11n**; YOLO26n is optional via `--weights models/yolo26n.pt`.
 
 `python -m pytest -q`: 63 tests passing.
 

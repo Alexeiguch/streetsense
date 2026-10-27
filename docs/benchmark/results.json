@@ -1,0 +1,1180 @@
+{
+  "machine": {
+    "cpu_count": 8,
+    "note": "box CPU, no GPU"
+  },
+  "weights": {
+    "yolo11n": {
+      "path": "/workspace/meta-hackathon/models/yolo11n.pt",
+      "size_mb": 5.35
+    },
+    "yolo26n": {
+      "path": "/workspace/meta-hackathon/models/yolo26n.pt",
+      "size_mb": 5.29
+    }
+  },
+  "clips": {
+    "tyumen": {
+      "n_frames": 613,
+      "fps_in": 30.0,
+      "start_s": null,
+      "models": {
+        "yolo11n": {
+          "speed": {
+            "weights": "/workspace/meta-hackathon/models/yolo11n.pt",
+            "load_s": 0.037,
+            "weights_mb": 5.35,
+            "peak_rss_mb": 2124.5,
+            "warmup_frames": 10,
+            "measured_frames_per_repeat": 603,
+            "repeats": 2,
+            "latency": {
+              "n": 1206,
+              "mean_ms": 18.85,
+              "p50_ms": 18.44,
+              "p95_ms": 22.43,
+              "std_ms": 2.95,
+              "min_ms": 15.7,
+              "max_ms": 95.24
+            },
+            "per_repeat": [
+              {
+                "n": 603,
+                "mean_ms": 19.55,
+                "p50_ms": 19.44,
+                "p95_ms": 23.19,
+                "std_ms": 2.07,
+                "min_ms": 15.91,
+                "max_ms": 26.68
+              },
+              {
+                "n": 603,
+                "mean_ms": 18.16,
+                "p50_ms": 17.82,
+                "p95_ms": 20.49,
+                "std_ms": 3.49,
+                "min_ms": 15.7,
+                "max_ms": 95.24
+              }
+            ],
+            "track": true
+          },
+          "class_counts": {
+            "car": 3178,
+            "person": 3351,
+            "traffic light": 1402,
+            "truck": 68,
+            "bus": 1
+          },
+          "total_dets": 8000
+        },
+        "yolo26n": {
+          "speed": {
+            "weights": "/workspace/meta-hackathon/models/yolo26n.pt",
+            "load_s": 0.03,
+            "weights_mb": 5.29,
+            "peak_rss_mb": 2145.9,
+            "warmup_frames": 10,
+            "measured_frames_per_repeat": 603,
+            "repeats": 2,
+            "latency": {
+              "n": 1206,
+              "mean_ms": 20.88,
+              "p50_ms": 20.65,
+              "p95_ms": 23.75,
+              "std_ms": 1.67,
+              "min_ms": 17.62,
+              "max_ms": 36.7
+            },
+            "per_repeat": [
+              {
+                "n": 603,
+                "mean_ms": 21.5,
+                "p50_ms": 21.24,
+                "p95_ms": 24.46,
+                "std_ms": 1.72,
+                "min_ms": 17.92,
+                "max_ms": 36.7
+              },
+              {
+                "n": 603,
+                "mean_ms": 20.25,
+                "p50_ms": 20.14,
+                "p95_ms": 22.31,
+                "std_ms": 1.34,
+                "min_ms": 17.62,
+                "max_ms": 30.32
+              }
+            ],
+            "track": true
+          },
+          "class_counts": {
+            "car": 2925,
+            "person": 3191,
+            "traffic light": 1517,
+            "truck": 47,
+            "bus": 3,
+            "motorcycle": 1
+          },
+          "total_dets": 7684
+        }
+      },
+      "agreement": {
+        "iou_thr": 0.5,
+        "yolo11n_matched_frac": 0.8545,
+        "yolo26n_matched_frac": 0.8896,
+        "yolo11n_dets": 8000,
+        "yolo26n_dets": 7684,
+        "matched_pairs": 6836
+      },
+      "compare_pngs": [
+        "outputs/benchmark/compare_tyumen_mid.png",
+        "outputs/benchmark/compare_tyumen_q1.png"
+      ]
+    },
+    "dc": {
+      "n_frames": 1569,
+      "fps_in": 25.0,
+      "start_s": null,
+      "models": {
+        "yolo11n": {
+          "speed": {
+            "weights": "/workspace/meta-hackathon/models/yolo11n.pt",
+            "load_s": 0.027,
+            "weights_mb": 5.35,
+            "peak_rss_mb": 4716.6,
+            "warmup_frames": 10,
+            "measured_frames_per_repeat": 1559,
+            "repeats": 2,
+            "latency": {
+              "n": 3118,
+              "mean_ms": 18.76,
+              "p50_ms": 17.94,
+              "p95_ms": 22.75,
+              "std_ms": 5.37,
+              "min_ms": 13.23,
+              "max_ms": 117.03
+            },
+            "per_repeat": [
+              {
+                "n": 1559,
+                "mean_ms": 18.12,
+                "p50_ms": 17.71,
+                "p95_ms": 21.04,
+                "std_ms": 3.16,
+                "min_ms": 13.23,
+                "max_ms": 72.84
+              },
+              {
+                "n": 1559,
+                "mean_ms": 19.41,
+                "p50_ms": 18.27,
+                "p95_ms": 23.63,
+                "std_ms": 6.84,
+                "min_ms": 13.55,
+                "max_ms": 117.03
+              }
+            ],
+            "track": true
+          },
+          "class_counts": {
+            "traffic light": 3126,
+            "car": 209,
+            "person": 27
+          },
+          "total_dets": 3362
+        },
+        "yolo26n": {
+          "speed": {
+            "weights": "/workspace/meta-hackathon/models/yolo26n.pt",
+            "load_s": 0.04,
+            "weights_mb": 5.29,
+            "peak_rss_mb": 4717.4,
+            "warmup_frames": 10,
+            "measured_frames_per_repeat": 1559,
+            "repeats": 2,
+            "latency": {
+              "n": 3118,
+              "mean_ms": 16.4,
+              "p50_ms": 16.05,
+              "p95_ms": 19.35,
+              "std_ms": 2.61,
+              "min_ms": 13.43,
+              "max_ms": 75.89
+            },
+            "per_repeat": [
+              {
+                "n": 1559,
+                "mean_ms": 17.21,
+                "p50_ms": 16.63,
+                "p95_ms": 20.87,
+                "std_ms": 3.26,
+                "min_ms": 13.7,
+                "max_ms": 75.89
+              },
+              {
+                "n": 1559,
+                "mean_ms": 15.59,
+                "p50_ms": 15.43,
+                "p95_ms": 17.88,
+                "std_ms": 1.32,
+                "min_ms": 13.43,
+                "max_ms": 26.72
+              }
+            ],
+            "track": true
+          },
+          "class_counts": {
+            "traffic light": 3082,
+            "car": 181,
+            "person": 28
+          },
+          "total_dets": 3291
+        }
+      },
+      "agreement": {
+        "iou_thr": 0.5,
+        "yolo11n_matched_frac": 0.9732,
+        "yolo26n_matched_frac": 0.9942,
+        "yolo11n_dets": 3362,
+        "yolo26n_dets": 3291,
+        "matched_pairs": 3272
+      },
+      "compare_pngs": [
+        "outputs/benchmark/compare_dc_mid.png",
+        "outputs/benchmark/compare_dc_q1.png"
+      ]
+    },
+    "cdmx": {
+      "n_frames": 1200,
+      "fps_in": 59.94006309148265,
+      "start_s": 20.0,
+      "models": {
+        "yolo11n": {
+          "speed": {
+            "weights": "/workspace/meta-hackathon/models/yolo11n.pt",
+            "load_s": 0.03,
+            "weights_mb": 5.35,
+            "peak_rss_mb": 4717.4,
+            "warmup_frames": 10,
+            "measured_frames_per_repeat": 1190,
+            "repeats": 2,
+            "latency": {
+              "n": 2380,
+              "mean_ms": 15.24,
+              "p50_ms": 14.98,
+              "p95_ms": 17.76,
+              "std_ms": 2.23,
+              "min_ms": 12.6,
+              "max_ms": 77.0
+            },
+            "per_repeat": [
+              {
+                "n": 1190,
+                "mean_ms": 15.61,
+                "p50_ms": 15.3,
+                "p95_ms": 18.45,
+                "std_ms": 2.8,
+                "min_ms": 12.6,
+                "max_ms": 77.0
+              },
+              {
+                "n": 1190,
+                "mean_ms": 14.88,
+                "p50_ms": 14.64,
+                "p95_ms": 17.15,
+                "std_ms": 1.38,
+                "min_ms": 12.83,
+                "max_ms": 36.53
+              }
+            ],
+            "track": true
+          },
+          "class_counts": {
+            "suitcase": 1034,
+            "person": 8527,
+            "bus": 62,
+            "car": 687
+          },
+          "total_dets": 10310
+        },
+        "yolo26n": {
+          "speed": {
+            "weights": "/workspace/meta-hackathon/models/yolo26n.pt",
+            "load_s": 0.029,
+            "weights_mb": 5.29,
+            "peak_rss_mb": 4717.4,
+            "warmup_frames": 10,
+            "measured_frames_per_repeat": 1190,
+            "repeats": 2,
+            "latency": {
+              "n": 2380,
+              "mean_ms": 17.61,
+              "p50_ms": 17.26,
+              "p95_ms": 20.56,
+              "std_ms": 2.09,
+              "min_ms": 14.17,
+              "max_ms": 46.44
+            },
+            "per_repeat": [
+              {
+                "n": 1190,
+                "mean_ms": 17.13,
+                "p50_ms": 16.61,
+                "p95_ms": 19.46,
+                "std_ms": 2.23,
+                "min_ms": 14.17,
+                "max_ms": 46.44
+              },
+              {
+                "n": 1190,
+                "mean_ms": 18.09,
+                "p50_ms": 17.79,
+                "p95_ms": 21.02,
+                "std_ms": 1.81,
+                "min_ms": 14.83,
+                "max_ms": 36.87
+              }
+            ],
+            "track": true
+          },
+          "class_counts": {
+            "person": 8883,
+            "suitcase": 1017,
+            "bus": 537,
+            "car": 734
+          },
+          "total_dets": 11171
+        }
+      },
+      "agreement": {
+        "iou_thr": 0.5,
+        "yolo11n_matched_frac": 0.853,
+        "yolo26n_matched_frac": 0.7872,
+        "yolo11n_dets": 10310,
+        "yolo26n_dets": 11171,
+        "matched_pairs": 8794
+      },
+      "compare_pngs": [
+        "outputs/benchmark/compare_cdmx_mid.png",
+        "outputs/benchmark/compare_cdmx_q1.png"
+      ]
+    }
+  },
+  "hand_frames": [
+    {
+      "clip": "tyumen",
+      "t_s": 2.0,
+      "path": "outputs/benchmark/hand_frames/tyumen_t002.0.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "tyumen",
+      "t_s": 8.0,
+      "path": "outputs/benchmark/hand_frames/tyumen_t008.0.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "tyumen",
+      "t_s": 15.0,
+      "path": "outputs/benchmark/hand_frames/tyumen_t015.0.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "dc",
+      "t_s": 5.0,
+      "path": "outputs/benchmark/hand_frames/dc_t005.0.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "dc",
+      "t_s": 10.8,
+      "path": "outputs/benchmark/hand_frames/dc_t010.8.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "dc",
+      "t_s": 20.0,
+      "path": "outputs/benchmark/hand_frames/dc_t020.0.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "dc",
+      "t_s": 35.0,
+      "path": "outputs/benchmark/hand_frames/dc_t035.0.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "dc",
+      "t_s": 52.8,
+      "path": "outputs/benchmark/hand_frames/dc_t052.8.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "dc",
+      "t_s": 60.0,
+      "path": "outputs/benchmark/hand_frames/dc_t060.0.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "cdmx",
+      "t_s": 25.0,
+      "path": "outputs/benchmark/hand_frames/cdmx_t025.0.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "cdmx",
+      "t_s": 35.0,
+      "path": "outputs/benchmark/hand_frames/cdmx_t035.0.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "cdmx",
+      "t_s": 45.0,
+      "path": "outputs/benchmark/hand_frames/cdmx_t045.0.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "cdmx",
+      "t_s": 55.0,
+      "path": "outputs/benchmark/hand_frames/cdmx_t055.0.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    },
+    {
+      "clip": "cdmx",
+      "t_s": 65.0,
+      "path": "outputs/benchmark/hand_frames/cdmx_t065.0.jpg",
+      "shape": [
+        720,
+        1280,
+        3
+      ]
+    }
+  ],
+  "pipeline": {
+    "yolo11n": {
+      "tyumen_overlay_on": {
+        "frames": 250,
+        "pipeline_fps": 22.91,
+        "mean_stage_ms": {
+          "detect": 17.3,
+          "lights": 0.4,
+          "surface": 8.6,
+          "crosswalk": 1.5,
+          "overlay": 17.1
+        },
+        "annotate": true,
+        "surface": true,
+        "peak_rss_mb": 4717.4
+      },
+      "tyumen_overlay_off": {
+        "frames": 250,
+        "pipeline_fps": 36.82,
+        "mean_stage_ms": {
+          "detect": 17.7,
+          "lights": 0.4,
+          "surface": 7.9,
+          "crosswalk": 1.5
+        },
+        "annotate": false,
+        "surface": true,
+        "peak_rss_mb": 4717.4
+      },
+      "dc_overlay_on": {
+        "frames": 250,
+        "pipeline_fps": 22.95,
+        "mean_stage_ms": {
+          "detect": 17.6,
+          "lights": 0.4,
+          "surface": 7.9,
+          "crosswalk": 1.0,
+          "overlay": 16.8
+        },
+        "annotate": true,
+        "surface": true,
+        "peak_rss_mb": 4717.4
+      },
+      "dc_overlay_off": {
+        "frames": 250,
+        "pipeline_fps": 37.96,
+        "mean_stage_ms": {
+          "detect": 17.4,
+          "lights": 0.4,
+          "surface": 7.7,
+          "crosswalk": 1.0
+        },
+        "annotate": false,
+        "surface": true,
+        "peak_rss_mb": 4717.4
+      },
+      "cdmx_overlay_on": {
+        "frames": 250,
+        "pipeline_fps": 23.46,
+        "mean_stage_ms": {
+          "detect": 17.1,
+          "lights": 0.0,
+          "surface": 7.6,
+          "crosswalk": 1.3,
+          "overlay": 16.8
+        },
+        "annotate": true,
+        "surface": true,
+        "peak_rss_mb": 4717.4
+      },
+      "cdmx_overlay_off": {
+        "frames": 250,
+        "pipeline_fps": 39.37,
+        "mean_stage_ms": {
+          "detect": 17.0,
+          "lights": 0.0,
+          "surface": 7.4,
+          "crosswalk": 1.2
+        },
+        "annotate": false,
+        "surface": true,
+        "peak_rss_mb": 4717.4
+      }
+    },
+    "yolo26n": {
+      "tyumen_overlay_on": {
+        "frames": 250,
+        "pipeline_fps": 23.25,
+        "mean_stage_ms": {
+          "detect": 17.5,
+          "lights": 0.4,
+          "surface": 7.5,
+          "crosswalk": 1.4,
+          "overlay": 16.6
+        },
+        "annotate": true,
+        "surface": true,
+        "peak_rss_mb": 4717.4
+      },
+      "tyumen_overlay_off": {
+        "frames": 250,
+        "pipeline_fps": 38.55,
+        "mean_stage_ms": {
+          "detect": 17.1,
+          "lights": 0.4,
+          "surface": 7.3,
+          "crosswalk": 1.4
+        },
+        "annotate": false,
+        "surface": true,
+        "peak_rss_mb": 4717.4
+      },
+      "dc_overlay_on": {
+        "frames": 250,
+        "pipeline_fps": 23.59,
+        "mean_stage_ms": {
+          "detect": 17.1,
+          "lights": 0.4,
+          "surface": 7.5,
+          "crosswalk": 0.9,
+          "overlay": 16.7
+        },
+        "annotate": true,
+        "surface": true,
+        "peak_rss_mb": 4717.4
+      },
+      "dc_overlay_off": {
+        "frames": 250,
+        "pipeline_fps": 37.1,
+        "mean_stage_ms": {
+          "detect": 18.5,
+          "lights": 0.4,
+          "surface": 7.9,
+          "crosswalk": 1.0
+        },
+        "annotate": false,
+        "surface": true,
+        "peak_rss_mb": 4717.4
+      },
+      "cdmx_overlay_on": {
+        "frames": 250,
+        "pipeline_fps": 22.88,
+        "mean_stage_ms": {
+          "detect": 17.9,
+          "lights": 0.0,
+          "surface": 8.0,
+          "crosswalk": 1.2,
+          "overlay": 16.9
+        },
+        "annotate": true,
+        "surface": true,
+        "peak_rss_mb": 4717.4
+      },
+      "cdmx_overlay_off": {
+        "frames": 250,
+        "pipeline_fps": 36.12,
+        "mean_stage_ms": {
+          "detect": 19.0,
+          "lights": 0.0,
+          "surface": 7.6,
+          "crosswalk": 1.3
+        },
+        "annotate": false,
+        "surface": true,
+        "peak_rss_mb": 4717.4
+      }
+    }
+  },
+  "alerts": {
+    "yolo11n": {
+      "count": 12,
+      "path": "outputs/benchmark/dc_alerts_yolo11n.jsonl",
+      "events": [
+        {
+          "t_video_s": 0.08,
+          "frame": 2,
+          "priority": "NOTICE",
+          "key": "light:unknown:red",
+          "text": "traffic light is red"
+        },
+        {
+          "t_video_s": 6.08,
+          "frame": 152,
+          "priority": "NOTICE",
+          "key": "light:unknown:red",
+          "text": "traffic light is red"
+        },
+        {
+          "t_video_s": 9.28,
+          "frame": 232,
+          "priority": "NOTICE",
+          "key": "light:unknown:green",
+          "text": "traffic light is green"
+        },
+        {
+          "t_video_s": 10.8,
+          "frame": 270,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 16.8,
+          "frame": 420,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 22.8,
+          "frame": 570,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 28.8,
+          "frame": 720,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 34.84,
+          "frame": 871,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 40.84,
+          "frame": 1021,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 46.84,
+          "frame": 1171,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 52.76,
+          "frame": 1319,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:red",
+          "text": "pedestrian light is red"
+        },
+        {
+          "t_video_s": 58.76,
+          "frame": 1469,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:red",
+          "text": "pedestrian light is red"
+        }
+      ],
+      "light_related": [
+        {
+          "t_video_s": 0.08,
+          "frame": 2,
+          "priority": "NOTICE",
+          "key": "light:unknown:red",
+          "text": "traffic light is red"
+        },
+        {
+          "t_video_s": 6.08,
+          "frame": 152,
+          "priority": "NOTICE",
+          "key": "light:unknown:red",
+          "text": "traffic light is red"
+        },
+        {
+          "t_video_s": 9.28,
+          "frame": 232,
+          "priority": "NOTICE",
+          "key": "light:unknown:green",
+          "text": "traffic light is green"
+        },
+        {
+          "t_video_s": 10.8,
+          "frame": 270,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 16.8,
+          "frame": 420,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 22.8,
+          "frame": 570,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 28.8,
+          "frame": 720,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 34.84,
+          "frame": 871,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 40.84,
+          "frame": 1021,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 46.84,
+          "frame": 1171,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 52.76,
+          "frame": 1319,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:red",
+          "text": "pedestrian light is red"
+        },
+        {
+          "t_video_s": 58.76,
+          "frame": 1469,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:red",
+          "text": "pedestrian light is red"
+        }
+      ]
+    },
+    "yolo26n": {
+      "count": 17,
+      "path": "outputs/benchmark/dc_alerts_yolo26n.jsonl",
+      "events": [
+        {
+          "t_video_s": 0.08,
+          "frame": 2,
+          "priority": "NOTICE",
+          "key": "light:unknown:red",
+          "text": "traffic light is red"
+        },
+        {
+          "t_video_s": 6.08,
+          "frame": 152,
+          "priority": "NOTICE",
+          "key": "light:unknown:red",
+          "text": "traffic light is red"
+        },
+        {
+          "t_video_s": 9.28,
+          "frame": 232,
+          "priority": "NOTICE",
+          "key": "light:unknown:green",
+          "text": "traffic light is green"
+        },
+        {
+          "t_video_s": 10.8,
+          "frame": 270,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 16.28,
+          "frame": 407,
+          "priority": "WARNING",
+          "key": "vehicle_far:left",
+          "text": "car approaching on your left"
+        },
+        {
+          "t_video_s": 17.8,
+          "frame": 445,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 20.48,
+          "frame": 512,
+          "priority": "NOTICE",
+          "key": "light:unknown:green",
+          "text": "traffic light is green"
+        },
+        {
+          "t_video_s": 23.8,
+          "frame": 595,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 27.16,
+          "frame": 679,
+          "priority": "NOTICE",
+          "key": "light:unknown:green",
+          "text": "traffic light is green"
+        },
+        {
+          "t_video_s": 29.8,
+          "frame": 745,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 35.84,
+          "frame": 896,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 37.52,
+          "frame": 938,
+          "priority": "NOTICE",
+          "key": "light:unknown:green",
+          "text": "traffic light is green"
+        },
+        {
+          "t_video_s": 41.84,
+          "frame": 1046,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 47.84,
+          "frame": 1196,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 52.76,
+          "frame": 1319,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:red",
+          "text": "pedestrian light is red"
+        },
+        {
+          "t_video_s": 56.2,
+          "frame": 1405,
+          "priority": "NOTICE",
+          "key": "light:unknown:green",
+          "text": "traffic light is green"
+        },
+        {
+          "t_video_s": 58.76,
+          "frame": 1469,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:red",
+          "text": "pedestrian light is red"
+        }
+      ],
+      "light_related": [
+        {
+          "t_video_s": 0.08,
+          "frame": 2,
+          "priority": "NOTICE",
+          "key": "light:unknown:red",
+          "text": "traffic light is red"
+        },
+        {
+          "t_video_s": 6.08,
+          "frame": 152,
+          "priority": "NOTICE",
+          "key": "light:unknown:red",
+          "text": "traffic light is red"
+        },
+        {
+          "t_video_s": 9.28,
+          "frame": 232,
+          "priority": "NOTICE",
+          "key": "light:unknown:green",
+          "text": "traffic light is green"
+        },
+        {
+          "t_video_s": 10.8,
+          "frame": 270,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 17.8,
+          "frame": 445,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 20.48,
+          "frame": 512,
+          "priority": "NOTICE",
+          "key": "light:unknown:green",
+          "text": "traffic light is green"
+        },
+        {
+          "t_video_s": 23.8,
+          "frame": 595,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 27.16,
+          "frame": 679,
+          "priority": "NOTICE",
+          "key": "light:unknown:green",
+          "text": "traffic light is green"
+        },
+        {
+          "t_video_s": 29.8,
+          "frame": 745,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 35.84,
+          "frame": 896,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 37.52,
+          "frame": 938,
+          "priority": "NOTICE",
+          "key": "light:unknown:green",
+          "text": "traffic light is green"
+        },
+        {
+          "t_video_s": 41.84,
+          "frame": 1046,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 47.84,
+          "frame": 1196,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:walk",
+          "text": "walk signal on, countdown running"
+        },
+        {
+          "t_video_s": 52.76,
+          "frame": 1319,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:red",
+          "text": "pedestrian light is red"
+        },
+        {
+          "t_video_s": 56.2,
+          "frame": 1405,
+          "priority": "NOTICE",
+          "key": "light:unknown:green",
+          "text": "traffic light is green"
+        },
+        {
+          "t_video_s": 58.76,
+          "frame": 1469,
+          "priority": "NOTICE",
+          "key": "light:pedestrian:red",
+          "text": "pedestrian light is red"
+        }
+      ]
+    }
+  },
+  "coco128": {
+    "yolo11n": {
+      "dataset": "coco128 (Ultralytics auto-download; 128-image COCO subset, NOT full COCO val)",
+      "elapsed_s": 4.3,
+      "mAP50": 0.6706,
+      "mAP50-95": 0.5026,
+      "precision": 0.6633,
+      "recall": 0.5894
+    },
+    "yolo26n": {
+      "dataset": "coco128 (Ultralytics auto-download; 128-image COCO subset, NOT full COCO val)",
+      "elapsed_s": 1.6,
+      "mAP50": 0.6492,
+      "mAP50-95": 0.486,
+      "precision": 0.7337,
+      "recall": 0.5485
+    }
+  },
+  "export": {
+    "yolo11n": {
+      "onnx": {
+        "format": "onnx",
+        "path": "/workspace/meta-hackathon/models/yolo11n.onnx",
+        "export_s": 1.56,
+        "size_mb": 10.24,
+        "latency": {
+          "n": 75,
+          "mean_ms": 60.18,
+          "p50_ms": 61.84,
+          "p95_ms": 95.98,
+          "std_ms": 26.41,
+          "min_ms": 20.37,
+          "max_ms": 111.32
+        },
+        "note": "predict only (no ByteTrack); subset of frames"
+      },
+      "openvino": {
+        "format": "openvino",
+        "path": "/workspace/meta-hackathon/models/yolo11n_openvino_model",
+        "export_s": 1.36,
+        "size_mb": 10.37,
+        "latency": {
+          "n": 75,
+          "mean_ms": 11.59,
+          "p50_ms": 11.46,
+          "p95_ms": 13.92,
+          "std_ms": 1.38,
+          "min_ms": 9.81,
+          "max_ms": 15.79
+        },
+        "note": "predict only (no ByteTrack); subset of frames"
+      }
+    },
+    "yolo26n": {
+      "onnx": {
+        "format": "onnx",
+        "path": "/workspace/meta-hackathon/models/yolo26n.onnx",
+        "export_s": 0.96,
+        "size_mb": 9.47,
+        "latency": {
+          "n": 75,
+          "mean_ms": 60.05,
+          "p50_ms": 65.85,
+          "p95_ms": 87.87,
+          "std_ms": 23.73,
+          "min_ms": 16.62,
+          "max_ms": 102.09
+        },
+        "note": "predict only (no ByteTrack); subset of frames"
+      },
+      "openvino": {
+        "format": "openvino",
+        "path": "/workspace/meta-hackathon/models/yolo26n_openvino_model",
+        "export_s": 1.4,
+        "size_mb": 9.62,
+        "latency": {
+          "n": 75,
+          "mean_ms": 11.4,
+          "p50_ms": 10.65,
+          "p95_ms": 17.54,
+          "std_ms": 2.87,
+          "min_ms": 9.17,
+          "max_ms": 25.99
+        },
+        "note": "predict only (no ByteTrack); subset of frames"
+      }
+    }
+  },
+  "peak_rss_mb_end": 4717.4
+}

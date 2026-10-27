@@ -3,8 +3,12 @@ __pycache__/
 *.pyc
 .pytest_cache/
 models/*.pt
+models/*.onnx
+models/*_openvino_model/
 samples/*
 !samples/README.md
 outputs/*
 !outputs/README.md
 .env
+datasets/
+runs/

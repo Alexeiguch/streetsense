@@ -8,6 +8,8 @@ from dataclasses import dataclass, field
 
 @dataclass
 class DetectorConfig:
+    # Default YOLO11n (see docs/BENCHMARK.md). YOLO26n is selectable:
+    #   --weights models/yolo26n.pt   or set weights="models/yolo26n.pt"
     weights: str = "models/yolo11n.pt"
     imgsz: int = 640
     conf: float = 0.35

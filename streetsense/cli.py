@@ -162,7 +162,8 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--stride", type=int, default=1, help="process every Nth frame")
     r.add_argument("--resize", type=int, default=1280, help="downscale wider frames to this width")
     r.add_argument("--imgsz", type=int, default=640)
-    r.add_argument("--weights", default="models/yolo11n.pt")
+    r.add_argument("--weights", default="models/yolo11n.pt",
+                    help="Ultralytics weights path (default yolo11n; try models/yolo26n.pt)")
     r.add_argument("--no-surface", action="store_true")
     r.add_argument("--no-vlm", action="store_true")
     r.add_argument("--speak", action="store_true")

@@ -1,0 +1,390 @@
+{
+  "summary": {
+    "yolo11n": {
+      "tp": 97,
+      "fp": 14,
+      "fn": 106,
+      "precision": 0.874,
+      "recall": 0.478,
+      "f1": 0.618,
+      "n_frames": 14,
+      "method": "count-based per-class vs hand counts (small sample; not box-IoU GT)"
+    },
+    "yolo26n": {
+      "tp": 91,
+      "fp": 17,
+      "fn": 112,
+      "precision": 0.843,
+      "recall": 0.448,
+      "f1": 0.585,
+      "n_frames": 14,
+      "method": "count-based per-class vs hand counts (small sample; not box-IoU GT)"
+    }
+  },
+  "per_frame": [
+    {
+      "path": "outputs/benchmark/hand_frames/tyumen_t002.0.jpg",
+      "gt": {
+        "person": 6,
+        "car": 2,
+        "traffic light": 2
+      },
+      "yolo11n": {
+        "pred": {
+          "person": 4,
+          "traffic light": 2,
+          "car": 6
+        },
+        "tp": 8,
+        "fp": 4,
+        "fn": 2
+      },
+      "yolo26n": {
+        "pred": {
+          "person": 6,
+          "traffic light": 2,
+          "car": 7
+        },
+        "tp": 10,
+        "fp": 5,
+        "fn": 0
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/tyumen_t008.0.jpg",
+      "gt": {
+        "person": 8,
+        "car": 4,
+        "traffic light": 2
+      },
+      "yolo11n": {
+        "pred": {
+          "person": 6,
+          "traffic light": 3,
+          "car": 5
+        },
+        "tp": 12,
+        "fp": 2,
+        "fn": 2
+      },
+      "yolo26n": {
+        "pred": {
+          "traffic light": 3,
+          "person": 6,
+          "car": 4
+        },
+        "tp": 12,
+        "fp": 1,
+        "fn": 2
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/tyumen_t015.0.jpg",
+      "gt": {
+        "person": 6,
+        "car": 4,
+        "traffic light": 2
+      },
+      "yolo11n": {
+        "pred": {
+          "traffic light": 3,
+          "person": 5,
+          "car": 8
+        },
+        "tp": 11,
+        "fp": 5,
+        "fn": 1
+      },
+      "yolo26n": {
+        "pred": {
+          "traffic light": 3,
+          "car": 7,
+          "person": 4
+        },
+        "tp": 10,
+        "fp": 4,
+        "fn": 2
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/dc_t005.0.jpg",
+      "gt": {
+        "traffic light": 2,
+        "car": 2
+      },
+      "yolo11n": {
+        "pred": {
+          "traffic light": 2
+        },
+        "tp": 2,
+        "fp": 0,
+        "fn": 2
+      },
+      "yolo26n": {
+        "pred": {
+          "traffic light": 2
+        },
+        "tp": 2,
+        "fp": 0,
+        "fn": 2
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/dc_t010.8.jpg",
+      "gt": {
+        "traffic light": 2,
+        "car": 2
+      },
+      "yolo11n": {
+        "pred": {
+          "traffic light": 2
+        },
+        "tp": 2,
+        "fp": 0,
+        "fn": 2
+      },
+      "yolo26n": {
+        "pred": {
+          "traffic light": 2
+        },
+        "tp": 2,
+        "fp": 0,
+        "fn": 2
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/dc_t020.0.jpg",
+      "gt": {
+        "traffic light": 2,
+        "car": 2
+      },
+      "yolo11n": {
+        "pred": {
+          "traffic light": 2,
+          "car": 1
+        },
+        "tp": 3,
+        "fp": 0,
+        "fn": 1
+      },
+      "yolo26n": {
+        "pred": {
+          "traffic light": 2,
+          "car": 1
+        },
+        "tp": 3,
+        "fp": 0,
+        "fn": 1
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/dc_t035.0.jpg",
+      "gt": {
+        "traffic light": 2,
+        "car": 1
+      },
+      "yolo11n": {
+        "pred": {
+          "traffic light": 2
+        },
+        "tp": 2,
+        "fp": 0,
+        "fn": 1
+      },
+      "yolo26n": {
+        "pred": {
+          "traffic light": 2
+        },
+        "tp": 2,
+        "fp": 0,
+        "fn": 1
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/dc_t052.8.jpg",
+      "gt": {
+        "traffic light": 2,
+        "car": 1
+      },
+      "yolo11n": {
+        "pred": {
+          "traffic light": 2
+        },
+        "tp": 2,
+        "fp": 0,
+        "fn": 1
+      },
+      "yolo26n": {
+        "pred": {
+          "traffic light": 2
+        },
+        "tp": 2,
+        "fp": 0,
+        "fn": 1
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/dc_t060.0.jpg",
+      "gt": {
+        "traffic light": 2,
+        "car": 1
+      },
+      "yolo11n": {
+        "pred": {
+          "traffic light": 2
+        },
+        "tp": 2,
+        "fp": 0,
+        "fn": 1
+      },
+      "yolo26n": {
+        "pred": {
+          "traffic light": 2
+        },
+        "tp": 2,
+        "fp": 0,
+        "fn": 1
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/cdmx_t025.0.jpg",
+      "gt": {
+        "person": 25,
+        "car": 4,
+        "suitcase": 1
+      },
+      "yolo11n": {
+        "pred": {
+          "suitcase": 1,
+          "person": 8
+        },
+        "tp": 9,
+        "fp": 0,
+        "fn": 21
+      },
+      "yolo26n": {
+        "pred": {
+          "person": 9,
+          "suitcase": 1,
+          "bus": 1
+        },
+        "tp": 10,
+        "fp": 1,
+        "fn": 20
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/cdmx_t035.0.jpg",
+      "gt": {
+        "person": 30,
+        "car": 5,
+        "suitcase": 1
+      },
+      "yolo11n": {
+        "pred": {
+          "person": 6,
+          "suitcase": 1,
+          "car": 1
+        },
+        "tp": 8,
+        "fp": 0,
+        "fn": 28
+      },
+      "yolo26n": {
+        "pred": {
+          "person": 6,
+          "suitcase": 1,
+          "car": 2
+        },
+        "tp": 9,
+        "fp": 0,
+        "fn": 27
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/cdmx_t045.0.jpg",
+      "gt": {
+        "person": 25,
+        "car": 4
+      },
+      "yolo11n": {
+        "pred": {
+          "person": 10,
+          "suitcase": 1,
+          "car": 2
+        },
+        "tp": 12,
+        "fp": 1,
+        "fn": 17
+      },
+      "yolo26n": {
+        "pred": {
+          "person": 7,
+          "suitcase": 1,
+          "car": 2,
+          "bus": 1
+        },
+        "tp": 9,
+        "fp": 2,
+        "fn": 20
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/cdmx_t055.0.jpg",
+      "gt": {
+        "person": 25,
+        "car": 3
+      },
+      "yolo11n": {
+        "pred": {
+          "person": 10,
+          "suitcase": 1,
+          "car": 2
+        },
+        "tp": 12,
+        "fp": 1,
+        "fn": 16
+      },
+      "yolo26n": {
+        "pred": {
+          "person": 7,
+          "suitcase": 1,
+          "car": 2,
+          "bus": 1
+        },
+        "tp": 9,
+        "fp": 2,
+        "fn": 19
+      }
+    },
+    {
+      "path": "outputs/benchmark/hand_frames/cdmx_t065.0.jpg",
+      "gt": {
+        "person": 20,
+        "car": 3
+      },
+      "yolo11n": {
+        "pred": {
+          "person": 10,
+          "suitcase": 1,
+          "car": 2
+        },
+        "tp": 12,
+        "fp": 1,
+        "fn": 11
+      },
+      "yolo26n": {
+        "pred": {
+          "person": 7,
+          "suitcase": 1,
+          "car": 2,
+          "bus": 1
+        },
+        "tp": 9,
+        "fp": 2,
+        "fn": 14
+      }
+    }
+  ],
+  "note": "Hand counts from inspecting extracted JPEGs; crowded CDMX counts are approximate mid/near people."
+}
