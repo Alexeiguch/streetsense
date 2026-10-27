@@ -23,6 +23,17 @@ REAL_HEIGHT_M = {
     "chair": 0.9,
     "potted plant": 0.8,
     "parking meter": 1.3,
+    # open-vocab sidewalk hazards (coarse priors)
+    "bollard": 0.9,
+    "traffic cone": 0.7,
+    "scooter": 1.1,
+    "construction barrier": 1.2,
+    "barrier": 1.2,
+    "stairs": 1.5,
+    "step": 0.2,
+    "pothole": 0.15,
+    "manhole": 0.1,
+    "kerb": 0.15,
 }
 
 

@@ -12,6 +12,7 @@ from .alerts import AlertManager
 from .config import Config
 from .crosswalk import CrosswalkHysteresis, CrosswalkResult, detect_crosswalk
 from .detector import ApproachTracker, YoloDetector
+from .open_vocab import OpenVocabHazardDetector
 from .meta_api import MetaVisionAssistant
 from .overlay import draw
 from .rules import FrameFacts, build_alerts
@@ -59,6 +60,19 @@ class Pipeline:
         self._i = 0
         self._last_surface: SurfaceResult | None = None
         self._last_cw: CrosswalkResult | None = None
+        self._last_hazards: list[Detection] = []
+        self.open_vocab = None
+        if getattr(self.cfg, "open_vocab", None) is not None and self.cfg.open_vocab.enabled:
+            try:
+                self.open_vocab = OpenVocabHazardDetector(
+                    weights=self.cfg.open_vocab.weights,
+                    conf=self.cfg.open_vocab.conf,
+                    imgsz=self.cfg.open_vocab.imgsz,
+                    device=self.cfg.detector.device,
+                )
+            except Exception as e:
+                print(f"[open-vocab] disabled: {type(e).__name__}: {e}")
+                self.open_vocab = None
         self.recent: list[Alert] = []
         self.timing_totals: dict[str, float] = defaultdict(float)
 
@@ -86,14 +100,28 @@ class Pipeline:
                 crop = frame[int(b.y1):int(b.y2), int(b.x1):int(b.x2)]
                 kind = signal_kind(b.w, b.h)
                 r = classify_light(crop, kind)
-                if r.state == "walk":
+                if r.state == "walk" or getattr(r, "figure", False):
                     kind = "pedestrian"
                 kind = self._track_kind(d.track_id, kind)
                 d.attrs["signal_kind"] = kind
                 d.attrs["countdown"] = r.countdown
                 d.attrs["light_raw"] = r.state
+                d.attrs["figure"] = bool(getattr(r, "figure", False))
                 d.attrs["light_state"] = self.smoother.update(d.track_id, r.state)
         tm["lights"] = (time.perf_counter() - t0) * 1000
+
+        t0 = time.perf_counter()
+        if self.open_vocab is not None:
+            every = max(1, self.cfg.open_vocab.every_n_frames)
+            if self._i % every == 0 or not self._last_hazards:
+                try:
+                    self._last_hazards = self.open_vocab(frame)
+                except Exception as e:
+                    print(f"[open-vocab] frame failed: {type(e).__name__}: {e}")
+                    self._last_hazards = []
+            if self._last_hazards:
+                dets = list(dets) + list(self._last_hazards)
+        tm["open_vocab"] = (time.perf_counter() - t0) * 1000
 
         t0 = time.perf_counter()
         if self.surface_seg is not None and (self._i % self.cfg.surface.every_n_frames == 0 or self._last_surface is None):

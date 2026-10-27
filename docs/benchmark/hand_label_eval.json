@@ -386,5 +386,37 @@
       }
     }
   ],
-  "note": "Hand counts from inspecting extracted JPEGs; crowded CDMX counts are approximate mid/near people."
+  "note": "Hand counts from inspecting extracted JPEGs; crowded CDMX counts are approximate mid/near people.",
+  "summary_v2": {
+    "yolo11n_conf35": {
+      "tp": 101,
+      "fp": 13,
+      "fn": 102,
+      "precision": 0.886,
+      "recall": 0.498,
+      "f1": 0.637,
+      "n_frames": 14,
+      "method": "count-based per-class vs hand counts (small sample; not box-IoU GT); track=False"
+    },
+    "yolo11s_conf35": {
+      "tp": 126,
+      "fp": 27,
+      "fn": 77,
+      "precision": 0.824,
+      "recall": 0.621,
+      "f1": 0.708,
+      "n_frames": 14,
+      "method": "count-based per-class vs hand counts (small sample; not box-IoU GT); track=False"
+    },
+    "yolo11s_default": {
+      "tp": 137,
+      "fp": 29,
+      "fn": 66,
+      "precision": 0.825,
+      "recall": 0.675,
+      "f1": 0.743,
+      "n_frames": 14,
+      "method": "count-based per-class vs hand counts (small sample; not box-IoU GT); track=False"
+    }
+  }
 }

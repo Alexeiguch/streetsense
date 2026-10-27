@@ -119,3 +119,33 @@ def test_countdown_frames_hold_walk_and_hand_still_flips():
     for st in ["red", "countdown", "red", "red"]:
         out = s.update(1, st)
     assert out == "red"
+
+
+def _eu_figure(color_bgr, h=120, w=50):
+    """Synthetic EU pedestrian head: dark housing + tall stick-figure lamp."""
+    img = np.full((h, w, 3), 30, np.uint8)
+    # stick figure: head + torso + legs (tall, sparse)
+    cx = w // 2
+    cv2.circle(img, (cx, 28), 6, color_bgr, -1)          # head
+    cv2.rectangle(img, (cx - 3, 34), (cx + 3, 70), color_bgr, -1)  # torso
+    cv2.line(img, (cx, 70), (cx - 8, 100), color_bgr, 3)  # leg
+    cv2.line(img, (cx, 70), (cx + 8, 100), color_bgr, 3)  # leg
+    return img
+
+
+def test_eu_green_figure_is_walk_and_pedestrian_signal():
+    r = classify_light(_eu_figure((80, 220, 40)), kind="unknown")
+    assert r.figure is True
+    assert r.state == "walk"
+
+
+def test_eu_red_figure_is_red_with_figure_flag():
+    r = classify_light(_eu_figure((40, 40, 255)), kind="unknown")
+    assert r.figure is True
+    assert r.state == "red"
+
+
+def test_round_vehicle_lamp_is_not_figure():
+    r = classify_light(housing(2, (80, 220, 40)), kind="vehicle")
+    assert r.state == "green"
+    assert r.figure is False

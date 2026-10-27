@@ -1,8 +1,9 @@
 """Traffic-light state from a detection crop, using HSV colour of the lit lamp.
 
 Works for vehicle lights (red/yellow/green) and for pedestrian signals (red/green figure;
-US-style white "walk" / orange "hand"). No learned weights: it is a transparent heuristic
-that can be unit-tested, and a Meta vision model can be asked to confirm on demand.
+US-style white "walk" / orange "hand"; EU-style tall red/green man silhouette). No learned
+weights: it is a transparent heuristic that can be unit-tested, and a Meta vision model can
+be asked to confirm on demand.
 """
 
 from __future__ import annotations
@@ -32,6 +33,7 @@ class LightReading:
     lit_fraction: float  # lit pixels / crop pixels
     lamp_position: float | None  # 0 = top of housing, 1 = bottom, for the dominant colour
     countdown: bool = False  # US-style: walk figure plus a lit (orange) countdown below it
+    figure: bool = False  # tall lit silhouette (EU red/green man) -> treat housing as pedestrian
 
 
 def _hue_mask(hsv: np.ndarray, ranges: list[tuple[int, int]]) -> np.ndarray:
@@ -39,6 +41,40 @@ def _hue_mask(hsv: np.ndarray, ranges: list[tuple[int, int]]) -> np.ndarray:
     for lo, hi in ranges:
         m |= (hsv[..., 0] >= lo) & (hsv[..., 0] <= hi)
     return m
+
+
+
+def _figure_silhouette(lit_mask: np.ndarray) -> tuple[bool, float]:
+    """True when the lit pixels form a tall standing/walking figure (EU ped man/woman).
+
+    Vehicle circular lamps are roughly round (aspect ~1). Pedestrian stick-figures are
+    elongated vertically. Returns (is_figure, aspect_h_over_w).
+    """
+    if lit_mask is None or not lit_mask.any():
+        return False, 0.0
+    # Largest connected component of lit pixels
+    u8 = lit_mask.astype(np.uint8) * 255
+    n, labels, stats, _ = cv2.connectedComponentsWithStats(u8, connectivity=8)
+    if n <= 1:
+        return False, 0.0
+    # skip background label 0
+    areas = stats[1:, cv2.CC_STAT_AREA]
+    idx = 1 + int(np.argmax(areas))
+    w = int(stats[idx, cv2.CC_STAT_WIDTH])
+    h = int(stats[idx, cv2.CC_STAT_HEIGHT])
+    area = int(stats[idx, cv2.CC_STAT_AREA])
+    if w < 2 or h < 4 or area < 8:
+        return False, 0.0
+    aspect = h / max(1, w)
+    fill = area / max(1.0, float(w * h))
+    # Tall sparse stick-figure (EU man). Round LED lamps are ~aspect 1 and densely filled.
+    is_fig = (
+        aspect >= 1.8
+        and fill < 0.55
+        and h >= 0.35 * lit_mask.shape[0]
+        and w <= 0.55 * lit_mask.shape[1]
+    )
+    return is_fig, float(aspect)
 
 
 def classify_light(crop_bgr: np.ndarray, kind: str = "unknown") -> LightReading:
@@ -108,7 +144,15 @@ def classify_light(crop_bgr: np.ndarray, kind: str = "unknown") -> LightReading:
         # lower part, with the top dark, is a countdown display while the walk figure is between
         # LED refreshes (or the camera missed it). Not a colour vote: the smoother ignores it.
         return LightReading("countdown", float(conf), n_lit / total, pos, True)
-    return LightReading(state, float(conf), n_lit / total, pos)
+    # EU-style pedestrian heads show a standing/walking stick figure rather than a round lamp.
+    # Tall lit silhouette + red/green => mark as figure; green figure is spoken as walk.
+    fig_mask = lit & hue
+    is_fig, _ = _figure_silhouette(fig_mask)
+    if is_fig and state == "green" and kind != "vehicle":
+        return LightReading("walk", float(conf), n_lit / total, pos, False, True)
+    if is_fig and state in ("red", "green") and kind != "vehicle":
+        return LightReading(state, float(conf), n_lit / total, pos, False, True)
+    return LightReading(state, float(conf), n_lit / total, pos, False, is_fig and state in ("red", "green"))
 
 
 def signal_kind(box_w: float, box_h: float) -> str:

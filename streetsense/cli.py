@@ -46,8 +46,13 @@ def cmd_run(a: argparse.Namespace) -> int:
     cfg.detector.imgsz = a.imgsz
     cfg.detector.weights = a.weights
     cfg.detector.backend = a.backend
+    if getattr(a, "conf", None) is not None:
+        cfg.detector.conf = a.conf
     cfg.surface.backend = getattr(a, "surface_backend", None) or a.backend
     cfg.vlm.enabled = not a.no_vlm
+    cfg.open_vocab.enabled = bool(getattr(a, "open_vocab", False))
+    if getattr(a, "open_vocab_weights", None):
+        cfg.open_vocab.weights = a.open_vocab_weights
     clock = VideoClock() if is_file else time.monotonic
     pipe = Pipeline(cfg, use_surface=not a.no_surface, clock=clock)
     speaker = Speaker(enabled=a.speak)
@@ -167,12 +172,18 @@ def main(argv: list[str] | None = None) -> int:
     r.add_argument("--stride", type=int, default=1, help="process every Nth frame")
     r.add_argument("--resize", type=int, default=1280, help="downscale wider frames to this width")
     r.add_argument("--imgsz", type=int, default=640)
-    r.add_argument("--weights", default="models/yolo11n.pt",
-                    help="Ultralytics weights path (default yolo11n; try models/yolo26n.pt)")
+    r.add_argument("--weights", default="models/yolo11s.pt",
+                    help="Ultralytics weights (default yolo11s; try yolo11n/yolo11m/rtdetr-l/yolo26n)")
+    r.add_argument("--conf", type=float, default=None,
+                    help="global detector confidence floor (default 0.35; person uses 0.28)")
     r.add_argument("--backend", default="openvino", choices=["openvino", "torch"],
                     help="default inference backend for detector + surface (openvino|torch)")
     r.add_argument("--surface-backend", default=None, choices=["openvino", "torch"],
                     help="override surface segmenter backend (default: same as --backend)")
+    r.add_argument("--open-vocab", action="store_true",
+                    help="enable YOLO-World hazard loop every N frames (bollard/scooter/...)")
+    r.add_argument("--open-vocab-weights", default=None,
+                    help="open-vocab weights path (default models/yolov8s-worldv2.pt)")
     r.add_argument("--no-surface", action="store_true")
     r.add_argument("--no-vlm", action="store_true")
     r.add_argument("--speak", action="store_true")

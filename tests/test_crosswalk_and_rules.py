@@ -136,3 +136,16 @@ def test_one_light_announced_pedestrian_preferred():
     small_ped = Detection("traffic light", Box(600, 50, 620, 90), 0.8, attrs={"light_state": "red", "signal_kind": "pedestrian"})
     lights = [a for a in build_alerts(FrameFacts(1280, 720, [big_vehicle, small_ped])) if a.key.startswith("light:")]
     assert len(lights) == 1 and lights[0].text == "pedestrian light is red"
+
+
+def test_most_relevant_light_prefers_walk_over_larger_green():
+    """Regression: a larger vehicle-green head sticky-labelled pedestrian must not beat walk."""
+    from streetsense.rules import most_relevant_light
+    from streetsense.types import Box, Detection
+
+    green = Detection("traffic light", Box(0, 0, 80, 160), 0.9, track_id=1,
+                      attrs={"signal_kind": "pedestrian", "light_state": "green"})
+    walk = Detection("traffic light", Box(100, 0, 140, 80), 0.7, track_id=2,
+                     attrs={"signal_kind": "pedestrian", "light_state": "walk", "countdown": True})
+    pick = most_relevant_light([green, walk])
+    assert pick is walk

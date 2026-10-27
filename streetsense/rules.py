@@ -10,7 +10,9 @@ from .surface import SurfaceResult
 from .types import Alert, Detection, Priority
 
 VEHICLES = {"car", "bus", "truck", "motorcycle", "bicycle", "train"}
-OBSTACLES = {"bench", "fire hydrant", "parking meter", "chair", "potted plant", "stop sign", "dog", "suitcase"}
+OBSTACLES = {"bench", "fire hydrant", "parking meter", "chair", "potted plant", "stop sign", "dog", "suitcase",
+            "bollard", "traffic cone", "scooter", "construction barrier", "barrier",
+            "stairs", "step", "pothole", "manhole", "kerb"}
 
 
 @dataclass
@@ -30,13 +32,22 @@ def _where(zone: str) -> str:
 
 
 def most_relevant_light(dets: list[Detection]) -> Detection | None:
-    """Several heads are usually in view; speak about one. Pedestrian heads win, then the biggest
-    (nearest) one, so the walker hears a single consistent state instead of a chorus."""
+    """Several heads are usually in view; speak about one. Pedestrian heads win, then the
+    action-critical state (walk/red over green), then the biggest (nearest) box."""
     lights = [d for d in dets if d.label == "traffic light" and d.attrs.get("light_state", "unknown") != "unknown"]
     if not lights:
         return None
-    rank = {"pedestrian": 2, "unknown": 1, "vehicle": 0}
-    return max(lights, key=lambda d: (rank.get(d.attrs.get("signal_kind", "unknown"), 1), d.box.area))
+    kind_rank = {"pedestrian": 2, "unknown": 1, "vehicle": 0}
+    # walk/red matter more than a sticky vehicle-green mislabelled as pedestrian
+    state_rank = {"walk": 4, "red": 3, "yellow": 2, "green": 1}
+    return max(
+        lights,
+        key=lambda d: (
+            kind_rank.get(d.attrs.get("signal_kind", "unknown"), 1),
+            state_rank.get(d.attrs.get("light_state", "unknown"), 0),
+            d.box.area,
+        ),
+    )
 
 
 def build_alerts(f: FrameFacts, hfov_deg: float = 70.0) -> list[Alert]:
@@ -65,7 +76,13 @@ def build_alerts(f: FrameFacts, hfov_deg: float = 70.0) -> list[Alert]:
                                  data={"distance_m": dist}))
         elif d.label in OBSTACLES:
             if path and dist is not None and dist < 5:
-                out.append(Alert(f"obstacle:{zone}", f"{d.label} {_where(zone)}, {round_distance(dist)}",
+                spoken = {
+                    "bollard": "bollard", "traffic cone": "traffic cone", "scooter": "scooter",
+                    "construction barrier": "construction barrier", "barrier": "barrier",
+                    "stairs": "stairs", "step": "step", "pothole": "pothole",
+                    "manhole": "open manhole", "kerb": "kerb",
+                }.get(d.label, d.label)
+                out.append(Alert(f"obstacle:{d.label}:{zone}", f"{spoken} {_where(zone)}, {round_distance(dist)}",
                                  Priority.WARNING, data={"label": d.label, "distance_m": dist}))
     light = most_relevant_light(f.detections)
     if light is not None:

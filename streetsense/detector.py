@@ -1,8 +1,11 @@
 """Fast local detector: Ultralytics YOLO (COCO) with optional ByteTrack ids.
 
-Default inference backend is OpenVINO (CPU). PyTorch remains selectable via
-DetectorConfig.backend / CLI --backend. Missing OpenVINO exports are built from
-the .pt on first use; failures fall back to PyTorch with a clear log line.
+Default weights are YOLO11s (better recall than 11n on our hand sample; see
+docs/BENCHMARK.md). Default inference backend is OpenVINO (CPU). PyTorch remains
+selectable via DetectorConfig.backend / CLI --backend. Missing OpenVINO exports
+are built from the .pt on first use; failures fall back to PyTorch with a clear
+log line. Per-class confidence overrides (e.g. lower for person) are applied
+after a global floor so recall can be raised without flooding vehicle FPs.
 """
 
 from __future__ import annotations
@@ -21,6 +24,12 @@ from .types import Box, Detection
 KEEP = {
     "person", "bicycle", "car", "motorcycle", "bus", "truck", "train", "traffic light",
     "stop sign", "fire hydrant", "parking meter", "bench", "dog", "chair", "potted plant", "suitcase",
+}
+
+# Sidewalk hazards from the optional open-vocab loop (not COCO).
+HAZARD_LABELS = {
+    "bollard", "traffic cone", "scooter", "construction barrier", "barrier",
+    "stairs", "step", "pothole", "manhole", "kerb",
 }
 
 BACKENDS = ("openvino", "torch")
@@ -149,8 +158,20 @@ class YoloDetector:
         else:
             print(f"[detector] backend=torch path={self.model_path}", file=sys.stderr)
 
+    def _conf_floor(self) -> float:
+        """Lowest confidence we ask the backend for (global or any per-class override)."""
+        by = getattr(self.cfg, "conf_by_class", None) or {}
+        vals = [float(self.cfg.conf), *[float(v) for v in by.values()]]
+        return min(vals) if vals else float(self.cfg.conf)
+
+    def _accept(self, label: str, conf: float) -> bool:
+        by = getattr(self.cfg, "conf_by_class", None) or {}
+        thr = float(by.get(label, self.cfg.conf))
+        return conf >= thr
+
     def __call__(self, frame_bgr: np.ndarray) -> list[Detection]:
-        kw = dict(imgsz=self.cfg.imgsz, conf=self.cfg.conf, iou=self.cfg.iou, device=self.cfg.device, verbose=False)
+        floor = self._conf_floor()
+        kw = dict(imgsz=self.cfg.imgsz, conf=floor, iou=self.cfg.iou, device=self.cfg.device, verbose=False)
         if self.cfg.track:
             res = self.model.track(frame_bgr, persist=True, tracker="bytetrack.yaml", **kw)[0]
         else:
@@ -165,6 +186,8 @@ class YoloDetector:
         for b, c, p, tid in zip(xyxy, cls, conf, ids):
             label = self.names[int(c)]
             if label not in KEEP:
+                continue
+            if not self._accept(label, float(p)):
                 continue
             out.append(Detection(label, Box(*map(float, b)), float(p), None if tid is None else int(tid)))
         return out

@@ -15,7 +15,7 @@ Two loops. The fast local loop handles safety-critical alerts at camera rate on 
 flowchart LR
     CAM[Camera / video file / phone browser] --> F[Frame]
     subgraph FAST["Fast loop (local, every frame, CPU)"]
-        F --> YOLO["YOLO11n OpenVINO + ByteTrack<br/>SegFormer OpenVINO (default)<br/>--backend torch / --weights yolo26n"]
+        F --> YOLO["YOLO11s OpenVINO + ByteTrack<br/>SegFormer OpenVINO (default)<br/>--backend torch / --weights yolo11n|11m|rtdetr"]
         F --> SEG["SegFormer-B0 (Cityscapes)<br/>road / sidewalk / pole<br/>(every 6th frame)"]
         YOLO --> TL["Traffic-light reader<br/>HSV lamp colour, walk figure,<br/>countdown, screen rejection,<br/>per-track vote"]
         SEG --> CW["Zebra-crossing detector<br/>stripe geometry on the ground mask<br/>+ hysteresis"]
@@ -38,9 +38,10 @@ flowchart LR
 
 | Module | Role |
 |---|---|
-| `streetsense/detector.py` | YOLO11n (COCO) via **OpenVINO by default** (auto-exports `models/yolo11n_openvino_model/`; falls back to PyTorch). `--backend torch` or `--weights models/yolo26n.pt`. `ApproachTracker` flags growing boxes |
-| `streetsense/traffic_light.py` | Lamp colour from HSV. Orange means amber on vehicle heads and the "hand" on pedestrian heads. Detects the US white walk figure and countdown, rejects bright screens, and votes over a track |
+| `streetsense/detector.py` | **YOLO11s** (COCO) via **OpenVINO by default** (auto-exports `models/yolo11s_openvino_model/`; falls back to PyTorch). Per-class conf (person 0.28). `--weights models/yolo11n.pt\|yolo11m.pt\|rtdetr-l.pt\|yolo26n.pt`. `ApproachTracker` flags growing boxes |
+| `streetsense/traffic_light.py` | Lamp colour from HSV. Orange means amber on vehicle heads and the "hand" on pedestrian heads. US white walk figure + countdown; EU tall red/green man silhouette; rejects bright screens; votes over a track; ranking prefers walk/red over sticky green |
 | `streetsense/crosswalk.py` | Zebra stripes: bright, low-saturation, elongated, parallel bars on the road/sidewalk mask, with k-of-n hysteresis |
+| `streetsense/open_vocab.py` | Optional YOLO-World slow loop (`--open-vocab`) for bollard/scooter/kerb/pothole/… prompts (AGPL) |
 | `streetsense/surface.py` | SegFormer-B0 Cityscapes via **OpenVINO by default** (auto-converts to `models/segformer_b0_cityscapes_openvino/`; PyTorch fallback). Underfoot road/sidewalk + pole-ahead |
 | `streetsense/geometry.py` | Zones, clock-face direction, walking corridor, pinhole distance from class height priors |
 | `streetsense/rules.py` | Perception to candidate alerts (one traffic light per frame, pedestrian heads first) |
@@ -62,8 +63,9 @@ flowchart LR
 python3 -m venv .venv && . .venv/bin/activate
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
 pip install -e '.[dev,speech]'
-mkdir -p models && python -c "from ultralytics import YOLO; YOLO('yolo11n.pt')" && mv yolo11n.pt models/
-# OpenVINO IR is auto-exported on first run to models/yolo11n_openvino_model/
+mkdir -p models && python -c "from ultralytics import YOLO; YOLO('yolo11s.pt')" && mv yolo11s.pt models/
+# OpenVINO IR is auto-exported on first run to models/yolo11s_openvino_model/
+# Optional: yolo11n.pt / yolo11m.pt / rtdetr-l.pt / yolov8s-worldv2.pt for --open-vocab
 scripts/get_samples.sh
 
 # annotated video + alerts log (alerts timed in video seconds)
@@ -86,13 +88,13 @@ With `MODEL_API_KEY` set, `run` and `serve` also send a frame to Muse Spark ever
 Tests: `python -m pytest -q`
 
 ## Measured on the dev box (8 vCPU x86, no GPU, 27 Oct 2026)
-Input resized to 1280×720, **YOLO11n + SegFormer both OpenVINO by default**, SegFormer every 6th frame, ByteTrack on.
+Input resized to 1280×720, **YOLO11s + SegFormer both OpenVINO by default**, SegFormer every 6th frame, ByteTrack on.
 
-| Clip | Pipeline FPS (overlay on / off) | Detect ms (OV) | Surface when-runs / amortised (OV) |
+| Clip | Pipeline FPS (overlay on / off, YOLO11s) | Detect ms (OV 11s) | Notes |
 |---|---|---|---|
-| Tyumen crossing (CC BY-SA, 1080p) | **33.0 / 55.2** | ~14 | **21 / 3.6** ms |
-| Washington DC pedestrian signal (CC BY, 1440×810) | **35.0 / 55.7** | ~13 | **20 / 3.4** ms |
-| Mexico City crossing (CC BY-SA, 720p), 20 s to 68 s | **32.5 / 57.9** | ~15 | **20 / 3.5** ms |
+| Tyumen crossing (CC BY-SA, 1080p) | **~25–27 / ~40** | ~18–21 | Was ~33 FPS with 11n; still ≫15 FPS target |
+| Washington DC pedestrian signal (CC BY, 1440×810) | **~29 / ~42** | ~19 | Walk@10.8 s and red@52.8 s still fire |
+| Mexico City crossing (CC BY-SA, 720p) | (11n baseline 32.5 / 57.9) | — | See [docs/BENCHMARK.md](docs/BENCHMARK.md) §7 |
 
 Vs the previous default (OV detector + **PyTorch** SegFormer): pipeline overlay-on was ~25 FPS; surface when-runs ~58–67 ms (amortised ~10 ms). OpenVINO SegFormer is ~3× faster per call; overlay blend also trimmed (~12 ms vs ~17 ms) via `cv2.copyTo`. First-run converts: YOLO IR ~2 s, SegFormer IR ~5 s (both gitignored under `models/`). `--backend torch` forces PyTorch for detector **and** surface; `--surface-backend` overrides surface alone.
 
@@ -102,17 +104,19 @@ Web `/frame` server p50 (Tyumen JPEG): all-OpenVINO **13.2 ms** vs all-torch **1
 - The light classifier passes 9 hand-labelled real crops (`tests/fixtures`).
 - SegFormer torch↔OpenVINO on 36 sampled frames: pixel agreement **0.996**, mIoU **0.967**, underfoot label match **100%** ([docs/BENCHMARK.md](docs/BENCHMARK.md) §6).
 - DC walk@10.8 s and pedestrian red@52.8 s still fire with OpenVINO surface.
-- YOLO11n remains the default weights; YOLO26n optional via `--weights models/yolo26n.pt`.
+- **YOLO11s** is the default weights (hand recall 0.50→0.68 on a 14-frame sample; coco128 mAP50-95 0.50→0.57). YOLO11n / 11m / RT-DETR-l / YOLO26n via `--weights`. See [docs/BENCHMARK.md](docs/BENCHMARK.md) §7.
+- Optional `--open-vocab` runs YOLO-World every 15 frames for non-COCO hazards.
 
-`python -m pytest -q`: 79 tests passing.
+`python -m pytest -q`: 88 tests passing.
 
 ## Known gaps
 - Distances use class height priors and an assumed 70° HFOV. They're rough and uncalibrated.
-- Vehicle vs pedestrian signal heads can't be reliably told apart by shape. A head is called "pedestrian" only on evidence (walk figure). European red/green figure heads usually come out as "traffic light".
+- Vehicle vs pedestrian signal heads can't be reliably told apart by shape alone. A head is called "pedestrian" on walk figure or EU tall red/green silhouette; ranking prefers walk/red over a larger sticky green head.
 - Crosswalk detection is a heuristic. It fails on faded paint, heavy crowds, and night glare.
 - No curb or step detection and no depth model yet. Holes and stairs aren't handled.
-- The YOLO COCO classes don't include poles, bollards, or kerbs. Poles come from SegFormer only.
-- Ultralytics is AGPL-3.0.
+- The YOLO COCO classes don't include bollards, kerbs, scooters, or potholes. Poles come from SegFormer; optional `--open-vocab` (YOLO-World) tries the rest at low frequency.
+- Ultralytics YOLO / YOLO-World are AGPL-3.0. RF-DETR (Apache-2.0) was tried but not adopted (CPU latency).
+- No monocular depth model yet (Depth Anything V2 still optional).
 
 ## Licences of sample media
 See `samples/README.md` (Wikimedia Commons, CC BY / CC BY-SA).

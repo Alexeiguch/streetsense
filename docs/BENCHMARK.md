@@ -257,3 +257,72 @@ Overlay stage ~12 ms after `cv2.copyTo` blend (was ~17 ms with `np.where`).
 | | Torch p50 / mean server_ms | OpenVINO p50 / mean |
 |---|---|---|
 | Tyumen JPEG | 16.7 / 26.7 | **13.2 / 16.7** |
+
+---
+
+## 7. Detector upgrade: YOLO11n → YOLO11s (27 Oct 2026)
+
+**Goal:** raise person/obstacle recall without dropping below ~15 FPS full pipeline on this CPU box.  
+**Script / raw JSON:** `outputs/benchmark_detectors/` → `docs/benchmark/detector_results.json`  
+**Licences:** YOLO11* / RT-DETR / YOLO-World / YOLOE = **AGPL-3.0** (Ultralytics). RF-DETR Nano = **Apache-2.0** (Roboflow).
+
+**Decision: default weights are now `models/yolo11s.pt` (OpenVINO), with per-class conf floors `person/bicycle/motorcycle/dog=0.28` (global still 0.35).**  
+`--weights models/yolo11n.pt|yolo11m.pt|rtdetr-l.pt|yolo26n.pt` remain selectable.
+
+### Why YOLO11s won
+
+| Candidate | OV track ms (Tyumen screen) | Pipeline FPS overlay on (Tyumen) | coco128 mAP50-95 | Hand P / R / F1 (14 frames) | DC walk@10.8 / red@52.8 | Notes |
+|---|---|---|---|---|---|---|
+| **YOLO11n @0.35** (old default) | **12.6** | **32.0** | 0.503 | 0.89 / **0.50** / 0.64 | yes / yes | Fast; recall was the weak point |
+| **YOLO11s @0.35** | 17.8 | 26.5 | **0.574** | 0.82 / **0.62** / 0.71 | yes / yes | Clear recall lift, still ≫15 FPS |
+| **YOLO11s + class conf (NEW default)** | ~18 | **~24–27** | (same weights) | 0.83 / **0.68** / **0.74** | yes / yes | Best hand F1; +person recall |
+| YOLO11m @0.35 | 26.5 | 21.1 | 0.622 | 0.79 / 0.64 / 0.71 | yes / yes | Similar to 11s on hand; slower; noisier DC (17 alerts) |
+| RT-DETR-l @0.35 | 49.3 | **13.9** | **0.651** | 0.66 / **0.84** / 0.74 | yes / yes | Best coco128 / high recall; **fails ≥15 FPS** with overlay |
+| RF-DETR Nano (Apache-2.0) | ~60 predict | n/a | n/a | broken KEEP mapping in first pass (P≈0) | n/a | Attractive licence; too slow on CPU; needs class-name wiring |
+| YOLO11n @0.25 | 12.6 | 33.6 | — | 0.82 / 0.69 / 0.75 | yes / yes | Strong F1 without weight change; kept as tunable `--conf 0.25` |
+| imgsz 960 | — | — | — | not promoted | — | OV export is fixed at 640; torch@960 was 23–47 ms |
+
+Hand scores are **count-based on 14 frames** (not box-IoU GT). Small sample — treat as directional.
+
+### Alert behaviour (DC ped light clip)
+
+| | 11n | 11s | 11s+class (default) | 11m | RT-DETR-l |
+|---|---|---|---|---|---|
+| Spoken alerts | 12 | 13 | 13 | 17 | 13 |
+| Walk + countdown ~10.8 s | yes | yes | yes | yes | yes |
+| Pedestrian red ~52.8 s | yes | yes | yes | yes | yes |
+
+### Side-by-side frames (11n vs 11s)
+
+| Clip | PNG |
+|---|---|
+| Tyumen | [compare_11n_vs_11s_tyumen.png](benchmark/compare_11n_vs_11s_tyumen.png) |
+| DC | [compare_11n_vs_11s_dc.png](benchmark/compare_11n_vs_11s_dc.png) |
+| CDMX | [compare_11n_vs_11s_cdmx.png](benchmark/compare_11n_vs_11s_cdmx.png) |
+
+### Rejected / deferred
+
+- **RT-DETR-l as default:** accuracy good, but full-pipeline overlay FPS **13.9 < 15** on this box.
+- **YOLO11m as default:** no hand-F1 gain over 11s worth the +5–8 ms detect / noisier alerts.
+- **RF-DETR Nano as default:** Apache-2.0 is a licence win, but ~60 ms/frame CPU and first KEEP/class-id wiring failed; leave as future optional backend.
+- **YOLO-World / YOLOE as the fast detector:** useful as a **slow hazard loop** (`--open-vocab`, YOLO-World ~35–100 ms) for bollard/scooter/kerb/… prompts; on the three sample mid-frames no rare hazards were present (0 hits at conf 0.15 for non-COCO prompts — honest empty). Not a substitute for YOLO11s every frame.
+- **Depth Anything V2:** not landed this pass (timing not measured).
+
+### Also in this pass
+
+- Per-class confidence overrides in `DetectorConfig.conf_by_class`.
+- EU red/green man: tall lit silhouette → `figure=True` (green figure → `walk`); light ranking prefers walk/red over a larger sticky green head.
+- Optional `--open-vocab` YOLO-World slow loop.
+
+### Reproduce
+
+```bash
+. .venv/bin/activate
+python -c "from ultralytics import YOLO; YOLO('yolo11s.pt')" && mv -n yolo11s.pt models/
+# first run auto-exports models/yolo11s_openvino_model/
+
+python -m streetsense run --source samples/dc_ped_light.ogv --no-vlm \
+  --alerts /tmp/dc.jsonl --stats /tmp/dc_stats.json
+# optional: --weights models/yolo11n.pt | models/yolo11m.pt | models/rtdetr-l.pt
+# optional: --open-vocab   # YOLO-World hazard prompts every 15 frames
+```

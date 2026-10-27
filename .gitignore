@@ -13,3 +13,6 @@ outputs/*
 .env
 datasets/
 runs/
+models/*.ts
+models/yoloe*.pt
+weights/
