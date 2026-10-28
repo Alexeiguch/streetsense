@@ -1,0 +1,18 @@
+{
+ "summary": "Green walk signal, pedestrians crossing, vehicles waiting nearby",
+ "hazards": [
+  "traffic on adjacent road",
+  "slippery wet road"
+ ],
+ "crossing_visible": true,
+ "pedestrian_signal": "green",
+ "safe_to_cross": "yes",
+ "_latency_s": 3.231,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 957,
+  "completion_tokens": 359,
+  "estimated_cost_usd": 0.002598,
+  "ledger_total_usd": 0.581047
+ }
+}

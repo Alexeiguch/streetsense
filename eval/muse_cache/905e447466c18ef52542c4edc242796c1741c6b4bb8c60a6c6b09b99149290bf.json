@@ -1,0 +1,19 @@
+{
+ "signal_description": "small green pedestrian light with countdown on pole",
+ "pedestrian_signal": "green",
+ "countdown_seconds": 35,
+ "summary": "Walk signal green, people crossing, car on right",
+ "hazards": [
+  "vehicle on right"
+ ],
+ "crossing_visible": true,
+ "safe_to_cross": "yes",
+ "_latency_s": 3.517,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 334,
+  "estimated_cost_usd": 0.002549,
+  "ledger_total_usd": 0.481637
+ }
+}

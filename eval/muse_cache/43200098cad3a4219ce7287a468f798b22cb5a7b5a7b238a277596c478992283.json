@@ -1,0 +1,18 @@
+{
+ "summary": "Red signal ahead, do not cross street",
+ "hazards": [
+  "red pedestrian signal",
+  "urban intersection"
+ ],
+ "crossing_visible": false,
+ "pedestrian_signal": "red",
+ "safe_to_cross": "no",
+ "_latency_s": 2.026,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 360,
+  "completion_tokens": 267,
+  "estimated_cost_usd": 0.00146,
+  "ledger_total_usd": 0.246315
+ }
+}

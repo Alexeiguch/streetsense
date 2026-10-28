@@ -1,0 +1,19 @@
+{
+ "signal_description": "small green walking person lit on center pole",
+ "pedestrian_signal": "green",
+ "countdown_seconds": null,
+ "summary": "Walk signal lit, people crossing, road clear",
+ "hazards": [
+  "traffic on adjacent lanes"
+ ],
+ "crossing_visible": true,
+ "safe_to_cross": "yes",
+ "_latency_s": 2.968,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 288,
+  "estimated_cost_usd": 0.002353,
+  "ledger_total_usd": 0.858363
+ }
+}

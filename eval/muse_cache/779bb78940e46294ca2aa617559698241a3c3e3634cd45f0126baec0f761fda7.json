@@ -1,0 +1,18 @@
+{
+ "summary": "Red pedestrian signal, green traffic light, no crosswalk seen",
+ "hazards": [
+  "red pedestrian signal",
+  "vehicles have green light"
+ ],
+ "crossing_visible": false,
+ "pedestrian_signal": "red",
+ "safe_to_cross": "no",
+ "_latency_s": 1.573,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 360,
+  "completion_tokens": 224,
+  "estimated_cost_usd": 0.001278,
+  "ledger_total_usd": 0.221584
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "signal_description": "pedestrian head showing red countdown digit 4",
+ "pedestrian_signal": "countdown",
+ "countdown_seconds": 4,
+ "summary": "Do not cross, countdown only 4 seconds",
+ "hazards": [
+  "expiring pedestrian time"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "no",
+ "_latency_s": 1.905,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 236,
+  "estimated_cost_usd": 0.002132,
+  "ledger_total_usd": 0.835779
+ }
+}

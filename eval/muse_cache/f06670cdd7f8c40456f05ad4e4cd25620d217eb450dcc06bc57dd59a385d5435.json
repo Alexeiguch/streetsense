@@ -1,0 +1,18 @@
+{
+ "summary": "Countdown at zero, do not cross street",
+ "hazards": [
+  "countdown expiring",
+  "one-way traffic"
+ ],
+ "crossing_visible": false,
+ "pedestrian_signal": "countdown",
+ "safe_to_cross": "no",
+ "_latency_s": 3.228,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 957,
+  "completion_tokens": 309,
+  "estimated_cost_usd": 0.002385,
+  "ledger_total_usd": 0.530878
+ }
+}

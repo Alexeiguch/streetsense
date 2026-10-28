@@ -1,0 +1,41 @@
+id,clip,time_s,label,confidence,note
+dc_10.80,dc,10.80,walk,high,white walking person lit; countdown reads 48
+dc_13.80,dc,13.80,walk,high,white walking person lit; countdown reads 45
+dc_17.80,dc,17.80,walk,high,white walking person lit; countdown reads 41
+dc_21.72,dc,21.72,walk,high,white walking person lit; countdown reads 37
+dc_25.72,dc,25.72,walk,high,white walking person lit; countdown reads 33
+dc_29.72,dc,29.72,walk,high,white walking person lit; countdown reads 29
+dc_33.72,dc,33.72,walk,high,white walking person lit; countdown reads 25
+dc_37.72,dc,37.72,walk,high,white walking person lit; countdown reads 21
+dc_41.72,dc,41.72,walk,high,white walking person lit; countdown reads 17
+dc_45.72,dc,45.72,walk,high,white walking person lit; countdown reads 13
+dc_13.24,dc,13.24,walk_symbol_off,high,walk phase but walking person dark in this frame (LED flicker vs camera); only red countdown 45 visible
+dc_25.28,dc,25.28,walk_symbol_off,high,walk phase but walking person dark in this frame (LED flicker vs camera); only red countdown 33 visible
+dc_37.28,dc,37.28,walk_symbol_off,high,walk phase but walking person dark in this frame (LED flicker vs camera); only red countdown 21 visible
+dc_45.28,dc,45.28,walk_symbol_off,high,walk phase but walking person dark in this frame (LED flicker vs camera); only red countdown 13 visible
+dc_48.72,dc,48.72,countdown_ending,high,"walking person lit but countdown reads 10 (<=10 s, treat as do not start)"
+dc_49.88,dc,49.88,countdown_ending,high,"walking person lit but countdown reads 9 (<=10 s, treat as do not start)"
+dc_50.08,dc,50.08,countdown_ending,high,"walking person lit but countdown reads 8 (<=10 s, treat as do not start)"
+dc_51.88,dc,51.88,countdown_ending,high,"walking person lit but countdown reads 7 (<=10 s, treat as do not start)"
+dc_53.00,dc,53.00,flashing,high,flashing orange hand lit + countdown 5
+dc_54.00,dc,54.00,flashing,high,flashing orange hand lit + countdown 4
+dc_55.00,dc,55.00,flashing,high,flashing orange hand lit + countdown 3
+dc_56.00,dc,56.00,flashing,high,flashing orange hand lit + countdown 2
+dc_54.48,dc,54.48,flashing,high,"flashing-hand phase, hand dark this frame; countdown 4"
+dc_01.00,dc,1.00,red,high,"steady orange hand, no countdown"
+dc_03.00,dc,3.00,red,high,"steady orange hand, no countdown"
+dc_05.00,dc,5.00,red,high,"steady orange hand, no countdown"
+dc_07.00,dc,7.00,red,high,"steady orange hand, no countdown"
+dc_58.60,dc,58.60,red,high,"orange hand lit, countdown 0 just ending"
+dc_60.60,dc,60.60,red,high,"steady orange hand, no countdown"
+dc_62.20,dc,62.20,red,high,"steady orange hand, no countdown"
+tyumen_01.00,tyumen,1.00,unclear,low,"far two-lamp head with green countdown; lower lamp sometimes shows a small green figure/arrow (6 s, 12 s). Possibly a Russian pedestrian walk signal, too small to confirm; excluded from the hard requirement"
+tyumen_06.00,tyumen,6.00,unclear,low,"far two-lamp head with green countdown; lower lamp sometimes shows a small green figure/arrow (6 s, 12 s). Possibly a Russian pedestrian walk signal, too small to confirm; excluded from the hard requirement"
+tyumen_12.00,tyumen,12.00,unclear,low,"far two-lamp head with green countdown; lower lamp sometimes shows a small green figure/arrow (6 s, 12 s). Possibly a Russian pedestrian walk signal, too small to confirm; excluded from the hard requirement"
+tyumen_18.00,tyumen,18.00,unclear,low,"far two-lamp head with green countdown; lower lamp sometimes shows a small green figure/arrow (6 s, 12 s). Possibly a Russian pedestrian walk signal, too small to confirm; excluded from the hard requirement"
+cdmx_02.00,cdmx,2.00,no_signal,high,night crowd at crossing; no pedestrian signal head visible
+cdmx_30.00,cdmx,30.00,no_signal,high,night crowd at crossing; no pedestrian signal head visible
+cdmx_50.00,cdmx,50.00,no_signal,high,night crowd at crossing; no pedestrian signal head visible
+cdmx_90.00,cdmx,90.00,no_signal,high,night crowd at crossing; no pedestrian signal head visible
+mazatlan_03.00,mazatlan,3.00,no_signal,high,"street/sidewalk, no signal"
+tomaszow_03.00,tomaszow,3.00,no_signal,high,"park path, no signal"

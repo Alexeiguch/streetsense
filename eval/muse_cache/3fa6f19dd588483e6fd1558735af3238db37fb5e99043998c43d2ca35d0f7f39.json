@@ -1,0 +1,18 @@
+{
+ "summary": "Walk signal with countdown, green traffic light, urban street",
+ "hazards": [
+  "vehicle traffic has green",
+  "crosswalk not visible"
+ ],
+ "crossing_visible": false,
+ "pedestrian_signal": "countdown",
+ "safe_to_cross": "unsure",
+ "_latency_s": 2.741,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 957,
+  "completion_tokens": 318,
+  "estimated_cost_usd": 0.002548,
+  "ledger_total_usd": 0.510865
+ }
+}

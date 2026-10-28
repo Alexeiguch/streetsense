@@ -1,0 +1,18 @@
+{
+ "summary": "Red pedestrian signal, no crosswalk visible ahead",
+ "hazards": [
+  "red pedestrian signal",
+  "no marked crossing"
+ ],
+ "crossing_visible": false,
+ "pedestrian_signal": "red",
+ "safe_to_cross": "no",
+ "_latency_s": 2.357,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 360,
+  "completion_tokens": 362,
+  "estimated_cost_usd": 0.001864,
+  "ledger_total_usd": 0.229158
+ }
+}

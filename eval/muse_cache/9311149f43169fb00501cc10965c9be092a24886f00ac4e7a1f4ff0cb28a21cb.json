@@ -1,0 +1,18 @@
+{
+ "summary": "Do not cross, red hand signal showing",
+ "hazards": [
+  "red pedestrian signal",
+  "one-way traffic street"
+ ],
+ "crossing_visible": false,
+ "pedestrian_signal": "red",
+ "safe_to_cross": "no",
+ "_latency_s": 2.167,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 957,
+  "completion_tokens": 266,
+  "estimated_cost_usd": 0.002202,
+  "ledger_total_usd": 0.565563
+ }
+}

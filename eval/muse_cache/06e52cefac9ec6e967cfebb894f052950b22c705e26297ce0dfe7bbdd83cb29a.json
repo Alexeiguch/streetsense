@@ -1,0 +1,17 @@
+{
+ "signal_description": "Lit walking person with countdown 37",
+ "pedestrian_signal": "green",
+ "countdown_seconds": 37,
+ "summary": "Walk signal on, countdown high, safe to cross",
+ "hazards": [],
+ "crossing_visible": false,
+ "safe_to_cross": "yes",
+ "_latency_s": 2.477,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 2809,
+  "completion_tokens": 260,
+  "estimated_cost_usd": 0.00421,
+  "ledger_total_usd": 0.616413
+ }
+}

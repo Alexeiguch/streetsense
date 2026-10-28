@@ -1,0 +1,21 @@
+{
+ "signal_description": "no pedestrian signal readable, crowd blocks view",
+ "pedestrian_signal": "none_visible",
+ "countdown_seconds": null,
+ "summary": "No signal visible, crowd waiting, cannot confirm",
+ "hazards": [
+  "blocked view",
+  "crowd ahead",
+  "dusk low light"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "unsure",
+ "_latency_s": 1.912,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 250,
+  "estimated_cost_usd": 0.002192,
+  "ledger_total_usd": 0.498491
+ }
+}

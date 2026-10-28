@@ -1,0 +1,17 @@
+{
+ "signal_description": "Lit white walking person with red countdown digits below",
+ "pedestrian_signal": "green",
+ "countdown_seconds": 29,
+ "summary": "Walk signal on with 29 seconds, street clear",
+ "hazards": [],
+ "crossing_visible": false,
+ "safe_to_cross": "yes",
+ "_latency_s": 2.349,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 2809,
+  "completion_tokens": 273,
+  "estimated_cost_usd": 0.004672,
+  "ledger_total_usd": 0.625601
+ }
+}

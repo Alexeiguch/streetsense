@@ -1,0 +1,19 @@
+{
+ "summary": "Do not cross, cars have green, pedestrian signal stop",
+ "hazards": [
+  "vehicle green light",
+  "pedestrian stop signal",
+  "no crosswalk visible"
+ ],
+ "crossing_visible": false,
+ "pedestrian_signal": "countdown",
+ "safe_to_cross": "no",
+ "_latency_s": 2.536,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 360,
+  "completion_tokens": 357,
+  "estimated_cost_usd": 0.001843,
+  "ledger_total_usd": 0.224934
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "signal_description": "Pedestrian head shows red digits 8, no figure",
+ "pedestrian_signal": "countdown",
+ "countdown_seconds": 8,
+ "summary": "Do not cross, countdown at 8 seconds",
+ "hazards": [
+  "low countdown 8 seconds",
+  "vehicle green light"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "no",
+ "_latency_s": 2.292,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 323,
+  "estimated_cost_usd": 0.002502,
+  "ledger_total_usd": 0.813879
+ }
+}

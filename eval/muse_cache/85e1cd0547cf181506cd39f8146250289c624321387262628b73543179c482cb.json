@@ -1,0 +1,17 @@
+{
+ "signal_description": "lit white walking person with 41 countdown",
+ "pedestrian_signal": "green",
+ "countdown_seconds": 41,
+ "summary": "Walk signal on, countdown 41, no immediate hazards",
+ "hazards": [],
+ "crossing_visible": false,
+ "safe_to_cross": "yes",
+ "_latency_s": 1.834,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 189,
+  "estimated_cost_usd": 0.002338,
+  "ledger_total_usd": 0.785039
+ }
+}

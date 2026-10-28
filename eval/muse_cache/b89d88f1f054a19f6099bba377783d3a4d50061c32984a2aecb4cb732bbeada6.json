@@ -1,0 +1,19 @@
+{
+ "signal_description": "small box on pole showing red raised hand",
+ "pedestrian_signal": "red",
+ "countdown_seconds": null,
+ "summary": "Red hand signal, do not cross",
+ "hazards": [
+  "red pedestrian hand signal"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "no",
+ "_latency_s": 2.884,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 2809,
+  "completion_tokens": 364,
+  "estimated_cost_usd": 0.004652,
+  "ledger_total_usd": 0.720452
+ }
+}

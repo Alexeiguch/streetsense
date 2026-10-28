@@ -1,0 +1,18 @@
+{
+ "summary": "Pedestrians crossing, green walk signal, cars waiting",
+ "hazards": [
+  "vehicles waiting nearby",
+  "wide intersection"
+ ],
+ "crossing_visible": true,
+ "pedestrian_signal": "green",
+ "safe_to_cross": "yes",
+ "_latency_s": 2.441,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 360,
+  "completion_tokens": 285,
+  "estimated_cost_usd": 0.001537,
+  "ledger_total_usd": 0.249079
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "signal_description": "no readable pedestrian signal visible",
+ "pedestrian_signal": "none_visible",
+ "countdown_seconds": null,
+ "summary": "No walk signal visible, do not cross",
+ "hazards": [
+  "no pedestrian signal",
+  "vehicle red lights only"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "unsure",
+ "_latency_s": 2.814,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1018,
+  "completion_tokens": 267,
+  "estimated_cost_usd": 0.002001,
+  "ledger_total_usd": 0.377364
+ }
+}

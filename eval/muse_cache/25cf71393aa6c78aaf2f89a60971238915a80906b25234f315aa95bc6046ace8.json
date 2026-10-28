@@ -1,0 +1,21 @@
+{
+ "signal_description": "no pedestrian signal visible in view",
+ "pedestrian_signal": "none_visible",
+ "countdown_seconds": null,
+ "summary": "Cars moving through crosswalk, crowd waiting",
+ "hazards": [
+  "vehicles moving in crosswalk",
+  "police car with lights",
+  "crowd waiting to cross"
+ ],
+ "crossing_visible": true,
+ "safe_to_cross": "no",
+ "_latency_s": 2.966,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 486,
+  "estimated_cost_usd": 0.003195,
+  "ledger_total_usd": 0.864795
+ }
+}

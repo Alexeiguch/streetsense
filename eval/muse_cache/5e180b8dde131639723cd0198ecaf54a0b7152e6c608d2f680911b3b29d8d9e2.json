@@ -1,0 +1,20 @@
+{
+ "signal_description": "Red hand pedestrian signal lit on pole ahead",
+ "pedestrian_signal": "red",
+ "countdown_seconds": null,
+ "summary": "Do not cross, red hand, vehicles have green",
+ "hazards": [
+  "red pedestrian hand signal",
+  "vehicle green light"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "no",
+ "_latency_s": 1.799,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1018,
+  "completion_tokens": 240,
+  "estimated_cost_usd": 0.001887,
+  "ledger_total_usd": 0.342021
+ }
+}

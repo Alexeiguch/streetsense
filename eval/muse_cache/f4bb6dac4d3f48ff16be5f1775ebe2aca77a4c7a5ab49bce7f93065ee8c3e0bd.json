@@ -1,0 +1,20 @@
+{
+ "signal_description": "no pedestrian signal visible",
+ "pedestrian_signal": "none_visible",
+ "countdown_seconds": null,
+ "summary": "No signal or crosswalk visible, vehicles nearby",
+ "hazards": [
+  "parked vehicles",
+  "no marked crossing"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "unsure",
+ "_latency_s": 2.055,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1018,
+  "completion_tokens": 216,
+  "estimated_cost_usd": 0.001785,
+  "ledger_total_usd": 0.409586
+ }
+}

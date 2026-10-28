@@ -1,0 +1,19 @@
+{
+ "signal_description": "White walking person lit with red 8 below",
+ "pedestrian_signal": "green",
+ "countdown_seconds": 8,
+ "summary": "Walk lit but only 8 seconds left, do not start",
+ "hazards": [
+  "low countdown remaining"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "no",
+ "_latency_s": 3.402,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 348,
+  "estimated_cost_usd": 0.002608,
+  "ledger_total_usd": 0.451516
+ }
+}

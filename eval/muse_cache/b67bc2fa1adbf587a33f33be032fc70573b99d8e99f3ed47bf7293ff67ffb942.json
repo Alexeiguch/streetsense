@@ -1,0 +1,17 @@
+{
+ "signal_description": "Walk person lit white with red 45 countdown",
+ "pedestrian_signal": "green",
+ "countdown_seconds": 45,
+ "summary": "Walk signal with 45 seconds, street clear",
+ "hazards": [],
+ "crossing_visible": false,
+ "safe_to_cross": "yes",
+ "_latency_s": 1.999,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 222,
+  "estimated_cost_usd": 0.002073,
+  "ledger_total_usd": 0.415728
+ }
+}

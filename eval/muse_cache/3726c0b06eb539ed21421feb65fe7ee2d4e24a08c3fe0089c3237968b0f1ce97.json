@@ -1,0 +1,19 @@
+{
+ "summary": "Dense crowd crossing at night with vehicles nearby",
+ "hazards": [
+  "dense pedestrian crowd",
+  "vehicles with headlights nearby",
+  "nighttime low visibility"
+ ],
+ "crossing_visible": true,
+ "pedestrian_signal": "none_visible",
+ "safe_to_cross": "unsure",
+ "_latency_s": 1.811,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 957,
+  "completion_tokens": 206,
+  "estimated_cost_usd": 0.001947,
+  "ledger_total_usd": 0.591194
+ }
+}

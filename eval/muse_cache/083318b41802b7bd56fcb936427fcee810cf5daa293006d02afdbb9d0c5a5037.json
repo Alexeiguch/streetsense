@@ -1,0 +1,21 @@
+{
+ "signal_description": "no pedestrian signal visible in street storefront view",
+ "pedestrian_signal": "none_visible",
+ "countdown_seconds": null,
+ "summary": "No signal or crosswalk, vehicle close",
+ "hazards": [
+  "vehicle close in roadway",
+  "no marked crosswalk",
+  "no signal guidance"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "unsure",
+ "_latency_s": 1.832,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 249,
+  "estimated_cost_usd": 0.002187,
+  "ledger_total_usd": 0.873442
+ }
+}

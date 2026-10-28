@@ -1,0 +1,19 @@
+{
+ "signal_description": "red hand with countdown digits on pole left",
+ "pedestrian_signal": "red",
+ "countdown_seconds": 17,
+ "summary": "Do not cross, red hand signal",
+ "hazards": [
+  "red pedestrian signal"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "no",
+ "_latency_s": 3.603,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1018,
+  "completion_tokens": 493,
+  "estimated_cost_usd": 0.002962,
+  "ledger_total_usd": 0.344983
+ }
+}

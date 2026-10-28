@@ -1,0 +1,18 @@
+{
+ "summary": "Don't walk signal red with countdown, street ahead",
+ "hazards": [
+  "pedestrian don't walk signal",
+  "active one-way traffic"
+ ],
+ "crossing_visible": false,
+ "pedestrian_signal": "countdown",
+ "safe_to_cross": "no",
+ "_latency_s": 1.82,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 957,
+  "completion_tokens": 210,
+  "estimated_cost_usd": 0.001964,
+  "ledger_total_usd": 0.55672
+ }
+}

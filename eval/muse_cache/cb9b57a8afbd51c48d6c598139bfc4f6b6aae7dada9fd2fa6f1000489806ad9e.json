@@ -1,0 +1,17 @@
+{
+ "signal_description": "White walking person lit with red 33 countdown",
+ "pedestrian_signal": "green",
+ "countdown_seconds": 33,
+ "summary": "Walk signal on 33 seconds, no vehicles blocking",
+ "hazards": [],
+ "crossing_visible": false,
+ "safe_to_cross": "yes",
+ "_latency_s": 2.596,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 294,
+  "estimated_cost_usd": 0.002379,
+  "ledger_total_usd": 0.789984
+ }
+}

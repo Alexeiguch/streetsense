@@ -1,0 +1,19 @@
+{
+ "summary": "Crowd waiting at night intersection, view blocked",
+ "hazards": [
+  "dense crowd blocking view",
+  "night low visibility",
+  "urban traffic nearby"
+ ],
+ "crossing_visible": false,
+ "pedestrian_signal": "none_visible",
+ "safe_to_cross": "unsure",
+ "_latency_s": 2.606,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 957,
+  "completion_tokens": 279,
+  "estimated_cost_usd": 0.002258,
+  "ledger_total_usd": 0.595527
+ }
+}

@@ -1,0 +1,20 @@
+{
+ "signal_description": "no readable pedestrian head, only distant vehicle lights",
+ "pedestrian_signal": "none_visible",
+ "countdown_seconds": null,
+ "summary": "No walk signal visible, cannot confirm safe crossing",
+ "hazards": [
+  "unreadable distant signals",
+  "no marked crosswalk seen"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "unsure",
+ "_latency_s": 3.155,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1018,
+  "completion_tokens": 279,
+  "estimated_cost_usd": 0.002052,
+  "ledger_total_usd": 0.390157
+ }
+}

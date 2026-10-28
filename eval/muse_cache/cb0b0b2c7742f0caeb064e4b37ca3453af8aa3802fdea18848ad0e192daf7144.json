@@ -1,0 +1,20 @@
+{
+ "signal_description": "Red standing pedestrian figure on pole left side",
+ "pedestrian_signal": "red",
+ "countdown_seconds": null,
+ "summary": "Red pedestrian signal, do not cross, crowd waiting",
+ "hazards": [
+  "dense crowd ahead",
+  "low light dusk"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "no",
+ "_latency_s": 2.774,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 2809,
+  "completion_tokens": 235,
+  "estimated_cost_usd": 0.004104,
+  "ledger_total_usd": 0.769933
+ }
+}

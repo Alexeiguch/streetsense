@@ -1,0 +1,19 @@
+{
+ "signal_description": "Pedestrian head showing red digits 45, no walk figure",
+ "pedestrian_signal": "countdown",
+ "countdown_seconds": 45,
+ "summary": "Countdown 45 but no walk symbol visible, do not assume",
+ "hazards": [
+  "no walk symbol confirmed"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "unsure",
+ "_latency_s": 2.989,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 425,
+  "estimated_cost_usd": 0.002935,
+  "ledger_total_usd": 0.436042
+ }
+}

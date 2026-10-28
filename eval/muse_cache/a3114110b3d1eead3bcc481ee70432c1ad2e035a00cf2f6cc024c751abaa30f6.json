@@ -1,0 +1,19 @@
+{
+ "signal_description": "Green walking figure with countdown 45 lit",
+ "pedestrian_signal": "green",
+ "countdown_seconds": 45,
+ "summary": "Walk signal 45 seconds, pedestrians crossing ahead",
+ "hazards": [
+  "vehicles waiting and moving on right"
+ ],
+ "crossing_visible": true,
+ "safe_to_cross": "yes",
+ "_latency_s": 3.442,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 2809,
+  "completion_tokens": 464,
+  "estimated_cost_usd": 0.005077,
+  "ledger_total_usd": 0.73777
+ }
+}

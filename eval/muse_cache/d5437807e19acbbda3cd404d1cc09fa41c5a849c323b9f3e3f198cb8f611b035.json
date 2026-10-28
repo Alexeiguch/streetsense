@@ -1,0 +1,19 @@
+{
+ "signal_description": "Red hand illuminated on pedestrian signal ahead",
+ "pedestrian_signal": "red",
+ "countdown_seconds": null,
+ "summary": "Do not cross, red hand displayed",
+ "hazards": [
+  "red pedestrian signal"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "no",
+ "_latency_s": 2.008,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 271,
+  "estimated_cost_usd": 0.002281,
+  "ledger_total_usd": 0.850794
+ }
+}

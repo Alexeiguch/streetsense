@@ -1,0 +1,18 @@
+{
+ "summary": "Do not cross, red pedestrian signal, vehicle green light",
+ "hazards": [
+  "red pedestrian do not walk signal",
+  "green light for vehicles"
+ ],
+ "crossing_visible": false,
+ "pedestrian_signal": "red",
+ "safe_to_cross": "no",
+ "_latency_s": 3.172,
+ "_model": "muse-spark-1.3",
+ "_usage": {
+  "prompt_tokens": 360,
+  "completion_tokens": 345,
+  "estimated_cost_usd": 0.001792,
+  "ledger_total_usd": 0.215585
+ }
+}

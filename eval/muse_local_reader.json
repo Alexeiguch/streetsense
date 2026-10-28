@@ -1,0 +1,1002 @@
+{
+ "cdmx@2.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "cdmx@30.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "cdmx@50.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "cdmx@90.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "dc@1.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "dc@10.80": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@13.24": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "green"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@13.80": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@17.80": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@21.72": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@25.28": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "green"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@25.72": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@29.72": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@3.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "dc@33.72": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@37.28": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "green"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@37.72": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@41.72": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@45.28": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "green"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@45.72": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@48.72": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@49.88": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@5.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "dc@50.08": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "walk"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@51.88": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "dc@53.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "walk"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "green"
+   ]
+  ],
+  "state": "green"
+ },
+ "dc@54.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "red"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "dc@54.48": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "green"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "dc@55.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "red"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "dc@56.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "red"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "dc@58.60": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "green"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "dc@60.60": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "dc@62.20": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "dc@7.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "mazatlan@3.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "tomaszow@3.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "tyumen@1.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "tyumen@12.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "green"
+   ]
+  ],
+  "state": "green"
+ },
+ "tyumen@18.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "tyumen@6.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "green"
+   ]
+  ],
+  "state": "green"
+ }
+}
