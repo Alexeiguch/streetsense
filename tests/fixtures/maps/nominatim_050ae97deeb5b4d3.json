@@ -1,0 +1,150 @@
+{
+ "request": {
+  "method": "GET",
+  "url": "https://nominatim.openstreetmap.org/search?bounded=1&extratags=1&format=jsonv2&limit=5&q=pharmacy&viewbox=-77.0487%2C38.9131%2C-77.0287%2C38.8931",
+  "body": null
+ },
+ "response": [
+  {
+   "place_id": 348750924,
+   "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 577435479,
+   "lat": "38.9003420",
+   "lon": "-77.0464291",
+   "category": "amenity",
+   "type": "pharmacy",
+   "place_rank": 30,
+   "importance": 8.492942702368227e-05,
+   "addresstype": "amenity",
+   "name": "CVS Pharmacy",
+   "display_name": "CVS Pharmacy, 21st Street Northwest, George Washington University, Ward 2, Washington, District of Columbia, 20009, United States",
+   "extratags": {
+    "website": "https://www.cvs.com/store-locator/washington-dc-pharmacies/2000-pennsylvania-ave-nw-washington-dc-20006/storeid=2847",
+    "check_date": "2026-03-21",
+    "healthcare": "pharmacy",
+    "wheelchair": "yes",
+    "brand:website": "https://www.cvs.com/",
+    "opening_hours": "24/7",
+    "brand:wikidata": "Q2078880"
+   },
+   "boundingbox": [
+    "38.9002920",
+    "38.9003920",
+    "-77.0464791",
+    "-77.0463791"
+   ]
+  },
+  {
+   "place_id": 349337975,
+   "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 690828489,
+   "lat": "38.9022888",
+   "lon": "-77.0446848",
+   "category": "amenity",
+   "type": "pharmacy",
+   "place_rank": 30,
+   "importance": 8.492942702368227e-05,
+   "addresstype": "amenity",
+   "name": "CVS Pharmacy",
+   "display_name": "CVS Pharmacy, K Street Northwest, Golden Triangle, Ward 2, Washington, District of Columbia, 20526, United States",
+   "extratags": {
+    "healthcare": "pharmacy",
+    "brand:website": "https://www.cvs.com/",
+    "brand:wikidata": "Q2078880"
+   },
+   "boundingbox": [
+    "38.9022388",
+    "38.9023388",
+    "-77.0447348",
+    "-77.0446348"
+   ]
+  },
+  {
+   "place_id": 348241410,
+   "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 462011950,
+   "lat": "38.9094458",
+   "lon": "-77.0444000",
+   "category": "amenity",
+   "type": "pharmacy",
+   "place_rank": 30,
+   "importance": 8.492942702368227e-05,
+   "addresstype": "amenity",
+   "name": "CVS Pharmacy",
+   "display_name": "CVS Pharmacy, P Street Northwest, Dupont Circle, Ward 2, Washington, District of Columbia, 20007, United States",
+   "extratags": {
+    "website": "https://www.cvs.com/store-locator/washington-dc-pharmacies/6-dupont-circle-nw-washington-dc-20036/storeid=1347",
+    "check_date": "2023-09-28",
+    "healthcare": "pharmacy",
+    "wheelchair": "yes",
+    "brand:website": "https://www.cvs.com/",
+    "opening_hours": "24/7",
+    "brand:wikidata": "Q2078880"
+   },
+   "boundingbox": [
+    "38.9093958",
+    "38.9094958",
+    "-77.0444500",
+    "-77.0443500"
+   ]
+  },
+  {
+   "place_id": 348305834,
+   "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 4103638593,
+   "lat": "38.9048162",
+   "lon": "-77.0431962",
+   "category": "amenity",
+   "type": "pharmacy",
+   "place_rank": 30,
+   "importance": 8.492942702368227e-05,
+   "addresstype": "amenity",
+   "name": "Tschiffely Pharmacy",
+   "display_name": "Tschiffely Pharmacy, 19th Street Northwest, Golden Triangle, Ward 2, Washington, District of Columbia, 20036, United States",
+   "extratags": {
+    "healthcare": "pharmacy",
+    "opening_hours": "Mo-Fr 08:00-18:00"
+   },
+   "boundingbox": [
+    "38.9047662",
+    "38.9048662",
+    "-77.0432462",
+    "-77.0431462"
+   ]
+  },
+  {
+   "place_id": 348302903,
+   "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "node",
+   "osm_id": 734469773,
+   "lat": "38.9044611",
+   "lon": "-77.0322853",
+   "category": "amenity",
+   "type": "pharmacy",
+   "place_rank": 30,
+   "importance": 8.492942702368227e-05,
+   "addresstype": "amenity",
+   "name": "CVS Pharmacy",
+   "display_name": "CVS Pharmacy, 1199, Vermont Avenue Northwest, Downtown, Ward 2, Washington, District of Columbia, 20005, United States",
+   "extratags": {
+    "phone": "+1 202-628-0720",
+    "website": "https://www.cvs.com/store-locator/washington-dc-pharmacies/1199-vermont-avenue-nw-washington-dc-20005/storeid=1341",
+    "check_date": "2025-03-17",
+    "healthcare": "pharmacy",
+    "brand:website": "https://www.cvs.com/",
+    "opening_hours": "Mo-Fr 09:00-13:30,14:00-19:00; Sa 10:00-13:30,14:00-18:00; Su 11:00-13:30,14:00-17:00",
+    "brand:wikidata": "Q2078880"
+   },
+   "boundingbox": [
+    "38.9044111",
+    "38.9045111",
+    "-77.0323353",
+    "-77.0322353"
+   ]
+  }
+ ]
+}

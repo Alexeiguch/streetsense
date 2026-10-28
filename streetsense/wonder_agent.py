@@ -34,6 +34,12 @@ from .config import WonderConfig
 from .meta_api import SAFE_CROSSING_FALLBACK, encode_jpeg_data_url
 from .meta_usage import BudgetExceeded, UsageRecord, estimate_cost, get_ledger, mask_secret
 
+MAP_INSTRUCTIONS = (
+    " Map tools: for 'take me to' questions call plan_route, then describe the first step and the "
+    "number of crossings. For 'where am I' or 'how far' call route_status. Use clock-face directions "
+    "(12 is straight ahead). Map data is context only: never say a crossing is safe or that the user can cross."
+)
+
 INSTRUCTIONS = (
     "You are the planning step of StreetSense, a walking aid for blind and low-vision people. "
     "Answer the user's spoken question about their surroundings. Use the tools: local facts are free, "
@@ -153,9 +159,11 @@ class GuideTools:
     current: Callable[[], dict | None]
     segment: Callable[[str], dict] | None = None
     crossing: Callable[[], dict] | None = None
+    maps: Any = None  # streetsense.maps.session.MapSession, opt in
 
     @classmethod
-    def from_pipeline(cls, pipe: Any, frame: np.ndarray, out: Any = None, clock=time.monotonic) -> "GuideTools":
+    def from_pipeline(cls, pipe: Any, frame: np.ndarray, out: Any = None, clock=time.monotonic,
+                      maps: Any = None) -> "GuideTools":
         from .answers import crossing_answer
 
         H, W = frame.shape[:2]
@@ -193,6 +201,7 @@ class GuideTools:
             current=pipe.observations.latest,
             segment=segment,
             crossing=crossing,
+            maps=maps,
         )
 
 
@@ -203,6 +212,7 @@ class GuideResult:
     crossing_line: str | None = None
     crossing: dict | None = None
     tool_calls: list[dict] = field(default_factory=list)
+    sources: list[dict] = field(default_factory=list)  # Google Maps sources for the companion UI
     dropped: list[str] = field(default_factory=list)
     turns: int = 0
     latency_s: float = 0.0
@@ -327,6 +337,13 @@ class WonderGuide:
                 "pedestrian_signal_visible": local not in {"unknown", "none"},
                 "crosswalk_found": bool((cur.get("crosswalk") or {}).get("found")),
             }
+        if tools.maps is not None:
+            try:
+                r = tools.maps.dispatch(name, args)
+            except Exception as e:
+                r = {"error": mask_secret(f"{type(e).__name__}: {e}", self.cfg.api_key)[:160]}
+            if r is not None:
+                return r
         return {"error": f"unknown tool {name}"}
 
     # Main loop -----------------------------------------------------------------------
@@ -335,6 +352,10 @@ class WonderGuide:
         t_start = self.clock()
         res = GuideResult(speech="")
         state: dict = {"segments": 0, "crossing": None}
+        n_sources = 0
+        if tools.maps is not None:
+            tools.maps.new_question()
+            n_sources = len(tools.maps.sources)
         if not self.available:
             res.error = "Muse Wonder unavailable: set MODEL_API_KEY"
         else:
@@ -348,7 +369,13 @@ class WonderGuide:
             res.crossing_line = state["crossing"].get("spoken") or SAFE_CROSSING_FALLBACK
         elif is_crossing_question(question):
             res.crossing_line = SAFE_CROSSING_FALLBACK
-        parts = [p if p.rstrip()[-1:] in ".!?" else p.rstrip() + "." for p in (res.crossing_line, guidance) if p]
+        disclosure = None
+        if tools.maps is not None and len(tools.maps.sources) > n_sources:
+            from .maps.google_agent import DISCLOSURE
+
+            res.sources = tools.maps.sources[n_sources:]
+            disclosure = DISCLOSURE
+        parts = [p if p.rstrip()[-1:] in ".!?" else p.rstrip() + "." for p in (res.crossing_line, guidance, disclosure) if p]
         res.speech = " ".join(parts) if parts else "I'm not sure. Please ask again."
         res.latency_s = round(self.clock() - t_start, 3)
         res.cost_usd = round(res.cost_usd, 6)
@@ -361,7 +388,7 @@ class WonderGuide:
         if frame is not None:
             content.append({"type": "input_image", "image_url": encode_jpeg_data_url(frame, cfg.max_image_side)})
         next_input: list[dict] = [
-            {"role": "system", "content": INSTRUCTIONS},
+            {"role": "system", "content": INSTRUCTIONS + (MAP_INSTRUCTIONS if tools.maps is not None else "")},
             {"role": "user", "content": content},
         ]
         history = next_input  # grows in stateless mode
@@ -379,7 +406,7 @@ class WonderGuide:
             kwargs: dict = {
                 "model": cfg.model,
                 "input": next_input,
-                "tools": TOOLS,
+                "tools": TOOLS + (tools.maps.tools if tools.maps is not None else []),
                 "tool_choice": "auto",
                 "reasoning": {"effort": cfg.reasoning_effort},
                 "max_output_tokens": cfg.max_output_tokens,

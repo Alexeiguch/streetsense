@@ -119,6 +119,14 @@ It can never authorise a crossing: that line always comes from the local plus Mu
 `/v1/chat/completions` speaks the protocol of Meta's VisionClaw sample app, so it can use StreetSense as its gateway.
 Status and the phone app still needed: [docs/RAYBAN.md](docs/RAYBAN.md).
 
+**Walking navigation (opt in, simulated GPS).** `python -m streetsense walk-sim --plot` walks a real Washington DC
+route from recorded OpenStreetMap data: it picks the route with signalised crossings and no stairs, gives clock-face
+turns, previews each crossing (signals, sound, tactile paving, lanes), warns when you drift off route with an honest
+GPS caveat, and at each kerb fuses the map's crossing direction with what the camera sees. Add `--ask-muse` for the
+Muse Spark check. `guide --maps` gives Muse Wonder `plan_route`, `find_nearby` and `route_status`; Google place facts
+come through Google's Maps Experience agent tools when `GOOGLE_MAPS_API_KEY` is set. Map data never authorises a
+crossing. See [docs/MAPS.md](docs/MAPS.md).
+
 Tests: `python -m pytest -q`
 
 ## Measured on the dev box (8 vCPU x86, no GPU, 27 Oct 2026)

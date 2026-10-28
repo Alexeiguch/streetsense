@@ -1,0 +1,140 @@
+{
+ "request": {
+  "method": "POST",
+  "url": "https://valhalla1.openstreetmap.de/trace_attributes",
+  "body": {
+   "encoded_polyline": "wrmeiArca}qC`WF?oB@UDgDbC?jA?vC?hF@j@?h_@@dK?jG?hE@~E?`EBv@GfA[dc@qStPaIrDwAtCeAt@?dOAnFAd@?X?fE?ji@G\\?AvC?lBF|l@",
+   "costing": "pedestrian",
+   "shape_match": "edge_walk",
+   "filters": {
+    "attributes": [
+     "edge.use",
+     "edge.begin_shape_index",
+     "edge.end_shape_index"
+    ],
+    "action": "include"
+   }
+  }
+ },
+ "response": {
+  "units": "kilometers",
+  "edges": [
+   {
+    "use": "footway",
+    "end_shape_index": 1,
+    "begin_shape_index": 0
+   },
+   {
+    "use": "footway",
+    "end_shape_index": 2,
+    "begin_shape_index": 1
+   },
+   {
+    "use": "pedestrian_crossing",
+    "end_shape_index": 3,
+    "begin_shape_index": 2
+   },
+   {
+    "use": "pedestrian_crossing",
+    "end_shape_index": 4,
+    "begin_shape_index": 3
+   },
+   {
+    "use": "road",
+    "end_shape_index": 5,
+    "begin_shape_index": 4
+   },
+   {
+    "use": "road",
+    "end_shape_index": 7,
+    "begin_shape_index": 5
+   },
+   {
+    "use": "road",
+    "end_shape_index": 8,
+    "begin_shape_index": 7
+   },
+   {
+    "use": "road",
+    "end_shape_index": 9,
+    "begin_shape_index": 8
+   },
+   {
+    "use": "road",
+    "end_shape_index": 10,
+    "begin_shape_index": 9
+   },
+   {
+    "use": "road",
+    "end_shape_index": 11,
+    "begin_shape_index": 10
+   },
+   {
+    "use": "road",
+    "end_shape_index": 13,
+    "begin_shape_index": 11
+   },
+   {
+    "use": "road",
+    "end_shape_index": 14,
+    "begin_shape_index": 13
+   },
+   {
+    "use": "road",
+    "end_shape_index": 15,
+    "begin_shape_index": 14
+   },
+   {
+    "use": "road",
+    "end_shape_index": 18,
+    "begin_shape_index": 15
+   },
+   {
+    "use": "road",
+    "end_shape_index": 19,
+    "begin_shape_index": 18
+   },
+   {
+    "use": "road",
+    "end_shape_index": 20,
+    "begin_shape_index": 19
+   },
+   {
+    "use": "road",
+    "end_shape_index": 22,
+    "begin_shape_index": 20
+   },
+   {
+    "use": "road",
+    "end_shape_index": 23,
+    "begin_shape_index": 22
+   },
+   {
+    "use": "road",
+    "end_shape_index": 24,
+    "begin_shape_index": 23
+   },
+   {
+    "use": "road",
+    "end_shape_index": 29,
+    "begin_shape_index": 24
+   },
+   {
+    "use": "pedestrian_crossing",
+    "end_shape_index": 30,
+    "begin_shape_index": 29
+   },
+   {
+    "use": "footway",
+    "end_shape_index": 31,
+    "begin_shape_index": 30
+   },
+   {
+    "use": "footway",
+    "end_shape_index": 32,
+    "begin_shape_index": 31
+   }
+  ],
+  "alternate_paths": []
+ }
+}

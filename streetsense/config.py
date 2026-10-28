@@ -138,6 +138,30 @@ class WonderConfig:
 
 
 @dataclass
+class MapsConfig:
+    """Opt-in walking navigation. Map data is context only and never authorises a crossing."""
+
+    enabled: bool = False  # STREETSENSE_MAPS=1, or the CLI walk-sim command
+    # osm: Valhalla + Overpass + Nominatim (free, speakable). fixture: recorded OSM responses, offline.
+    provider: str = "osm"
+    fixtures_dir: str | None = None  # default tests/fixtures/maps
+    # Google Maps via Maps Experience agent tools, only for Wonder place questions. Needs GOOGLE_MAPS_API_KEY.
+    google: bool = False
+
+    @property
+    def google_key_present(self) -> bool:
+        return bool(os.environ.get("GOOGLE_MAPS_API_KEY"))
+
+    @classmethod
+    def from_env(cls) -> "MapsConfig":
+        def on(name: str) -> bool:
+            return os.environ.get(name, "").strip().lower() in {"1", "true", "yes", "on"}
+
+        return cls(enabled=on("STREETSENSE_MAPS"), provider=os.environ.get("STREETSENSE_MAPS_PROVIDER", "osm"),
+                   fixtures_dir=os.environ.get("STREETSENSE_MAPS_FIXTURES"), google=on("STREETSENSE_MAPS_GOOGLE"))
+
+
+@dataclass
 class Config:
     detector: DetectorConfig = field(default_factory=DetectorConfig)
     surface: SurfaceConfig = field(default_factory=SurfaceConfig)
@@ -148,4 +172,5 @@ class Config:
     alerts: AlertConfig = field(default_factory=AlertConfig)
     vlm: VisionLLMConfig = field(default_factory=VisionLLMConfig)
     wonder: WonderConfig = field(default_factory=WonderConfig)
+    maps: MapsConfig = field(default_factory=MapsConfig)
     crosswalk_every_n_frames: int = 2

@@ -266,8 +266,20 @@ def cmd_guide(a: argparse.Namespace) -> int:
     if not guide.available:
         print("Muse Wonder disabled: export MODEL_API_KEY=...", file=sys.stderr)
         return 3
-    res = guide.run(a.question, frame, GuideTools.from_pipeline(pipe, frame, out, clock=clock))
-    payload = {"source": a.source, "at_s": a.at, "warmup_frames": len(pipe.observations),
+    maps = None
+    if a.maps:
+        from .config import MapsConfig
+        from .maps import build_session
+
+        maps = build_session(MapsConfig(enabled=True, provider=a.maps_provider, google=a.google_maps))
+        lat, lon = (float(x) for x in a.gps.split(","))
+        maps.set_position(lat, lon, heading=a.heading, accuracy_m=10.0)
+    res = guide.run(a.question, frame, GuideTools.from_pipeline(pipe, frame, out, clock=clock, maps=maps))
+    if maps is not None and maps.nav is not None:
+        res_route = maps.nav.status()
+    else:
+        res_route = None
+    payload = {"source": a.source, "at_s": a.at, "route": res_route, "warmup_frames": len(pipe.observations),
                "glasses": gcfg.to_dict() if gcfg else None, **res.to_dict(),
                "meta_usage": get_ledger().summary()}
     print(json.dumps(payload, indent=2, default=str))
@@ -406,6 +418,12 @@ def main(argv: list[str] | None = None) -> int:
     g.add_argument("--backend", default="openvino", choices=["openvino", "torch"])
     g.add_argument("--no-surface", action="store_true")
     g.add_argument("--out", help="append the JSON result to this JSONL file")
+    g.add_argument("--maps", action="store_true", help="give Wonder the map tools (plan_route, route_status, find_nearby)")
+    g.add_argument("--maps-provider", default="fixture", choices=["fixture", "osm", "record"])
+    g.add_argument("--gps", default="38.9031,-77.0387", help="walker position lat,lon (default Farragut Square, DC)")
+    g.add_argument("--heading", type=float, default=180.0)
+    g.add_argument("--google-maps", action="store_true",
+                   help="add google_maps_search via Maps Experience agent tools (needs GOOGLE_MAPS_API_KEY)")
     g.set_defaults(fn=cmd_guide)
     gs = sub.add_parser("glasses-sim", help="run the local pipeline on a clip shaped like a Ray-Ban stream")
     gs.add_argument("--source", required=True)
@@ -419,6 +437,9 @@ def main(argv: list[str] | None = None) -> int:
     gs.add_argument("--no-surface", action="store_true")
     gs.add_argument("--stats", help="write stats JSON here")
     gs.set_defaults(fn=cmd_glasses_sim)
+    from .maps.demo import add_parser as add_walk_sim
+
+    add_walk_sim(sub)
     a = p.parse_args(argv)
     return a.fn(a)
 

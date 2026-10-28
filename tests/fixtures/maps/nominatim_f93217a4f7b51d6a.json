@@ -1,0 +1,40 @@
+{
+ "request": {
+  "method": "GET",
+  "url": "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=38.901&lon=-77.0387&zoom=18",
+  "body": null
+ },
+ "response": {
+  "place_id": 348710083,
+  "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+  "osm_type": "node",
+  "osm_id": 738195017,
+  "lat": "38.9009899",
+  "lon": "-77.0387577",
+  "category": "amenity",
+  "type": "restaurant",
+  "place_rank": 30,
+  "importance": 8.492942702368227e-05,
+  "addresstype": "amenity",
+  "name": "",
+  "display_name": "818, Connecticut Avenue Northwest, Golden Triangle, Ward 2, Washington, District of Columbia, 20062, United States",
+  "address": {
+   "house_number": "818",
+   "road": "Connecticut Avenue Northwest",
+   "neighborhood": "Golden Triangle",
+   "borough": "Ward 2",
+   "city": "Washington",
+   "state": "District of Columbia",
+   "ISO3166-2-lvl4": "US-DC",
+   "postcode": "20062",
+   "country": "United States",
+   "country_code": "us"
+  },
+  "boundingbox": [
+   "38.9009399",
+   "38.9010399",
+   "-77.0388077",
+   "-77.0387077"
+  ]
+ }
+}

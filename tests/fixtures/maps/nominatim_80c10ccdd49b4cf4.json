@@ -1,0 +1,47 @@
+{
+ "request": {
+  "method": "GET",
+  "url": "https://nominatim.openstreetmap.org/search?bounded=1&extratags=1&format=jsonv2&limit=5&q=Renwick+Gallery&viewbox=-77.0487%2C38.9131%2C-77.0287%2C38.8931",
+  "body": null
+ },
+ "response": [
+  {
+   "place_id": 347546574,
+   "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+   "osm_type": "way",
+   "osm_id": 66420114,
+   "lat": "38.8991734",
+   "lon": "-77.0390718",
+   "category": "tourism",
+   "type": "museum",
+   "place_rank": 30,
+   "importance": 0.40053304207139734,
+   "addresstype": "tourism",
+   "name": "Renwick Gallery",
+   "display_name": "Renwick Gallery, 1661, Pennsylvania Avenue Northwest, Ward 2, Washington, District of Columbia, 20006, United States",
+   "extratags": {
+    "museum": "art",
+    "dataset": "buildings",
+    "website": "https://americanart.si.edu/visit/renwick",
+    "building": "yes",
+    "operator": "Smithsonian Institute",
+    "wikidata": "Q876537",
+    "dcgis:lot": "0800",
+    "wikipedia": "en:Renwick Gallery",
+    "roof:shape": "many",
+    "roof:levels": "1",
+    "dcgis:square": "0167",
+    "opening_hours": "Mo-Su 10:00-17:30",
+    "building:levels": "2",
+    "dcgis:captureyear": "19990331",
+    "wikimedia_commons": "File:Renwick_Gallery_1_(27620950381).jpg"
+   },
+   "boundingbox": [
+    "38.8989603",
+    "38.8992934",
+    "-77.0392604",
+    "-77.0388974"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,2024 @@
+{
+ "request": {
+  "method": "POST",
+  "url": "https://overpass-api.de/api/interpreter",
+  "body": {
+   "data": "[out:json][timeout:25];(node(38.89774,-77.03973,38.90350,-77.03753)[highway=crossing];node(38.89774,-77.03973,38.90350,-77.03753)[footway=crossing];node(38.89774,-77.03973,38.90350,-77.03753)[highway=traffic_signals];)->.c;.c out body;way(bn.c)[highway~\"^(trunk|primary|secondary|tertiary|unclassified|residential|living_street|service|trunk_link|primary_link|secondary_link|tertiary_link)$\"];out body;"
+  }
+ },
+ "response": {
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+   "timestamp_osm_base": "2026-10-28T16:40:22Z",
+   "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+   {
+    "type": "node",
+    "id": 49749106,
+    "lat": 38.9002199,
+    "lon": -77.0379715,
+    "tags": {
+     "highway": "traffic_signals",
+     "source": "survey"
+    }
+   },
+   {
+    "type": "node",
+    "id": 49770640,
+    "lat": 38.9013327,
+    "lon": -77.038522,
+    "tags": {
+     "highway": "traffic_signals"
+    }
+   },
+   {
+    "type": "node",
+    "id": 49770646,
+    "lat": 38.9025308,
+    "lon": -77.0385188,
+    "tags": {
+     "highway": "traffic_signals"
+    }
+   },
+   {
+    "type": "node",
+    "id": 49770782,
+    "lat": 38.9002227,
+    "lon": -77.0394543,
+    "tags": {
+     "highway": "traffic_signals"
+    }
+   },
+   {
+    "type": "node",
+    "id": 49770789,
+    "lat": 38.901334,
+    "lon": -77.0394467,
+    "tags": {
+     "highway": "traffic_signals"
+    }
+   },
+   {
+    "type": "node",
+    "id": 49770799,
+    "lat": 38.90253,
+    "lon": -77.039386,
+    "tags": {
+     "highway": "traffic_signals"
+    }
+   },
+   {
+    "type": "node",
+    "id": 49820938,
+    "lat": 38.9003097,
+    "lon": -77.0380161,
+    "tags": {
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "crossing:markings": "ladder",
+     "highway": "crossing",
+     "tactile_paving": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 49820952,
+    "lat": 38.9012363,
+    "lon": -77.0385242,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "crossing:markings": "ladder",
+     "highway": "crossing",
+     "tactile_paving": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 635070048,
+    "lat": 38.9026775,
+    "lon": -77.039246,
+    "tags": {
+     "button_operated": "yes",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 1240476059,
+    "lat": 38.9023919,
+    "lon": -77.0385199,
+    "tags": {
+     "crossing": "traffic_signals",
+     "crossing:markings:colour": "white",
+     "highway": "crossing",
+     "tactile_paving": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 1322713594,
+    "lat": 38.9013346,
+    "lon": -77.0386464,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "highway": "crossing",
+     "tactile_paving": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 1322713634,
+    "lat": 38.9014455,
+    "lon": -77.0385218,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "crossing:markings": "ladder",
+     "highway": "crossing",
+     "tactile_paving": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 1379495810,
+    "lat": 38.9025298,
+    "lon": -77.0395134,
+    "tags": {
+     "highway": "traffic_signals"
+    }
+   },
+   {
+    "type": "node",
+    "id": 1379495928,
+    "lat": 38.9027491,
+    "lon": -77.0395332,
+    "tags": {
+     "button_operated": "yes",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "yes",
+     "traffic_signals:sound": "yes",
+     "traffic_signals:vibration": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 1381216023,
+    "lat": 38.8988162,
+    "lon": -77.0394602,
+    "tags": {
+     "highway": "traffic_signals"
+    }
+   },
+   {
+    "type": "node",
+    "id": 1794218108,
+    "lat": 38.9002202,
+    "lon": -77.0378565,
+    "tags": {
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 1825446968,
+    "lat": 38.9013253,
+    "lon": -77.0383823,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "highway": "crossing",
+     "tactile_paving": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 2460844798,
+    "lat": 38.8988696,
+    "lon": -77.0396213,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "highway": "crossing",
+     "tactile_paving": "yes",
+     "traffic_signals:sound": "no",
+     "traffic_signals:vibration": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 2460844817,
+    "lat": 38.8989934,
+    "lon": -77.0394601,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "highway": "crossing",
+     "tactile_paving": "yes",
+     "traffic_signals:vibration": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 2460844879,
+    "lat": 38.8986556,
+    "lon": -77.0394581,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "highway": "crossing",
+     "tactile_paving": "yes",
+     "traffic_signals:sound": "no",
+     "traffic_signals:vibration": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 2790757752,
+    "lat": 38.9001096,
+    "lon": -77.0394566,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "no",
+     "traffic_signals:vibration": "no",
+     "wheelchair": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 2790757757,
+    "lat": 38.9002224,
+    "lon": -77.0392835,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "highway": "crossing",
+     "tactile_paving": "no",
+     "traffic_signals:vibration": "no",
+     "wheelchair": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 2790757761,
+    "lat": 38.9002227,
+    "lon": -77.0396094,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "no",
+     "traffic_signals:vibration": "no",
+     "wheelchair": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 2790757765,
+    "lat": 38.9003306,
+    "lon": -77.0394532,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "yes",
+     "traffic_signals:vibration": "no",
+     "wheelchair": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 2999157096,
+    "lat": 38.8979219,
+    "lon": -77.0394638,
+    "tags": {
+     "highway": "traffic_signals"
+    }
+   },
+   {
+    "type": "node",
+    "id": 3027665433,
+    "lat": 38.9027112,
+    "lon": -77.0385185,
+    "tags": {
+     "button_operated": "yes",
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "highway": "crossing",
+     "tactile_paving": "yes",
+     "traffic_signals:sound": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 3027665439,
+    "lat": 38.9026501,
+    "lon": -77.0395159,
+    "tags": {
+     "highway": "traffic_signals"
+    }
+   },
+   {
+    "type": "node",
+    "id": 3027665453,
+    "lat": 38.9024019,
+    "lon": -77.0395118,
+    "tags": {
+     "highway": "traffic_signals"
+    }
+   },
+   {
+    "type": "node",
+    "id": 3215072488,
+    "lat": 38.898337,
+    "lon": -77.0395975,
+    "tags": {
+     "crossing": "marked",
+     "crossing:markings": "ladder",
+     "crossing:signals": "no",
+     "highway": "crossing",
+     "tactile_paving": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 6918502754,
+    "lat": 38.9025318,
+    "lon": -77.0392706,
+    "tags": {
+     "button_operated": "yes",
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 7568225423,
+    "lat": 38.9014388,
+    "lon": -77.0394465,
+    "tags": {
+     "button_operated": "yes",
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "crossing:markings": "ladder",
+     "highway": "crossing",
+     "tactile_paving": "yes",
+     "traffic_signals:sound": "yes",
+     "traffic_signals:vibration": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 7568225424,
+    "lat": 38.9013323,
+    "lon": -77.0392999,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "highway": "crossing",
+     "tactile_paving": "yes",
+     "traffic_signals:sound": "yes",
+     "traffic_signals:vibration": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 7568225426,
+    "lat": 38.9012594,
+    "lon": -77.0394472,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "crossing:markings": "ladder",
+     "highway": "crossing",
+     "tactile_paving": "yes",
+     "traffic_signals:sound": "yes",
+     "traffic_signals:vibration": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 7599438691,
+    "lat": 38.9024137,
+    "lon": -77.0383716,
+    "tags": {
+     "crossing": "traffic_signals",
+     "highway": "crossing",
+     "tactile_paving": "incorrect"
+    }
+   },
+   {
+    "type": "node",
+    "id": 7599438692,
+    "lat": 38.9025303,
+    "lon": -77.0383713,
+    "tags": {
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "crossing:markings:colour": "white",
+     "highway": "crossing",
+     "tactile_paving": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 7599438693,
+    "lat": 38.902647,
+    "lon": -77.0383711,
+    "tags": {
+     "crossing": "traffic_signals",
+     "crossing:markings:colour": "white",
+     "highway": "crossing",
+     "tactile_paving": "incorrect"
+    }
+   },
+   {
+    "type": "node",
+    "id": 7599438694,
+    "lat": 38.9026454,
+    "lon": -77.0386699,
+    "tags": {
+     "crossing": "traffic_signals",
+     "crossing:markings:colour": "white",
+     "highway": "crossing",
+     "tactile_paving": "incorrect"
+    }
+   },
+   {
+    "type": "node",
+    "id": 7599438695,
+    "lat": 38.9025316,
+    "lon": -77.0386701,
+    "tags": {
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "crossing:markings:colour": "white",
+     "highway": "crossing",
+     "tactile_paving": "incorrect"
+    }
+   },
+   {
+    "type": "node",
+    "id": 7599438698,
+    "lat": 38.9018496,
+    "lon": -77.0384226,
+    "tags": {
+     "highway": "crossing"
+    }
+   },
+   {
+    "type": "node",
+    "id": 7599438699,
+    "lat": 38.9017034,
+    "lon": -77.0384237,
+    "tags": {
+     "highway": "crossing"
+    }
+   },
+   {
+    "type": "node",
+    "id": 8254155936,
+    "lat": 38.8987481,
+    "lon": -77.0393118,
+    "tags": {
+     "crossing": "unmarked",
+     "crossing:markings": "no",
+     "highway": "crossing"
+    }
+   },
+   {
+    "type": "node",
+    "id": 8481317122,
+    "lat": 38.897967,
+    "lon": -77.0394612,
+    "tags": {
+     "crossing": "marked",
+     "crossing:island": "no",
+     "crossing:markings": "yes",
+     "highway": "crossing",
+     "tactile_paving": "incorrect"
+    }
+   },
+   {
+    "type": "node",
+    "id": 8481317239,
+    "lat": 38.9001144,
+    "lon": -77.038976,
+    "tags": {
+     "crossing": "unmarked",
+     "crossing:markings": "no",
+     "highway": "crossing",
+     "tactile_paving": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 8481317243,
+    "lat": 38.9001181,
+    "lon": -77.0379373,
+    "tags": {
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "crossing:markings": "lines",
+     "highway": "crossing",
+     "tactile_paving": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 8481317244,
+    "lat": 38.9002201,
+    "lon": -77.0381042,
+    "tags": {
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "highway": "crossing",
+     "tactile_paving": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 8626399984,
+    "lat": 38.9013367,
+    "lon": -77.0396104,
+    "tags": {
+     "button_operated": "no",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "highway": "crossing",
+     "tactile_paving": "yes",
+     "traffic_signals:sound": "yes",
+     "traffic_signals:vibration": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 9749575117,
+    "lat": 38.8982908,
+    "lon": -77.0395981,
+    "tags": {
+     "crossing": "marked",
+     "crossing:island": "no",
+     "crossing:markings": "ladder",
+     "highway": "crossing",
+     "tactile_paving": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 10170211694,
+    "lat": 38.902788,
+    "lon": -77.0393672,
+    "tags": {
+     "button_operated": "yes",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 10170211695,
+    "lat": 38.9027827,
+    "lon": -77.0393896,
+    "tags": {
+     "button_operated": "yes",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 10170211697,
+    "lat": 38.9024018,
+    "lon": -77.0396204,
+    "tags": {
+     "button_operated": "yes",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 10170211698,
+    "lat": 38.9025301,
+    "lon": -77.039625,
+    "tags": {
+     "crossing": "traffic_signals",
+     "crossing:island": "no",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "yes",
+     "traffic_signals:sound": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 10170211699,
+    "lat": 38.9026498,
+    "lon": -77.0396292,
+    "tags": {
+     "button_operated": "yes",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "yes",
+     "traffic_signals:sound": "yes",
+     "traffic_signals:vibration": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 10170211700,
+    "lat": 38.9023993,
+    "lon": -77.0393886,
+    "tags": {
+     "button_operated": "yes",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "incorrect",
+     "traffic_signals:sound": "yes",
+     "traffic_signals:vibration": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 10170211701,
+    "lat": 38.9023624,
+    "lon": -77.0395127,
+    "tags": {
+     "button_operated": "yes",
+     "crossing": "traffic_signals",
+     "crossing:markings": "ladder",
+     "crossing:signals": "yes",
+     "highway": "crossing",
+     "tactile_paving": "incorrect",
+     "traffic_signals:vibration": "yes"
+    }
+   },
+   {
+    "type": "node",
+    "id": 11009653675,
+    "lat": 38.8995268,
+    "lon": -77.0396165,
+    "tags": {
+     "crossing": "unmarked",
+     "crossing:markings": "no",
+     "highway": "crossing",
+     "tactile_paving": "no"
+    }
+   },
+   {
+    "type": "node",
+    "id": 11009653868,
+    "lat": 38.9033041,
+    "lon": -77.0383745,
+    "tags": {
+     "highway": "crossing"
+    }
+   },
+   {
+    "type": "node",
+    "id": 11076171064,
+    "lat": 38.9033043,
+    "lon": -77.0384239,
+    "tags": {
+     "highway": "crossing"
+    }
+   },
+   {
+    "type": "node",
+    "id": 11162050952,
+    "lat": 38.9026453,
+    "lon": -77.0385715,
+    "tags": {
+     "crossing": "traffic_signals",
+     "crossing:signals": "yes",
+     "highway": "crossing"
+    }
+   },
+   {
+    "type": "node",
+    "id": 11162050953,
+    "lat": 38.902646,
+    "lon": -77.0384606,
+    "tags": {
+     "crossing": "traffic_signals",
+     "crossing:signals": "yes",
+     "highway": "crossing"
+    }
+   },
+   {
+    "type": "node",
+    "id": 12560198888,
+    "lat": 38.8989143,
+    "lon": -77.037931,
+    "tags": {
+     "crossing": "unmarked",
+     "crossing:markings": "no",
+     "highway": "crossing"
+    }
+   },
+   {
+    "type": "node",
+    "id": 13261923091,
+    "lat": 38.8979242,
+    "lon": -77.0380919,
+    "tags": {
+     "crossing": "unmarked",
+     "crossing:markings": "no",
+     "highway": "crossing"
+    }
+   },
+   {
+    "type": "way",
+    "id": 6054151,
+    "nodes": [
+     12801708577,
+     12560198888,
+     1334061684,
+     12801760801,
+     14145138681,
+     8254287122,
+     8254287124,
+     2633774615,
+     8481317243,
+     8285883924,
+     49749106
+    ],
+    "tags": {
+     "access": "private",
+     "foot": "private",
+     "highway": "residential",
+     "lane_markings": "no",
+     "motor_vehicle": "private",
+     "name": "Jackson Place Northwest",
+     "name:etymology:wikidata": "Q11817",
+     "sidewalk:both": "separate",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "Jackson",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "Pl",
+     "tiger:zip_left": "20006",
+     "tiger:zip_right": "20006"
+    }
+   },
+   {
+    "type": "way",
+    "id": 6058793,
+    "nodes": [
+     49770640,
+     49820952,
+     9123365498,
+     49820941,
+     13762187600
+    ],
+    "tags": {
+     "HFCS": "Minor Arterial",
+     "highway": "tertiary",
+     "lanes": "4",
+     "lit": "yes",
+     "name": "Connecticut Avenue Northwest",
+     "name:etymology:wikidata": "Q779",
+     "sidewalk:both": "separate",
+     "source": "Bing",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt"
+    }
+   },
+   {
+    "type": "way",
+    "id": 6058797,
+    "nodes": [
+     49770799,
+     9123365492,
+     9123365493,
+     10170211695,
+     49820981
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "cycleway:right": "no",
+     "fixme": "check lanes",
+     "highway": "primary",
+     "lanes": "3",
+     "lit": "yes",
+     "name": "Connecticut Avenue Northwest",
+     "name:etymology:wikidata": "Q779",
+     "oneway": "yes",
+     "sidewalk:left": "no",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt"
+    }
+   },
+   {
+    "type": "way",
+    "id": 126303364,
+    "nodes": [
+     1379495810,
+     3027665453
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "cycleway:right": "no",
+     "highway": "primary",
+     "lanes": "3",
+     "lit": "yes",
+     "name": "17th Street Northwest",
+     "oneway": "yes",
+     "sidewalk:left": "no",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt"
+    }
+   },
+   {
+    "type": "way",
+    "id": 126303365,
+    "nodes": [
+     1240476053,
+     633924141,
+     10170211700,
+     49770799
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "fixme": "check lanes",
+     "highway": "primary",
+     "lanes": "3",
+     "lit": "yes",
+     "name": "17th Street Northwest",
+     "oneway": "yes",
+     "sidewalk:left": "no",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "turn:lanes": "||through;right"
+    }
+   },
+   {
+    "type": "way",
+    "id": 126303366,
+    "nodes": [
+     49770789,
+     7568225423,
+     1240476053
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "cycleway:both": "no",
+     "fixme": "check lanes",
+     "highway": "primary",
+     "lanes": "6",
+     "lit": "yes",
+     "name": "17th Street Northwest",
+     "sidewalk:both": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "17th",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:zip_left": "20006"
+    }
+   },
+   {
+    "type": "way",
+    "id": 130908283,
+    "nodes": [
+     49770646,
+     1240476057
+    ],
+    "tags": {
+     "HFCS": "Minor Arterial",
+     "highway": "tertiary",
+     "lanes": "4",
+     "lit": "yes",
+     "name": "17th Street Northwest",
+     "sidewalk:both": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt"
+    }
+   },
+   {
+    "type": "way",
+    "id": 305660797,
+    "nodes": [
+     13102812875,
+     13102812881,
+     8225844646,
+     13102812876,
+     12801708577,
+     8225844647,
+     8225844649,
+     8225844648,
+     4071055374,
+     8254155936,
+     1381216023
+    ],
+    "tags": {
+     "bicycle": "permissive",
+     "foot": "permissive",
+     "highway": "living_street",
+     "lit": "yes",
+     "motor_vehicle": "private",
+     "name": "Pennsylvania Avenue Northwest",
+     "name:etymology:wikidata": "Q1400",
+     "sidewalk:both": "separate",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "Pennsylvania",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "Ave",
+     "tiger:zip_left": "20006",
+     "tiger:zip_right": "20006"
+    }
+   },
+   {
+    "type": "way",
+    "id": 323742930,
+    "nodes": [
+     49770799,
+     3027665439
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "highway": "tertiary",
+     "lanes": "1",
+     "lit": "yes",
+     "maxspeed": "25 mph",
+     "name": "K Street Northwest",
+     "oneway": "yes",
+     "sidewalk:left": "no",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "concrete"
+    }
+   },
+   {
+    "type": "way",
+    "id": 323742931,
+    "nodes": [
+     3027665439,
+     1379495810
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "cycleway:right": "no",
+     "highway": "primary",
+     "lanes": "3",
+     "lit": "yes",
+     "name": "Connecticut Avenue Northwest",
+     "name:etymology:wikidata": "Q779",
+     "oneway": "yes",
+     "sidewalk:left": "no",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt"
+    }
+   },
+   {
+    "type": "way",
+    "id": 323742932,
+    "nodes": [
+     3027665453,
+     10170211701,
+     9123365491,
+     1240476053
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "cycleway:right": "no",
+     "highway": "primary",
+     "lanes": "3",
+     "lit": "yes",
+     "name": "17th Street Northwest",
+     "oneway": "yes",
+     "sidewalk:left": "no",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "17th",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:reviewed": "no",
+     "tiger:zip_left": "20006"
+    }
+   },
+   {
+    "type": "way",
+    "id": 352411913,
+    "nodes": [
+     641116203,
+     7599438692,
+     49770646
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "highway": "trunk",
+     "lanes": "4",
+     "lit": "yes",
+     "maxspeed": "25 mph",
+     "name": "K Street Northwest",
+     "ref": "US 29",
+     "sidewalk:both": "no",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt"
+    }
+   },
+   {
+    "type": "way",
+    "id": 352412093,
+    "nodes": [
+     49770799,
+     6918502754,
+     7599438695,
+     49770646
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "highway": "trunk",
+     "lanes": "4",
+     "lit": "yes",
+     "maxspeed": "25 mph",
+     "name": "K Street Northwest",
+     "ref": "US 29",
+     "shoulder": "no",
+     "sidewalk:left": "no",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt"
+    }
+   },
+   {
+    "type": "way",
+    "id": 353283534,
+    "nodes": [
+     11261031471,
+     10170211684,
+     5445789476,
+     9123390454,
+     1379496279,
+     1379495928,
+     1379496288,
+     3027665439
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "highway": "primary",
+     "lanes": "3",
+     "lit": "yes",
+     "name": "Connecticut Avenue Northwest",
+     "name:etymology:wikidata": "Q779",
+     "oneway": "yes",
+     "sidewalk:left": "no",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "Connecticut",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "Ave",
+     "tiger:reviewed": "no",
+     "tiger:zip_left": "20015",
+     "tiger:zip_right": "20015"
+    }
+   },
+   {
+    "type": "way",
+    "id": 421061860,
+    "nodes": [
+     1379495810,
+     49770799
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "highway": "trunk",
+     "lanes": "4",
+     "lit": "yes",
+     "maxspeed": "25 mph",
+     "name": "K Street Northwest",
+     "ref": "US 29",
+     "shoulder": "no",
+     "sidewalk:both": "no",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A49",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "K",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:reviewed": "no"
+    }
+   },
+   {
+    "type": "way",
+    "id": 436136929,
+    "nodes": [
+     641116216,
+     2790624049,
+     641116204,
+     12307654076,
+     7599438693,
+     11162050953,
+     1740764624
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "highway": "tertiary",
+     "lanes": "1",
+     "lit": "yes",
+     "name": "K Street Northwest",
+     "oneway": "yes",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A49",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "K",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:reviewed": "no"
+    }
+   },
+   {
+    "type": "way",
+    "id": 438964976,
+    "nodes": [
+     1740764624,
+     11162050952,
+     7599438694,
+     635070047,
+     9123365495,
+     9123365496,
+     635070048,
+     9123365497,
+     635070049,
+     10170211694,
+     49820981
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "highway": "tertiary",
+     "lanes": "1",
+     "lit": "yes",
+     "name": "K Street Northwest",
+     "oneway": "yes",
+     "sidewalk:left": "no",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "width": "20'0\""
+    }
+   },
+   {
+    "type": "way",
+    "id": 438964977,
+    "nodes": [
+     1740764624,
+     11162050959,
+     49770646
+    ],
+    "tags": {
+     "HFCS": "Minor Arterial",
+     "cycleway": "separate",
+     "highway": "secondary",
+     "lanes": "6",
+     "name": "17th Street Northwest",
+     "sidewalk:both": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt"
+    }
+   },
+   {
+    "type": "way",
+    "id": 466359338,
+    "nodes": [
+     11261031475,
+     6094005002,
+     11261031480,
+     5445790021,
+     3027665433,
+     1740764624
+    ],
+    "tags": {
+     "HFCS": "Minor Arterial",
+     "cycleway": "separate",
+     "highway": "secondary",
+     "lanes": "6",
+     "lit": "yes",
+     "name": "17th Street Northwest",
+     "oneway:conditional": "yes @ (Mo-Fr 07:00-09:30; PH off)",
+     "sidewalk:both": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt"
+    }
+   },
+   {
+    "type": "way",
+    "id": 468434121,
+    "nodes": [
+     4629703810,
+     7568225424,
+     49770789
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "alt_name": "Eye Street Northwest",
+     "bus:lanes": "|||designated",
+     "cycleway:left": "no",
+     "cycleway:right": "share_busway",
+     "fixme": "check lanes",
+     "highway": "secondary",
+     "lanes": "4",
+     "lanes:bus": "1",
+     "lcn": "yes",
+     "lit": "yes",
+     "name": "I Street Northwest",
+     "oneway": "yes",
+     "sidewalk:both": "separate",
+     "source": "Bing",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "I",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:reviewed": "no",
+     "tiger:zip_left": "20006",
+     "tiger:zip_right": "20006",
+     "turn:lanes": "left|through|through|right"
+    }
+   },
+   {
+    "type": "way",
+    "id": 468434122,
+    "nodes": [
+     49770789,
+     8626399984,
+     5445789450,
+     13762246704
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "alt_name": "Eye Street Northwest",
+     "bus:lanes": "||designated",
+     "cycleway:left": "no",
+     "cycleway:right": "share_busway",
+     "fixme": "check lanes",
+     "highway": "secondary",
+     "lanes": "3",
+     "lanes:bus": "1",
+     "lcn": "yes",
+     "lit": "yes",
+     "name": "I Street Northwest",
+     "oneway": "yes",
+     "sidewalk:both": "separate",
+     "source": "Bing",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "I",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:zip_left": "20006",
+     "tiger:zip_right": "20006"
+    }
+   },
+   {
+    "type": "way",
+    "id": 469154540,
+    "nodes": [
+     1381216023,
+     2460844798,
+     4635571193
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "hgv": "no",
+     "highway": "primary",
+     "lanes": "5",
+     "lanes:backward": "4",
+     "lanes:forward": "3",
+     "lit": "yes",
+     "name": "Pennsylvania Avenue Northwest",
+     "name:etymology:wikidata": "Q1400",
+     "sidewalk:both": "separate",
+     "sidewalk:both:surface": "paving_stones",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "Pennsylvania",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "Ave",
+     "tiger:zip_left": "20006",
+     "tiger:zip_right": "20006",
+     "turn:lanes:backward": "left|left|right|right"
+    }
+   },
+   {
+    "type": "way",
+    "id": 469165486,
+    "nodes": [
+     49770789,
+     7568225426,
+     4635704125
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "cycleway:both": "no",
+     "fixme": "check lanes",
+     "highway": "primary",
+     "lanes": "7",
+     "lanes:backward": "4",
+     "lanes:forward": "3",
+     "lit": "yes",
+     "name": "17th Street Northwest",
+     "sidewalk:both": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "17th",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:zip_right": "20006",
+     "turn:lanes:backward": "left|||"
+    }
+   },
+   {
+    "type": "way",
+    "id": 469165488,
+    "nodes": [
+     4635704126,
+     2790757765,
+     49770782
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "cycleway:both": "no",
+     "fixme": "check lanes",
+     "highway": "primary",
+     "lanes": "7",
+     "lanes:backward": "3",
+     "lanes:forward": "4",
+     "lit": "yes",
+     "name": "17th Street Northwest",
+     "sidewalk:both": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "17th",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:zip_right": "20006",
+     "turn:lanes:forward": "left|||"
+    }
+   },
+   {
+    "type": "way",
+    "id": 469165489,
+    "nodes": [
+     4635704127,
+     2790757752,
+     49770782
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "cycleway:both": "no",
+     "fixme": "check lanes",
+     "hgv": "no",
+     "highway": "primary",
+     "lanes": "6",
+     "lanes:backward": "3",
+     "lanes:forward": "3",
+     "lit": "yes",
+     "name": "17th Street Northwest",
+     "sidewalk:both": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "17th",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:zip_left": "20006",
+     "turn:lanes:forward": "|through;right|"
+    }
+   },
+   {
+    "type": "way",
+    "id": 469165490,
+    "nodes": [
+     1381216023,
+     2460844817,
+     5445789449,
+     4635704127
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "fixme": "check lanes",
+     "hgv": "no",
+     "highway": "primary",
+     "lanes": "6",
+     "lit": "yes",
+     "name": "17th Street Northwest",
+     "sidewalk:both": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "17th",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:zip_left": "20006"
+    }
+   },
+   {
+    "type": "way",
+    "id": 520532361,
+    "nodes": [
+     1240476057,
+     7599438691,
+     641116221
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "highway": "tertiary",
+     "lanes": "1",
+     "lit": "yes",
+     "name": "K Street Northwest",
+     "oneway": "yes",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A49",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "K",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:reviewed": "no"
+    }
+   },
+   {
+    "type": "way",
+    "id": 520537747,
+    "nodes": [
+     641116231,
+     10170211698,
+     1379495810
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "highway": "trunk",
+     "lanes": "4",
+     "lit": "yes",
+     "maxspeed": "25 mph",
+     "name": "K Street Northwest",
+     "ref": "US 29",
+     "sidewalk:both": "no",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "source:maxspeed": "US:urban",
+     "surface": "asphalt",
+     "tiger:cfcc": "A49",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "K",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:reviewed": "no"
+    }
+   },
+   {
+    "type": "way",
+    "id": 535520845,
+    "nodes": [
+     641116230,
+     5445789466,
+     10170211697,
+     9618671183,
+     3027665453
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "cycleway:right": "no",
+     "highway": "tertiary",
+     "lanes": "1",
+     "lit": "yes",
+     "name": "K Street Northwest",
+     "oneway": "yes",
+     "sidewalk:left": "no",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "concrete"
+    }
+   },
+   {
+    "type": "way",
+    "id": 543712321,
+    "nodes": [
+     49762225,
+     3215072488,
+     12169254203,
+     3215072489,
+     49762238
+    ],
+    "tags": {
+     "HFCS": "Collector",
+     "cycleway:left": "separate",
+     "cycleway:right": "no",
+     "highway": "tertiary",
+     "lanes": "1",
+     "lit": "yes",
+     "name": "G Street Northwest",
+     "oneway": "yes",
+     "sidewalk:both": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt"
+    }
+   },
+   {
+    "type": "way",
+    "id": 565463034,
+    "nodes": [
+     5445789449,
+     11009653675,
+     5445789448,
+     5445789447,
+     5445789446,
+     5445789445
+    ],
+    "tags": {
+     "highway": "service",
+     "maxspeed": "15 mph",
+     "service": "alley"
+    }
+   },
+   {
+    "type": "way",
+    "id": 565463079,
+    "nodes": [
+     5445790023,
+     5445790024,
+     5445790022,
+     11009653868,
+     11076171064,
+     5445790021
+    ],
+    "tags": {
+     "highway": "service",
+     "maxspeed": "15 mph",
+     "service": "alley"
+    }
+   },
+   {
+    "type": "way",
+    "id": 565463085,
+    "nodes": [
+     5445790035,
+     5445790034,
+     7599438699,
+     5445790033,
+     5445790032,
+     7599438698,
+     5445790031,
+     5445790030
+    ],
+    "tags": {
+     "highway": "service",
+     "oneway": "yes",
+     "service": "driveway"
+    }
+   },
+   {
+    "type": "way",
+    "id": 565463089,
+    "nodes": [
+     5445790039,
+     5445790040,
+     8481317239,
+     5445790038
+    ],
+    "tags": {
+     "highway": "service",
+     "smoothness": "excellent",
+     "surface": "concrete"
+    }
+   },
+   {
+    "type": "way",
+    "id": 589533502,
+    "nodes": [
+     49770640,
+     1322713594,
+     4629703810
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "alt_name": "Eye Street Northwest",
+     "bus:lanes": "|||designated",
+     "cycleway:left": "no",
+     "cycleway:right": "share_busway",
+     "fixme": "check lanes",
+     "highway": "secondary",
+     "lanes": "4",
+     "lanes:bus": "1",
+     "lcn": "yes",
+     "name": "I Street Northwest",
+     "oneway": "yes",
+     "sidewalk:both": "separate",
+     "source": "Bing",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt"
+    }
+   },
+   {
+    "type": "way",
+    "id": 590581668,
+    "nodes": [
+     49770782,
+     2790757757,
+     5445790038,
+     12328976759,
+     8481317244,
+     49749106
+    ],
+    "tags": {
+     "HFCS": "Minor Arterial",
+     "NHS": "yes",
+     "bus:lanes": "|||designated",
+     "cycleway:right": "share_busway",
+     "highway": "secondary",
+     "lanes": "4",
+     "lanes:bus": "1",
+     "lcn": "yes",
+     "lit": "yes",
+     "name": "H Street Northwest",
+     "oneway": "yes",
+     "sidewalk:both": "separate",
+     "smoothness": "excellent",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "H",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:reviewed": "no",
+     "tiger:zip_left": "20006",
+     "tiger:zip_right": "20006"
+    }
+   },
+   {
+    "type": "way",
+    "id": 887786069,
+    "nodes": [
+     3023648811,
+     2999157102,
+     8254222459,
+     2999157096
+    ],
+    "tags": {
+     "access": "private",
+     "highway": "service",
+     "service": "driveway"
+    }
+   },
+   {
+    "type": "way",
+    "id": 887786072,
+    "nodes": [
+     5445790042,
+     13261923091,
+     13250783517,
+     8254155899
+    ],
+    "tags": {
+     "access": "private",
+     "highway": "service",
+     "service": "driveway"
+    }
+   },
+   {
+    "type": "way",
+    "id": 1049842802,
+    "nodes": [
+     49749106,
+     1794218108,
+     9647779524
+    ],
+    "tags": {
+     "HFCS": "Minor Arterial",
+     "NHS": "yes",
+     "bus:lanes": "|||designated",
+     "cycleway:right": "share_busway",
+     "highway": "secondary",
+     "lanes": "4",
+     "lanes:bus": "1",
+     "lcn": "yes",
+     "lit": "yes",
+     "name": "H Street Northwest",
+     "oneway": "yes",
+     "sidewalk:both": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "turn:lanes": "||merge_to_left|"
+    }
+   },
+   {
+    "type": "way",
+    "id": 1083999109,
+    "nodes": [
+     3027665453,
+     49770799
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "highway": "tertiary",
+     "lanes": "1",
+     "lit": "yes",
+     "name": "K Street Northwest",
+     "oneway": "yes",
+     "sidewalk:left": "no",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "concrete",
+     "tiger:cfcc": "A63",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "K",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:reviewed": "no"
+    }
+   },
+   {
+    "type": "way",
+    "id": 1163633480,
+    "nodes": [
+     3027665439,
+     10170211699,
+     5445789474,
+     641116227
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "cycleway:right": "no",
+     "highway": "tertiary",
+     "lanes": "1",
+     "lit": "yes",
+     "maxspeed": "25 mph",
+     "name": "K Street Northwest",
+     "oneway": "yes",
+     "sidewalk:left": "no",
+     "sidewalk:right": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "concrete"
+    }
+   },
+   {
+    "type": "way",
+    "id": 1382710587,
+    "nodes": [
+     8254155936,
+     12801760813,
+     12801708590,
+     12801708599,
+     12801708598,
+     12801708591,
+     14145138634,
+     14145138633
+    ],
+    "tags": {
+     "access": "private",
+     "highway": "service",
+     "service": "driveway"
+    }
+   },
+   {
+    "type": "way",
+    "id": 1416939294,
+    "nodes": [
+     1240476057,
+     1240476059,
+     5445790030,
+     5445790035,
+     49770641,
+     1322713634,
+     49770640
+    ],
+    "tags": {
+     "HFCS": "Minor Arterial",
+     "highway": "tertiary",
+     "lanes": "4",
+     "lit": "yes",
+     "name": "17th Street Northwest",
+     "sidewalk:both": "separate",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt"
+    }
+   },
+   {
+    "type": "way",
+    "id": 1498114212,
+    "nodes": [
+     49770764,
+     2999157096,
+     8481317122,
+     9749571316,
+     49762225,
+     2460844879,
+     1381216023
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "cycleway:both": "no",
+     "hgv": "no",
+     "highway": "primary",
+     "lanes": "5",
+     "lit": "yes",
+     "name": "17th Street Northwest",
+     "note:lanes": "2 southbound, 3 northbound",
+     "sidewalk:both": "separate",
+     "smoothness": "excellent",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "17th",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:reviewed": "no",
+     "tiger:zip_left": "20006"
+    }
+   },
+   {
+    "type": "way",
+    "id": 1503781674,
+    "nodes": [
+     5445789452,
+     2790757761,
+     49770782
+    ],
+    "tags": {
+     "HFCS": "Minor Arterial",
+     "NHS": "yes",
+     "bus:lanes": "|||designated",
+     "cycleway:right": "share_busway",
+     "highway": "secondary",
+     "lanes": "4",
+     "lanes:bus": "1",
+     "lcn": "yes",
+     "lit": "yes",
+     "name": "H Street Northwest",
+     "oneway": "yes",
+     "sidewalk:both": "separate",
+     "smoothness": "excellent",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "H",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:reviewed": "no",
+     "tiger:zip_left": "20006",
+     "tiger:zip_right": "20006",
+     "turn:lanes": "left;through|through|through|"
+    }
+   },
+   {
+    "type": "way",
+    "id": 1503781736,
+    "nodes": [
+     13762187600,
+     49820938,
+     49749106
+    ],
+    "tags": {
+     "HFCS": "Minor Arterial",
+     "highway": "tertiary",
+     "lanes": "4",
+     "lit": "yes",
+     "name": "Connecticut Avenue Northwest",
+     "name:etymology:wikidata": "Q779",
+     "sidewalk:both": "separate",
+     "source": "Bing",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "turn:lanes:forward": "left|left"
+    }
+   },
+   {
+    "type": "way",
+    "id": 1503790188,
+    "nodes": [
+     13762246703,
+     1825446968,
+     49770640
+    ],
+    "tags": {
+     "HFCS": "Principal Arterial",
+     "NHS": "yes",
+     "alt_name": "Eye Street Northwest",
+     "bus:lanes": "||designated",
+     "cycleway:left": "no",
+     "cycleway:right": "share_busway",
+     "fixme": "check lanes",
+     "highway": "secondary",
+     "lanes": "3",
+     "lanes:bus": "1",
+     "lcn": "yes",
+     "lit": "yes",
+     "name": "I Street Northwest",
+     "oneway": "yes",
+     "sidewalk:both": "separate",
+     "source": "Bing",
+     "source:HFCS": "District of Columbia (DC GIS)",
+     "surface": "asphalt",
+     "tiger:cfcc": "A41",
+     "tiger:county": "District of Columbia, DC",
+     "tiger:name_base": "I",
+     "tiger:name_direction_suffix": "NW",
+     "tiger:name_type": "St",
+     "tiger:reviewed": "no",
+     "tiger:zip_left": "20006",
+     "tiger:zip_right": "20006",
+     "turn:lanes": "none|none|right"
+    }
+   }
+  ]
+ }
+}
