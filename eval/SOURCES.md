@@ -62,3 +62,20 @@ dc3b74f4a5ae28ebd5d0ce744761b66c6a1e54720a0ea59b7fa197ecbe24ef15  ffm_vehicle.mp
 ```
 
 Licence links: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/ , CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0/ .
+
+## Training data for the signal crop classifier (`streetsense/signal_cnn.py`)
+
+Nothing below is committed except labels and the provenance manifest. `scripts/get_signal_data.sh` downloads the images to `$DATA` (default `/workspace/datasets`, outside git) and rebuilds the crops from `eval/signal_labels.csv.gz` (14,711 crops: source, file, box in source pixels, split, label W/S/C/O, and whether the label was manual or automatic). Downloaded 28 Oct 2026.
+
+| Source | What we use | Licence | Notes |
+|---|---|---|---|
+| PTL dataset, Yu et al. "LYTNet" (https://github.com/samuelyu2002/PTL-Dataset) | 4,016 Shanghai street photos (4032×3024, two Google Drive zips, ~23 GB); 10,091 light crops | MIT (repo `LICENSE`) | Its labels are per-image crossing phases (red / green / countdown green / countdown blank / none), not boxes. Boxes come from our YOLO pass; crop labels are colour buckets plus eye review of 1,540 green crops. Its train/val/test split is kept. The full-res zips have broken zip64 offsets; `scripts/signal_data/ptl_zip.py` reads them. |
+| Wikimedia Commons, "Category:Pedestrian signals by country" (depth ≤ 4) | 1,565 photos (1280 px thumbnails); 4,023 light crops | Per file: CC BY-SA 2.0–4.0 (1,203), CC BY 2.0–4.0 (184), CC0 (122), public domain (42), FAL (10), "Attribution" (3), "Copyrighted free use" (1) | Title, licence, author and page per file in `eval/signal_commons_manifest.csv`. 5 files with other licences were skipped at download. 6 titles that look like our held-out stills (aHash ≤ 20) are excluded (`eval/signal_commons_excluded.json`). Split 80/10/10 by file. |
+| Our dev eval clips (`dc`, `eu_ped_a`, `eu_ped_b`, `night_ped`, `most11`, `us_ped`, `tirana`; sources above) | 597 tight crops at 2 fps | as listed above | Phase timeline + colour rules + eye check. Val = every fifth 10 s block. **Held-out clips and stills (`eu_ped_side`, `night_jp`, `most02/03/04`, `night_hand`, `beacon_*`, `night_square`, `tyumen`, `cdmx`, `mazatlan`, `tomaszow`, `samples/heldout/*`) are never used for training or validation.** |
+
+Looked at and not used:
+- Bosch Small Traffic Lights and DriveU DTLD: non-commercial research licences. Not usable for a competition entry.
+- Ampel-Pilot (MIT): the image links in its SQL dump return 404.
+- Mendeley "pedestrian traffic light" (809 images): web-scraped, unclear provenance.
+- Roboflow Universe sets: need an account; licences vary per set.
+- Zenodo ped-signal-data: timing data, no images.
