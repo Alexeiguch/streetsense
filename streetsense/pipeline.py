@@ -19,10 +19,10 @@ from .observations import ObservationLog, summarise_frame
 from .open_vocab_sched import OpenVocabScheduler
 from .overlay import draw
 from .frame_history import FrameHistory
-from . import signal_distance
+from . import signal_cnn, signal_distance
 from .rules import FrameFacts, build_alerts, select_crossing_signal
 from .surface import SIDEWALK, ROAD, SurfaceResult
-from .traffic_light import LightStateSmoother, classify_light, figure_walk_guard, signal_kind
+from .traffic_light import LightStateSmoother, apply_signal_cnn, cnn_hold_veto, classify_light, figure_walk_guard, signal_kind
 from .types import Alert, Detection, Priority
 
 
@@ -171,7 +171,15 @@ class Pipeline:
                 b = d.box.clip(W, H)
                 crop = frame[int(b.y1):int(b.y2), int(b.x1):int(b.x2)]
                 kind = signal_kind(b.w, b.h)
-                r = figure_walk_guard(classify_light(crop, kind), frame, b)
+                r = classify_light(crop, kind)
+                cnn = signal_cnn.get()
+                pred = None
+                if cnn is not None and crop.size:
+                    pred = cnn(crop)
+                    d.attrs["signal_cnn"] = pred.label
+                    d.attrs["signal_cnn_p_walk"] = round(pred.p_walk, 3)
+                    r = apply_signal_cnn(r, pred.probs, kind, cnn.t_walk, cnn.t_veto)
+                r = figure_walk_guard(r, frame, b)
                 if r.state == "walk" or getattr(r, "figure", False):
                     kind = "pedestrian"
                 kind = self._track_kind(d.track_id, kind)
@@ -179,7 +187,10 @@ class Pipeline:
                 d.attrs["countdown"] = r.countdown
                 d.attrs["light_raw"] = r.state
                 d.attrs["figure"] = bool(getattr(r, "figure", False))
-                d.attrs["light_state"] = self.smoother.update(d.track_id, r.state, box=b)
+                st = self.smoother.update(d.track_id, r.state, box=b)
+                if pred is not None:
+                    st = cnn_hold_veto(st, r.state, pred.probs, cnn.t_veto)
+                d.attrs["light_state"] = st
             if d.label == "traffic light" or "sign" in d.label:
                 est = signal_distance.estimate(d.box, d.label, d.attrs.get("signal_kind", "unknown"),
                                                W, H, self.cfg.camera.hfov_deg, self.signal_dist_cfg)

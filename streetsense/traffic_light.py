@@ -419,3 +419,42 @@ class LightStateSmoother:
             return "unknown"
         best, votes = Counter(known).most_common(1)[0]
         return best if votes >= self.min_votes else "unknown"
+
+
+def apply_signal_cnn(reading: LightReading, probs, kind: str, t_walk: float, t_veto: float = 0.8) -> LightReading:
+    """Combine the hand-rule reading with the crop classifier (streetsense/signal_cnn.py).
+
+    ``probs`` = (p_walk, p_stop, p_countdown, p_other) or None (classifier off / failed).
+    It can only be one input, and every disagreement resolves towards "not walk":
+    * veto: a hand-rule walk becomes countdown/unknown unless the classifier also gives
+      p_walk >= 0.5 and no non-walk class reaches ``t_veto``;
+    * promote: a non-vehicle head the hand rules read as green/unknown (no red, yellow or
+      countdown seen) becomes a figure walk only when p_walk >= ``t_walk`` (calibrated for
+      zero false walk on validation). figure_walk_guard and the 3-of-5 smoother still apply.
+    """
+    if probs is None:
+        return reading
+    pw, ps, pc, po = (float(v) for v in probs)
+    if reading.state == "walk":
+        if max(ps, pc, po) >= t_veto or pw < 0.5:
+            if pc >= max(ps, po):
+                return replace(reading, state="countdown", countdown=True)
+            return replace(reading, state="unknown")
+        return reading
+    if kind == "vehicle" or reading.state not in ("green", "unknown") or reading.countdown:
+        return reading
+    if pw >= t_walk:
+        return replace(reading, state="walk", confidence=pw, figure=True)
+    return reading
+
+
+def cnn_hold_veto(smoothed: str, raw: str, probs, t_veto: float = 0.8) -> str:
+    """Stop the smoother's history (3-of-5 vote, 1 s countdown flicker hold) from carrying a
+    walk through a frame where the classifier is confident the head is NOT walk right now
+    (stop, countdown digits, or off). Never turns anything into walk."""
+    if smoothed != "walk" or probs is None:
+        return smoothed
+    pw, ps, pc, po = (float(v) for v in probs)
+    if max(ps, pc, po) >= t_veto and pw < 0.5:
+        return "countdown" if (raw == "countdown" or pc >= max(ps, po)) else "unknown"
+    return smoothed

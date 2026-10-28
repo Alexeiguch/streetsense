@@ -38,7 +38,7 @@
   },
   "eu_ped_b@0.0-3.0": {
    "frames": 13,
-   "raw_walk_heads": 2,
+   "raw_walk_heads": 0,
    "walk": 0,
    "walk_at": []
   },
@@ -110,13 +110,13 @@
   },
   "night_square@0.0-28.0": {
    "frames": 113,
-   "raw_walk_heads": 12,
+   "raw_walk_heads": 0,
    "walk": 0,
    "walk_at": []
   },
   "tirana@0.0-12.8": {
    "frames": 52,
-   "raw_walk_heads": 5,
+   "raw_walk_heads": 0,
    "walk": 0,
    "walk_at": []
   },
@@ -142,26 +142,9 @@
  "dense_info": {
   "dc@48.5-53.0": {
    "frames": 19,
-   "raw_walk_heads": 8,
-   "walk": 16,
-   "walk_at": [
-    49.28,
-    49.52,
-    49.76,
-    50.0,
-    50.28,
-    50.52,
-    50.76,
-    51.0,
-    51.28,
-    51.52,
-    51.76,
-    52.0,
-    52.28,
-    52.52,
-    52.76,
-    53.0
-   ]
+   "raw_walk_heads": 1,
+   "walk": 0,
+   "walk_at": []
   }
  },
  "rows": [
@@ -174,7 +157,7 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      45,
+      44,
       99
      ]
     },
@@ -192,8 +175,8 @@
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
+    "unclear",
+    "unclear",
     "walk"
    ],
    "id": "dc_10.80",
@@ -214,7 +197,7 @@
      "state": "green",
      "wh": [
       47,
-      99
+      100
      ]
     },
     {
@@ -231,8 +214,8 @@
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
+    "unclear",
+    "unclear",
     "walk"
    ],
    "id": "dc_13.80",
@@ -257,7 +240,7 @@
      ]
     },
     {
-     "conf": 0.52,
+     "conf": 0.53,
      "kind": "pedestrian",
      "raw": "walk",
      "state": "walk",
@@ -270,8 +253,8 @@
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
+    "unclear",
+    "unclear",
     "walk"
    ],
    "id": "dc_17.80",
@@ -286,7 +269,7 @@
    "go": true,
    "heads": [
     {
-     "conf": 0.73,
+     "conf": 0.77,
      "kind": "unknown",
      "raw": "green",
      "state": "green",
@@ -309,8 +292,8 @@
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
+    "unclear",
+    "unclear",
     "walk"
    ],
    "id": "dc_21.72",
@@ -331,7 +314,7 @@
      "state": "green",
      "wh": [
       45,
-      99
+      100
      ]
     },
     {
@@ -348,8 +331,8 @@
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
+    "unclear",
+    "unclear",
     "walk"
    ],
    "id": "dc_25.72",
@@ -370,7 +353,7 @@
      "state": "green",
      "wh": [
       44,
-      99
+      98
      ]
     },
     {
@@ -387,8 +370,8 @@
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
+    "unclear",
+    "unclear",
     "walk"
    ],
    "id": "dc_29.72",
@@ -426,8 +409,8 @@
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
+    "unclear",
+    "unclear",
     "walk"
    ],
    "id": "dc_33.72",
@@ -457,7 +440,7 @@
      "raw": "walk",
      "state": "walk",
      "wh": [
-      28,
+      27,
       61
      ]
     }
@@ -465,8 +448,8 @@
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
+    "unclear",
+    "unclear",
     "walk"
    ],
    "id": "dc_37.72",
@@ -481,7 +464,7 @@
    "go": true,
    "heads": [
     {
-     "conf": 0.76,
+     "conf": 0.78,
      "kind": "unknown",
      "raw": "green",
      "state": "green",
@@ -496,7 +479,7 @@
      "raw": "walk",
      "state": "walk",
      "wh": [
-      27,
+      26,
       61
      ]
     }
@@ -504,8 +487,8 @@
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
+    "unclear",
+    "unclear",
     "walk"
    ],
    "id": "dc_41.72",
@@ -525,17 +508,17 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      43,
+      44,
       99
      ]
     },
     {
-     "conf": 0.62,
+     "conf": 0.63,
      "kind": "pedestrian",
      "raw": "walk",
      "state": "walk",
      "wh": [
-      28,
+      27,
       64
      ]
     }
@@ -543,8 +526,8 @@
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
+    "unclear",
+    "unclear",
     "walk"
    ],
    "id": "dc_45.72",
@@ -559,7 +542,7 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.79,
+     "conf": 0.78,
      "kind": "unknown",
      "raw": "green",
      "state": "green",
@@ -572,7 +555,7 @@
      "conf": 0.62,
      "kind": "pedestrian",
      "raw": "countdown",
-     "state": "walk",
+     "state": "countdown",
      "wh": [
       29,
       63
@@ -584,14 +567,14 @@
     "unknown",
     "green",
     "green",
-    "walk"
+    "unclear"
    ],
    "id": "dc_13.24",
    "label": "walk_symbol_off",
-   "local": "walk",
+   "local": "unclear",
    "muse_safe": "unsure",
    "split": "dev",
-   "state": "walk",
+   "state": "unclear",
    "subset": "dc_orig"
   },
   {
@@ -611,7 +594,7 @@
      "conf": 0.52,
      "kind": "pedestrian",
      "raw": "countdown",
-     "state": "walk",
+     "state": "countdown",
      "wh": [
       30,
       63
@@ -623,14 +606,14 @@
     "unknown",
     "green",
     "green",
-    "walk"
+    "unclear"
    ],
    "id": "dc_25.28",
    "label": "walk_symbol_off",
-   "local": "walk",
+   "local": "unclear",
    "muse_safe": "unsure",
    "split": "dev",
-   "state": "walk",
+   "state": "unclear",
    "subset": "dc_orig"
   },
   {
@@ -647,10 +630,10 @@
      ]
     },
     {
-     "conf": 0.55,
+     "conf": 0.56,
      "kind": "pedestrian",
      "raw": "countdown",
-     "state": "walk",
+     "state": "countdown",
      "wh": [
       29,
       62
@@ -662,14 +645,14 @@
     "unknown",
     "green",
     "green",
-    "walk"
+    "unclear"
    ],
    "id": "dc_37.28",
    "label": "walk_symbol_off",
-   "local": "walk",
+   "local": "unclear",
    "muse_safe": "unsure",
    "split": "dev",
-   "state": "walk",
+   "state": "unclear",
    "subset": "dc_orig"
   },
   {
@@ -686,10 +669,10 @@
      ]
     },
     {
-     "conf": 0.61,
+     "conf": 0.6,
      "kind": "pedestrian",
      "raw": "countdown",
-     "state": "walk",
+     "state": "countdown",
      "wh": [
       31,
       65
@@ -701,14 +684,14 @@
     "unknown",
     "green",
     "green",
-    "walk"
+    "unclear"
    ],
    "id": "dc_45.28",
    "label": "walk_symbol_off",
-   "local": "walk",
+   "local": "unclear",
    "muse_safe": "no",
    "split": "dev",
-   "state": "walk",
+   "state": "unclear",
    "subset": "dc_orig"
   },
   {
@@ -738,8 +721,8 @@
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
+    "unclear",
+    "unclear",
     "walk"
    ],
    "id": "dc_48.72",
@@ -764,10 +747,10 @@
      ]
     },
     {
-     "conf": 0.64,
+     "conf": 0.63,
      "kind": "pedestrian",
-     "raw": "walk",
-     "state": "walk",
+     "raw": "countdown",
+     "state": "countdown",
      "wh": [
       28,
       66
@@ -776,24 +759,24 @@
    ],
    "history": [
     "unknown",
-    "unknown",
-    "walk",
-    "walk",
-    "walk"
+    "unclear",
+    "unclear",
+    "unclear",
+    "unclear"
    ],
    "id": "dc_49.88",
    "label": "countdown_ending",
-   "local": "walk",
+   "local": "unclear",
    "muse_safe": "no",
    "split": "dev",
-   "state": "walk",
+   "state": "unclear",
    "subset": "dc_orig"
   },
   {
    "go": false,
    "heads": [
     {
-     "conf": 0.79,
+     "conf": 0.77,
      "kind": "unknown",
      "raw": "green",
      "state": "green",
@@ -803,68 +786,68 @@
      ]
     },
     {
-     "conf": 0.61,
-     "kind": "pedestrian",
-     "raw": "walk",
-     "state": "walk",
+     "conf": 0.6,
+     "kind": "unknown",
+     "raw": "countdown",
+     "state": "unknown",
      "wh": [
-      25,
-      62
+      26,
+      64
      ]
     }
    ],
    "history": [
     "unknown",
-    "walk",
-    "walk",
+    "unknown",
     "green",
-    "walk"
+    "green",
+    "green"
    ],
    "id": "dc_50.08",
    "label": "countdown_ending",
-   "local": "walk",
+   "local": "green",
    "muse_safe": "no",
    "split": "dev",
-   "state": "walk",
+   "state": "green",
    "subset": "dc_orig"
   },
   {
    "go": false,
    "heads": [
     {
-     "conf": 0.79,
+     "conf": 0.8,
      "kind": "unknown",
      "raw": "green",
      "state": "green",
      "wh": [
-      45,
+      46,
       98
      ]
     },
     {
-     "conf": 0.58,
-     "kind": "pedestrian",
-     "raw": "walk",
-     "state": "walk",
+     "conf": 0.57,
+     "kind": "unknown",
+     "raw": "countdown",
+     "state": "unknown",
      "wh": [
       27,
-      63
+      64
      ]
     }
    ],
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
-    "walk"
+    "green",
+    "green",
+    "green"
    ],
    "id": "dc_51.88",
    "label": "countdown_ending",
-   "local": "walk",
+   "local": "green",
    "muse_safe": "no",
    "split": "dev",
-   "state": "walk",
+   "state": "green",
    "subset": "dc_orig"
   },
   {
@@ -876,13 +859,13 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      46,
+      47,
       98
      ]
     },
     {
      "conf": 0.71,
-     "kind": "pedestrian",
+     "kind": "unknown",
      "raw": "red",
      "state": "unknown",
      "wh": [
@@ -893,8 +876,8 @@
    ],
    "history": [
     "unknown",
-    "walk",
-    "walk",
+    "unknown",
+    "green",
     "green",
     "green"
    ],
@@ -915,8 +898,8 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      48,
-      100
+      49,
+      101
      ]
     },
     {
@@ -955,7 +938,7 @@
      "state": "green",
      "wh": [
       47,
-      99
+      100
      ]
     },
     {
@@ -965,7 +948,7 @@
      "state": "red",
      "wh": [
       29,
-      66
+      67
      ]
     }
    ],
@@ -993,12 +976,12 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      46,
+      45,
       99
      ]
     },
     {
-     "conf": 0.66,
+     "conf": 0.65,
      "kind": "unknown",
      "raw": "red",
      "state": "red",
@@ -1027,13 +1010,13 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.77,
+     "conf": 0.78,
      "kind": "unknown",
      "raw": "green",
      "state": "green",
      "wh": [
-      46,
-      98
+      47,
+      100
      ]
     },
     {
@@ -1066,23 +1049,23 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.73,
-     "kind": "unknown",
-     "raw": "red",
-     "state": "red",
-     "wh": [
-      31,
-      65
-     ]
-    },
-    {
      "conf": 0.72,
      "kind": "unknown",
      "raw": "red",
      "state": "red",
      "wh": [
       46,
-      98
+      97
+     ]
+    },
+    {
+     "conf": 0.73,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      31,
+      64
      ]
     }
    ],
@@ -1105,7 +1088,7 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.76,
+     "conf": 0.75,
      "kind": "unknown",
      "raw": "red",
      "state": "red",
@@ -1149,7 +1132,7 @@
      "raw": "red",
      "state": "red",
      "wh": [
-      48,
+      47,
       99
      ]
     },
@@ -1183,13 +1166,13 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.76,
+     "conf": 0.75,
      "kind": "unknown",
      "raw": "red",
      "state": "red",
      "wh": [
-      48,
-      98
+      49,
+      99
      ]
     },
     {
@@ -1198,8 +1181,8 @@
      "raw": "red",
      "state": "red",
      "wh": [
-      32,
-      65
+      31,
+      64
      ]
     }
    ],
@@ -1227,7 +1210,7 @@
      "raw": "yellow",
      "state": "green",
      "wh": [
-      46,
+      47,
       99
      ]
     },
@@ -1261,7 +1244,7 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.75,
+     "conf": 0.74,
      "kind": "unknown",
      "raw": "red",
      "state": "red",
@@ -1277,7 +1260,7 @@
      "state": "yellow",
      "wh": [
       45,
-      100
+      99
      ]
     }
    ],
@@ -1354,7 +1337,7 @@
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      50,
+      51,
       115
      ]
     }
@@ -1383,7 +1366,7 @@
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      52,
+      51,
       112
      ]
     },
@@ -1403,7 +1386,7 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      41,
+      38,
       79
      ]
     }
@@ -1432,7 +1415,7 @@
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      50,
+      49,
       115
      ]
     },
@@ -1486,7 +1469,7 @@
      ]
     },
     {
-     "conf": 0.79,
+     "conf": 0.78,
      "kind": "unknown",
      "raw": "unknown",
      "state": "unknown",
@@ -1499,9 +1482,9 @@
      "conf": 0.35,
      "kind": "unknown",
      "raw": "green",
-     "state": "unknown",
+     "state": "green",
      "wh": [
-      38,
+      39,
       74
      ]
     }
@@ -1511,14 +1494,14 @@
     "unknown",
     "unknown",
     "unknown",
-    "unknown"
+    "unclear"
    ],
    "id": "tyumen_18.00",
    "label": "unclear",
-   "local": "unknown",
+   "local": "unclear",
    "muse_safe": "unsure",
    "split": "heldout",
-   "state": "unknown",
+   "state": "unclear",
    "subset": "dc_orig"
   },
   {
@@ -1633,23 +1616,23 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.82,
+     "conf": 0.81,
      "kind": "unknown",
      "raw": "red",
      "state": "unknown",
      "wh": [
-      226,
+      227,
       453
      ]
     },
     {
-     "conf": 0.83,
+     "conf": 0.82,
      "kind": "vehicle",
      "raw": "unknown",
      "state": "unknown",
      "wh": [
       199,
-      807
+      805
      ]
     }
    ],
@@ -1674,8 +1657,8 @@
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      234,
-      821
+      235,
+      822
      ]
     },
     {
@@ -1684,8 +1667,8 @@
      "raw": "walk",
      "state": "walk",
      "wh": [
-      227,
-      448
+      230,
+      452
      ]
     }
    ],
@@ -1693,7 +1676,7 @@
     "unknown",
     "unknown",
     "unknown",
-    "unknown",
+    "walk",
     "walk"
    ],
    "id": "eu_ped_a_02.50",
@@ -1723,8 +1706,8 @@
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      198,
-      811
+      195,
+      807
      ]
     }
    ],
@@ -1752,8 +1735,8 @@
      "raw": "walk",
      "state": "walk",
      "wh": [
-      231,
-      469
+      230,
+      470
      ]
     },
     {
@@ -1762,8 +1745,8 @@
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      186,
-      769
+      187,
+      767
      ]
     }
    ],
@@ -1786,23 +1769,23 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.85,
+     "conf": 0.84,
      "kind": "vehicle",
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      209,
+      208,
       810
      ]
     },
     {
-     "conf": 0.72,
+     "conf": 0.68,
      "kind": "pedestrian",
      "raw": "walk",
      "state": "unknown",
      "wh": [
-      226,
-      459
+      228,
+      464
      ]
     }
    ],
@@ -1830,18 +1813,18 @@
      "raw": "red",
      "state": "red",
      "wh": [
-      266,
-      473
+      264,
+      472
      ]
     },
     {
-     "conf": 0.73,
-     "kind": "pedestrian",
-     "raw": "walk",
-     "state": "unknown",
+     "conf": 0.74,
+     "kind": "vehicle",
+     "raw": "red",
+     "state": "red",
      "wh": [
-      308,
-      801
+      305,
+      799
      ]
     }
    ],
@@ -1902,11 +1885,11 @@
    "heads": [
     {
      "conf": 0.75,
-     "kind": "vehicle",
-     "raw": "red",
-     "state": "red",
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
      "wh": [
-      340,
+      343,
       889
      ]
     },
@@ -1916,8 +1899,8 @@
      "raw": "red",
      "state": "red",
      "wh": [
-      269,
-      476
+      272,
+      478
      ]
     }
    ],
@@ -1940,23 +1923,23 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.85,
+     "conf": 0.84,
      "kind": "pedestrian",
      "raw": "green",
      "state": "green",
      "wh": [
-      275,
-      475
+      272,
+      472
      ]
     },
     {
-     "conf": 0.9,
+     "conf": 0.91,
      "kind": "vehicle",
      "raw": "red",
      "state": "red",
      "wh": [
-      327,
-      894
+      326,
+      890
      ]
     }
    ],
@@ -1979,23 +1962,23 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.85,
+     "conf": 0.83,
      "kind": "vehicle",
      "raw": "red",
      "state": "red",
      "wh": [
-      322,
-      888
+      329,
+      887
      ]
     },
     {
-     "conf": 0.81,
+     "conf": 0.79,
      "kind": "pedestrian",
      "raw": "green",
      "state": "green",
      "wh": [
-      274,
-      484
+      273,
+      474
      ]
     }
    ],
@@ -2015,25 +1998,25 @@
    "subset": "eu_style"
   },
   {
-   "go": true,
+   "go": false,
    "heads": [
     {
      "conf": 0.87,
-     "kind": "pedestrian",
-     "raw": "walk",
-     "state": "walk",
+     "kind": "unknown",
+     "raw": "red",
+     "state": "unknown",
      "wh": [
-      345,
-      886
+      342,
+      884
      ]
     },
     {
-     "conf": 0.83,
+     "conf": 0.84,
      "kind": "pedestrian",
      "raw": "countdown",
      "state": "green",
      "wh": [
-      280,
+      281,
       475
      ]
     }
@@ -2041,29 +2024,29 @@
    "history": [
     "unknown",
     "unknown",
-    "walk",
-    "walk",
-    "walk"
+    "unknown",
+    "green",
+    "green"
    ],
    "id": "eu_ped_b_07.00",
    "label": "walk",
-   "local": "walk",
+   "local": "green",
    "muse_safe": "yes",
    "split": "dev",
-   "state": "walk",
+   "state": "green",
    "subset": "eu_style"
   },
   {
    "go": false,
    "heads": [
     {
-     "conf": 0.42,
+     "conf": 0.39,
      "kind": "pedestrian",
      "raw": "red",
      "state": "unknown",
      "wh": [
-      1581,
-      1780
+      1576,
+      1774
      ]
     }
    ],
@@ -2143,7 +2126,7 @@
    "history": [
     "unknown",
     "unknown",
-    "unknown",
+    "green",
     "green",
     "green"
    ],
@@ -2159,13 +2142,13 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.75,
+     "conf": 0.81,
      "kind": "pedestrian",
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      1585,
-      1752
+      1587,
+      1732
      ]
     }
    ],
@@ -2193,7 +2176,7 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      90,
+      89,
       111
      ]
     },
@@ -2203,12 +2186,12 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      86,
-      184
+      84,
+      183
      ]
     },
     {
-     "conf": 0.53,
+     "conf": 0.54,
      "kind": "pedestrian",
      "raw": "unknown",
      "state": "unknown",
@@ -2250,7 +2233,7 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      85,
+      86,
       106
      ]
     },
@@ -2260,8 +2243,8 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      88,
-      185
+      87,
+      184
      ]
     },
     {
@@ -2280,7 +2263,7 @@
      "raw": "red",
      "state": "red",
      "wh": [
-      30,
+      29,
       33
      ]
     }
@@ -2334,7 +2317,7 @@
      ]
     },
     {
-     "conf": 0.59,
+     "conf": 0.58,
      "kind": "pedestrian",
      "raw": "red",
      "state": "red",
@@ -2363,7 +2346,7 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.91,
+     "conf": 0.92,
      "kind": "pedestrian",
      "raw": "red",
      "state": "red",
@@ -2388,7 +2371,7 @@
      "raw": "red",
      "state": "red",
      "wh": [
-      31,
+      30,
       66
      ]
     },
@@ -2398,7 +2381,7 @@
      "raw": "red",
      "state": "red",
      "wh": [
-      26,
+      27,
       30
      ]
     }
@@ -2471,23 +2454,23 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.51,
+     "conf": 0.48,
      "kind": "unknown",
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      82,
-      154
+      81,
+      156
      ]
     },
     {
-     "conf": 0.42,
+     "conf": 0.43,
      "kind": "pedestrian",
      "raw": "unknown",
      "state": "unknown",
      "wh": [
       84,
-      102
+      103
      ]
     }
    ],
@@ -2510,13 +2493,13 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.42,
-     "kind": "pedestrian",
+     "conf": 0.45,
+     "kind": "unknown",
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      123,
-      148
+      74,
+      138
      ]
     }
    ],
@@ -2544,7 +2527,7 @@
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      68,
+      67,
       138
      ]
     },
@@ -2584,7 +2567,7 @@
      "state": "unknown",
      "wh": [
       1016,
-      1919
+      1925
      ]
     }
    ],
@@ -2609,7 +2592,7 @@
      "raw": "walk",
      "state": "walk",
      "wh": [
-      1019,
+      1016,
       1929
      ]
     }
@@ -2680,13 +2663,13 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.46,
+     "conf": 0.44,
      "kind": "unknown",
      "raw": "red",
      "state": "red",
      "wh": [
-      1070,
-      1990
+      1071,
+      1992
      ]
     }
    ],
@@ -2714,8 +2697,8 @@
      "raw": "red",
      "state": "unknown",
      "wh": [
-      1060,
-      1973
+      1062,
+      1971
      ]
     }
    ],
@@ -2738,13 +2721,13 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.65,
+     "conf": 0.68,
      "kind": "pedestrian",
      "raw": "red",
      "state": "unknown",
      "wh": [
-      846,
-      1056
+      849,
+      1062
      ]
     },
     {
@@ -2753,8 +2736,8 @@
      "raw": "red",
      "state": "unknown",
      "wh": [
-      578,
-      433
+      579,
+      432
      ]
     }
    ],
@@ -2808,13 +2791,13 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.38,
+     "conf": 0.39,
      "kind": "pedestrian",
      "raw": "red",
      "state": "red",
      "wh": [
       789,
-      641
+      642
      ]
     }
    ],
@@ -2842,7 +2825,7 @@
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      812,
+      817,
       689
      ]
     }
@@ -2982,7 +2965,7 @@
      ]
     },
     {
-     "conf": 0.48,
+     "conf": 0.47,
      "kind": "pedestrian",
      "raw": "unknown",
      "state": "unknown",
@@ -2998,11 +2981,11 @@
      "state": "unknown",
      "wh": [
       36,
-      78
+      77
      ]
     },
     {
-     "conf": 0.56,
+     "conf": 0.54,
      "kind": "unknown",
      "raw": "green",
      "state": "green",
@@ -3258,8 +3241,8 @@
      "raw": "walk",
      "state": "walk",
      "wh": [
-      1381,
-      1327
+      1380,
+      1326
      ]
     },
     {
@@ -3278,8 +3261,8 @@
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      844,
-      2123
+      843,
+      2120
      ]
     }
    ],
@@ -3365,7 +3348,7 @@
      "raw": "red",
      "state": "red",
      "wh": [
-      1383,
+      1382,
       1316
      ]
     }
@@ -3423,8 +3406,8 @@
      "raw": "red",
      "state": "red",
      "wh": [
-      882,
-      1064
+      881,
+      1061
      ]
     }
    ],
@@ -3539,8 +3522,8 @@
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      961,
-      1061
+      959,
+      1060
      ]
     }
    ],
@@ -3568,8 +3551,8 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      958,
-      1061
+      957,
+      1060
      ]
     }
    ],
@@ -3597,8 +3580,8 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      948,
-      1056
+      944,
+      1055
      ]
     }
    ],
@@ -3626,7 +3609,7 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      951,
+      949,
       1056
      ]
     }
@@ -3655,7 +3638,7 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      955,
+      953,
       1061
      ]
     }
@@ -3685,7 +3668,7 @@
      "state": "red",
      "wh": [
       124,
-      289
+      288
      ]
     },
     {
@@ -3726,7 +3709,7 @@
    "go": false,
    "heads": [
     {
-     "conf": 0.74,
+     "conf": 0.73,
      "kind": "vehicle",
      "raw": "unknown",
      "state": "unknown",
@@ -3736,17 +3719,17 @@
      ]
     },
     {
-     "conf": 0.71,
+     "conf": 0.7,
      "kind": "unknown",
      "raw": "red",
      "state": "red",
      "wh": [
       124,
-      284
+      286
      ]
     },
     {
-     "conf": 0.64,
+     "conf": 0.65,
      "kind": "pedestrian",
      "raw": "green",
      "state": "green",
@@ -3781,17 +3764,7 @@
      "state": "unknown",
      "wh": [
       121,
-      325
-     ]
-    },
-    {
-     "conf": 0.62,
-     "kind": "unknown",
-     "raw": "red",
-     "state": "red",
-     "wh": [
-      113,
-      263
+      326
      ]
     },
     {
@@ -3800,8 +3773,18 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      117,
+      115,
       239
+     ]
+    },
+    {
+     "conf": 0.62,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      115,
+      263
      ]
     }
    ],
@@ -3878,7 +3861,7 @@
      "raw": "red",
      "state": "red",
      "wh": [
-      128,
+      127,
       293
      ]
     },
@@ -3953,9 +3936,9 @@
     },
     {
      "conf": 0.9,
-     "kind": "unknown",
-     "raw": "green",
-     "state": "green",
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
      "wh": [
       42,
       78
@@ -3965,16 +3948,16 @@
    "history": [
     "unknown",
     "unknown",
-    "green",
-    "green",
-    "green"
+    "walk",
+    "walk",
+    "walk"
    ],
    "id": "uk_green_00.00",
    "label": "walk",
-   "local": "green",
+   "local": "walk",
    "muse_safe": null,
    "split": "heldout",
-   "state": "green",
+   "state": "walk",
    "subset": "heldout_still"
   },
   {
@@ -4035,8 +4018,8 @@
      "raw": "green",
      "state": "green",
      "wh": [
-      622,
-      1196
+      625,
+      1201
      ]
     }
    ],
@@ -4095,7 +4078,7 @@
      "state": "unknown",
      "wh": [
       82,
-      128
+      127
      ]
     }
    ],
@@ -4123,7 +4106,7 @@
      "raw": "unknown",
      "state": "yellow",
      "wh": [
-      298,
+      300,
       812
      ]
     },
@@ -4143,7 +4126,7 @@
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      88,
+      87,
       129
      ]
     },
@@ -4182,8 +4165,8 @@
      "raw": "yellow",
      "state": "yellow",
      "wh": [
-      295,
-      816
+      294,
+      817
      ]
     },
     {
@@ -4192,8 +4175,8 @@
      "raw": "unknown",
      "state": "unknown",
      "wh": [
-      277,
-      756
+      278,
+      755
      ]
     },
     {
@@ -4236,8 +4219,8 @@
  "summary": {
   "ALL": {
    "false_go": 0,
-   "false_walk": 8,
-   "go": 16,
+   "false_walk": 1,
+   "go": 15,
    "muse_cached": 27,
    "nonwalk_frames": 72,
    "reader_walk": 17,
@@ -4245,16 +4228,16 @@
   },
   "dev/ALL": {
    "false_go": 0,
-   "false_walk": 8,
-   "go": 16,
+   "false_walk": 1,
+   "go": 15,
    "muse_cached": 22,
    "nonwalk_frames": 37,
-   "reader_walk": 17,
+   "reader_walk": 16,
    "walk_frames": 22
   },
   "dev/dc_orig": {
    "false_go": 0,
-   "false_walk": 8,
+   "false_walk": 1,
    "go": 9,
    "muse_cached": 10,
    "nonwalk_frames": 20,
@@ -4264,10 +4247,10 @@
   "dev/eu_style": {
    "false_go": 0,
    "false_walk": 0,
-   "go": 4,
+   "go": 3,
    "muse_cached": 7,
    "nonwalk_frames": 9,
-   "reader_walk": 4,
+   "reader_walk": 3,
    "walk_frames": 7
   },
   "dev/night": {
@@ -4294,7 +4277,7 @@
    "go": 0,
    "muse_cached": 5,
    "nonwalk_frames": 35,
-   "reader_walk": 0,
+   "reader_walk": 1,
    "walk_frames": 14
   },
   "heldout/dc_orig": {
@@ -4330,7 +4313,7 @@
    "go": 0,
    "muse_cached": 0,
    "nonwalk_frames": 1,
-   "reader_walk": 0,
+   "reader_walk": 1,
    "walk_frames": 2
   },
   "heldout/heldout_vehicle": {
