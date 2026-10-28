@@ -14,6 +14,7 @@ ds = pickle.load(open(D / "signal_ds.pkl", "rb"))
 P = pickle.load(open(D / "ptl/ptl.pkl", "rb"))
 C = pickle.load(open(D / "commons/commons.pkl", "rb"))
 V = {o["id"]: o for o in pickle.load(open(D / "dev.pkl", "rb"))}
+fix = json.load(open(D / "fixes.json")) if (D / "fixes.json").is_file() else {}
 man = set(json.load(open(D / "review_order.json"))) | set(json.load(open(D / "review_order2.json")))
 src = {f"p{i}": o for i, o in enumerate(P)} | {f"c{i}": o for i, o in enumerate(C)}
 rows = []
@@ -23,7 +24,7 @@ for r in ds:
         o = V[u]; key, t, how = o["clip"], o["t"], "rule+eye"
     else:
         o = src[u]; key = o.get("file") or o["title"]; t = ""
-        how = "manual" if u in man else "auto"
+        how = "manual-fix" if u in fix else "manual" if u in man else "auto"
     x1, y1, x2, y2 = (int(v) for v in o["box"])
     rows.append([r["src"].split(":")[0], key, t, r["split"], x1, y1, x2, y2, "WSCO"[r["y"]], how])
 out = ROOT / "eval/signal_labels.csv.gz"

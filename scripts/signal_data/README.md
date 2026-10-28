@@ -11,4 +11,4 @@ Commons imgsz 960 / conf 0.3 with a 0.5 zoom-out retry). Each tight crop got an 
 h/w > 2.6 → vehicle (O); green-lit ≥ 0.8 % → green; red-lit ≥ 1 % → red (S); white-lit ≥ 3 % →
 white; else dark (O). All Commons green/white crops and 1,540 PTL green crops were reviewed by eye
 on contact sheets as W (lit walk figure, no digits), C (any digits) or O (round lamp, unlit,
-too small or unclear); unreviewed PTL greens are dropped. Doubtful crops went to O.
+too small or unclear); unreviewed PTL greens are dropped. Doubtful crops went to O. A second pass reviewed every non-walk crop that a first model scored p(walk) > 0.3 (328 crops) and relabelled 100 clear lit walk figures to W (`how = manual-fix`).
