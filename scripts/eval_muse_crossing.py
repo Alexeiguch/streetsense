@@ -46,6 +46,22 @@ CLIPS = {
     "cdmx": "samples/cdmx_crossing_720p.webm",
     "mazatlan": "samples/mazatlan_sidewalk.webm",
     "tomaszow": "samples/tomaszow_scooter.ogv",
+    # Broader set (eval/muse_labels_broad.csv); fetch with scripts/get_eval_clips.sh, sources in eval/SOURCES.md
+    "eu_ped_a": "samples/ext/pexels_30404309_eu_ped.mp4",
+    "eu_ped_b": "samples/ext/pexels_5665107_eu_ped.mp4",
+    "eu_ped_side": "samples/ext/pexels_30528306_eu_ped_side.mp4",
+    "most11": "samples/ext/most_11_day.webm",
+    "most02": "samples/ext/most_02_dusk.webm",
+    "most03": "samples/ext/most_03_dusk.webm",
+    "most04": "samples/ext/most_04_dusk.webm",
+    "beacon_a": "samples/ext/turkey_beacon_a.webm",
+    "beacon_b": "samples/ext/turkey_beacon_b.webm",
+    "tirana": "samples/ext/tirana_dusk.webm",
+    "night_ped": "samples/ext/pexels_17721925_night_ped.mp4",
+    "night_jp": "samples/ext/pexels_4169275_night_ped_jp.mp4",
+    "night_hand": "samples/ext/pexels_5220221_night_hand.mp4",
+    "night_square": "samples/ext/pexels_7251025_night_square.mp4",
+    "us_ped": "samples/ext/pexels_5514350_us_ped.mp4",
 }
 QUESTION = "Is it safe to cross the street right now?"
 
@@ -141,7 +157,7 @@ def run_variant(name: str, rows: list[dict], local: dict, frame_dir: Path, cache
                 raise SystemExit("MODEL_API_KEY not set")
             data = vlm._call(content, QUESTION)
             cpath.write_text(json.dumps({k: v for k, v in data.items()}, indent=1))
-        row = {"id": r["id"], "label": r["label"], "variant": name, "cached": cached,
+        row = {"id": r["id"], "label": r["label"], "subset": r.get("subset") or "dc_day", "variant": name, "cached": cached,
                "local": lr["state"], "n_images": len(images)}
         if data is not None:
             v = validate_crossing_reply(data)
@@ -182,6 +198,7 @@ def summarise(rows: list[dict]) -> dict:
         by[lab]["fused_go"] = sum(1 for r in rs if r["fused"] == "go")
     rs = [r for r in rows if "muse_safe" in r]
     walk = by["walk"]
+    fused_go_unclear = by["unclear"]["fused_go"]
     lat = [r["latency_s"] for r in rs if r.get("latency_s")]
     return {
         "per_label": by,
@@ -189,6 +206,7 @@ def summarise(rows: list[dict]) -> dict:
         "false_yes_non_walk": sum(by[lab]["yes"] for lab in NON_WALK),
         "fused_go_non_walk": sum(by[lab]["fused_go"] for lab in NON_WALK),
         "fused_go_walk": f"{walk['fused_go']}/{walk['n']}",
+        "fused_go_unclear": fused_go_unclear,
         "unsure_or_invalid_rate": round(sum(1 for r in rs if r["muse_safe"] in ("unsure", "invalid")) / max(1, len(rs)), 3),
         "mean_latency_s": round(statistics.mean(lat), 3) if lat else None,
         "p95_latency_s": round(sorted(lat)[int(0.95 * (len(lat) - 1))], 3) if lat else None,
@@ -237,10 +255,13 @@ def main() -> int:
         key = name + (f"@{a.max_tokens}" if a.max_tokens != 512 else "") + (f"#{a.repeat}" if a.repeat else "")
         if not a.only and not a.limit:
             prompt, n_hist, use_text, side = VARIANTS[name]
+            subsets = sorted({r["subset"] for r in rs})
             results["variants"][key] = {
                 "config": {"prompt": prompt, "history_frames": n_hist, "history_text": use_text,
                            "max_image_side": side, "max_tokens": a.max_tokens},
-                "summary": summarise(rs), "rows": rs,
+                "summary": summarise(rs),
+                "by_subset": {sub: summarise([r for r in rs if r["subset"] == sub]) for sub in subsets},
+                "rows": rs,
             }
         print(name, json.dumps(summarise(rs)), file=sys.stderr)
     results["ledger"] = {k: v for k, v in get_ledger().summary().items() if k != "ledger"}

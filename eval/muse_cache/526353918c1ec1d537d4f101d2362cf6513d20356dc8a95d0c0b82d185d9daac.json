@@ -1,0 +1,18 @@
+{
+ "signal_description": "White walking person lit on pedestrian signal head",
+ "pedestrian_signal": "green",
+ "countdown_seconds": null,
+ "summary": "Walk signal lit, safe to proceed",
+ "hazards": [],
+ "crossing_visible": false,
+ "safe_to_cross": "yes",
+ "_latency_s": 1.443,
+ "_model": "muse-spark-1.3",
+ "_finish_reason": "stop",
+ "_usage": {
+  "prompt_tokens": 2809,
+  "completion_tokens": 218,
+  "estimated_cost_usd": 0.004032,
+  "ledger_total_usd": 1.242368
+ }
+}

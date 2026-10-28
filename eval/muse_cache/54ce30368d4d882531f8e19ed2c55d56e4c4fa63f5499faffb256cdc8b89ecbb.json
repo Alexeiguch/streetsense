@@ -1,0 +1,20 @@
+{
+ "signal_description": "Red standing figure with 33 second countdown lit",
+ "pedestrian_signal": "red",
+ "countdown_seconds": 33,
+ "summary": "Red do not walk, do not cross now",
+ "hazards": [
+  "red pedestrian signal"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "no",
+ "_latency_s": 1.582,
+ "_model": "muse-spark-1.3",
+ "_finish_reason": "stop",
+ "_usage": {
+  "prompt_tokens": 842,
+  "completion_tokens": 261,
+  "estimated_cost_usd": 0.001756,
+  "ledger_total_usd": 1.020616
+ }
+}

@@ -1,0 +1,21 @@
+{
+ "signal_description": "Red standing figure lit on pole box",
+ "pedestrian_signal": "red",
+ "countdown_seconds": null,
+ "summary": "Red standing signal, do not cross",
+ "hazards": [
+  "red pedestrian signal",
+  "night low visibility"
+ ],
+ "crossing_visible": false,
+ "safe_to_cross": "no",
+ "_latency_s": 1.439,
+ "_model": "muse-spark-1.3",
+ "_finish_reason": "stop",
+ "_usage": {
+  "prompt_tokens": 2809,
+  "completion_tokens": 259,
+  "estimated_cost_usd": 0.004206,
+  "ledger_total_usd": 1.186577
+ }
+}

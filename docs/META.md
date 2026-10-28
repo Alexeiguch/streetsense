@@ -35,7 +35,7 @@ StreetSense uses:
 - Web: `POST /ask` (fuses with the local light reader; see safety rule below)
 - Pipeline: background request every ~10 s when the key is present
 
-**Important:** Muse Spark always reasons. Reasoning tokens share `max_tokens` with the visible answer. We set `reasoning_effort="minimal"` and `max_tokens=512`. With the default effort and a small `max_tokens`, `content` comes back empty (`finish_reason=length`, almost all tokens in `reasoning_tokens`).
+**Important:** Muse Spark always reasons. Reasoning tokens share `max_tokens` with the visible answer. We set `reasoning_effort="minimal"` and `max_tokens=768` (override with `STREETSENSE_MUSE_MAX_TOKENS`; 512 truncated 1–3 of 40 crossing replies, 768 truncated none, see `docs/MUSE_EVAL.md`). With the default effort and a small `max_tokens`, `content` comes back empty (`finish_reason=length`, almost all tokens in `reasoning_tokens`).
 
 Images are JPEG-downscaled and sent only in **user** messages. The background summary loop uses `max_image_side=512`. Crossing questions (`ask_sync`, `/ask`) use `crossing_max_image_side=1024`, because at 512 px the walk figure is too small and Muse reads the red countdown as a red hand.
 

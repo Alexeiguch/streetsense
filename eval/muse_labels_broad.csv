@@ -1,0 +1,49 @@
+id,subset,clip,time_s,label,confidence,note
+eu_ped_a_00.30,eu_style,eu_ped_a,0.30,red,high,two-lamp EU head; red standing man lit; green dark
+eu_ped_a_02.50,eu_style,eu_ped_a,2.50,walk,high,green walking man lit; red dark; no countdown
+eu_ped_a_04.50,eu_style,eu_ped_a,4.50,walk,high,green walking man lit
+eu_ped_a_06.50,eu_style,eu_ped_a,6.50,walk,high,green walking man lit
+eu_ped_a_09.50,eu_style,eu_ped_a,9.50,walk,high,green walking man lit; pedestrian heads in lower frame
+eu_ped_b_00.50,eu_style,eu_ped_b,0.50,red,high,two-lamp head; red standing man lit
+eu_ped_b_01.80,eu_style,eu_ped_b,1.80,red,high,red standing man lit
+eu_ped_b_02.80,eu_style,eu_ped_b,2.80,red,high,red standing man lit
+eu_ped_b_04.50,eu_style,eu_ped_b,4.50,walk,high,green walking man lit; red dark
+eu_ped_b_06.00,eu_style,eu_ped_b,6.00,walk,high,green walking man lit
+eu_ped_b_07.00,eu_style,eu_ped_b,7.00,walk,high,green walking man lit
+eu_ped_side_00.40,eu_style,eu_ped_side,0.40,red,high,side-by-side lamps; red standing man lit
+eu_ped_side_02.50,eu_style,eu_ped_side,2.50,no_signal,high,head visible but nothing lit (between phases)
+eu_ped_side_05.50,eu_style,eu_ped_side,5.50,walk,high,green walking man lit; red dark
+eu_ped_side_08.00,eu_style,eu_ped_side,8.00,walk,high,green walking man lit
+eu_ped_side_10.00,eu_style,eu_ped_side,10.00,walk,high,green walking man lit
+most11_00.50,eu_style,most11,0.50,countdown_ending,high,Czechia; green walking man + green countdown 8
+most11_03.00,eu_style,most11,3.00,countdown_ending,high,green walking man + green countdown 5
+most11_05.50,eu_style,most11,5.50,countdown_ending,high,green walking man + green countdown 2
+most11_09.50,eu_style,most11,9.50,red,high,red standing man + red countdown 37
+most11_13.00,eu_style,most11,13.00,red,high,red standing man + red countdown 33
+beacon_a_01.00,eu_style,beacon_a,1.00,no_signal,high,Turkey; zebra crossing with flashing warning beacon; no pedestrian head
+beacon_a_03.00,eu_style,beacon_a,3.00,no_signal,high,same; no pedestrian head
+beacon_b_01.50,eu_style,beacon_b,1.50,no_signal,medium,Turkey; flashing red beacons over zebra; no pedestrian head; cars in crossing
+night_ped_00.40,night,night_ped,0.40,walk,high,night; two-lamp head; green walking man lit
+night_ped_01.00,night,night_ped,1.00,walk,high,night; green walking man lit
+night_ped_01.60,night,night_ped,1.60,walk,high,night; green walking man lit
+night_ped_03.50,night,night_ped,3.50,red,high,night; red standing man lit
+night_ped_06.00,night,night_ped,6.00,red,high,night; red standing man lit
+night_ped_08.50,night,night_ped,8.50,red,medium,night; red standing man lit; head at frame edge (camera pan)
+night_jp_00.10,night,night_jp,0.10,red,high,night; Japanese-style head; red standing man lit
+night_jp_00.80,night,night_jp,0.80,walk,high,night; white/blue walking man lit; red dark
+night_jp_01.10,night,night_jp,1.10,walk,high,night; walking man lit
+night_hand_02.00,night,night_hand,2.00,red,high,night; US red hand close-up
+night_hand_07.00,night,night_hand,7.00,red,high,night; US red hand close-up
+night_square_16.40,night,night_square,16.40,no_signal,medium,night square; no pedestrian signal readable
+most02_07.00,night,most02,7.00,red,high,dusk (21:15); Czech heads; near head red man + amber countdown 36; farther head red
+most04_13.00,night,most04,13.00,red,high,dusk; near head red man + amber countdown 35; farther head red
+most02_02.00,night,most02,2.00,unclear,low,dusk; near head red man + countdown 41 but farther head green man + countdown 4
+most04_08.00,night,most04,8.00,unclear,low,dusk; near head red man; farther head green man + countdown 4
+most03_00.20,night,most03,0.20,unclear,low,dusk; green men lit on both heads but near countdown may read 1 and turns red within 0.5 s
+tirana_02.00,night,tirana,2.00,no_signal,medium,dusk; vehicle signals (one green) and LED posts; no pedestrian head
+us_ped_01.00,us_day2,us_ped,1.00,walk,high,US head; white walking person lit; countdown dark
+us_ped_04.00,us_day2,us_ped,4.00,walk,high,white walking person lit
+us_ped_08.00,us_day2,us_ped,8.00,flashing,high,flashing phase; hand dark this frame; countdown 8
+us_ped_11.70,us_day2,us_ped,11.70,flashing,high,hand lit + countdown 4
+us_ped_13.70,us_day2,us_ped,13.70,flashing,high,hand lit + countdown 2
+us_ped_19.00,us_day2,us_ped,19.00,red,high,steady hand; no countdown

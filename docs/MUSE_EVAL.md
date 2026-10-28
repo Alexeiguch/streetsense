@@ -1,6 +1,6 @@
 # Muse Spark crossing eval (28 Oct 2026)
 
-Goal: make Muse Spark (`muse-spark-1.3`) say yes on clear WALK frames without ever saying yes on red, flashing, ending-countdown or no-signal frames. All numbers below come from `scripts/eval_muse_crossing.py` runs on 28 Oct 2026. Raw rows are in `docs/benchmark/muse_eval.json`.
+Goal: make Muse Spark (`muse-spark-1.3`) say yes on clear WALK frames without ever saying yes on red, flashing, ending-countdown or no-signal frames. All numbers below come from `scripts/eval_muse_crossing.py` runs on 28 Oct 2026. Raw rows are in `docs/benchmark/muse_eval.json` (DC set) and `docs/benchmark/muse_eval_broad.json` (broad set, see [Part 2](#part-2-broader-labelled-set-eu-style-night-second-us-clip)).
 
 **Result:** the new default is variant **E**: the "describe" prompt, one frame, sent at 1024 px. Muse said yes on 9 of 10 walk frames, in both of two runs. It said yes on 0 of 22 non-walk frames. The old default (A: strict prompt, 512 px) said yes on 0 of 10 walk frames.
 
@@ -12,7 +12,7 @@ The safety rule has not changed. The app says go only if the local light reader 
   - DC frames: I measured the walk-figure and hand pixels in the signal head, frame by frame, and picked times well inside each phase. Each extracted frame was checked again after extraction.
   - On this clip the walk figure blinks: it is lit for about 12 of every 25 video frames, probably LED flicker beating against the camera. So a single still can show only the red countdown digits during the walk phase. Those frames have their own class, `walk_symbol_off`.
 - **Local reader:** for each sample, a fresh `Pipeline` (no Muse, no surface model) runs over t−1.0 s to t in 0.25 s steps. Its state at t is the `local` input to fusion. Cached in `eval/muse_local_reader.json`.
-- **Muse request:** the system prompt for the variant, the question "Is it safe to cross the street right now?", and 1 or 3 JPEG frames. Settings: `reasoning_effort=minimal`, `max_tokens=512`.
+- **Muse request:** the system prompt for the variant, the question "Is it safe to cross the street right now?", and 1 or 3 JPEG frames. Settings: `reasoning_effort=minimal`, `max_tokens=512` for the rows in the first table (the default is now 768, see [Part 1](#part-1-max_tokens)).
 - **Scoring:** a reply is checked with `validate_crossing_reply`. Malformed replies count as `invalid`, and the app treats them as "I can't tell, please wait". The fused decision comes from `fuse_crossing_decision`.
 - **Caching:** each response is stored in `eval/muse_cache/<sha256 of the exact request>.json`, so a rerun costs nothing. `--repeat N` adds a salt to the key so the same requests are paid for again; the E#1 row used this to check repeatability.
 - **Logging:** every paid call was appended to `outputs/meta_usage.jsonl`. The runs used `STREETSENSE_META_BUDGET_USD=3.20` (spend before this task plus the $3 cap).
@@ -86,7 +86,7 @@ How history frames work:
 - When history is on, `Pipeline` keeps a short `FrameHistory` buffer (`streetsense/frame_history.py`), and `answers.crossing_answer` passes those frames to `ask_sync(..., history=...)`.
 - If no recent frames are buffered, it falls back to one frame.
 
-Model settings are unchanged: `reasoning_effort=minimal` and `max_tokens=512`.
+Model settings: `reasoning_effort=minimal` (unchanged) and `max_tokens=768` (was 512; env `STREETSENSE_MUSE_MAX_TOKENS`, see [Part 1](#part-1-max_tokens)).
 
 ### Fusion changes
 
@@ -95,7 +95,7 @@ Both changes make the rule stricter; neither loosens it:
 - `pedestrian_signal` values `countdown` and `flashing` now block go.
 - `countdown_seconds` is optional. If it is present and is not a number or null, the reply is invalid and the app says "I can't tell, please wait".
 
-## Cost
+## Cost (first run)
 
 - **This task:** $0.6714 across 280 paid calls (A + B + C + E + E#1 + F + G).
 - **Project total:** the ledger went from $0.2040 to **$0.8753**, against $150 of credits.
@@ -103,12 +103,117 @@ Both changes make the rule stricter; neither loosens it:
 
 ## Limitations
 
-- **Small n, one walk clip.** All walk, red, flashing and countdown frames come from one US signal head in one DC clip, in daylight, with the camera pointed up at the signal. There are no EU green-figure, night, rain, distant-head or glasses-height walk examples. 9/10 is not a general accuracy figure.
+- **Small n, one walk clip (first run).** All walk, red, flashing and countdown frames come from one US signal head in one DC clip, in daylight, with the camera pointed up at the signal. There are no EU green-figure, night, rain, distant-head or glasses-height walk examples. 9/10 is not a general accuracy figure. Part 2 adds EU-style, night and a second US clip, but n is still small.
 - **Labels are mine, from looking at frames.** There is one labeller and no second check. The Tyumen class is uncertain and was relabelled after Muse's answers (see above).
 - **Muse is not deterministic.** E ran twice with the same yes counts in every class (one extra invalid on flashing in the repeat); other variants ran once.
-- **Truncation.** With `max_tokens=512`, 1 to 3 of every 40 replies were cut off (completion_tokens hit 512, so the JSON was incomplete). They fall back safely to "can't tell", but they lower the yes-rate. Raising `max_tokens` was not tested.
+- **Truncation.** With `max_tokens=512`, 1 to 3 of every 40 replies were cut off (completion_tokens hit 512, so the JSON was incomplete). They fall back safely to "can't tell", but they lower the yes-rate. Fixed in [Part 1](#part-1-max_tokens): at 768, E had 0 truncations on 88 frames. The 3-frame variant F still truncated 2 of 48 at 768.
 - **Untested combination.** Multi-frame was tested in the eval harness only. In the live app, the history frames come from whatever `/frame` stream the session pipeline has seen, and that path has unit tests but no paid end-to-end run.
 - **Countdown misreads.** A misread *upwards* near the threshold (for example 9 read as 19) would remove the countdown block. That did not happen on 9 ending or flashing frames, but n is small.
+
+## Part 1: max_tokens
+
+Muse's reasoning tokens share `max_tokens` with the JSON answer, so a long reasoning trace cuts the JSON off (`finish_reason=length`). The app treats that as invalid: "I can't tell, please wait". I reran E on the same 40 DC frames with `--max-tokens 768`. The cache key includes `max_tokens`, so these were fresh paid calls. Truncated means `finish_reason == "length"`, or completion_tokens ≥ max_tokens for older cache entries that did not record finish_reason.
+
+| Run | max_tokens | Truncated (of 40) | Walk yes (Muse) | Walk go (fused) | False yes, non-walk (n=22) | Fused go, non-walk | Unsure + invalid | Mean / max completion tokens | Mean / p95 latency | Cost |
+|---|---|---|---|---|---|---|---|---|---|---|
+| E | 512 | 1 | 9/10 | 9/10 | 0 | 0 | 9/40 | 273 / 512 | 2.48 / 3.72 s | $0.0916 |
+| E#1 | 512 | 2 | 9/10 | 9/10 | 0 | 0 | 10/40 | 304 / 512 | 2.22 / 3.33 s | $0.0976 |
+| **E@768** | **768** | **0** | 9/10 | 9/10 | 0 | 0 | 10/40 | 306 / 659 | 2.23 / 3.76 s | $0.0988 |
+
+E@768 per label (yes/no/unsure/invalid): walk 9/1/0/0, walk_symbol_off 0/1/3/0, countdown_ending 0/4/0/0, flashing 0/5/0/0, red 0/7/0/0, no_signal 0/1/5/0, unclear 2/0/2/0. The walk miss is again `dc_45.72` (countdown 13 read as 8, reply no), which is a safe-direction error.
+
+**Decision: 768.** It is the smallest limit tried with zero truncations, so 1024 was not run. Cost per call barely changes because you pay only for the tokens actually generated. On this set the extra headroom did not change the walk yes-rate: the 512 truncations had landed on walk_symbol_off and flashing frames, not on walk frames. The margin is not large: the longest reply was 659 of 768 tokens. On the broad set (Part 2), E@768 again had 0 truncations on 48 frames (longest 622), but F (3 frames) hit 768 twice.
+
+- Default: `VisionLLMConfig.max_tokens = 768`.
+- Override: `STREETSENSE_MUSE_MAX_TOKENS=<n>`. Empty, non-numeric or 0 falls back to 768.
+- `MetaModelClient` now records `finish_reason` so truncation shows in logs and evals.
+- Tests: `test_reasoning_minimal_and_default_max_tokens_768`, `test_max_tokens_env_switch` (5 cases), `test_truncated_reply_is_recorded_and_means_wait`.
+
+## Part 2: broader labelled set (EU-style, night, second US clip)
+
+### Method
+
+- **Clips:** none of the clips already in the repo had a usable EU or night pedestrian head (CDMX, Mazatlán and Tomaszów have no readable head, and the Tyumen head is far and uncertain). I sourced 15 short clips from Wikimedia Commons (CC BY 4.0 / CC0) and Pexels (Pexels License). Every clip's URL, author and licence is in `eval/SOURCES.md`. Videos are not committed. `scripts/get_eval_clips.sh` downloads them into `samples/ext/` and checks their sha256.
+- **Labels:** `eval/muse_labels_broad.csv` has 48 frames with id, subset, clip, time, label, confidence and note. I labelled each frame by eye from zoomed crops. The contact sheet is `docs/benchmark/muse_eval_broad_labels.jpg`. Mixed-head frames (one head red, another green with a low countdown) are `unclear` and not scored.
+- **Subsets:**
+  - `eu_style`: European-style heads (red/green man), daytime. Only the Most (CZ) clip has a confirmed EU location; the Pexels clips do not say where they were filmed.
+  - `night`: night clips plus two Most clips filmed at dusk (21:15).
+  - `us_day2`: a second US hand/man head with a countdown, to check the DC result on another head.
+- **Runs:** E@768 (the new default) and F@768 (3 frames) through the same harness and cache, with `STREETSENSE_META_BUDGET_USD=3.875` (ledger at the start of this task plus $3).
+- **Local reader:** same method as above, cached in `eval/muse_local_reader.json`.
+
+### Label counts (broad set)
+
+| Subset | walk | red | flashing | countdown_ending | no_signal | unclear | Total |
+|---|---|---|---|---|---|---|---|
+| eu_style | 10 | 7 | 0 | 3 | 4 | 0 | 24 |
+| night | 5 | 8 | 0 | 0 | 2 | 3 | 18 |
+| us_day2 | 2 | 1 | 3 | 0 | 0 | 0 | 6 |
+
+The hard requirement covers 28 non-walk frames: 16 red, 3 flashing, 3 countdown_ending and 6 no_signal.
+
+### Results per subset
+
+"Walk yes" is Muse alone. "Walk go" is the fused decision (local reader `walk` AND Muse yes). DC day is E@768 on the original 40 frames.
+
+| Subset | Variant | n | Walk yes (Muse) | Walk go (fused) | False yes, non-walk | Fused go, non-walk | Unclear yes (fused go) | Truncated | Unsure + invalid | Mean / p95 latency | Cost |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| DC day | E@768 | 40 | 9/10 | 9/10 | **0/22** | **0** | 2/4 (0) | 0 | 10/40 | 2.23 / 3.76 s | $0.0988 |
+| EU-style | E@768 | 24 | 10/10 | 1/10 | **0/14** | **0** | n/a | 0 | 4/24 | 1.81 / 2.23 s | $0.0539 |
+| EU-style | F@768 | 24 | 10/10 | 1/10 | **0/14** | **0** | n/a | 1 | 3/24 | 1.94 / 3.53 s | $0.0938 |
+| Night | E@768 | 18 | 5/5 | 0/5 | **0/10** | **0** | 2/3 (0) | 0 | 2/18 | 1.93 / 2.89 s | $0.0424 |
+| Night | F@768 | 18 | 4/5 | 0/5 | **0/10** | **0** | 2/3 (0) | 1 | 3/18 | 2.23 / 4.38 s | $0.0714 |
+| US day 2 | E@768 | 6 | 2/2 | 2/2 | **0/4** | **0** | n/a | 0 | 0/6 | 1.58 / 1.85 s | $0.0141 |
+| US day 2 | F@768 | 6 | 2/2 | 2/2 | **0/4** | **0** | n/a | 0 | 0/6 | 1.78 / 1.93 s | $0.0266 |
+
+Per label on the broad set (yes/no/unsure/invalid):
+
+| Variant | walk | countdown_ending | flashing | red | no_signal | unclear |
+|---|---|---|---|---|---|---|
+| E@768 | 17/0/0/0 | 0/3/0/0 | 0/3/0/0 | 0/16/0/0 | 0/0/6/0 | 2/1/0/0 |
+| F@768 | 16/0/0/1 | 0/2/0/1 | 0/3/0/0 | 0/16/0/0 | 0/2/4/0 | 2/1/0/0 |
+
+**No false yes.** Across both variants, Muse said yes on 0 of the 28 non-walk frames, and the fused decision was never go on a non-walk or unclear frame. F's two invalid replies were both truncations at 768 (`most11_03.00`, countdown_ending; `night_jp_01.10`, walk). Both fell back to "I can't tell, please wait".
+
+**Muse yes on `unclear` frames (not scored, reported for transparency).** Both are dusk frames from Most with several heads in view, and the fused result was not go in either case:
+- `most02_02.00` (E): "Small lower box with green walking person lit". The near head is red and a farther head shows a green man with countdown 4. Local `green` → stop.
+- `most03_00.20` (E and F): "green walking person lit on multiple pedestrian heads". The near head may show countdown 1 and turns red within 0.5 s. Local `unknown` → unsure.
+- `most04_08.00` (F): "lower green walking person lit with 35 countdown". The near head is red. Local `green` → stop.
+
+These show that Muse can pick the wrong head when several are in view. The local reader requirement is what blocked them.
+
+### Local reader on the broad set
+
+| Subset / label | Local reader states |
+|---|---|
+| eu_style walk (10) | walk 1, green 3, red 1, unclear 1, unknown 4 |
+| eu_style red (7) | red 3, unclear 2, unknown 2 |
+| eu_style countdown_ending (3) | green 3 |
+| eu_style no_signal (4) | unknown 4 |
+| night walk (5) | unknown 5 |
+| night red (8) | red 2, unknown 6 |
+| night no_signal (2) | green 1, unknown 1 |
+| night unclear (3) | green 2, unknown 1 |
+| us_day2 walk (2) | walk 2 |
+| us_day2 flashing (3) | red 3 |
+| us_day2 red (1) | red 1 |
+
+- The local reader never said `walk` on a non-walk frame. Its one wrong-but-safe call is `eu_ped_b_04.50`: walk labelled, local `red`, Muse yes → stop.
+- It rarely recognises EU green-man heads as `walk` (1 of 10), and it recognised none of the 5 night walk frames (all `unknown`). On EU heads it often returns `green`, a lit green head not classified as a pedestrian walk figure, which never allows go.
+- So on EU-style and night footage the bottleneck is the local reader, not Muse. Fused go was 1/10 on EU walk frames and 0/5 at night, against Muse alone at 10/10 and 5/5.
+- I did not change the local reader or the fusion. Improving the reader's EU and night recall is the next step if those settings matter. It needs its own labelled tests so it never says `walk` on red.
+
+### Part 2 caveats
+
+- Small n (48 frames, 17 walk) and one labeller. The Pexels clips are stock footage, often close-up and centred on the head, so they are easier than glasses-height footage.
+- The "EU-style" location is confirmed only for Most (CZ). The other clips show European-style heads but do not state where they were filmed.
+- "Night" includes 2 dusk frames from Most. `night_ped_08.50` (red) is medium confidence because the head is at the frame edge.
+- Pexels may serve a different rendition later. `get_eval_clips.sh` then fails the sha256 check rather than silently relabelling.
+
+## Cost (this follow-up)
+
+- **This follow-up:** $0.3896 across 131 paid calls (ledger 0.875323 → 1.264950), against the $3 cap. Per-variant costs in the tables are summed from each row's token usage, including rows answered from cache, so they add up to slightly more than the ledger delta.
+- **Project total:** $1.2650.
 
 ## Reproduce
 
@@ -116,4 +221,7 @@ Both changes make the rule stricter; neither loosens it:
 scripts/get_samples.sh   # clips are not committed
 STREETSENSE_META_BUDGET_USD=<spent+cap> .venv/bin/python scripts/eval_muse_crossing.py --variants A,B,C,E,F,G
 # cached: reruns cost $0; add --repeat 2 to pay for a fresh sample
+.venv/bin/python scripts/eval_muse_crossing.py --variants E --max-tokens 768
+scripts/get_eval_clips.sh   # broad-set clips into samples/ext (sha256-checked)
+.venv/bin/python scripts/eval_muse_crossing.py --labels eval/muse_labels_broad.csv --variants E,F --max-tokens 768 --out docs/benchmark/muse_eval_broad.json
 ```

@@ -1,4 +1,79 @@
 {
+ "beacon_a@1.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "beacon_a@3.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "beacon_b@1.50": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
  "cdmx@2.00": {
   "history": [
    [
@@ -849,6 +924,374 @@
   ],
   "state": "red"
  },
+ "eu_ped_a@0.30": {
+  "history": [
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "eu_ped_a@2.50": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "green"
+   ]
+  ],
+  "state": "green"
+ },
+ "eu_ped_a@4.50": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "green"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "green"
+   ]
+  ],
+  "state": "green"
+ },
+ "eu_ped_a@6.50": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "green"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "green"
+   ]
+  ],
+  "state": "green"
+ },
+ "eu_ped_a@9.50": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "eu_ped_b@0.50": {
+  "history": [
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unclear"
+   ]
+  ],
+  "state": "unclear"
+ },
+ "eu_ped_b@1.80": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "unclear"
+   ],
+   [
+    0.0,
+    "unclear"
+   ]
+  ],
+  "state": "unclear"
+ },
+ "eu_ped_b@2.80": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "eu_ped_b@4.50": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "eu_ped_b@6.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "eu_ped_b@7.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "unclear"
+   ]
+  ],
+  "state": "unclear"
+ },
+ "eu_ped_side@0.40": {
+  "history": [
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "eu_ped_side@10.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "eu_ped_side@2.50": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "eu_ped_side@5.50": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "eu_ped_side@8.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
  "mazatlan@3.00": {
   "history": [
    [
@@ -873,6 +1316,525 @@
    ]
   ],
   "state": "unknown"
+ },
+ "most02@2.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "green"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "green"
+   ]
+  ],
+  "state": "green"
+ },
+ "most02@7.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "most03@0.20": {
+  "history": [
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "most04@13.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "most04@8.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "green"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "green"
+   ]
+  ],
+  "state": "green"
+ },
+ "most11@0.50": {
+  "history": [
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "green"
+   ]
+  ],
+  "state": "green"
+ },
+ "most11@13.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "most11@3.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "green"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "green"
+   ]
+  ],
+  "state": "green"
+ },
+ "most11@5.50": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "green"
+   ],
+   [
+    0.25,
+    "green"
+   ],
+   [
+    0.0,
+    "green"
+   ]
+  ],
+  "state": "green"
+ },
+ "most11@9.50": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "night_hand@2.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "night_hand@7.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "night_jp@0.10": {
+  "history": [
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "night_jp@0.80": {
+  "history": [
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "night_jp@1.10": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "night_ped@0.40": {
+  "history": [
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "night_ped@1.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "night_ped@1.60": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "night_ped@3.50": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "night_ped@6.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "night_ped@8.50": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "night_square@16.40": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "unknown"
+   ]
+  ],
+  "state": "unknown"
+ },
+ "tirana@2.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "unknown"
+   ],
+   [
+    0.0,
+    "green"
+   ]
+  ],
+  "state": "green"
  },
  "tomaszow@3.00": {
   "history": [
@@ -998,5 +1960,155 @@
    ]
   ],
   "state": "green"
+ },
+ "us_ped@1.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "us_ped@11.70": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "us_ped@13.70": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "us_ped@19.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
+ },
+ "us_ped@4.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "walk"
+   ],
+   [
+    0.25,
+    "walk"
+   ],
+   [
+    0.0,
+    "walk"
+   ]
+  ],
+  "state": "walk"
+ },
+ "us_ped@8.00": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "unknown"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "red"
+   ]
+  ],
+  "state": "red"
  }
 }

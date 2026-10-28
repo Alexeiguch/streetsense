@@ -1,0 +1,18 @@
+{
+ "signal_description": "Green walking person lit on pedestrian head",
+ "pedestrian_signal": "green",
+ "countdown_seconds": null,
+ "summary": "Walk signal lit, safe to cross",
+ "hazards": [],
+ "crossing_visible": false,
+ "safe_to_cross": "yes",
+ "_latency_s": 1.763,
+ "_model": "muse-spark-1.3",
+ "_finish_reason": "stop",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 244,
+  "estimated_cost_usd": 0.002166,
+  "ledger_total_usd": 0.984693
+ }
+}
