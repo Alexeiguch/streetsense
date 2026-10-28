@@ -90,6 +90,14 @@ class AlertConfig:
     max_queue: int = 8
 
 
+def _env_int(name: str, default: int) -> int:
+    raw = os.environ.get(name, "").strip()
+    try:
+        return max(0, int(raw)) if raw else default
+    except ValueError:
+        return default
+
+
 @dataclass
 class VisionLLMConfig:
     """Slow reasoning loop on Meta Model API (OpenAI-compatible)."""
@@ -102,6 +110,18 @@ class VisionLLMConfig:
     max_image_side: int = 512  # keep images small for cost/latency
     max_tokens: int = 512  # must cover reasoning + JSON (see docs/META.md)
     reasoning_effort: str = "minimal"  # shortest Muse Spark pass; "none" is 400
+    # Crossing prompt: "describe" (look at the ped head first) or "strict" (v0). docs/MUSE_EVAL.md
+    prompt_variant: str = field(
+        default_factory=lambda: os.environ.get("STREETSENSE_MUSE_PROMPT", "describe").strip() or "describe"
+    )
+    # On-demand questions (ask_sync) send a larger image: at 512 px the DC walk figure is a few
+    # pixels and Muse read it as a red hand on 10/10 walk frames; at 1024 px it read 9/10 right.
+    crossing_max_image_side: int = field(
+        default_factory=lambda: _env_int("STREETSENSE_MUSE_CROSSING_SIDE", 1024) or 1024
+    )
+    # Older frames sent with a crossing question (0 = single frame). Spaced history_spacing_s apart.
+    history_frames: int = field(default_factory=lambda: _env_int("STREETSENSE_MUSE_HISTORY_FRAMES", 0))
+    history_spacing_s: float = 0.5
 
     @property
     def api_key(self) -> str | None:

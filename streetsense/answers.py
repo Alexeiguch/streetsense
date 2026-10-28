@@ -30,6 +30,24 @@ def local_signal_state(out, frame_shape: tuple[int, ...]) -> str:
     return sel.decision if sel is not None else "unknown"
 
 
+def muse_history_frames(pipe: Any, out: Any) -> list:
+    """Older frames to send with the crossing question, per cfg.vlm.history_frames.
+
+    Empty when the switch is off, the pipeline keeps no history, or nothing recent is
+    buffered. Extra frames only help Muse see a flickering walk symbol; fusion is unchanged.
+    """
+    cfg = getattr(getattr(pipe, "cfg", None), "vlm", None)
+    hist = getattr(pipe, "frame_history", None)
+    n = int(getattr(cfg, "history_frames", 0) or 0) if cfg is not None else 0
+    now = getattr(out, "t", None)
+    if n <= 0 or hist is None or not isinstance(now, (int, float)):
+        return []
+    try:
+        return hist.pick(float(now), n, float(cfg.history_spacing_s))
+    except Exception:
+        return []
+
+
 def crossing_answer(
     pipe: Any,
     img: np.ndarray,
@@ -47,7 +65,11 @@ def crossing_answer(
     if out is None:
         out = pipe.process(img, annotate=False)
     local = local_signal_state(out, img.shape)
-    muse_raw = pipe.vlm.ask_sync(img, question)
+    history = muse_history_frames(pipe, out)
+    if history:
+        muse_raw = pipe.vlm.ask_sync(img, question, history=history)
+    else:  # single-frame fallback (history off, or no recent frames buffered)
+        muse_raw = pipe.vlm.ask_sync(img, question)
     validated = validate_crossing_reply(
         muse_raw if isinstance(muse_raw, dict) and "error" not in muse_raw else None,
         capture_ts=capture_ts,

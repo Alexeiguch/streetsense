@@ -18,7 +18,8 @@ from .open_vocab import OpenVocabHazardDetector
 from .observations import ObservationLog, summarise_frame
 from .open_vocab_sched import OpenVocabScheduler
 from .overlay import draw
-from .rules import FrameFacts, build_alerts
+from .frame_history import FrameHistory
+from .rules import FrameFacts, build_alerts, select_crossing_signal
 from .surface import SIDEWALK, ROAD, SurfaceResult
 from .traffic_light import LightStateSmoother, classify_light, signal_kind
 from .types import Alert, Detection, Priority
@@ -86,6 +87,15 @@ class Pipeline:
         self.cw_hyst = CrosswalkHysteresis()
         self._kinds: dict[int, str] = {}
         self.vlm = MetaVisionAssistant(self.cfg.vlm)
+        # Recent frames for multi-frame Muse crossing checks (only kept when enabled).
+        self.frame_history: FrameHistory | None = None
+        if int(getattr(self.cfg.vlm, "history_frames", 0) or 0) > 0:
+            span = self.cfg.vlm.history_frames * self.cfg.vlm.history_spacing_s
+            self.frame_history = FrameHistory(
+                max_age_s=span + 1.0,
+                min_gap_s=min(0.2, self.cfg.vlm.history_spacing_s / 2),
+                max_side=self.cfg.vlm.crossing_max_image_side,
+            )
         self.sam = None
         self._sam_last = -1e9
         self._sam_segments = []
@@ -259,6 +269,12 @@ class Pipeline:
         for k, v in tm.items():
             self.timing_totals[k] += v
         out = FrameOutput(self._i, t, dets, self._last_cw, self._last_surface, cands, spoken, tm, ann)
+        if self.frame_history is not None:
+            try:
+                sel = select_crossing_signal(dets, W, H, self._last_cw)
+                self.frame_history.add(t, frame, sel.decision if sel is not None else "unknown")
+            except Exception as e:  # history must never break the fast loop
+                print(f"[frame_history] skipped: {type(e).__name__}: {e}")
         try:
             self.observations.add(summarise_frame(out, W, H))
         except Exception as e:  # the log must never break the fast loop

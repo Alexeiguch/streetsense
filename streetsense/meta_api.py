@@ -32,7 +32,8 @@ from .meta_usage import (
     usage_from_openai_response,
 )
 
-SYSTEM_PROMPT = (
+# v0 "strict" prompt (pre Oct-28 eval). Kept as the fallback variant.
+SYSTEM_PROMPT_STRICT = (
     "You are the eyes of a blind pedestrian. Look at the camera frame (taken from their chest or "
     "glasses, facing forward). Reply ONLY with JSON: "
     '{"summary": "<= 15 words, most safety-relevant first", '
@@ -44,6 +45,40 @@ SYSTEM_PROMPT = (
     "crossing looks clear of vehicles in this image. Do not claim vehicle motion from a single "
     "still frame; if observation history is provided, you may use it. When in doubt, say unsure."
 )
+SYSTEM_PROMPT = SYSTEM_PROMPT_STRICT  # backwards-compatible name
+
+# v1 "describe" prompt: look at the pedestrian head first, then decide (docs/MUSE_EVAL.md).
+SYSTEM_PROMPT_DESCRIBE = (
+    "You are the eyes of a blind pedestrian. The camera faces forward from their chest or glasses. "
+    "First find the PEDESTRIAN signal: a small box, usually lower on the pole, showing a walking "
+    "person, a raised hand or a standing figure, often with countdown digits. Round vehicle lamps, "
+    "vehicle arrows and countdowns on vehicle heads are NOT pedestrian signals. "
+    "Describe it, then decide. Reply ONLY with JSON, keys in this order: "
+    '{"signal_description": "<= 20 words: what the pedestrian head shows, or no pedestrian signal", '
+    '"pedestrian_signal": "green"|"red"|"flashing"|"countdown"|"none_visible", '
+    '"countdown_seconds": <integer shown on the pedestrian head, or null>, '
+    '"summary": "<= 15 words, most safety-relevant first", '
+    '"hazards": ["short phrases"], '
+    '"crossing_visible": true|false, '
+    '"safe_to_cross": "yes"|"no"|"unsure"}. '
+    "pedestrian_signal: green = a lit white or green walking person (even with a countdown beside "
+    "it); red = steady hand or red standing figure; flashing = flashing hand; countdown = only "
+    "digits lit, no figure; none_visible = no pedestrian head you can read. "
+    "safe_to_cross=yes when a walking-person walk symbol is clearly lit, any countdown is above 10, "
+    "and no vehicle is in the crosswalk directly ahead. A clearly lit walk symbol with no hazards "
+    "IS a yes; do not refuse only because the image is a still. "
+    "safe_to_cross=no for a hand (steady or flashing), a red figure, a countdown of 10 or less, or "
+    "a vehicle in the crossing. safe_to_cross=unsure when no pedestrian signal is visible, the walk "
+    "symbol is not lit, or you cannot read it. "
+    "If several frames are given they are in time order and the LAST is now. LED signals can "
+    "flicker on video: if a walk symbol is lit in one of these frames, no frame shows a hand, and "
+    "the countdown is still above 10, treat it as the walk phase. Any hand in any frame means no."
+)
+
+PROMPTS = {"strict": SYSTEM_PROMPT_STRICT, "describe": SYSTEM_PROMPT_DESCRIBE}
+
+# Muse-reported pedestrian countdown at or below this blocks "go" (too little time to start).
+MIN_WALK_COUNTDOWN_S = 10
 
 SAFE_CROSSING_FALLBACK = "I can't tell, please wait"
 
@@ -72,6 +107,25 @@ def encode_jpeg_data_url(frame_bgr: np.ndarray, max_side: int = 768, quality: in
     if not ok:
         raise ValueError("JPEG encode failed")
     return "data:image/jpeg;base64," + base64.b64encode(buf.tobytes()).decode()
+
+
+def build_user_content(
+    question: str, images: list[tuple[float, str]], history_text: str | None = None
+) -> list[dict]:
+    """User message parts: question, optional local history text, then images oldest -> newest.
+
+    `images` = [(age_s, data_url)]; the last one is the current frame (age 0).
+    """
+    parts: list[dict] = [{"type": "text", "text": question}]
+    if history_text:
+        parts.append({"type": "text", "text": history_text})
+    multi = len(images) > 1
+    for i, (age, url) in enumerate(images):
+        if multi:
+            label = "Current frame (now):" if i == len(images) - 1 else f"Frame from {age:.1f} s ago:"
+            parts.append({"type": "text", "text": label})
+        parts.append({"type": "image_url", "image_url": {"url": url}})
+    return parts
 
 
 def parse_json_reply(text: str) -> dict:
@@ -122,6 +176,15 @@ def validate_crossing_reply(raw: dict | None, *, capture_ts: float | None = None
     if safe not in _ALLOWED_SAFE:
         out["error"] = "bad safe_to_cross"
         return out
+    # Optional fields from the "describe" prompt. A malformed countdown is invalid (fallback).
+    if "countdown_seconds" in raw:
+        cd = raw["countdown_seconds"]
+        if cd is not None and (isinstance(cd, bool) or not isinstance(cd, (int, float))):
+            out["error"] = "countdown_seconds not number|null"
+            return out
+        data["countdown_seconds"] = cd
+    if isinstance(raw.get("signal_description"), str):
+        data["signal_description"] = raw["signal_description"].strip()[:200]
     data["pedestrian_signal"] = sig
     data["safe_to_cross"] = safe
     data["summary"] = data["summary"].strip()[:200]
@@ -163,14 +226,22 @@ def fuse_crossing_decision(local_state: str | None, muse: dict | None) -> dict:
     local_go = local in _LOCAL_GO
     local_stop = local in _LOCAL_STOP or local not in _LOCAL_GO
     muse_go = muse_safe == "yes"
-    muse_block = muse_safe in _MUSE_STOP or muse_sig in {"red", "flashing", "none_visible"}
+    cd = muse.get("countdown_seconds")
+    countdown_low = (
+        isinstance(cd, (int, float)) and not isinstance(cd, bool) and cd <= MIN_WALK_COUNTDOWN_S
+    )
+    muse_block = (
+        muse_safe in _MUSE_STOP
+        or muse_sig in {"red", "flashing", "none_visible", "countdown"}
+        or countdown_low
+    )
 
     if local_go and muse_go and not muse_block:
         decision = "go"
         reason = "local walk/green and Muse yes"
     elif local_stop or muse_block or not muse_go:
         # Prefer stop over unsure when either side is negative.
-        if (local == "red") or muse_safe == "no" or muse_sig == "red":
+        if (local == "red") or muse_safe == "no" or muse_sig in {"red", "flashing"} or countdown_low:
             decision = "stop"
             reason = "local or Muse indicates stop"
         elif local in {"unknown", "countdown"} or muse_safe == "unsure" or muse_sig == "none_visible":
@@ -235,18 +306,48 @@ class MetaVisionAssistant:
         threading.Thread(target=self._run, args=(img, q), daemon=True).start()
         return True
 
-    def ask_sync(self, frame_bgr: np.ndarray, question: str) -> dict:
+    @property
+    def system_prompt(self) -> str:
+        """Unknown variant names fall back to the strict v0 prompt."""
+        return PROMPTS.get(str(getattr(self.cfg, "prompt_variant", "strict") or "strict"), SYSTEM_PROMPT_STRICT)
+
+    def ask_sync(
+        self,
+        frame_bgr: np.ndarray,
+        question: str,
+        *,
+        history: list[tuple[float, np.ndarray]] | None = None,
+        history_text: str | None = None,
+    ) -> dict:
+        """One Muse Spark call. `history` = [(age_s, older_frame), ...] sent before the current frame.
+
+        With no history this is the original single-frame request.
+        """
         if not self.enabled:
             return {"error": "Meta Model API disabled: set MODEL_API_KEY"}
         try:
-            get_ledger().check_budget(0.01)  # coarse pre-check (~1c)
-            return self._call(encode_jpeg_data_url(frame_bgr, self.cfg.max_image_side), question)
+            n_img = 1 + len(history or [])
+            get_ledger().check_budget(0.01 * n_img)  # coarse pre-check (~1c per image)
+            side = int(getattr(self.cfg, "crossing_max_image_side", 0) or self.cfg.max_image_side)
+            older = sorted(history or [], key=lambda h: -h[0])  # oldest first
+            images = [(age, encode_jpeg_data_url(f, side)) for age, f in older]
+            images.append((0.0, encode_jpeg_data_url(frame_bgr, side)))
+            return self._call(build_user_content(question, images, history_text), question)
         except BudgetExceeded as e:
             return {"error": str(e)}
         except Exception as e:
             return {"error": mask_secret(f"{type(e).__name__}: {e}", self.cfg.api_key)[:200]}
 
-    def _call(self, img_url: str, question: str, retries: int = 2) -> dict:
+    def build_messages(self, user_content: list[dict]) -> list[dict]:
+        return [
+            {"role": "system", "content": self.system_prompt},
+            # Images are only accepted in user-role messages on Meta Model API.
+            {"role": "user", "content": user_content},
+        ]
+
+    def _call(self, user_content: str | list[dict], question: str, retries: int = 2) -> dict:
+        if isinstance(user_content, str):  # a single image data URL (background loop)
+            user_content = build_user_content(question, [(0.0, user_content)])
         last_err: Exception | None = None
         for attempt in range(retries + 1):
             t0 = time.perf_counter()
@@ -255,14 +356,7 @@ class MetaVisionAssistant:
                 # visible answer. Use minimal effort + enough headroom so JSON is not empty.
                 resp = self._client.chat.completions.create(
                     model=self.cfg.model,
-                    messages=[
-                        {"role": "system", "content": SYSTEM_PROMPT},
-                        # Images are only accepted in user-role messages on Meta Model API.
-                        {"role": "user", "content": [
-                            {"type": "text", "text": question},
-                            {"type": "image_url", "image_url": {"url": img_url}},
-                        ]},
-                    ],
+                    messages=self.build_messages(user_content),
                     max_tokens=self.max_tokens,
                     reasoning_effort=getattr(self.cfg, "reasoning_effort", "minimal"),
                 )
