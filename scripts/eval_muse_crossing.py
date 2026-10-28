@@ -110,10 +110,11 @@ def request_key(vlm: MetaVisionAssistant, content: list[dict], repeat: int = 0) 
 
 
 def run_variant(name: str, rows: list[dict], local: dict, frame_dir: Path, cache_dir: Path,
-                dry: bool, repeat: int = 0) -> list[dict]:
+                dry: bool, repeat: int = 0, max_tokens: int = 512) -> list[dict]:
     prompt, n_hist, use_text, side = VARIANTS[name]
     vlm = MetaVisionAssistant(
-        VisionLLMConfig(prompt_variant=prompt, max_image_side=side, crossing_max_image_side=side)
+        VisionLLMConfig(prompt_variant=prompt, max_image_side=side, crossing_max_image_side=side,
+                        max_tokens=max_tokens)
     )
     out = []
     for r in rows:
@@ -160,6 +161,11 @@ def run_variant(name: str, rows: list[dict], local: dict, frame_dir: Path, cache
                 "cost_usd": u.get("estimated_cost_usd", 0.0),
                 "prompt_tokens": u.get("prompt_tokens"),
                 "completion_tokens": u.get("completion_tokens"),
+                "max_tokens": vlm.max_tokens,
+                # Older cache entries have no finish_reason; a reply that used every allowed
+                # completion token was cut off.
+                "truncated": data.get("_finish_reason") == "length"
+                or (u.get("completion_tokens") or 0) >= vlm.max_tokens,
             })
         out.append(row)
         print(json.dumps({k: row.get(k) for k in ("id", "label", "local", "muse_safe", "muse_signal",
@@ -188,6 +194,9 @@ def summarise(rows: list[dict]) -> dict:
         "p95_latency_s": round(sorted(lat)[int(0.95 * (len(lat) - 1))], 3) if lat else None,
         "cost_usd": round(sum(r.get("cost_usd") or 0 for r in rs), 6),
         "mean_prompt_tokens": round(statistics.mean([r["prompt_tokens"] for r in rs if r.get("prompt_tokens")]), 1) if rs else None,
+        "truncated": sum(1 for r in rs if r.get("truncated")),
+        "mean_completion_tokens": round(statistics.mean([r["completion_tokens"] for r in rs if r.get("completion_tokens")]), 1) if rs else None,
+        "max_completion_tokens": max([r["completion_tokens"] for r in rs if r.get("completion_tokens")], default=None),
         "n": len(rs),
     }
 
@@ -201,6 +210,8 @@ def main() -> int:
     ap.add_argument("--dry-run", action="store_true", help="local reader + cache only, no API")
     ap.add_argument("--out", default="docs/benchmark/muse_eval.json")
     ap.add_argument("--repeat", type=int, default=0, help="repeat index; >0 re-asks and stores as <variant>#<n>")
+    ap.add_argument("--max-tokens", type=int, default=512,
+                    help="Muse max_tokens (part of the cache key); != 512 stores as <variant>@<n>")
     a = ap.parse_args()
     rows = list(csv.DictReader(open(ROOT / a.labels)))
     if a.only:
@@ -222,13 +233,13 @@ def main() -> int:
     outp = ROOT / a.out
     results = json.loads(outp.read_text()) if outp.is_file() else {"variants": {}}
     for name in a.variants.split(","):
-        rs = run_variant(name, rows, local, frame_dir, cache_dir, a.dry_run, a.repeat)
-        key = f"{name}#{a.repeat}" if a.repeat else name
+        rs = run_variant(name, rows, local, frame_dir, cache_dir, a.dry_run, a.repeat, a.max_tokens)
+        key = name + (f"@{a.max_tokens}" if a.max_tokens != 512 else "") + (f"#{a.repeat}" if a.repeat else "")
         if not a.only and not a.limit:
             prompt, n_hist, use_text, side = VARIANTS[name]
             results["variants"][key] = {
                 "config": {"prompt": prompt, "history_frames": n_hist, "history_text": use_text,
-                           "max_image_side": side},
+                           "max_image_side": side, "max_tokens": a.max_tokens},
                 "summary": summarise(rs), "rows": rs,
             }
         print(name, json.dumps(summarise(rs)), file=sys.stderr)

@@ -286,7 +286,7 @@ class MetaVisionAssistant:
         self.latest: SceneReport | None = None
         self.error: str | None = None
         self.last_usage: UsageRecord | None = None
-        self.max_tokens = int(getattr(cfg, "max_tokens", 512) or 512)
+        self.max_tokens = int(getattr(cfg, "max_tokens", 768) or 768)
         if self.enabled:
             from openai import OpenAI
 
@@ -365,6 +365,9 @@ class MetaVisionAssistant:
                 data = parse_json_reply(content)
                 data["_latency_s"] = round(latency, 3)
                 data["_model"] = self.cfg.model
+                finish = getattr(resp.choices[0], "finish_reason", None)
+                if isinstance(finish, str):
+                    data["_finish_reason"] = finish  # "length" = cut off by max_tokens
                 try:
                     rec = usage_from_openai_response(
                         resp, model=self.cfg.model, kind="chat", latency_s=latency, note=question[:80]

@@ -108,7 +108,9 @@ class VisionLLMConfig:
     interval_s: float = 10.0
     timeout_s: float = 30.0
     max_image_side: int = 512  # keep images small for cost/latency
-    max_tokens: int = 512  # must cover reasoning + JSON (see docs/META.md)
+    # Must cover reasoning + JSON (docs/META.md). At 512, 1-3 of 40 crossing replies were cut
+    # off (invalid JSON -> "can't tell"); at 768, 0 of 40 (longest 659). docs/MUSE_EVAL.md
+    max_tokens: int = field(default_factory=lambda: _env_int("STREETSENSE_MUSE_MAX_TOKENS", 768) or 768)
     reasoning_effort: str = "minimal"  # shortest Muse Spark pass; "none" is 400
     # Crossing prompt: "describe" (look at the ped head first) or "strict" (v0). docs/MUSE_EVAL.md
     prompt_variant: str = field(

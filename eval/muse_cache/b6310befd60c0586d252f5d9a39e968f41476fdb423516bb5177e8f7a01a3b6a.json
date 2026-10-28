@@ -1,0 +1,18 @@
+{
+ "signal_description": "White walking person with red 31 countdown lit",
+ "pedestrian_signal": "green",
+ "countdown_seconds": 31,
+ "summary": "Walk signal on with 31 seconds, street clear",
+ "hazards": [],
+ "crossing_visible": false,
+ "safe_to_cross": "yes",
+ "_latency_s": 3.108,
+ "_model": "muse-spark-1.3",
+ "_finish_reason": "stop",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 398,
+  "estimated_cost_usd": 0.002821,
+  "ledger_total_usd": 0.885476
+ }
+}

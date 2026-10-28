@@ -1,0 +1,21 @@
+{
+ "signal_description": "no readable pedestrian head, only vehicle lights",
+ "pedestrian_signal": "none_visible",
+ "countdown_seconds": null,
+ "summary": "Crosswalk visible but no walk signal readable",
+ "hazards": [
+  "vehicles waiting and moving nearby",
+  "pedestrians in crosswalk"
+ ],
+ "crossing_visible": true,
+ "safe_to_cross": "unsure",
+ "_latency_s": 2.834,
+ "_model": "muse-spark-1.3",
+ "_finish_reason": "stop",
+ "_usage": {
+  "prompt_tokens": 1228,
+  "completion_tokens": 345,
+  "estimated_cost_usd": 0.002595,
+  "ledger_total_usd": 0.95643
+ }
+}

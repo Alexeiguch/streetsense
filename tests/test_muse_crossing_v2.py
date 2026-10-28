@@ -107,10 +107,37 @@ def test_crossing_question_uses_larger_image_side(monkeypatch):
     assert VisionLLMConfig().crossing_max_image_side == 640
 
 
-def test_reasoning_and_tokens_unchanged(monkeypatch):
+def test_reasoning_minimal_and_default_max_tokens_768(monkeypatch):
+    monkeypatch.delenv("STREETSENSE_MUSE_MAX_TOKENS", raising=False)
     a, comp = make(monkeypatch)
     a.ask_sync(np.zeros((64, 64, 3), np.uint8), "q")
-    assert comp.calls[0]["reasoning_effort"] == "minimal" and comp.calls[0]["max_tokens"] == 512
+    assert comp.calls[0]["reasoning_effort"] == "minimal" and comp.calls[0]["max_tokens"] == 768
+
+
+@pytest.mark.parametrize("raw,want", [("1024", 1024), ("512", 512), ("lots", 768), ("", 768), ("0", 768)])
+def test_max_tokens_env_switch(monkeypatch, raw, want):
+    monkeypatch.setenv("STREETSENSE_MUSE_MAX_TOKENS", raw)
+    a, comp = make(monkeypatch)
+    a.ask_sync(np.zeros((64, 64, 3), np.uint8), "q")
+    assert a.max_tokens == want and comp.calls[0]["max_tokens"] == want
+
+
+def test_truncated_reply_is_recorded_and_means_wait(monkeypatch):
+    a, comp = make(monkeypatch)
+    cut = '{"signal_description": "white walking person lit", "pedestrian_signal": "green", "safe_to'
+
+    def create(**kw):
+        comp.calls.append(kw)
+        return SimpleNamespace(choices=[SimpleNamespace(finish_reason="length",
+                                                        message=SimpleNamespace(content=cut))])
+
+    comp.create = create
+    data = a.ask_sync(np.zeros((64, 64, 3), np.uint8), "Can I cross?")
+    assert data.get("_finish_reason") == "length"
+    v = validate_crossing_reply(data)
+    assert not v["ok"]
+    assert render_crossing_speech(v, local_state="walk") == "I can't tell, please wait"
+    assert fuse_crossing_decision("walk", None)["decision"] != "go"
 
 
 # --- multi-frame request shape ---

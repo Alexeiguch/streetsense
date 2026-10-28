@@ -5,7 +5,8 @@
     "prompt": "strict",
     "history_frames": 0,
     "history_text": false,
-    "max_image_side": 512
+    "max_image_side": 512,
+    "max_tokens": 512
    },
    "summary": {
     "per_label": {
@@ -75,6 +76,9 @@
     "p95_latency_s": 2.866,
     "cost_usd": 0.056238,
     "mean_prompt_tokens": 360,
+    "truncated": 0,
+    "mean_completion_tokens": 252.7,
+    "max_completion_tokens": 371,
     "n": 40
    },
    "rows": [
@@ -95,7 +99,9 @@
      "latency_s": 1.602,
      "cost_usd": 0.001228,
      "prompt_tokens": 360,
-     "completion_tokens": 183
+     "completion_tokens": 183,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_13.80",
@@ -114,7 +120,9 @@
      "latency_s": 2.866,
      "cost_usd": 0.001652,
      "prompt_tokens": 360,
-     "completion_tokens": 312
+     "completion_tokens": 312,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_17.80",
@@ -133,7 +141,9 @@
      "latency_s": 1.78,
      "cost_usd": 0.00098,
      "prompt_tokens": 360,
-     "completion_tokens": 154
+     "completion_tokens": 154,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_21.72",
@@ -152,7 +162,9 @@
      "latency_s": 2.281,
      "cost_usd": 0.001644,
      "prompt_tokens": 360,
-     "completion_tokens": 281
+     "completion_tokens": 281,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_25.72",
@@ -171,7 +183,9 @@
      "latency_s": 2.0,
      "cost_usd": 0.001486,
      "prompt_tokens": 360,
-     "completion_tokens": 273
+     "completion_tokens": 273,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_29.72",
@@ -190,7 +204,9 @@
      "latency_s": 2.692,
      "cost_usd": 0.001201,
      "prompt_tokens": 360,
-     "completion_tokens": 206
+     "completion_tokens": 206,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_33.72",
@@ -209,7 +225,9 @@
      "latency_s": 2.246,
      "cost_usd": 0.001635,
      "prompt_tokens": 360,
-     "completion_tokens": 308
+     "completion_tokens": 308,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_37.72",
@@ -228,7 +246,9 @@
      "latency_s": 3.172,
      "cost_usd": 0.001792,
      "prompt_tokens": 360,
-     "completion_tokens": 345
+     "completion_tokens": 345,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_41.72",
@@ -247,7 +267,9 @@
      "latency_s": 2.65,
      "cost_usd": 0.001511,
      "prompt_tokens": 360,
-     "completion_tokens": 279
+     "completion_tokens": 279,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_45.72",
@@ -266,7 +288,9 @@
      "latency_s": 2.072,
      "cost_usd": 0.001346,
      "prompt_tokens": 360,
-     "completion_tokens": 240
+     "completion_tokens": 240,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_13.24",
@@ -285,7 +309,9 @@
      "latency_s": 2.237,
      "cost_usd": 0.001864,
      "prompt_tokens": 360,
-     "completion_tokens": 362
+     "completion_tokens": 362,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_25.28",
@@ -304,7 +330,9 @@
      "latency_s": 1.573,
      "cost_usd": 0.001278,
      "prompt_tokens": 360,
-     "completion_tokens": 224
+     "completion_tokens": 224,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_37.28",
@@ -323,7 +351,9 @@
      "latency_s": 2.061,
      "cost_usd": 0.001507,
      "prompt_tokens": 360,
-     "completion_tokens": 278
+     "completion_tokens": 278,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_45.28",
@@ -342,7 +372,9 @@
      "latency_s": 2.536,
      "cost_usd": 0.001843,
      "prompt_tokens": 360,
-     "completion_tokens": 357
+     "completion_tokens": 357,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_48.72",
@@ -361,7 +393,9 @@
      "latency_s": 1.752,
      "cost_usd": 0.00101,
      "prompt_tokens": 360,
-     "completion_tokens": 161
+     "completion_tokens": 161,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_49.88",
@@ -380,7 +414,9 @@
      "latency_s": 1.847,
      "cost_usd": 0.00135,
      "prompt_tokens": 360,
-     "completion_tokens": 241
+     "completion_tokens": 241,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_50.08",
@@ -399,7 +435,9 @@
      "latency_s": 2.357,
      "cost_usd": 0.001864,
      "prompt_tokens": 360,
-     "completion_tokens": 362
+     "completion_tokens": 362,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_51.88",
@@ -418,7 +456,9 @@
      "latency_s": 2.059,
      "cost_usd": 0.001431,
      "prompt_tokens": 360,
-     "completion_tokens": 260
+     "completion_tokens": 260,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_53.00",
@@ -437,7 +477,9 @@
      "latency_s": 1.569,
      "cost_usd": 0.001337,
      "prompt_tokens": 360,
-     "completion_tokens": 238
+     "completion_tokens": 238,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_54.00",
@@ -456,7 +498,9 @@
      "latency_s": 1.208,
      "cost_usd": 0.00101,
      "prompt_tokens": 360,
-     "completion_tokens": 161
+     "completion_tokens": 161,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_55.00",
@@ -475,7 +519,9 @@
      "latency_s": 2.221,
      "cost_usd": 0.001558,
      "prompt_tokens": 360,
-     "completion_tokens": 290
+     "completion_tokens": 290,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_56.00",
@@ -494,7 +540,9 @@
      "latency_s": 1.89,
      "cost_usd": 0.001295,
      "prompt_tokens": 360,
-     "completion_tokens": 228
+     "completion_tokens": 228,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_54.48",
@@ -513,7 +561,9 @@
      "latency_s": 2.011,
      "cost_usd": 0.001456,
      "prompt_tokens": 360,
-     "completion_tokens": 266
+     "completion_tokens": 266,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_01.00",
@@ -532,7 +582,9 @@
      "latency_s": 1.174,
      "cost_usd": 0.000963,
      "prompt_tokens": 360,
-     "completion_tokens": 150
+     "completion_tokens": 150,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_03.00",
@@ -551,7 +603,9 @@
      "latency_s": 1.818,
      "cost_usd": 0.001252,
      "prompt_tokens": 360,
-     "completion_tokens": 218
+     "completion_tokens": 218,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_05.00",
@@ -570,7 +624,9 @@
      "latency_s": 2.415,
      "cost_usd": 0.001792,
      "prompt_tokens": 360,
-     "completion_tokens": 345
+     "completion_tokens": 345,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_07.00",
@@ -589,7 +645,9 @@
      "latency_s": 2.17,
      "cost_usd": 0.001541,
      "prompt_tokens": 360,
-     "completion_tokens": 286
+     "completion_tokens": 286,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_58.60",
@@ -608,7 +666,9 @@
      "latency_s": 1.528,
      "cost_usd": 0.000963,
      "prompt_tokens": 360,
-     "completion_tokens": 150
+     "completion_tokens": 150,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_60.60",
@@ -627,7 +687,9 @@
      "latency_s": 1.245,
      "cost_usd": 0.001099,
      "prompt_tokens": 360,
-     "completion_tokens": 182
+     "completion_tokens": 182,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_62.20",
@@ -646,7 +708,9 @@
      "latency_s": 2.026,
      "cost_usd": 0.00146,
      "prompt_tokens": 360,
-     "completion_tokens": 267
+     "completion_tokens": 267,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_01.00",
@@ -665,7 +729,9 @@
      "latency_s": 1.777,
      "cost_usd": 0.001227,
      "prompt_tokens": 360,
-     "completion_tokens": 212
+     "completion_tokens": 212,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_06.00",
@@ -684,7 +750,9 @@
      "latency_s": 2.441,
      "cost_usd": 0.001537,
      "prompt_tokens": 360,
-     "completion_tokens": 285
+     "completion_tokens": 285,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_12.00",
@@ -703,7 +771,9 @@
      "latency_s": 1.933,
      "cost_usd": 0.001711,
      "prompt_tokens": 360,
-     "completion_tokens": 326
+     "completion_tokens": 326,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_18.00",
@@ -722,7 +792,9 @@
      "latency_s": 2.907,
      "cost_usd": 0.001902,
      "prompt_tokens": 360,
-     "completion_tokens": 371
+     "completion_tokens": 371,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_02.00",
@@ -741,7 +813,9 @@
      "latency_s": 1.765,
      "cost_usd": 0.00115,
      "prompt_tokens": 360,
-     "completion_tokens": 194
+     "completion_tokens": 194,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_30.00",
@@ -760,7 +834,9 @@
      "latency_s": 1.697,
      "cost_usd": 0.00149,
      "prompt_tokens": 360,
-     "completion_tokens": 274
+     "completion_tokens": 274,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_50.00",
@@ -779,7 +855,9 @@
      "latency_s": 1.484,
      "cost_usd": 0.001091,
      "prompt_tokens": 360,
-     "completion_tokens": 180
+     "completion_tokens": 180,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_90.00",
@@ -798,7 +876,9 @@
      "latency_s": 1.854,
      "cost_usd": 0.001061,
      "prompt_tokens": 360,
-     "completion_tokens": 173
+     "completion_tokens": 173,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "mazatlan_03.00",
@@ -817,7 +897,9 @@
      "latency_s": 1.613,
      "cost_usd": 0.001303,
      "prompt_tokens": 360,
-     "completion_tokens": 230
+     "completion_tokens": 230,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tomaszow_03.00",
@@ -836,7 +918,9 @@
      "latency_s": 1.627,
      "cost_usd": 0.001418,
      "prompt_tokens": 360,
-     "completion_tokens": 257
+     "completion_tokens": 257,
+     "max_tokens": 512,
+     "truncated": false
     }
    ]
   },
@@ -845,7 +929,8 @@
     "prompt": "describe",
     "history_frames": 0,
     "history_text": false,
-    "max_image_side": 512
+    "max_image_side": 512,
+    "max_tokens": 512
    },
    "summary": {
     "per_label": {
@@ -915,6 +1000,9 @@
     "p95_latency_s": 3.12,
     "cost_usd": 0.065658,
     "mean_prompt_tokens": 631,
+    "truncated": 1,
+    "mean_completion_tokens": 286.6,
+    "max_completion_tokens": 512,
     "n": 40
    },
    "rows": [
@@ -935,7 +1023,9 @@
      "latency_s": 2.457,
      "cost_usd": 0.002098,
      "prompt_tokens": 631,
-     "completion_tokens": 308
+     "completion_tokens": 308,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_13.80",
@@ -954,7 +1044,9 @@
      "latency_s": 1.56,
      "cost_usd": 0.001707,
      "prompt_tokens": 631,
-     "completion_tokens": 216
+     "completion_tokens": 216,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_17.80",
@@ -973,7 +1065,9 @@
      "latency_s": 1.717,
      "cost_usd": 0.001753,
      "prompt_tokens": 631,
-     "completion_tokens": 227
+     "completion_tokens": 227,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_21.72",
@@ -992,7 +1086,9 @@
      "latency_s": 3.025,
      "cost_usd": 0.002253,
      "prompt_tokens": 631,
-     "completion_tokens": 440
+     "completion_tokens": 440,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_25.72",
@@ -1011,7 +1107,9 @@
      "latency_s": 3.095,
      "cost_usd": 0.002531,
      "prompt_tokens": 631,
-     "completion_tokens": 410
+     "completion_tokens": 410,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_29.72",
@@ -1030,7 +1128,9 @@
      "latency_s": 1.485,
      "cost_usd": 0.001186,
      "prompt_tokens": 631,
-     "completion_tokens": 189
+     "completion_tokens": 189,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_33.72",
@@ -1049,7 +1149,9 @@
      "latency_s": 1.653,
      "cost_usd": 0.001365,
      "prompt_tokens": 631,
-     "completion_tokens": 231
+     "completion_tokens": 231,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_37.72",
@@ -1068,7 +1170,9 @@
      "latency_s": 1.721,
      "cost_usd": 0.001488,
      "prompt_tokens": 631,
-     "completion_tokens": 260
+     "completion_tokens": 260,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_41.72",
@@ -1087,7 +1191,9 @@
      "latency_s": 1.639,
      "cost_usd": 0.001518,
      "prompt_tokens": 631,
-     "completion_tokens": 267
+     "completion_tokens": 267,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_45.72",
@@ -1106,7 +1212,9 @@
      "latency_s": 1.526,
      "cost_usd": 0.001173,
      "prompt_tokens": 631,
-     "completion_tokens": 186
+     "completion_tokens": 186,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_13.24",
@@ -1125,7 +1233,9 @@
      "latency_s": 1.835,
      "cost_usd": 0.001301,
      "prompt_tokens": 631,
-     "completion_tokens": 216
+     "completion_tokens": 216,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_25.28",
@@ -1144,7 +1254,9 @@
      "latency_s": 3.848,
      "cost_usd": 0.002559,
      "prompt_tokens": 631,
-     "completion_tokens": 512
+     "completion_tokens": 512,
+     "max_tokens": 512,
+     "truncated": true
     },
     {
      "id": "dc_37.28",
@@ -1163,7 +1275,9 @@
      "latency_s": 2.521,
      "cost_usd": 0.002176,
      "prompt_tokens": 631,
-     "completion_tokens": 422
+     "completion_tokens": 422,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_45.28",
@@ -1182,7 +1296,9 @@
      "latency_s": 2.636,
      "cost_usd": 0.002168,
      "prompt_tokens": 631,
-     "completion_tokens": 420
+     "completion_tokens": 420,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_48.72",
@@ -1201,7 +1317,9 @@
      "latency_s": 1.4,
      "cost_usd": 0.001407,
      "prompt_tokens": 631,
-     "completion_tokens": 241
+     "completion_tokens": 241,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_49.88",
@@ -1220,7 +1338,9 @@
      "latency_s": 1.578,
      "cost_usd": 0.001467,
      "prompt_tokens": 631,
-     "completion_tokens": 255
+     "completion_tokens": 255,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_50.08",
@@ -1239,7 +1359,9 @@
      "latency_s": 1.665,
      "cost_usd": 0.001603,
      "prompt_tokens": 631,
-     "completion_tokens": 287
+     "completion_tokens": 287,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_51.88",
@@ -1258,7 +1380,9 @@
      "latency_s": 1.483,
      "cost_usd": 0.001467,
      "prompt_tokens": 631,
-     "completion_tokens": 255
+     "completion_tokens": 255,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_53.00",
@@ -1277,7 +1401,9 @@
      "latency_s": 1.934,
      "cost_usd": 0.001365,
      "prompt_tokens": 631,
-     "completion_tokens": 231
+     "completion_tokens": 231,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_54.00",
@@ -1296,7 +1422,9 @@
      "latency_s": 1.989,
      "cost_usd": 0.001348,
      "prompt_tokens": 631,
-     "completion_tokens": 227
+     "completion_tokens": 227,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_55.00",
@@ -1315,7 +1443,9 @@
      "latency_s": 1.96,
      "cost_usd": 0.001683,
      "prompt_tokens": 631,
-     "completion_tokens": 306
+     "completion_tokens": 306,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_56.00",
@@ -1334,7 +1464,9 @@
      "latency_s": 1.48,
      "cost_usd": 0.001356,
      "prompt_tokens": 631,
-     "completion_tokens": 229
+     "completion_tokens": 229,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_54.48",
@@ -1353,7 +1485,9 @@
      "latency_s": 1.827,
      "cost_usd": 0.001297,
      "prompt_tokens": 631,
-     "completion_tokens": 215
+     "completion_tokens": 215,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_01.00",
@@ -1372,7 +1506,9 @@
      "latency_s": 1.615,
      "cost_usd": 0.001352,
      "prompt_tokens": 631,
-     "completion_tokens": 228
+     "completion_tokens": 228,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_03.00",
@@ -1391,7 +1527,9 @@
      "latency_s": 1.905,
      "cost_usd": 0.001641,
      "prompt_tokens": 631,
-     "completion_tokens": 296
+     "completion_tokens": 296,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_05.00",
@@ -1410,7 +1548,9 @@
      "latency_s": 2.704,
      "cost_usd": 0.00221,
      "prompt_tokens": 631,
-     "completion_tokens": 430
+     "completion_tokens": 430,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_07.00",
@@ -1429,7 +1569,9 @@
      "latency_s": 1.591,
      "cost_usd": 0.001479,
      "prompt_tokens": 631,
-     "completion_tokens": 258
+     "completion_tokens": 258,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_58.60",
@@ -1448,7 +1590,9 @@
      "latency_s": 2.073,
      "cost_usd": 0.001628,
      "prompt_tokens": 631,
-     "completion_tokens": 293
+     "completion_tokens": 293,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_60.60",
@@ -1467,7 +1611,9 @@
      "latency_s": 1.554,
      "cost_usd": 0.001411,
      "prompt_tokens": 631,
-     "completion_tokens": 242
+     "completion_tokens": 242,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_62.20",
@@ -1486,7 +1632,9 @@
      "latency_s": 1.873,
      "cost_usd": 0.00122,
      "prompt_tokens": 631,
-     "completion_tokens": 197
+     "completion_tokens": 197,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_01.00",
@@ -1505,7 +1653,9 @@
      "latency_s": 2.475,
      "cost_usd": 0.001985,
      "prompt_tokens": 631,
-     "completion_tokens": 377
+     "completion_tokens": 377,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_06.00",
@@ -1524,7 +1674,9 @@
      "latency_s": 3.541,
      "cost_usd": 0.002338,
      "prompt_tokens": 631,
-     "completion_tokens": 460
+     "completion_tokens": 460,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_12.00",
@@ -1543,7 +1695,9 @@
      "latency_s": 3.033,
      "cost_usd": 0.00213,
      "prompt_tokens": 631,
-     "completion_tokens": 411
+     "completion_tokens": 411,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_18.00",
@@ -1562,7 +1716,9 @@
      "latency_s": 3.12,
      "cost_usd": 0.002249,
      "prompt_tokens": 631,
-     "completion_tokens": 439
+     "completion_tokens": 439,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_02.00",
@@ -1581,7 +1737,9 @@
      "latency_s": 1.527,
      "cost_usd": 0.001224,
      "prompt_tokens": 631,
-     "completion_tokens": 198
+     "completion_tokens": 198,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_30.00",
@@ -1600,7 +1758,9 @@
      "latency_s": 1.833,
      "cost_usd": 0.001518,
      "prompt_tokens": 631,
-     "completion_tokens": 267
+     "completion_tokens": 267,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_50.00",
@@ -1619,7 +1779,9 @@
      "latency_s": 1.467,
      "cost_usd": 0.001369,
      "prompt_tokens": 631,
-     "completion_tokens": 232
+     "completion_tokens": 232,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_90.00",
@@ -1638,7 +1800,9 @@
      "latency_s": 1.097,
      "cost_usd": 0.00102,
      "prompt_tokens": 631,
-     "completion_tokens": 150
+     "completion_tokens": 150,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "mazatlan_03.00",
@@ -1657,7 +1821,9 @@
      "latency_s": 1.288,
      "cost_usd": 0.001348,
      "prompt_tokens": 631,
-     "completion_tokens": 227
+     "completion_tokens": 227,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tomaszow_03.00",
@@ -1676,7 +1842,9 @@
      "latency_s": 1.818,
      "cost_usd": 0.001267,
      "prompt_tokens": 631,
-     "completion_tokens": 208
+     "completion_tokens": 208,
+     "max_tokens": 512,
+     "truncated": false
     }
    ]
   },
@@ -1685,7 +1853,8 @@
     "prompt": "describe",
     "history_frames": 2,
     "history_text": false,
-    "max_image_side": 512
+    "max_image_side": 512,
+    "max_tokens": 512
    },
    "summary": {
     "per_label": {
@@ -1755,6 +1924,9 @@
     "p95_latency_s": 4.476,
     "cost_usd": 0.085622,
     "mean_prompt_tokens": 1018,
+    "truncated": 1,
+    "mean_completion_tokens": 290.2,
+    "max_completion_tokens": 512,
     "n": 40
    },
    "rows": [
@@ -1775,7 +1947,9 @@
      "latency_s": 2.017,
      "cost_usd": 0.002518,
      "prompt_tokens": 1018,
-     "completion_tokens": 293
+     "completion_tokens": 293,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_13.80",
@@ -1794,7 +1968,9 @@
      "latency_s": 1.679,
      "cost_usd": 0.002305,
      "prompt_tokens": 1018,
-     "completion_tokens": 243
+     "completion_tokens": 243,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_17.80",
@@ -1813,7 +1989,9 @@
      "latency_s": 1.531,
      "cost_usd": 0.001806,
      "prompt_tokens": 1018,
-     "completion_tokens": 221
+     "completion_tokens": 221,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_21.72",
@@ -1832,7 +2010,9 @@
      "latency_s": 1.965,
      "cost_usd": 0.002522,
      "prompt_tokens": 1018,
-     "completion_tokens": 294
+     "completion_tokens": 294,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_25.72",
@@ -1851,7 +2031,9 @@
      "latency_s": 3.771,
      "cost_usd": 0.002953,
      "prompt_tokens": 1018,
-     "completion_tokens": 491
+     "completion_tokens": 491,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_29.72",
@@ -1870,7 +2052,9 @@
      "latency_s": 2.315,
      "cost_usd": 0.002167,
      "prompt_tokens": 1018,
-     "completion_tokens": 306
+     "completion_tokens": 306,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_33.72",
@@ -1889,7 +2073,9 @@
      "latency_s": 1.799,
      "cost_usd": 0.001887,
      "prompt_tokens": 1018,
-     "completion_tokens": 240
+     "completion_tokens": 240,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_37.72",
@@ -1908,7 +2094,9 @@
      "latency_s": 3.603,
      "cost_usd": 0.002962,
      "prompt_tokens": 1018,
-     "completion_tokens": 493
+     "completion_tokens": 493,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_41.72",
@@ -1927,7 +2115,9 @@
      "latency_s": 2.105,
      "cost_usd": 0.002069,
      "prompt_tokens": 1018,
-     "completion_tokens": 283
+     "completion_tokens": 283,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_45.72",
@@ -1946,7 +2136,9 @@
      "latency_s": 4.128,
      "cost_usd": 0.002949,
      "prompt_tokens": 1018,
-     "completion_tokens": 490
+     "completion_tokens": 490,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_13.24",
@@ -1965,7 +2157,9 @@
      "latency_s": 1.665,
      "cost_usd": 0.002263,
      "prompt_tokens": 1018,
-     "completion_tokens": 233
+     "completion_tokens": 233,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_25.28",
@@ -1984,7 +2178,9 @@
      "latency_s": 4.476,
      "cost_usd": 0.001619,
      "prompt_tokens": 1018,
-     "completion_tokens": 177
+     "completion_tokens": 177,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_37.28",
@@ -2003,7 +2199,9 @@
      "latency_s": 2.483,
      "cost_usd": 0.002358,
      "prompt_tokens": 1018,
-     "completion_tokens": 351
+     "completion_tokens": 351,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_45.28",
@@ -2022,7 +2220,9 @@
      "latency_s": 3.491,
      "cost_usd": 0.002299,
      "prompt_tokens": 1018,
-     "completion_tokens": 337
+     "completion_tokens": 337,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_48.72",
@@ -2041,7 +2241,9 @@
      "latency_s": 1.37,
      "cost_usd": 0.001615,
      "prompt_tokens": 1018,
-     "completion_tokens": 176
+     "completion_tokens": 176,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_49.88",
@@ -2060,7 +2262,9 @@
      "latency_s": 1.893,
      "cost_usd": 0.001687,
      "prompt_tokens": 1018,
-     "completion_tokens": 193
+     "completion_tokens": 193,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_50.08",
@@ -2079,7 +2283,9 @@
      "latency_s": 2.178,
      "cost_usd": 0.001887,
      "prompt_tokens": 1018,
-     "completion_tokens": 240
+     "completion_tokens": 240,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_51.88",
@@ -2098,7 +2304,9 @@
      "latency_s": 3.222,
      "cost_usd": 0.002363,
      "prompt_tokens": 1018,
-     "completion_tokens": 352
+     "completion_tokens": 352,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_53.00",
@@ -2117,7 +2325,9 @@
      "latency_s": 1.861,
      "cost_usd": 0.0017,
      "prompt_tokens": 1018,
-     "completion_tokens": 196
+     "completion_tokens": 196,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_54.00",
@@ -2136,7 +2346,9 @@
      "latency_s": 2.951,
      "cost_usd": 0.00178,
      "prompt_tokens": 1018,
-     "completion_tokens": 215
+     "completion_tokens": 215,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_55.00",
@@ -2155,7 +2367,9 @@
      "latency_s": 2.347,
      "cost_usd": 0.001627,
      "prompt_tokens": 1018,
-     "completion_tokens": 179
+     "completion_tokens": 179,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_56.00",
@@ -2174,7 +2388,9 @@
      "latency_s": 3.418,
      "cost_usd": 0.002171,
      "prompt_tokens": 1018,
-     "completion_tokens": 307
+     "completion_tokens": 307,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_54.48",
@@ -2193,7 +2409,9 @@
      "latency_s": 2.223,
      "cost_usd": 0.001993,
      "prompt_tokens": 1018,
-     "completion_tokens": 265
+     "completion_tokens": 265,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_01.00",
@@ -2212,7 +2430,9 @@
      "latency_s": 2.814,
      "cost_usd": 0.002001,
      "prompt_tokens": 1018,
-     "completion_tokens": 267
+     "completion_tokens": 267,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_03.00",
@@ -2231,7 +2451,9 @@
      "latency_s": 5.27,
      "cost_usd": 0.002452,
      "prompt_tokens": 1018,
-     "completion_tokens": 373
+     "completion_tokens": 373,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_05.00",
@@ -2250,7 +2472,9 @@
      "latency_s": 2.633,
      "cost_usd": 0.001797,
      "prompt_tokens": 1018,
-     "completion_tokens": 219
+     "completion_tokens": 219,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_07.00",
@@ -2269,7 +2493,9 @@
      "latency_s": 3.21,
      "cost_usd": 0.002205,
      "prompt_tokens": 1018,
-     "completion_tokens": 315
+     "completion_tokens": 315,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_58.60",
@@ -2288,7 +2514,9 @@
      "latency_s": 2.015,
      "cost_usd": 0.00181,
      "prompt_tokens": 1018,
-     "completion_tokens": 222
+     "completion_tokens": 222,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_60.60",
@@ -2307,7 +2535,9 @@
      "latency_s": 4.312,
      "cost_usd": 0.002477,
      "prompt_tokens": 1018,
-     "completion_tokens": 379
+     "completion_tokens": 379,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_62.20",
@@ -2326,7 +2556,9 @@
      "latency_s": 3.155,
      "cost_usd": 0.002052,
      "prompt_tokens": 1018,
-     "completion_tokens": 279
+     "completion_tokens": 279,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_01.00",
@@ -2345,7 +2577,9 @@
      "latency_s": 5.951,
      "cost_usd": 0.003043,
      "prompt_tokens": 1018,
-     "completion_tokens": 512
+     "completion_tokens": 512,
+     "max_tokens": 512,
+     "truncated": true
     },
     {
      "id": "tyumen_06.00",
@@ -2364,7 +2598,9 @@
      "latency_s": 3.583,
      "cost_usd": 0.002681,
      "prompt_tokens": 1018,
-     "completion_tokens": 427
+     "completion_tokens": 427,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_12.00",
@@ -2383,7 +2619,9 @@
      "latency_s": 3.623,
      "cost_usd": 0.002414,
      "prompt_tokens": 1018,
-     "completion_tokens": 364
+     "completion_tokens": 364,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_18.00",
@@ -2402,7 +2640,9 @@
      "latency_s": 3.266,
      "cost_usd": 0.002584,
      "prompt_tokens": 1018,
-     "completion_tokens": 404
+     "completion_tokens": 404,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_02.00",
@@ -2421,7 +2661,9 @@
      "latency_s": 1.792,
      "cost_usd": 0.001823,
      "prompt_tokens": 1018,
-     "completion_tokens": 225
+     "completion_tokens": 225,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_30.00",
@@ -2440,7 +2682,9 @@
      "latency_s": 2.016,
      "cost_usd": 0.001819,
      "prompt_tokens": 1018,
-     "completion_tokens": 224
+     "completion_tokens": 224,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_50.00",
@@ -2459,7 +2703,9 @@
      "latency_s": 2.285,
      "cost_usd": 0.001776,
      "prompt_tokens": 1018,
-     "completion_tokens": 214
+     "completion_tokens": 214,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_90.00",
@@ -2478,7 +2724,9 @@
      "latency_s": 1.579,
      "cost_usd": 0.001504,
      "prompt_tokens": 1018,
-     "completion_tokens": 150
+     "completion_tokens": 150,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "mazatlan_03.00",
@@ -2497,7 +2745,9 @@
      "latency_s": 2.055,
      "cost_usd": 0.001785,
      "prompt_tokens": 1018,
-     "completion_tokens": 216
+     "completion_tokens": 216,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tomaszow_03.00",
@@ -2516,7 +2766,9 @@
      "latency_s": 2.095,
      "cost_usd": 0.001899,
      "prompt_tokens": 1018,
-     "completion_tokens": 243
+     "completion_tokens": 243,
+     "max_tokens": 512,
+     "truncated": false
     }
    ]
   },
@@ -2525,7 +2777,8 @@
     "prompt": "describe",
     "history_frames": 0,
     "history_text": false,
-    "max_image_side": 1024
+    "max_image_side": 1024,
+    "max_tokens": 512
    },
    "summary": {
     "per_label": {
@@ -2595,6 +2848,9 @@
     "p95_latency_s": 3.719,
     "cost_usd": 0.091576,
     "mean_prompt_tokens": 1228,
+    "truncated": 1,
+    "mean_completion_tokens": 273.0,
+    "max_completion_tokens": 512,
     "n": 40
    },
    "rows": [
@@ -2615,7 +2871,9 @@
      "latency_s": 2.199,
      "cost_usd": 0.00217,
      "prompt_tokens": 1228,
-     "completion_tokens": 245
+     "completion_tokens": 245,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_13.80",
@@ -2634,7 +2892,9 @@
      "latency_s": 1.999,
      "cost_usd": 0.002073,
      "prompt_tokens": 1228,
-     "completion_tokens": 222
+     "completion_tokens": 222,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_17.80",
@@ -2653,7 +2913,9 @@
      "latency_s": 1.892,
      "cost_usd": 0.002026,
      "prompt_tokens": 1228,
-     "completion_tokens": 211
+     "completion_tokens": 211,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_21.72",
@@ -2672,7 +2934,9 @@
      "latency_s": 2.798,
      "cost_usd": 0.0022,
      "prompt_tokens": 1228,
-     "completion_tokens": 252
+     "completion_tokens": 252,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_25.72",
@@ -2691,7 +2955,9 @@
      "latency_s": 2.775,
      "cost_usd": 0.002298,
      "prompt_tokens": 1228,
-     "completion_tokens": 275
+     "completion_tokens": 275,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_29.72",
@@ -2710,7 +2976,9 @@
      "latency_s": 1.506,
      "cost_usd": 0.001966,
      "prompt_tokens": 1228,
-     "completion_tokens": 197
+     "completion_tokens": 197,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_33.72",
@@ -2729,7 +2997,9 @@
      "latency_s": 2.169,
      "cost_usd": 0.002039,
      "prompt_tokens": 1228,
-     "completion_tokens": 214
+     "completion_tokens": 214,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_37.72",
@@ -2748,7 +3018,9 @@
      "latency_s": 2.034,
      "cost_usd": 0.002051,
      "prompt_tokens": 1228,
-     "completion_tokens": 217
+     "completion_tokens": 217,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_41.72",
@@ -2767,7 +3039,9 @@
      "latency_s": 2.335,
      "cost_usd": 0.002391,
      "prompt_tokens": 1228,
-     "completion_tokens": 297
+     "completion_tokens": 297,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_45.72",
@@ -2786,7 +3060,9 @@
      "latency_s": 2.179,
      "cost_usd": 0.002408,
      "prompt_tokens": 1228,
-     "completion_tokens": 301
+     "completion_tokens": 301,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_13.24",
@@ -2805,7 +3081,9 @@
      "latency_s": 2.989,
      "cost_usd": 0.002935,
      "prompt_tokens": 1228,
-     "completion_tokens": 425
+     "completion_tokens": 425,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_25.28",
@@ -2824,7 +3102,9 @@
      "latency_s": 4.223,
      "cost_usd": 0.003305,
      "prompt_tokens": 1228,
-     "completion_tokens": 512
+     "completion_tokens": 512,
+     "max_tokens": 512,
+     "truncated": true
     },
     {
      "id": "dc_37.28",
@@ -2843,7 +3123,9 @@
      "latency_s": 2.676,
      "cost_usd": 0.00268,
      "prompt_tokens": 1228,
-     "completion_tokens": 365
+     "completion_tokens": 365,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_45.28",
@@ -2862,7 +3144,9 @@
      "latency_s": 2.549,
      "cost_usd": 0.0024,
      "prompt_tokens": 1228,
-     "completion_tokens": 299
+     "completion_tokens": 299,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_48.72",
@@ -2881,7 +3165,9 @@
      "latency_s": 2.518,
      "cost_usd": 0.002234,
      "prompt_tokens": 1228,
-     "completion_tokens": 260
+     "completion_tokens": 260,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_49.88",
@@ -2900,7 +3186,9 @@
      "latency_s": 2.057,
      "cost_usd": 0.002247,
      "prompt_tokens": 1228,
-     "completion_tokens": 263
+     "completion_tokens": 263,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_50.08",
@@ -2919,7 +3207,9 @@
      "latency_s": 3.402,
      "cost_usd": 0.002608,
      "prompt_tokens": 1228,
-     "completion_tokens": 348
+     "completion_tokens": 348,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_51.88",
@@ -2938,7 +3228,9 @@
      "latency_s": 1.813,
      "cost_usd": 0.002183,
      "prompt_tokens": 1228,
-     "completion_tokens": 248
+     "completion_tokens": 248,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_53.00",
@@ -2957,7 +3249,9 @@
      "latency_s": 2.754,
      "cost_usd": 0.002119,
      "prompt_tokens": 1228,
-     "completion_tokens": 233
+     "completion_tokens": 233,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_54.00",
@@ -2976,7 +3270,9 @@
      "latency_s": 2.075,
      "cost_usd": 0.0022,
      "prompt_tokens": 1228,
-     "completion_tokens": 252
+     "completion_tokens": 252,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_55.00",
@@ -2995,7 +3291,9 @@
      "latency_s": 1.744,
      "cost_usd": 0.002221,
      "prompt_tokens": 1228,
-     "completion_tokens": 257
+     "completion_tokens": 257,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_56.00",
@@ -3014,7 +3312,9 @@
      "latency_s": 2.09,
      "cost_usd": 0.002408,
      "prompt_tokens": 1228,
-     "completion_tokens": 301
+     "completion_tokens": 301,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_54.48",
@@ -3033,7 +3333,9 @@
      "latency_s": 1.754,
      "cost_usd": 0.002251,
      "prompt_tokens": 1228,
-     "completion_tokens": 264
+     "completion_tokens": 264,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_01.00",
@@ -3052,7 +3354,9 @@
      "latency_s": 2.162,
      "cost_usd": 0.002077,
      "prompt_tokens": 1228,
-     "completion_tokens": 223
+     "completion_tokens": 223,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_03.00",
@@ -3071,7 +3375,9 @@
      "latency_s": 1.68,
      "cost_usd": 0.002005,
      "prompt_tokens": 1228,
-     "completion_tokens": 206
+     "completion_tokens": 206,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_05.00",
@@ -3090,7 +3396,9 @@
      "latency_s": 2.51,
      "cost_usd": 0.001903,
      "prompt_tokens": 1228,
-     "completion_tokens": 182
+     "completion_tokens": 182,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_07.00",
@@ -3109,7 +3417,9 @@
      "latency_s": 2.139,
      "cost_usd": 0.001975,
      "prompt_tokens": 1228,
-     "completion_tokens": 199
+     "completion_tokens": 199,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_58.60",
@@ -3128,7 +3438,9 @@
      "latency_s": 3.44,
      "cost_usd": 0.002064,
      "prompt_tokens": 1228,
-     "completion_tokens": 220
+     "completion_tokens": 220,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_60.60",
@@ -3147,7 +3459,9 @@
      "latency_s": 2.298,
      "cost_usd": 0.002051,
      "prompt_tokens": 1228,
-     "completion_tokens": 217
+     "completion_tokens": 217,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_62.20",
@@ -3166,7 +3480,9 @@
      "latency_s": 2.053,
      "cost_usd": 0.002115,
      "prompt_tokens": 1228,
-     "completion_tokens": 232
+     "completion_tokens": 232,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_01.00",
@@ -3185,7 +3501,9 @@
      "latency_s": 3.517,
      "cost_usd": 0.002549,
      "prompt_tokens": 1228,
-     "completion_tokens": 334
+     "completion_tokens": 334,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_06.00",
@@ -3204,7 +3522,9 @@
      "latency_s": 2.988,
      "cost_usd": 0.002374,
      "prompt_tokens": 1228,
-     "completion_tokens": 293
+     "completion_tokens": 293,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_12.00",
@@ -3223,7 +3543,9 @@
      "latency_s": 5.627,
      "cost_usd": 0.003263,
      "prompt_tokens": 1228,
-     "completion_tokens": 502
+     "completion_tokens": 502,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_18.00",
@@ -3242,7 +3564,9 @@
      "latency_s": 2.377,
      "cost_usd": 0.002136,
      "prompt_tokens": 1228,
-     "completion_tokens": 237
+     "completion_tokens": 237,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_02.00",
@@ -3261,7 +3585,9 @@
      "latency_s": 3.719,
      "cost_usd": 0.002595,
      "prompt_tokens": 1228,
-     "completion_tokens": 345
+     "completion_tokens": 345,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_30.00",
@@ -3280,7 +3606,9 @@
      "latency_s": 2.043,
      "cost_usd": 0.002022,
      "prompt_tokens": 1228,
-     "completion_tokens": 210
+     "completion_tokens": 210,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_50.00",
@@ -3299,7 +3627,9 @@
      "latency_s": 2.408,
      "cost_usd": 0.002272,
      "prompt_tokens": 1228,
-     "completion_tokens": 269
+     "completion_tokens": 269,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_90.00",
@@ -3318,7 +3648,9 @@
      "latency_s": 1.912,
      "cost_usd": 0.002192,
      "prompt_tokens": 1228,
-     "completion_tokens": 250
+     "completion_tokens": 250,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "mazatlan_03.00",
@@ -3337,7 +3669,9 @@
      "latency_s": 1.821,
      "cost_usd": 0.002289,
      "prompt_tokens": 1228,
-     "completion_tokens": 273
+     "completion_tokens": 273,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tomaszow_03.00",
@@ -3356,7 +3690,9 @@
      "latency_s": 2.142,
      "cost_usd": 0.002281,
      "prompt_tokens": 1228,
-     "completion_tokens": 271
+     "completion_tokens": 271,
+     "max_tokens": 512,
+     "truncated": false
     }
    ]
   },
@@ -3365,7 +3701,8 @@
     "prompt": "strict",
     "history_frames": 0,
     "history_text": false,
-    "max_image_side": 1024
+    "max_image_side": 1024,
+    "max_tokens": 512
    },
    "summary": {
     "per_label": {
@@ -3435,6 +3772,9 @@
     "p95_latency_s": 4.16,
     "cost_usd": 0.096238,
     "mean_prompt_tokens": 957,
+    "truncated": 3,
+    "mean_completion_tokens": 311.0,
+    "max_completion_tokens": 512,
     "n": 40
    },
    "rows": [
@@ -3455,7 +3795,9 @@
      "latency_s": 2.955,
      "cost_usd": 0.002531,
      "prompt_tokens": 957,
-     "completion_tokens": 314
+     "completion_tokens": 314,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_13.80",
@@ -3474,7 +3816,9 @@
      "latency_s": 3.264,
      "cost_usd": 0.002725,
      "prompt_tokens": 957,
-     "completion_tokens": 389
+     "completion_tokens": 389,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_17.80",
@@ -3493,7 +3837,9 @@
      "latency_s": 2.741,
      "cost_usd": 0.002548,
      "prompt_tokens": 957,
-     "completion_tokens": 318
+     "completion_tokens": 318,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_21.72",
@@ -3512,7 +3858,9 @@
      "latency_s": 4.305,
      "cost_usd": 0.003236,
      "prompt_tokens": 957,
-     "completion_tokens": 480
+     "completion_tokens": 480,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_25.72",
@@ -3531,7 +3879,9 @@
      "latency_s": 4.15,
      "cost_usd": 0.002751,
      "prompt_tokens": 957,
-     "completion_tokens": 395
+     "completion_tokens": 395,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_29.72",
@@ -3550,7 +3900,9 @@
      "latency_s": 4.16,
      "cost_usd": 0.003248,
      "prompt_tokens": 957,
-     "completion_tokens": 512
+     "completion_tokens": 512,
+     "max_tokens": 512,
+     "truncated": true
     },
     {
      "id": "dc_33.72",
@@ -3569,7 +3921,9 @@
      "latency_s": 2.542,
      "cost_usd": 0.002501,
      "prompt_tokens": 957,
-     "completion_tokens": 307
+     "completion_tokens": 307,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_37.72",
@@ -3588,7 +3942,9 @@
      "latency_s": 3.307,
      "cost_usd": 0.002644,
      "prompt_tokens": 957,
-     "completion_tokens": 370
+     "completion_tokens": 370,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_41.72",
@@ -3607,7 +3963,9 @@
      "latency_s": 4.583,
      "cost_usd": 0.003248,
      "prompt_tokens": 957,
-     "completion_tokens": 512
+     "completion_tokens": 512,
+     "max_tokens": 512,
+     "truncated": true
     },
     {
      "id": "dc_45.72",
@@ -3626,7 +3984,9 @@
      "latency_s": 3.228,
      "cost_usd": 0.002385,
      "prompt_tokens": 957,
-     "completion_tokens": 309
+     "completion_tokens": 309,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_13.24",
@@ -3645,7 +4005,9 @@
      "latency_s": 1.93,
      "cost_usd": 0.001888,
      "prompt_tokens": 957,
-     "completion_tokens": 192
+     "completion_tokens": 192,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_25.28",
@@ -3664,7 +4026,9 @@
      "latency_s": 2.233,
      "cost_usd": 0.002156,
      "prompt_tokens": 957,
-     "completion_tokens": 255
+     "completion_tokens": 255,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_37.28",
@@ -3683,7 +4047,9 @@
      "latency_s": 1.915,
      "cost_usd": 0.001969,
      "prompt_tokens": 957,
-     "completion_tokens": 211
+     "completion_tokens": 211,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_45.28",
@@ -3702,7 +4068,9 @@
      "latency_s": 2.415,
      "cost_usd": 0.002232,
      "prompt_tokens": 957,
-     "completion_tokens": 273
+     "completion_tokens": 273,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_48.72",
@@ -3721,7 +4089,9 @@
      "latency_s": 3.807,
      "cost_usd": 0.003176,
      "prompt_tokens": 957,
-     "completion_tokens": 495
+     "completion_tokens": 495,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_49.88",
@@ -3740,7 +4110,9 @@
      "latency_s": 2.771,
      "cost_usd": 0.002394,
      "prompt_tokens": 957,
-     "completion_tokens": 311
+     "completion_tokens": 311,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_50.08",
@@ -3759,7 +4131,9 @@
      "latency_s": 3.836,
      "cost_usd": 0.002823,
      "prompt_tokens": 957,
-     "completion_tokens": 412
+     "completion_tokens": 412,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_51.88",
@@ -3778,7 +4152,9 @@
      "latency_s": 3.474,
      "cost_usd": 0.002525,
      "prompt_tokens": 957,
-     "completion_tokens": 342
+     "completion_tokens": 342,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_53.00",
@@ -3797,7 +4173,9 @@
      "latency_s": 2.121,
      "cost_usd": 0.002343,
      "prompt_tokens": 957,
-     "completion_tokens": 299
+     "completion_tokens": 299,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_54.00",
@@ -3816,7 +4194,9 @@
      "latency_s": 3.756,
      "cost_usd": 0.002372,
      "prompt_tokens": 957,
-     "completion_tokens": 306
+     "completion_tokens": 306,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_55.00",
@@ -3835,7 +4215,9 @@
      "latency_s": 1.82,
      "cost_usd": 0.001964,
      "prompt_tokens": 957,
-     "completion_tokens": 210
+     "completion_tokens": 210,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_56.00",
@@ -3854,7 +4236,9 @@
      "latency_s": 3.04,
      "cost_usd": 0.002674,
      "prompt_tokens": 957,
-     "completion_tokens": 377
+     "completion_tokens": 377,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_54.48",
@@ -3873,7 +4257,9 @@
      "latency_s": 1.847,
      "cost_usd": 0.002075,
      "prompt_tokens": 957,
-     "completion_tokens": 236
+     "completion_tokens": 236,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_01.00",
@@ -3892,7 +4278,9 @@
      "latency_s": 1.822,
      "cost_usd": 0.001892,
      "prompt_tokens": 957,
-     "completion_tokens": 193
+     "completion_tokens": 193,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_03.00",
@@ -3911,7 +4299,9 @@
      "latency_s": 2.167,
      "cost_usd": 0.002202,
      "prompt_tokens": 957,
-     "completion_tokens": 266
+     "completion_tokens": 266,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_05.00",
@@ -3930,7 +4320,9 @@
      "latency_s": 2.217,
      "cost_usd": 0.002066,
      "prompt_tokens": 957,
-     "completion_tokens": 234
+     "completion_tokens": 234,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_07.00",
@@ -3949,7 +4341,9 @@
      "latency_s": 2.179,
      "cost_usd": 0.001888,
      "prompt_tokens": 957,
-     "completion_tokens": 192
+     "completion_tokens": 192,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_58.60",
@@ -3968,7 +4362,9 @@
      "latency_s": 1.836,
      "cost_usd": 0.002045,
      "prompt_tokens": 957,
-     "completion_tokens": 229
+     "completion_tokens": 229,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_60.60",
@@ -3987,7 +4383,9 @@
      "latency_s": 1.452,
      "cost_usd": 0.001709,
      "prompt_tokens": 957,
-     "completion_tokens": 150
+     "completion_tokens": 150,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_62.20",
@@ -4006,7 +4404,9 @@
      "latency_s": 1.768,
      "cost_usd": 0.00193,
      "prompt_tokens": 957,
-     "completion_tokens": 202
+     "completion_tokens": 202,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_01.00",
@@ -4025,7 +4425,9 @@
      "latency_s": 3.532,
      "cost_usd": 0.003248,
      "prompt_tokens": 957,
-     "completion_tokens": 512
+     "completion_tokens": 512,
+     "max_tokens": 512,
+     "truncated": true
     },
     {
      "id": "tyumen_06.00",
@@ -4044,7 +4446,9 @@
      "latency_s": 3.231,
      "cost_usd": 0.002598,
      "prompt_tokens": 957,
-     "completion_tokens": 359
+     "completion_tokens": 359,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_12.00",
@@ -4063,7 +4467,9 @@
      "latency_s": 2.713,
      "cost_usd": 0.002508,
      "prompt_tokens": 957,
-     "completion_tokens": 338
+     "completion_tokens": 338,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_18.00",
@@ -4082,7 +4488,9 @@
      "latency_s": 3.485,
      "cost_usd": 0.003086,
      "prompt_tokens": 957,
-     "completion_tokens": 474
+     "completion_tokens": 474,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_02.00",
@@ -4101,7 +4509,9 @@
      "latency_s": 2.399,
      "cost_usd": 0.002606,
      "prompt_tokens": 957,
-     "completion_tokens": 361
+     "completion_tokens": 361,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_30.00",
@@ -4120,7 +4530,9 @@
      "latency_s": 1.811,
      "cost_usd": 0.001947,
      "prompt_tokens": 957,
-     "completion_tokens": 206
+     "completion_tokens": 206,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_50.00",
@@ -4139,7 +4551,9 @@
      "latency_s": 2.401,
      "cost_usd": 0.002075,
      "prompt_tokens": 957,
-     "completion_tokens": 236
+     "completion_tokens": 236,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_90.00",
@@ -4158,7 +4572,9 @@
      "latency_s": 2.606,
      "cost_usd": 0.002258,
      "prompt_tokens": 957,
-     "completion_tokens": 279
+     "completion_tokens": 279,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "mazatlan_03.00",
@@ -4177,7 +4593,9 @@
      "latency_s": 2.161,
      "cost_usd": 0.001922,
      "prompt_tokens": 957,
-     "completion_tokens": 200
+     "completion_tokens": 200,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tomaszow_03.00",
@@ -4196,7 +4614,9 @@
      "latency_s": 1.432,
      "cost_usd": 0.00185,
      "prompt_tokens": 957,
-     "completion_tokens": 183
+     "completion_tokens": 183,
+     "max_tokens": 512,
+     "truncated": false
     }
    ]
   },
@@ -4205,7 +4625,8 @@
     "prompt": "describe",
     "history_frames": 2,
     "history_text": false,
-    "max_image_side": 1024
+    "max_image_side": 1024,
+    "max_tokens": 512
    },
    "summary": {
     "per_label": {
@@ -4275,6 +4696,9 @@
     "p95_latency_s": 4.185,
     "cost_usd": 0.178434,
     "mean_prompt_tokens": 2809,
+    "truncated": 3,
+    "mean_completion_tokens": 314.2,
+    "max_completion_tokens": 512,
     "n": 40
    },
    "rows": [
@@ -4295,7 +4719,9 @@
      "latency_s": 2.497,
      "cost_usd": 0.004304,
      "prompt_tokens": 2809,
-     "completion_tokens": 282
+     "completion_tokens": 282,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_13.80",
@@ -4314,7 +4740,9 @@
      "latency_s": 2.961,
      "cost_usd": 0.004079,
      "prompt_tokens": 2809,
-     "completion_tokens": 229
+     "completion_tokens": 229,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_17.80",
@@ -4333,7 +4761,9 @@
      "latency_s": 2.906,
      "cost_usd": 0.004521,
      "prompt_tokens": 2809,
-     "completion_tokens": 333
+     "completion_tokens": 333,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_21.72",
@@ -4352,7 +4782,9 @@
      "latency_s": 2.477,
      "cost_usd": 0.00421,
      "prompt_tokens": 2809,
-     "completion_tokens": 260
+     "completion_tokens": 260,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_25.72",
@@ -4371,7 +4803,9 @@
      "latency_s": 2.912,
      "cost_usd": 0.004516,
      "prompt_tokens": 2809,
-     "completion_tokens": 332
+     "completion_tokens": 332,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_29.72",
@@ -4390,7 +4824,9 @@
      "latency_s": 2.349,
      "cost_usd": 0.004672,
      "prompt_tokens": 2809,
-     "completion_tokens": 273
+     "completion_tokens": 273,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_33.72",
@@ -4409,7 +4845,9 @@
      "latency_s": 2.405,
      "cost_usd": 0.004253,
      "prompt_tokens": 2809,
-     "completion_tokens": 270
+     "completion_tokens": 270,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_37.72",
@@ -4428,7 +4866,9 @@
      "latency_s": 2.787,
      "cost_usd": 0.004206,
      "prompt_tokens": 2809,
-     "completion_tokens": 259
+     "completion_tokens": 259,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_41.72",
@@ -4447,7 +4887,9 @@
      "latency_s": 4.829,
      "cost_usd": 0.005687,
      "prompt_tokens": 2809,
-     "completion_tokens": 512
+     "completion_tokens": 512,
+     "max_tokens": 512,
+     "truncated": true
     },
     {
      "id": "dc_45.72",
@@ -4466,7 +4908,9 @@
      "latency_s": 2.527,
      "cost_usd": 0.004312,
      "prompt_tokens": 2809,
-     "completion_tokens": 284
+     "completion_tokens": 284,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_13.24",
@@ -4485,7 +4929,9 @@
      "latency_s": 3.613,
      "cost_usd": 0.00464,
      "prompt_tokens": 2809,
-     "completion_tokens": 361
+     "completion_tokens": 361,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_25.28",
@@ -4504,7 +4950,9 @@
      "latency_s": 3.031,
      "cost_usd": 0.004546,
      "prompt_tokens": 2809,
-     "completion_tokens": 339
+     "completion_tokens": 339,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_37.28",
@@ -4523,7 +4971,9 @@
      "latency_s": 2.36,
      "cost_usd": 0.004223,
      "prompt_tokens": 2809,
-     "completion_tokens": 263
+     "completion_tokens": 263,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_45.28",
@@ -4542,7 +4992,9 @@
      "latency_s": 3.715,
      "cost_usd": 0.005281,
      "prompt_tokens": 2809,
-     "completion_tokens": 512
+     "completion_tokens": 512,
+     "max_tokens": 512,
+     "truncated": true
     },
     {
      "id": "dc_48.72",
@@ -4561,7 +5013,9 @@
      "latency_s": 2.346,
      "cost_usd": 0.004618,
      "prompt_tokens": 2809,
-     "completion_tokens": 356
+     "completion_tokens": 356,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_49.88",
@@ -4580,7 +5034,9 @@
      "latency_s": 2.323,
      "cost_usd": 0.004669,
      "prompt_tokens": 2809,
-     "completion_tokens": 368
+     "completion_tokens": 368,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_50.08",
@@ -4599,7 +5055,9 @@
      "latency_s": 1.866,
      "cost_usd": 0.004142,
      "prompt_tokens": 2809,
-     "completion_tokens": 244
+     "completion_tokens": 244,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_51.88",
@@ -4618,7 +5076,9 @@
      "latency_s": 2.446,
      "cost_usd": 0.004223,
      "prompt_tokens": 2809,
-     "completion_tokens": 263
+     "completion_tokens": 263,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_53.00",
@@ -4637,7 +5097,9 @@
      "latency_s": 3.473,
      "cost_usd": 0.005167,
      "prompt_tokens": 2809,
-     "completion_tokens": 485
+     "completion_tokens": 485,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_54.00",
@@ -4656,7 +5118,9 @@
      "latency_s": 2.482,
      "cost_usd": 0.004346,
      "prompt_tokens": 2809,
-     "completion_tokens": 292
+     "completion_tokens": 292,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_55.00",
@@ -4675,7 +5139,9 @@
      "latency_s": 2.488,
      "cost_usd": 0.004487,
      "prompt_tokens": 2809,
-     "completion_tokens": 325
+     "completion_tokens": 325,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_56.00",
@@ -4694,7 +5160,9 @@
      "latency_s": 2.989,
      "cost_usd": 0.004652,
      "prompt_tokens": 2809,
-     "completion_tokens": 364
+     "completion_tokens": 364,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_54.48",
@@ -4713,7 +5181,9 @@
      "latency_s": 3.099,
      "cost_usd": 0.00506,
      "prompt_tokens": 2809,
-     "completion_tokens": 460
+     "completion_tokens": 460,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_01.00",
@@ -4732,7 +5202,9 @@
      "latency_s": 1.747,
      "cost_usd": 0.003921,
      "prompt_tokens": 2809,
-     "completion_tokens": 192
+     "completion_tokens": 192,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_03.00",
@@ -4751,7 +5223,9 @@
      "latency_s": 1.29,
      "cost_usd": 0.003879,
      "prompt_tokens": 2809,
-     "completion_tokens": 182
+     "completion_tokens": 182,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_05.00",
@@ -4770,7 +5244,9 @@
      "latency_s": 1.861,
      "cost_usd": 0.003887,
      "prompt_tokens": 2809,
-     "completion_tokens": 184
+     "completion_tokens": 184,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_07.00",
@@ -4789,7 +5265,9 @@
      "latency_s": 2.884,
      "cost_usd": 0.004652,
      "prompt_tokens": 2809,
-     "completion_tokens": 364
+     "completion_tokens": 364,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_58.60",
@@ -4808,7 +5286,9 @@
      "latency_s": 2.5,
      "cost_usd": 0.004674,
      "prompt_tokens": 2809,
-     "completion_tokens": 369
+     "completion_tokens": 369,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_60.60",
@@ -4827,7 +5307,9 @@
      "latency_s": 1.46,
      "cost_usd": 0.003773,
      "prompt_tokens": 2809,
-     "completion_tokens": 157
+     "completion_tokens": 157,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "dc_62.20",
@@ -4846,7 +5328,9 @@
      "latency_s": 1.512,
      "cost_usd": 0.003794,
      "prompt_tokens": 2809,
-     "completion_tokens": 162
+     "completion_tokens": 162,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_01.00",
@@ -4865,7 +5349,9 @@
      "latency_s": 3.442,
      "cost_usd": 0.005077,
      "prompt_tokens": 2809,
-     "completion_tokens": 464
+     "completion_tokens": 464,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_06.00",
@@ -4884,7 +5370,9 @@
      "latency_s": 3.296,
      "cost_usd": 0.005094,
      "prompt_tokens": 2809,
-     "completion_tokens": 468
+     "completion_tokens": 468,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_12.00",
@@ -4903,7 +5391,9 @@
      "latency_s": 3.476,
      "cost_usd": 0.004593,
      "prompt_tokens": 2809,
-     "completion_tokens": 350
+     "completion_tokens": 350,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tyumen_18.00",
@@ -4922,7 +5412,9 @@
      "latency_s": 4.844,
      "cost_usd": 0.005281,
      "prompt_tokens": 2809,
-     "completion_tokens": 512
+     "completion_tokens": 512,
+     "max_tokens": 512,
+     "truncated": true
     },
     {
      "id": "cdmx_02.00",
@@ -4941,7 +5433,9 @@
      "latency_s": 4.185,
      "cost_usd": 0.004844,
      "prompt_tokens": 2809,
-     "completion_tokens": 409
+     "completion_tokens": 409,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_30.00",
@@ -4960,7 +5454,9 @@
      "latency_s": 1.936,
      "cost_usd": 0.004045,
      "prompt_tokens": 2809,
-     "completion_tokens": 221
+     "completion_tokens": 221,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_50.00",
@@ -4979,7 +5475,9 @@
      "latency_s": 2.066,
      "cost_usd": 0.004202,
      "prompt_tokens": 2809,
-     "completion_tokens": 258
+     "completion_tokens": 258,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "cdmx_90.00",
@@ -4998,7 +5496,9 @@
      "latency_s": 2.774,
      "cost_usd": 0.004104,
      "prompt_tokens": 2809,
-     "completion_tokens": 235
+     "completion_tokens": 235,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "mazatlan_03.00",
@@ -5017,7 +5517,9 @@
      "latency_s": 1.64,
      "cost_usd": 0.003998,
      "prompt_tokens": 2809,
-     "completion_tokens": 210
+     "completion_tokens": 210,
+     "max_tokens": 512,
+     "truncated": false
     },
     {
      "id": "tomaszow_03.00",
@@ -5036,7 +5538,9 @@
      "latency_s": 1.532,
      "cost_usd": 0.003802,
      "prompt_tokens": 2809,
-     "completion_tokens": 164
+     "completion_tokens": 164,
+     "max_tokens": 512,
+     "truncated": false
     }
    ]
   },
@@ -5045,7 +5549,8 @@
     "prompt": "describe",
     "history_frames": 0,
     "history_text": false,
-    "max_image_side": 1024
+    "max_image_side": 1024,
+    "max_tokens": 512
    },
    "summary": {
     "per_label": {
@@ -5115,6 +5620,933 @@
     "p95_latency_s": 3.332,
     "cost_usd": 0.09759,
     "mean_prompt_tokens": 1228,
+    "truncated": 2,
+    "mean_completion_tokens": 303.6,
+    "max_completion_tokens": 512,
+    "n": 40
+   },
+   "rows": [
+    {
+     "id": "dc_10.80",
+     "label": "walk",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "yes",
+     "muse_signal": "green",
+     "countdown": 48,
+     "desc": "Lit white walking person with red countdown digits",
+     "fused": "go",
+     "latency_s": 2.21,
+     "cost_usd": 0.002674,
+     "prompt_tokens": 1228,
+     "completion_tokens": 268,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_13.80",
+     "label": "walk",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "yes",
+     "muse_signal": "green",
+     "countdown": 45,
+     "desc": "Walk person lit with red 45 countdown",
+     "fused": "go",
+     "latency_s": 2.001,
+     "cost_usd": 0.002294,
+     "prompt_tokens": 1228,
+     "completion_tokens": 274,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_17.80",
+     "label": "walk",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "yes",
+     "muse_signal": "green",
+     "countdown": 41,
+     "desc": "lit white walking person with 41 countdown",
+     "fused": "go",
+     "latency_s": 1.834,
+     "cost_usd": 0.002338,
+     "prompt_tokens": 1228,
+     "completion_tokens": 189,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_21.72",
+     "label": "walk",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "yes",
+     "muse_signal": "green",
+     "countdown": 31,
+     "desc": "White walking person lit with red 31 countdown",
+     "fused": "go",
+     "latency_s": 2.314,
+     "cost_usd": 0.002566,
+     "prompt_tokens": 1228,
+     "completion_tokens": 338,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_25.72",
+     "label": "walk",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "yes",
+     "muse_signal": "green",
+     "countdown": 33,
+     "desc": "White walking person lit with red 33 countdown",
+     "fused": "go",
+     "latency_s": 2.596,
+     "cost_usd": 0.002379,
+     "prompt_tokens": 1228,
+     "completion_tokens": 294,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_29.72",
+     "label": "walk",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "yes",
+     "muse_signal": "green",
+     "countdown": 29,
+     "desc": "White walking person lit with red 29 countdown",
+     "fused": "go",
+     "latency_s": 2.476,
+     "cost_usd": 0.002604,
+     "prompt_tokens": 1228,
+     "completion_tokens": 347,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_33.72",
+     "label": "walk",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "yes",
+     "muse_signal": "green",
+     "countdown": 25,
+     "desc": "White walking person lit with red 25 countdown below",
+     "fused": "go",
+     "latency_s": 1.805,
+     "cost_usd": 0.002162,
+     "prompt_tokens": 1228,
+     "completion_tokens": 243,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_37.72",
+     "label": "walk",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "yes",
+     "muse_signal": "green",
+     "countdown": 21,
+     "desc": "White walking person lit with red 21 countdown",
+     "fused": "go",
+     "latency_s": 1.683,
+     "cost_usd": 0.002277,
+     "prompt_tokens": 1228,
+     "completion_tokens": 270,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_41.72",
+     "label": "walk",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "yes",
+     "muse_signal": "green",
+     "countdown": 17,
+     "desc": "Lit white walking person with red countdown digits below",
+     "fused": "go",
+     "latency_s": 3.443,
+     "cost_usd": 0.002625,
+     "prompt_tokens": 1228,
+     "completion_tokens": 352,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_45.72",
+     "label": "walk",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "green",
+     "countdown": 8,
+     "desc": "White walking person lit with red countdown 8",
+     "fused": "stop",
+     "latency_s": 2.253,
+     "cost_usd": 0.002634,
+     "prompt_tokens": 1228,
+     "completion_tokens": 354,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_13.24",
+     "label": "walk_symbol_off",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "unsure",
+     "muse_signal": "countdown",
+     "countdown": 45,
+     "desc": "Pedestrian head showing red digits 45, no walk figure",
+     "fused": "unsure",
+     "latency_s": 3.27,
+     "cost_usd": 0.003118,
+     "prompt_tokens": 1228,
+     "completion_tokens": 468,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_25.28",
+     "label": "walk_symbol_off",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "unsure",
+     "muse_signal": "countdown",
+     "countdown": 33,
+     "desc": "red countdown digits 33, no walk figure visible",
+     "fused": "unsure",
+     "latency_s": 2.434,
+     "cost_usd": 0.002668,
+     "prompt_tokens": 1228,
+     "completion_tokens": 362,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_37.28",
+     "label": "walk_symbol_off",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": false,
+     "error": "missing hazards",
+     "muse_safe": "invalid",
+     "muse_signal": null,
+     "countdown": null,
+     "desc": null,
+     "fused": "unsure",
+     "latency_s": 3.018,
+     "cost_usd": 0.003305,
+     "prompt_tokens": 1228,
+     "completion_tokens": 512,
+     "max_tokens": 512,
+     "truncated": true
+    },
+    {
+     "id": "dc_45.28",
+     "label": "walk_symbol_off",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "countdown",
+     "countdown": 8,
+     "desc": "Pedestrian head shows red digits 8, no figure",
+     "fused": "stop",
+     "latency_s": 2.292,
+     "cost_usd": 0.002502,
+     "prompt_tokens": 1228,
+     "completion_tokens": 323,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_48.72",
+     "label": "countdown_ending",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "green",
+     "countdown": 0,
+     "desc": "White walking person lit with red 0 countdown",
+     "fused": "stop",
+     "latency_s": 2.137,
+     "cost_usd": 0.002226,
+     "prompt_tokens": 1228,
+     "completion_tokens": 258,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_49.88",
+     "label": "countdown_ending",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "green",
+     "countdown": 9,
+     "desc": "white walking person with red 9 countdown lit",
+     "fused": "stop",
+     "latency_s": 1.765,
+     "cost_usd": 0.002285,
+     "prompt_tokens": 1228,
+     "completion_tokens": 272,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_50.08",
+     "label": "countdown_ending",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "green",
+     "countdown": 8,
+     "desc": "walking person lit with red countdown 8",
+     "fused": "stop",
+     "latency_s": 1.535,
+     "cost_usd": 0.002175,
+     "prompt_tokens": 1228,
+     "completion_tokens": 246,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_51.88",
+     "label": "countdown_ending",
+     "variant": "E",
+     "cached": true,
+     "local": "walk",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "green",
+     "countdown": 1,
+     "desc": "white walking person with red 1 countdown lit",
+     "fused": "stop",
+     "latency_s": 1.645,
+     "cost_usd": 0.002119,
+     "prompt_tokens": 1228,
+     "completion_tokens": 233,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_53.00",
+     "label": "flashing",
+     "variant": "E",
+     "cached": true,
+     "local": "green",
+     "n_images": 1,
+     "valid": false,
+     "error": "missing hazards",
+     "muse_safe": "invalid",
+     "muse_signal": null,
+     "countdown": null,
+     "desc": null,
+     "fused": "unsure",
+     "latency_s": 3.98,
+     "cost_usd": 0.003305,
+     "prompt_tokens": 1228,
+     "completion_tokens": 512,
+     "max_tokens": 512,
+     "truncated": true
+    },
+    {
+     "id": "dc_54.00",
+     "label": "flashing",
+     "variant": "E",
+     "cached": true,
+     "local": "red",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "red",
+     "countdown": 4,
+     "desc": "Red hand with countdown 4 on pedestrian head",
+     "fused": "stop",
+     "latency_s": 2.768,
+     "cost_usd": 0.002799,
+     "prompt_tokens": 1228,
+     "completion_tokens": 393,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_55.00",
+     "label": "flashing",
+     "variant": "E",
+     "cached": true,
+     "local": "red",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "red",
+     "countdown": 3,
+     "desc": "Red hand with countdown 3 on pedestrian head",
+     "fused": "stop",
+     "latency_s": 2.037,
+     "cost_usd": 0.0022,
+     "prompt_tokens": 1228,
+     "completion_tokens": 252,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_56.00",
+     "label": "flashing",
+     "variant": "E",
+     "cached": true,
+     "local": "red",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "red",
+     "countdown": 2,
+     "desc": "Red hand with countdown 2 on pedestrian head",
+     "fused": "stop",
+     "latency_s": 2.28,
+     "cost_usd": 0.002659,
+     "prompt_tokens": 1228,
+     "completion_tokens": 360,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_54.48",
+     "label": "flashing",
+     "variant": "E",
+     "cached": true,
+     "local": "red",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "countdown",
+     "countdown": 4,
+     "desc": "pedestrian head showing red countdown digit 4",
+     "fused": "stop",
+     "latency_s": 1.905,
+     "cost_usd": 0.002132,
+     "prompt_tokens": 1228,
+     "completion_tokens": 236,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_01.00",
+     "label": "red",
+     "variant": "E",
+     "cached": true,
+     "local": "red",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "red",
+     "countdown": null,
+     "desc": "small box showing red raised hand",
+     "fused": "stop",
+     "latency_s": 1.517,
+     "cost_usd": 0.002068,
+     "prompt_tokens": 1228,
+     "completion_tokens": 221,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_03.00",
+     "label": "red",
+     "variant": "E",
+     "cached": true,
+     "local": "red",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "red",
+     "countdown": null,
+     "desc": "Small pedestrian head showing steady red hand",
+     "fused": "stop",
+     "latency_s": 1.754,
+     "cost_usd": 0.002039,
+     "prompt_tokens": 1228,
+     "completion_tokens": 214,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_05.00",
+     "label": "red",
+     "variant": "E",
+     "cached": true,
+     "local": "red",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "red",
+     "countdown": null,
+     "desc": "small box showing steady red hand",
+     "fused": "stop",
+     "latency_s": 1.579,
+     "cost_usd": 0.002077,
+     "prompt_tokens": 1228,
+     "completion_tokens": 223,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_07.00",
+     "label": "red",
+     "variant": "E",
+     "cached": true,
+     "local": "red",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "red",
+     "countdown": null,
+     "desc": "red hand illuminated on pedestrian signal ahead",
+     "fused": "stop",
+     "latency_s": 1.386,
+     "cost_usd": 0.002192,
+     "prompt_tokens": 1228,
+     "completion_tokens": 250,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_58.60",
+     "label": "red",
+     "variant": "E",
+     "cached": true,
+     "local": "red",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "red",
+     "countdown": 0,
+     "desc": "red raised hand with zero countdown lit",
+     "fused": "stop",
+     "latency_s": 2.197,
+     "cost_usd": 0.002383,
+     "prompt_tokens": 1228,
+     "completion_tokens": 295,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_60.60",
+     "label": "red",
+     "variant": "E",
+     "cached": true,
+     "local": "red",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "red",
+     "countdown": null,
+     "desc": "small box showing steady red raised hand",
+     "fused": "stop",
+     "latency_s": 1.621,
+     "cost_usd": 0.001975,
+     "prompt_tokens": 1228,
+     "completion_tokens": 199,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "dc_62.20",
+     "label": "red",
+     "variant": "E",
+     "cached": true,
+     "local": "red",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "red",
+     "countdown": null,
+     "desc": "Red hand illuminated on pedestrian signal ahead",
+     "fused": "stop",
+     "latency_s": 2.008,
+     "cost_usd": 0.002281,
+     "prompt_tokens": 1228,
+     "completion_tokens": 271,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "tyumen_01.00",
+     "label": "unclear",
+     "variant": "E",
+     "cached": true,
+     "local": "unknown",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "yes",
+     "muse_signal": "green",
+     "countdown": 35,
+     "desc": "green pedestrian light with countdown 35 on pole",
+     "fused": "unsure",
+     "latency_s": 2.705,
+     "cost_usd": 0.002557,
+     "prompt_tokens": 1228,
+     "completion_tokens": 336,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "tyumen_06.00",
+     "label": "unclear",
+     "variant": "E",
+     "cached": true,
+     "local": "green",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "yes",
+     "muse_signal": "green",
+     "countdown": null,
+     "desc": "green walking person lit on middle pole",
+     "fused": "stop",
+     "latency_s": 2.312,
+     "cost_usd": 0.002659,
+     "prompt_tokens": 1228,
+     "completion_tokens": 360,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "tyumen_12.00",
+     "label": "unclear",
+     "variant": "E",
+     "cached": true,
+     "local": "green",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "yes",
+     "muse_signal": "green",
+     "countdown": null,
+     "desc": "small green walking person lit on center pole",
+     "fused": "stop",
+     "latency_s": 2.968,
+     "cost_usd": 0.002353,
+     "prompt_tokens": 1228,
+     "completion_tokens": 288,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "tyumen_18.00",
+     "label": "unclear",
+     "variant": "E",
+     "cached": true,
+     "local": "unknown",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "unsure",
+     "muse_signal": "countdown",
+     "countdown": 35,
+     "desc": "small green pedestrian display showing 35 on pole",
+     "fused": "unsure",
+     "latency_s": 3.332,
+     "cost_usd": 0.003237,
+     "prompt_tokens": 1228,
+     "completion_tokens": 496,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "cdmx_02.00",
+     "label": "no_signal",
+     "variant": "E",
+     "cached": true,
+     "local": "unknown",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "none_visible",
+     "countdown": null,
+     "desc": "no pedestrian signal visible in view",
+     "fused": "stop",
+     "latency_s": 2.966,
+     "cost_usd": 0.003195,
+     "prompt_tokens": 1228,
+     "completion_tokens": 486,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "cdmx_30.00",
+     "label": "no_signal",
+     "variant": "E",
+     "cached": true,
+     "local": "unknown",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "unsure",
+     "muse_signal": "none_visible",
+     "countdown": null,
+     "desc": "no pedestrian signal visible in crowd scene",
+     "fused": "unsure",
+     "latency_s": 1.967,
+     "cost_usd": 0.002183,
+     "prompt_tokens": 1228,
+     "completion_tokens": 248,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "cdmx_50.00",
+     "label": "no_signal",
+     "variant": "E",
+     "cached": true,
+     "local": "unknown",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "unsure",
+     "muse_signal": "none_visible",
+     "countdown": null,
+     "desc": "no readable pedestrian signal in view",
+     "fused": "unsure",
+     "latency_s": 2.035,
+     "cost_usd": 0.002277,
+     "prompt_tokens": 1228,
+     "completion_tokens": 270,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "cdmx_90.00",
+     "label": "no_signal",
+     "variant": "E",
+     "cached": true,
+     "local": "unknown",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "unsure",
+     "muse_signal": "none_visible",
+     "countdown": null,
+     "desc": "no readable pedestrian head, only blurred vehicle lights",
+     "fused": "unsure",
+     "latency_s": 1.65,
+     "cost_usd": 0.002,
+     "prompt_tokens": 1228,
+     "completion_tokens": 205,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "mazatlan_03.00",
+     "label": "no_signal",
+     "variant": "E",
+     "cached": true,
+     "local": "unknown",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "unsure",
+     "muse_signal": "none_visible",
+     "countdown": null,
+     "desc": "no pedestrian signal visible in street storefront view",
+     "fused": "unsure",
+     "latency_s": 1.832,
+     "cost_usd": 0.002187,
+     "prompt_tokens": 1228,
+     "completion_tokens": 249,
+     "max_tokens": 512,
+     "truncated": false
+    },
+    {
+     "id": "tomaszow_03.00",
+     "label": "no_signal",
+     "variant": "E",
+     "cached": true,
+     "local": "unknown",
+     "n_images": 1,
+     "valid": true,
+     "error": null,
+     "muse_safe": "unsure",
+     "muse_signal": "none_visible",
+     "countdown": null,
+     "desc": "no pedestrian signal visible",
+     "fused": "unsure",
+     "latency_s": 1.418,
+     "cost_usd": 0.001881,
+     "prompt_tokens": 1228,
+     "completion_tokens": 177,
+     "max_tokens": 512,
+     "truncated": false
+    }
+   ]
+  },
+  "E@768": {
+   "config": {
+    "prompt": "describe",
+    "history_frames": 0,
+    "history_text": false,
+    "max_image_side": 1024,
+    "max_tokens": 768
+   },
+   "summary": {
+    "per_label": {
+     "walk": {
+      "yes": 9,
+      "no": 1,
+      "unsure": 0,
+      "invalid": 0,
+      "n": 10,
+      "fused_go": 9
+     },
+     "walk_symbol_off": {
+      "yes": 0,
+      "no": 1,
+      "unsure": 3,
+      "invalid": 0,
+      "n": 4,
+      "fused_go": 0
+     },
+     "countdown_ending": {
+      "yes": 0,
+      "no": 4,
+      "unsure": 0,
+      "invalid": 0,
+      "n": 4,
+      "fused_go": 0
+     },
+     "flashing": {
+      "yes": 0,
+      "no": 5,
+      "unsure": 0,
+      "invalid": 0,
+      "n": 5,
+      "fused_go": 0
+     },
+     "red": {
+      "yes": 0,
+      "no": 7,
+      "unsure": 0,
+      "invalid": 0,
+      "n": 7,
+      "fused_go": 0
+     },
+     "no_signal": {
+      "yes": 0,
+      "no": 1,
+      "unsure": 5,
+      "invalid": 0,
+      "n": 6,
+      "fused_go": 0
+     },
+     "unclear": {
+      "yes": 2,
+      "no": 0,
+      "unsure": 2,
+      "invalid": 0,
+      "n": 4,
+      "fused_go": 0
+     }
+    },
+    "walk_yes_rate": "9/10",
+    "false_yes_non_walk": 0,
+    "fused_go_non_walk": 0,
+    "fused_go_walk": "9/10",
+    "unsure_or_invalid_rate": 0.25,
+    "mean_latency_s": 2.225,
+    "p95_latency_s": 3.757,
+    "cost_usd": 0.098842,
+    "mean_prompt_tokens": 1228,
+    "truncated": 0,
+    "mean_completion_tokens": 306.2,
+    "max_completion_tokens": 659,
     "n": 40
    },
    "rows": [
@@ -5130,12 +6562,14 @@
      "muse_safe": "yes",
      "muse_signal": "green",
      "countdown": 48,
-     "desc": "Lit white walking person with red countdown digits",
+     "desc": "White walking person lit with red 48 countdown",
      "fused": "go",
-     "latency_s": 2.21,
-     "cost_usd": 0.002674,
+     "latency_s": 1.735,
+     "cost_usd": 0.002542,
      "prompt_tokens": 1228,
-     "completion_tokens": 268
+     "completion_tokens": 237,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_13.80",
@@ -5149,12 +6583,14 @@
      "muse_safe": "yes",
      "muse_signal": "green",
      "countdown": 45,
-     "desc": "Walk person lit with red 45 countdown",
+     "desc": "Lit white walking person with red 45 countdown",
      "fused": "go",
-     "latency_s": 2.001,
-     "cost_usd": 0.002294,
+     "latency_s": 1.999,
+     "cost_usd": 0.002547,
      "prompt_tokens": 1228,
-     "completion_tokens": 274
+     "completion_tokens": 238,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_17.80",
@@ -5168,12 +6604,14 @@
      "muse_safe": "yes",
      "muse_signal": "green",
      "countdown": 41,
-     "desc": "lit white walking person with 41 countdown",
+     "desc": "Walk person lit with countdown 41",
      "fused": "go",
-     "latency_s": 1.834,
-     "cost_usd": 0.002338,
+     "latency_s": 2.258,
+     "cost_usd": 0.002243,
      "prompt_tokens": 1228,
-     "completion_tokens": 189
+     "completion_tokens": 262,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_21.72",
@@ -5187,12 +6625,14 @@
      "muse_safe": "yes",
      "muse_signal": "green",
      "countdown": 31,
-     "desc": "White walking person lit with red 31 countdown",
+     "desc": "White walking person with red 31 countdown lit",
      "fused": "go",
-     "latency_s": 2.314,
-     "cost_usd": 0.002566,
+     "latency_s": 3.108,
+     "cost_usd": 0.002821,
      "prompt_tokens": 1228,
-     "completion_tokens": 338
+     "completion_tokens": 398,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_25.72",
@@ -5206,12 +6646,14 @@
      "muse_safe": "yes",
      "muse_signal": "green",
      "countdown": 33,
-     "desc": "White walking person lit with red 33 countdown",
+     "desc": "white walking person with red 33 countdown lit",
      "fused": "go",
-     "latency_s": 2.596,
-     "cost_usd": 0.002379,
+     "latency_s": 1.506,
+     "cost_usd": 0.001983,
      "prompt_tokens": 1228,
-     "completion_tokens": 294
+     "completion_tokens": 201,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_29.72",
@@ -5225,12 +6667,14 @@
      "muse_safe": "yes",
      "muse_signal": "green",
      "countdown": 29,
-     "desc": "White walking person lit with red 29 countdown",
+     "desc": "Lit white walking person with red countdown 29",
      "fused": "go",
-     "latency_s": 2.476,
-     "cost_usd": 0.002604,
+     "latency_s": 1.304,
+     "cost_usd": 0.002077,
      "prompt_tokens": 1228,
-     "completion_tokens": 347
+     "completion_tokens": 223,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_33.72",
@@ -5244,12 +6688,14 @@
      "muse_safe": "yes",
      "muse_signal": "green",
      "countdown": 25,
-     "desc": "White walking person lit with red 25 countdown below",
+     "desc": "Lit walking person with red 25 countdown",
      "fused": "go",
-     "latency_s": 1.805,
-     "cost_usd": 0.002162,
+     "latency_s": 1.495,
+     "cost_usd": 0.002217,
      "prompt_tokens": 1228,
-     "completion_tokens": 243
+     "completion_tokens": 256,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_37.72",
@@ -5263,12 +6709,14 @@
      "muse_safe": "yes",
      "muse_signal": "green",
      "countdown": 21,
-     "desc": "White walking person lit with red 21 countdown",
+     "desc": "white walking person with red 21 countdown",
      "fused": "go",
-     "latency_s": 1.683,
-     "cost_usd": 0.002277,
+     "latency_s": 1.564,
+     "cost_usd": 0.002119,
      "prompt_tokens": 1228,
-     "completion_tokens": 270
+     "completion_tokens": 233,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_41.72",
@@ -5281,13 +6729,15 @@
      "error": null,
      "muse_safe": "yes",
      "muse_signal": "green",
-     "countdown": 17,
-     "desc": "Lit white walking person with red countdown digits below",
+     "countdown": 11,
+     "desc": "White walking person lit above red 11 countdown on pole",
      "fused": "go",
-     "latency_s": 3.443,
-     "cost_usd": 0.002625,
+     "latency_s": 2.176,
+     "cost_usd": 0.003023,
      "prompt_tokens": 1228,
-     "completion_tokens": 352
+     "completion_tokens": 350,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_45.72",
@@ -5303,10 +6753,12 @@
      "countdown": 8,
      "desc": "White walking person lit with red countdown 8",
      "fused": "stop",
-     "latency_s": 2.253,
-     "cost_usd": 0.002634,
+     "latency_s": 1.536,
+     "cost_usd": 0.002272,
      "prompt_tokens": 1228,
-     "completion_tokens": 354
+     "completion_tokens": 269,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_13.24",
@@ -5319,13 +6771,15 @@
      "error": null,
      "muse_safe": "unsure",
      "muse_signal": "countdown",
-     "countdown": 45,
-     "desc": "Pedestrian head showing red digits 45, no walk figure",
+     "countdown": 15,
+     "desc": "red countdown digits on pedestrian head, no figure visible",
      "fused": "unsure",
-     "latency_s": 3.27,
-     "cost_usd": 0.003118,
+     "latency_s": 3.757,
+     "cost_usd": 0.003526,
      "prompt_tokens": 1228,
-     "completion_tokens": 468
+     "completion_tokens": 564,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_25.28",
@@ -5339,12 +6793,14 @@
      "muse_safe": "unsure",
      "muse_signal": "countdown",
      "countdown": 33,
-     "desc": "red countdown digits 33, no walk figure visible",
+     "desc": "small black head showing red digits 33, no walking person",
      "fused": "unsure",
-     "latency_s": 2.434,
-     "cost_usd": 0.002668,
+     "latency_s": 4.255,
+     "cost_usd": 0.00393,
      "prompt_tokens": 1228,
-     "completion_tokens": 362
+     "completion_tokens": 659,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_37.28",
@@ -5353,17 +6809,19 @@
      "cached": false,
      "local": "walk",
      "n_images": 1,
-     "valid": false,
-     "error": "missing hazards",
-     "muse_safe": "invalid",
-     "muse_signal": null,
-     "countdown": null,
-     "desc": null,
+     "valid": true,
+     "error": null,
+     "muse_safe": "unsure",
+     "muse_signal": "countdown",
+     "countdown": 21,
+     "desc": "pedestrian head shows red countdown 21, no figure visible",
      "fused": "unsure",
-     "latency_s": 3.018,
-     "cost_usd": 0.003305,
+     "latency_s": 2.377,
+     "cost_usd": 0.002685,
      "prompt_tokens": 1228,
-     "completion_tokens": 512
+     "completion_tokens": 366,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_45.28",
@@ -5377,12 +6835,14 @@
      "muse_safe": "no",
      "muse_signal": "countdown",
      "countdown": 8,
-     "desc": "Pedestrian head shows red digits 8, no figure",
+     "desc": "small pedestrian head showing red countdown digit, no figure",
      "fused": "stop",
-     "latency_s": 2.292,
-     "cost_usd": 0.002502,
+     "latency_s": 2.037,
+     "cost_usd": 0.002544,
      "prompt_tokens": 1228,
-     "completion_tokens": 323
+     "completion_tokens": 333,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_48.72",
@@ -5396,12 +6856,14 @@
      "muse_safe": "no",
      "muse_signal": "green",
      "countdown": 0,
-     "desc": "White walking person lit with red 0 countdown",
+     "desc": "Walk person lit white with red zero countdown below",
      "fused": "stop",
-     "latency_s": 2.137,
-     "cost_usd": 0.002226,
+     "latency_s": 1.993,
+     "cost_usd": 0.002034,
      "prompt_tokens": 1228,
-     "completion_tokens": 258
+     "completion_tokens": 213,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_49.88",
@@ -5415,12 +6877,14 @@
      "muse_safe": "no",
      "muse_signal": "green",
      "countdown": 9,
-     "desc": "white walking person with red 9 countdown lit",
+     "desc": "White walking person lit with red countdown 9",
      "fused": "stop",
-     "latency_s": 1.765,
-     "cost_usd": 0.002285,
+     "latency_s": 2.455,
+     "cost_usd": 0.003328,
      "prompt_tokens": 1228,
-     "completion_tokens": 272
+     "completion_tokens": 422,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_50.08",
@@ -5434,12 +6898,14 @@
      "muse_safe": "no",
      "muse_signal": "green",
      "countdown": 8,
-     "desc": "walking person lit with red countdown 8",
+     "desc": "walking person lit with red 8 countdown",
      "fused": "stop",
-     "latency_s": 1.535,
-     "cost_usd": 0.002175,
+     "latency_s": 2.458,
+     "cost_usd": 0.002166,
      "prompt_tokens": 1228,
-     "completion_tokens": 246
+     "completion_tokens": 244,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_51.88",
@@ -5453,12 +6919,14 @@
      "muse_safe": "no",
      "muse_signal": "green",
      "countdown": 1,
-     "desc": "white walking person with red 1 countdown lit",
+     "desc": "White walking person with red digit 1 lit",
      "fused": "stop",
-     "latency_s": 1.645,
-     "cost_usd": 0.002119,
+     "latency_s": 2.076,
+     "cost_usd": 0.002353,
      "prompt_tokens": 1228,
-     "completion_tokens": 233
+     "completion_tokens": 288,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_53.00",
@@ -5467,17 +6935,19 @@
      "cached": false,
      "local": "green",
      "n_images": 1,
-     "valid": false,
-     "error": "missing hazards",
-     "muse_safe": "invalid",
-     "muse_signal": null,
-     "countdown": null,
-     "desc": null,
-     "fused": "unsure",
-     "latency_s": 3.98,
-     "cost_usd": 0.003305,
+     "valid": true,
+     "error": null,
+     "muse_safe": "no",
+     "muse_signal": "red",
+     "countdown": 5,
+     "desc": "Red hand with countdown 5 on pedestrian head",
+     "fused": "stop",
+     "latency_s": 2.582,
+     "cost_usd": 0.002272,
      "prompt_tokens": 1228,
-     "completion_tokens": 512
+     "completion_tokens": 269,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_54.00",
@@ -5491,12 +6961,14 @@
      "muse_safe": "no",
      "muse_signal": "red",
      "countdown": 4,
-     "desc": "Red hand with countdown 4 on pedestrian head",
+     "desc": "Red hand with countdown 4 on left pole",
      "fused": "stop",
-     "latency_s": 2.768,
-     "cost_usd": 0.002799,
+     "latency_s": 2.808,
+     "cost_usd": 0.00268,
      "prompt_tokens": 1228,
-     "completion_tokens": 393
+     "completion_tokens": 365,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_55.00",
@@ -5510,12 +6982,14 @@
      "muse_safe": "no",
      "muse_signal": "red",
      "countdown": 3,
-     "desc": "Red hand with countdown 3 on pedestrian head",
+     "desc": "Red hand with countdown 3 lit on pole",
      "fused": "stop",
-     "latency_s": 2.037,
-     "cost_usd": 0.0022,
+     "latency_s": 2.679,
+     "cost_usd": 0.002791,
      "prompt_tokens": 1228,
-     "completion_tokens": 252
+     "completion_tokens": 391,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_56.00",
@@ -5529,12 +7003,14 @@
      "muse_safe": "no",
      "muse_signal": "red",
      "countdown": 2,
-     "desc": "Red hand with countdown 2 on pedestrian head",
+     "desc": "Red hand with countdown 2 on pole",
      "fused": "stop",
-     "latency_s": 2.28,
-     "cost_usd": 0.002659,
+     "latency_s": 2.547,
+     "cost_usd": 0.002574,
      "prompt_tokens": 1228,
-     "completion_tokens": 360
+     "completion_tokens": 340,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_54.48",
@@ -5548,12 +7024,14 @@
      "muse_safe": "no",
      "muse_signal": "countdown",
      "countdown": 4,
-     "desc": "pedestrian head showing red countdown digit 4",
+     "desc": "pedestrian head shows red countdown digit 4",
      "fused": "stop",
-     "latency_s": 1.905,
-     "cost_usd": 0.002132,
+     "latency_s": 2.363,
+     "cost_usd": 0.002179,
      "prompt_tokens": 1228,
-     "completion_tokens": 236
+     "completion_tokens": 247,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_01.00",
@@ -5569,10 +7047,12 @@
      "countdown": null,
      "desc": "small box showing red raised hand",
      "fused": "stop",
-     "latency_s": 1.517,
-     "cost_usd": 0.002068,
+     "latency_s": 1.123,
+     "cost_usd": 0.001813,
      "prompt_tokens": 1228,
-     "completion_tokens": 221
+     "completion_tokens": 161,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_03.00",
@@ -5586,12 +7066,14 @@
      "muse_safe": "no",
      "muse_signal": "red",
      "countdown": null,
-     "desc": "Small pedestrian head showing steady red hand",
+     "desc": "Red hand lit on pedestrian head below vehicle signal",
      "fused": "stop",
-     "latency_s": 1.754,
-     "cost_usd": 0.002039,
+     "latency_s": 1.604,
+     "cost_usd": 0.001975,
      "prompt_tokens": 1228,
-     "completion_tokens": 214
+     "completion_tokens": 199,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_05.00",
@@ -5605,12 +7087,14 @@
      "muse_safe": "no",
      "muse_signal": "red",
      "countdown": null,
-     "desc": "small box showing steady red hand",
+     "desc": "small box below vehicle light showing red hand",
      "fused": "stop",
-     "latency_s": 1.579,
-     "cost_usd": 0.002077,
+     "latency_s": 1.69,
+     "cost_usd": 0.002183,
      "prompt_tokens": 1228,
-     "completion_tokens": 223
+     "completion_tokens": 248,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_07.00",
@@ -5624,12 +7108,14 @@
      "muse_safe": "no",
      "muse_signal": "red",
      "countdown": null,
-     "desc": "red hand illuminated on pedestrian signal ahead",
+     "desc": "Red hand illuminated on pedestrian signal head",
      "fused": "stop",
-     "latency_s": 1.386,
-     "cost_usd": 0.002192,
+     "latency_s": 1.806,
+     "cost_usd": 0.002213,
      "prompt_tokens": 1228,
-     "completion_tokens": 250
+     "completion_tokens": 255,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_58.60",
@@ -5643,12 +7129,14 @@
      "muse_safe": "no",
      "muse_signal": "red",
      "countdown": 0,
-     "desc": "red raised hand with zero countdown lit",
+     "desc": "red standing figure with 0 countdown lit",
      "fused": "stop",
-     "latency_s": 2.197,
-     "cost_usd": 0.002383,
+     "latency_s": 2.266,
+     "cost_usd": 0.002553,
      "prompt_tokens": 1228,
-     "completion_tokens": 295
+     "completion_tokens": 335,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_60.60",
@@ -5662,12 +7150,14 @@
      "muse_safe": "no",
      "muse_signal": "red",
      "countdown": null,
-     "desc": "small box showing steady red raised hand",
+     "desc": "Pedestrian head showing steady red hand",
      "fused": "stop",
-     "latency_s": 1.621,
-     "cost_usd": 0.001975,
+     "latency_s": 1.253,
+     "cost_usd": 0.001886,
      "prompt_tokens": 1228,
-     "completion_tokens": 199
+     "completion_tokens": 178,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "dc_62.20",
@@ -5681,12 +7171,14 @@
      "muse_safe": "no",
      "muse_signal": "red",
      "countdown": null,
-     "desc": "Red hand illuminated on pedestrian signal ahead",
+     "desc": "Red raised hand lit on pedestrian head across street",
      "fused": "stop",
-     "latency_s": 2.008,
-     "cost_usd": 0.002281,
+     "latency_s": 2.295,
+     "cost_usd": 0.00237,
      "prompt_tokens": 1228,
-     "completion_tokens": 271
+     "completion_tokens": 292,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "tyumen_01.00",
@@ -5699,13 +7191,15 @@
      "error": null,
      "muse_safe": "yes",
      "muse_signal": "green",
-     "countdown": 35,
-     "desc": "green pedestrian light with countdown 35 on pole",
+     "countdown": 46,
+     "desc": "Green walking person with countdown on pole ahead",
      "fused": "unsure",
-     "latency_s": 2.705,
-     "cost_usd": 0.002557,
+     "latency_s": 1.862,
+     "cost_usd": 0.002175,
      "prompt_tokens": 1228,
-     "completion_tokens": 336
+     "completion_tokens": 246,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "tyumen_06.00",
@@ -5719,12 +7213,14 @@
      "muse_safe": "yes",
      "muse_signal": "green",
      "countdown": null,
-     "desc": "green walking person lit on middle pole",
+     "desc": "green walking person lit on pole ahead",
      "fused": "stop",
-     "latency_s": 2.312,
-     "cost_usd": 0.002659,
+     "latency_s": 2.51,
+     "cost_usd": 0.002438,
      "prompt_tokens": 1228,
-     "completion_tokens": 360
+     "completion_tokens": 308,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "tyumen_12.00",
@@ -5735,15 +7231,17 @@
      "n_images": 1,
      "valid": true,
      "error": null,
-     "muse_safe": "yes",
-     "muse_signal": "green",
+     "muse_safe": "unsure",
+     "muse_signal": "none_visible",
      "countdown": null,
-     "desc": "small green walking person lit on center pole",
-     "fused": "stop",
-     "latency_s": 2.968,
-     "cost_usd": 0.002353,
+     "desc": "no readable pedestrian head, only vehicle lights",
+     "fused": "unsure",
+     "latency_s": 2.834,
+     "cost_usd": 0.002595,
      "prompt_tokens": 1228,
-     "completion_tokens": 288
+     "completion_tokens": 345,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "tyumen_18.00",
@@ -5756,13 +7254,15 @@
      "error": null,
      "muse_safe": "unsure",
      "muse_signal": "countdown",
-     "countdown": 35,
-     "desc": "small green pedestrian display showing 35 on pole",
+     "countdown": 36,
+     "desc": "small box showing green digits 36, no figure readable",
      "fused": "unsure",
-     "latency_s": 3.332,
-     "cost_usd": 0.003237,
+     "latency_s": 4.148,
+     "cost_usd": 0.003492,
      "prompt_tokens": 1228,
-     "completion_tokens": 496
+     "completion_tokens": 556,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "cdmx_02.00",
@@ -5776,12 +7276,14 @@
      "muse_safe": "no",
      "muse_signal": "none_visible",
      "countdown": null,
-     "desc": "no pedestrian signal visible in view",
+     "desc": "no pedestrian signal readable in view",
      "fused": "stop",
-     "latency_s": 2.966,
-     "cost_usd": 0.003195,
+     "latency_s": 3.045,
+     "cost_usd": 0.00302,
      "prompt_tokens": 1228,
-     "completion_tokens": 486
+     "completion_tokens": 445,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "cdmx_30.00",
@@ -5797,10 +7299,12 @@
      "countdown": null,
      "desc": "no pedestrian signal visible in crowd scene",
      "fused": "unsure",
-     "latency_s": 1.967,
-     "cost_usd": 0.002183,
+     "latency_s": 2.148,
+     "cost_usd": 0.002523,
      "prompt_tokens": 1228,
-     "completion_tokens": 248
+     "completion_tokens": 328,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "cdmx_50.00",
@@ -5814,12 +7318,14 @@
      "muse_safe": "unsure",
      "muse_signal": "none_visible",
      "countdown": null,
-     "desc": "no readable pedestrian signal in view",
+     "desc": "no readable pedestrian head visible in night crowd",
      "fused": "unsure",
-     "latency_s": 2.035,
-     "cost_usd": 0.002277,
+     "latency_s": 2.276,
+     "cost_usd": 0.002396,
      "prompt_tokens": 1228,
-     "completion_tokens": 270
+     "completion_tokens": 298,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "cdmx_90.00",
@@ -5833,12 +7339,14 @@
      "muse_safe": "unsure",
      "muse_signal": "none_visible",
      "countdown": null,
-     "desc": "no readable pedestrian head, only blurred vehicle lights",
+     "desc": "no readable pedestrian head in view",
      "fused": "unsure",
-     "latency_s": 1.65,
-     "cost_usd": 0.002,
+     "latency_s": 2.105,
+     "cost_usd": 0.002277,
      "prompt_tokens": 1228,
-     "completion_tokens": 205
+     "completion_tokens": 270,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "mazatlan_03.00",
@@ -5852,12 +7360,14 @@
      "muse_safe": "unsure",
      "muse_signal": "none_visible",
      "countdown": null,
-     "desc": "no pedestrian signal visible in street storefront view",
+     "desc": "no pedestrian signal visible in view",
      "fused": "unsure",
-     "latency_s": 1.832,
-     "cost_usd": 0.002187,
+     "latency_s": 1.435,
+     "cost_usd": 0.001937,
      "prompt_tokens": 1228,
-     "completion_tokens": 249
+     "completion_tokens": 190,
+     "max_tokens": 768,
+     "truncated": false
     },
     {
      "id": "tomaszow_03.00",
@@ -5873,18 +7383,20 @@
      "countdown": null,
      "desc": "no pedestrian signal visible",
      "fused": "unsure",
-     "latency_s": 1.418,
-     "cost_usd": 0.001881,
+     "latency_s": 1.548,
+     "cost_usd": 0.00209,
      "prompt_tokens": 1228,
-     "completion_tokens": 177
+     "completion_tokens": 226,
+     "max_tokens": 768,
+     "truncated": false
     }
    ]
   }
  },
  "ledger": {
-  "n_calls": 331,
-  "total_usd": 0.875323,
+  "n_calls": 371,
+  "total_usd": 0.974165,
   "budget_usd": 3.2,
-  "remaining_usd": 2.324677
+  "remaining_usd": 2.225835
  }
 }
