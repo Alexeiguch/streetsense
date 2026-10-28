@@ -17,6 +17,17 @@ Sources: https://cerebralvalley.ai/e/meta-ai-developer-hackathon/details (event 
 - **Build for Your World**: bring Meta's models into your own domain and solve a problem you know firsthand. This project fits here (accessibility).
 - **Push the Frontier**: software, robotics, physical systems, and similar.
 
+## How applications are reviewed (application form only)
+
+Separate from the submission judging below. Quoted from the organisers:
+
+We aim for a mix of technical backgrounds and domains across participants. Applicants should best showcase their technical skills in the application form. We review every application against two criteria, using only your answers on the application form:
+
+1. **Your project idea:** how clear and feasible your proposed project is, and how well it fits one of the two project themes.
+2. **Your technical skill:** the technical skill shown in the AI project you describe, including what you built and the techniques you used. Links to your GitHub, LinkedIn or a shipped product help us verify your experience and skill but are not required.
+
+Both criteria are weighted equally. Applications are evaluated on a rolling basis. Eligible applications meeting minimum scoring cut-offs will be accepted automatically, up to the first 20,000 acceptances. Eligible applications that do not meet the minimum scoring cut-offs will be accepted based on score received, if space allows. Answers to questions 13 to 16 help us improve our developer programs and are not used in selection.
+
 ## Judging criteria (from the Official Rules)
 | Criterion | Weight | Meaning |
 |---|---|---|
