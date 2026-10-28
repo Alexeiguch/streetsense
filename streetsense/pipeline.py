@@ -19,6 +19,7 @@ from .observations import ObservationLog, summarise_frame
 from .open_vocab_sched import OpenVocabScheduler
 from .overlay import draw
 from .frame_history import FrameHistory
+from . import signal_distance
 from .rules import FrameFacts, build_alerts, select_crossing_signal
 from .surface import SIDEWALK, ROAD, SurfaceResult
 from .traffic_light import LightStateSmoother, classify_light, signal_kind
@@ -84,6 +85,7 @@ class Pipeline:
         self.alerts = AlertManager(self.cfg.alerts, clock=clock)
         self.approach = ApproachTracker()
         self.smoother = LightStateSmoother()
+        self.signal_dist_cfg = signal_distance.SignalDistanceConfig.from_env()
         self.cw_hyst = CrosswalkHysteresis()
         self._kinds: dict[int, str] = {}
         self.vlm = MetaVisionAssistant(self.cfg.vlm)
@@ -166,6 +168,10 @@ class Pipeline:
                 d.attrs["light_raw"] = r.state
                 d.attrs["figure"] = bool(getattr(r, "figure", False))
                 d.attrs["light_state"] = self.smoother.update(d.track_id, r.state, box=b)
+            if d.label == "traffic light" or "sign" in d.label:
+                est = signal_distance.estimate(d.box, d.label, d.attrs.get("signal_kind", "unknown"),
+                                               W, H, self.cfg.camera.hfov_deg, self.signal_dist_cfg)
+                d.attrs.update(est.as_attrs())
         tm["lights"] = (time.perf_counter() - t0) * 1000
 
         t0 = time.perf_counter()
@@ -200,6 +206,12 @@ class Pipeline:
                 depth_d = self.depth.distance_m(d.box, self._last_depth)
                 d.attrs["distance_box_m"] = box_d
                 d.attrs["distance_depth_m"] = depth_d
+                if "signal_distance_source" in d.attrs:
+                    est = signal_distance.get_estimate(d, W, H, self.cfg.camera.hfov_deg, self.signal_dist_cfg)
+                    d.attrs.update(signal_distance.fuse_depth(est, depth_d, self.signal_dist_cfg).as_attrs())
+                    rel = signal_distance.sample_depth_rel(self._last_depth, d.box)
+                    if rel is not None:
+                        d.attrs["signal_depth_rel"] = rel
                 if prefer and depth_d is not None:
                     d.attrs["distance_m"] = depth_d
                     d.attrs["distance_source"] = "depth"

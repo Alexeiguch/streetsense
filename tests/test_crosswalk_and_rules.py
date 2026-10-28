@@ -95,7 +95,7 @@ def test_rules_light_and_crossing():
     cw = CrosswalkResult(True, Box(300, 500, 1000, 700), 5, 1.0, [])
     alerts = {a.key: a for a in build_alerts(FrameFacts(1280, 720, [tl], crosswalk=cw))}
     assert alerts["light:pedestrian"].priority == Priority.WARNING
-    assert alerts["light:pedestrian"].text == "pedestrian light is red"
+    assert alerts["light:pedestrian"].text.startswith("pedestrian light is red")  # + spoken distance
     assert alerts["light:pedestrian"].data.get("cooldown_key") == "light:pedestrian:red"
     assert "crossing" in alerts["crosswalk"].text
 
@@ -136,7 +136,7 @@ def test_one_light_announced_pedestrian_preferred():
     big_vehicle = Detection("traffic light", Box(100, 50, 160, 200), 0.9, attrs={"light_state": "green", "signal_kind": "vehicle"})
     small_ped = Detection("traffic light", Box(600, 50, 620, 90), 0.8, attrs={"light_state": "red", "signal_kind": "pedestrian"})
     lights = [a for a in build_alerts(FrameFacts(1280, 720, [big_vehicle, small_ped])) if a.key.startswith("light:")]
-    assert len(lights) == 1 and lights[0].text == "pedestrian light is red"
+    assert len(lights) == 1 and lights[0].text.startswith("pedestrian light is red")
 
 
 def test_most_relevant_light_prefers_walk_over_larger_green():

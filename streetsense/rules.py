@@ -6,6 +6,15 @@ from dataclasses import dataclass, field
 
 from .crosswalk import CrosswalkResult
 from .geometry import estimate_distance_m, horizontal_zone, in_walking_path, round_distance, truncation_flags
+from .signal_distance import (
+    CAUTION_SPEECH,
+    DistanceEstimate,
+    SignalDistanceConfig,
+    camera_hfov_deg,
+    get_estimate,
+    spoken_distance,
+    walk_caution,
+)
 from .surface import SurfaceResult
 from .types import Alert, Box, Detection, Priority
 
@@ -37,6 +46,8 @@ class SignalSelection:
     decision: str  # walk | red | yellow | green | unclear | unknown
     detection: Detection | None = None
     reason: str = ""
+    distance: DistanceEstimate | None = None  # estimate for `detection`
+    caution: str | None = None  # signal_distance caution code when distance blocked a walk
 
     @property
     def attrs(self) -> dict:
@@ -80,8 +91,20 @@ def select_crossing_signal(
     frame_w: int,
     frame_h: int,
     crosswalk: CrosswalkResult | None = None,
+    hfov_deg: float | None = None,
+    dist_cfg: SignalDistanceConfig | None = None,
 ) -> SignalSelection | None:
-    """Pick the signal that controls the crossing ahead; unclear when relevant heads conflict."""
+    """Pick the signal that controls the crossing ahead; unclear when relevant heads conflict.
+
+    Distance rules (signal_distance.walk_caution) can only turn a walk into unclear.
+    """
+    hfov = camera_hfov_deg() if hfov_deg is None else hfov_deg
+    dcfg = dist_cfg or SignalDistanceConfig.from_env()
+
+    def sel(decision: str, d: Detection | None, reason: str, caution: str | None = None) -> SignalSelection:
+        est = get_estimate(d, frame_w, frame_h, hfov, dcfg) if d is not None else None
+        return SignalSelection(decision, d, reason, est, caution)
+
     lights = [
         d for d in dets
         if d.label == "traffic light"
@@ -89,6 +112,14 @@ def select_crossing_signal(
     ]
     if not lights:
         return None
+    # Heads we could not read (bloom, washout): never usable themselves, but a nearer one
+    # ahead means the readable walk/green head may belong to a different crossing.
+    unreadable = [
+        d for d in dets
+        if d.label == "traffic light"
+        and d.attrs.get("light_state", "unknown") in ("unknown", None, "")
+        and d.attrs.get("signal_kind") != "vehicle"
+    ]
 
     # Score all; keep pedestrian/unknown (not pure vehicle) as candidates for ped guidance.
     scored = sorted(
@@ -102,25 +133,42 @@ def select_crossing_signal(
     if not relevant:
         # Fall back to best overall (may be vehicle) for informational notice only.
         d = scored[0][1]
-        return SignalSelection(d.attrs.get("light_state", "unknown"), d, "best overall")
+        state = d.attrs.get("light_state", "unknown")
+        if state == "walk":  # never reachable via the vehicle filter, but keep it impossible
+            state = "unclear"
+        return sel(state, d, "best overall")
 
     states = {d.attrs.get("light_state") for d in relevant}
     ped_action = states & {"walk", "red"}
     if len(ped_action) > 1:
         # Conflicting walk vs red among relevant heads → do not pick walk.
-        return SignalSelection("unclear", relevant[0], "conflicting pedestrian signals")
+        return sel("unclear", relevant[0], "conflicting pedestrian signals")
 
     # Prefer an explicit walk when present and not contradicted by red (sticky vehicle-green
     # heads must not silence a real walk). Otherwise keep relevance order.
     if "walk" in states:
-        walk_d = next(d for d in relevant if d.attrs.get("light_state") == "walk")
-        return SignalSelection("walk", walk_d, "walk among relevant")
+        walks = [d for d in relevant if d.attrs.get("light_state") == "walk"]
+
+        def dist_key(d: Detection) -> float:
+            m = get_estimate(d, frame_w, frame_h, hfov, dcfg).m
+            return m if m is not None else float("inf")
+
+        walk_d = min(walks, key=dist_key)  # nearest walk head
+        caution = walk_caution(walk_d, relevant, frame_w, frame_h, hfov, dcfg, unreadable)
+        if caution is not None:
+            return sel("unclear", walk_d, caution[1], caution[0])
+        return sel("walk", walk_d, "walk among relevant")
 
     top = relevant[0]
     state = top.attrs.get("light_state", "unknown")
     if state == "countdown":
         state = "unclear"
-    return SignalSelection(state if state in _ALERTABLE_LIGHT else "unknown", top, "relevance")
+    if state == "green":
+        # Same distance checks as walk: a far/side/out-ranked green must not be announced as ours.
+        caution = walk_caution(top, relevant, frame_w, frame_h, hfov, dcfg, unreadable)
+        if caution is not None:
+            return sel("unclear", top, caution[1], caution[0])
+    return sel(state if state in _ALERTABLE_LIGHT else "unknown", top, "relevance")
 
 
 def most_relevant_light(dets: list[Detection]) -> Detection | None:
@@ -197,19 +245,22 @@ def build_alerts(f: FrameFacts, hfov_deg: float = 70.0) -> list[Alert]:
                 out.append(Alert(f"obstacle:{d.label}:{zone}", phrase,
                                  Priority.WARNING, data={"label": d.label, "distance_m": dist}))
 
-    sel = select_crossing_signal(f.detections, f.width, f.height, f.crosswalk)
+    sel = select_crossing_signal(f.detections, f.width, f.height, f.crosswalk, hfov_deg=hfov_deg)
     if sel is not None and sel.decision in _ALERTABLE_LIGHT:
         state, kind = sel.decision, sel.attrs.get("signal_kind", "unknown")
         name = "pedestrian light" if kind == "pedestrian" else "traffic light"
         light = sel.detection
+        where = spoken_distance(sel.distance)
         if state == "unclear":
-            text = "crossing signals unclear, wait"
+            text = CAUTION_SPEECH.get(sel.caution or "", "crossing signals unclear, wait")
             prio = Priority.WARNING
         elif state == "walk":
-            text = "walk signal on" + (", countdown running" if light and light.attrs.get("countdown") else "")
+            text = "walk signal on" + (f", {where}" if where else "") + (
+                ", countdown running" if light and light.attrs.get("countdown") else "")
             prio = Priority.NOTICE
         else:
             text = f"{name} is " + {"red": "red", "yellow": "amber", "green": "green"}.get(state, state)
+            text += f", {where}" if where else ""
             prio = Priority.NOTICE
         if f.crosswalk and f.crosswalk.found and kind != "vehicle" and state != "unclear":
             prio = Priority.WARNING
@@ -223,6 +274,8 @@ def build_alerts(f: FrameFacts, hfov_deg: float = 70.0) -> list[Alert]:
                 "kind": kind,
                 "family": family,
                 "cooldown_key": f"{family}:{state}",
+                "distance_m": sel.distance.m if sel.distance else None,
+                "caution": sel.caution,
             },
         ))
 

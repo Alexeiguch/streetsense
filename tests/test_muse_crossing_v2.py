@@ -254,7 +254,9 @@ class _Pipe:
 def _out(t, state="walk"):
     from streetsense.types import Box, Detection
 
-    d = Detection("traffic light", Box(100, 100, 120, 140), 0.9,
+    # Box inside the 60x40 test frame (was outside it; distance rules now treat an off-frame
+    # bearing as "off to the side" and wait).
+    d = Detection("traffic light", Box(25, 5, 35, 25), 0.9,
                   attrs={"light_state": state, "signal_kind": "pedestrian"})
     return SimpleNamespace(detections=[d], crosswalk=None, t=t)
 

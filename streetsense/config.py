@@ -76,10 +76,18 @@ class SamConfig:
     timeout_s: float = 60.0
 
 
+def _camera_hfov() -> float:
+    from .signal_distance import camera_hfov_deg
+
+    return camera_hfov_deg(70.0)
+
+
 @dataclass
 class CameraConfig:
-    # Rough pinhole model used for distance estimates. Phone main cameras are ~65-75 deg HFOV.
-    hfov_deg: float = 70.0
+    # Rough pinhole model used for distance estimates. Phone main cameras are ~65-75 deg HFOV;
+    # Ray-Ban Meta portrait capture is 68 deg. STREETSENSE_CAMERA_HFOV_DEG or
+    # STREETSENSE_CAMERA=phone|rayban (see signal_distance.camera_hfov_deg).
+    hfov_deg: float = field(default_factory=lambda: _camera_hfov())
 
 
 @dataclass

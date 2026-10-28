@@ -120,7 +120,9 @@ def classify_light(crop_bgr: np.ndarray, kind: str = "unknown") -> LightReading:
     border = np.concatenate([white[:my].ravel(), white[:, :mx].ravel(), white[:, Wd - mx:].ravel()])
     white_top = float(inner_top.mean()) if inner_top.size else 0.0
     coloured_top = float(lit[:H // 2].mean())
-    if white_top > 0.05 and white_top > coloured_top and float(border.mean()) < 0.15:
+    # Not on vehicle-shaped housings (h/w > 2.6): a side-on or unlit 3-lamp head lets white sky or
+    # wall show through between its visors, which read as a walk figure (seen on eu_ped_b).
+    if kind != "vehicle" and white_top > 0.05 and white_top > coloured_top and float(border.mean()) < 0.15:
         countdown = float(lit[H // 2:].mean()) > 0.03
         return LightReading("walk", min(1.0, white_top * 5), white_top / 2, 0.25, countdown)
 
