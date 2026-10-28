@@ -37,7 +37,9 @@ StreetSense uses:
 
 **Important:** Muse Spark always reasons. Reasoning tokens share `max_tokens` with the visible answer. We set `reasoning_effort="minimal"` and `max_tokens=512`. With the default effort and a small `max_tokens`, `content` comes back empty (`finish_reason=length`, almost all tokens in `reasoning_tokens`).
 
-Images are JPEG-downscaled (`max_image_side=512` by default) and sent only in **user** messages.
+Images are JPEG-downscaled and sent only in **user** messages. The background summary loop uses `max_image_side=512`. Crossing questions (`ask_sync`, `/ask`) use `crossing_max_image_side=1024`, because at 512 px the walk figure is too small and Muse reads the red countdown as a red hand.
+
+Crossing questions use the `describe` prompt by default: find the pedestrian head, describe it, read the countdown, then decide. See [MUSE_EVAL.md](MUSE_EVAL.md) for the 40-frame eval that chose it (walk yes 0/10 → 9/10, 0 false yes on 22 non-walk frames). The env switches are `STREETSENSE_MUSE_PROMPT` (`describe`|`strict`), `STREETSENSE_MUSE_CROSSING_SIDE`, and `STREETSENSE_MUSE_HISTORY_FRAMES` (0 by default; 2 adds frames from about 1.0 s and 0.5 s ago). If Muse reports a countdown of 10 or less, the fused decision is stop.
 
 ### Measured latency / cost (smoke + eval)
 
