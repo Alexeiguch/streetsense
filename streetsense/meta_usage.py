@@ -98,7 +98,8 @@ class UsageLedger:
     """Thread-safe append-only ledger with a hard spend cap."""
 
     def __init__(self, path: Path | str | None = None):
-        self.path = Path(path) if path else DEFAULT_LEDGER
+        # STREETSENSE_META_LEDGER lets tests and evals point the ledger somewhere else.
+        self.path = Path(path) if path else Path(os.environ.get("STREETSENSE_META_LEDGER") or DEFAULT_LEDGER)
         self._lock = threading.Lock()
         self.total_usd = 0.0
         self.n_calls = 0
