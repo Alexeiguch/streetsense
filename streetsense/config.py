@@ -110,6 +110,34 @@ class VisionLLMConfig:
 
 
 @dataclass
+class WonderConfig:
+    """Opt-in Muse Wonder guide agent (slow, on demand, never on the safety path)."""
+
+    enabled: bool = False  # opt in: CLI `guide`, or STREETSENSE_WONDER=1 for the web /guide route
+    base_url: str = "https://api.meta.ai/v1"
+    model: str = "muse-wonder-1.0"
+    reasoning_effort: str = "low"  # minimal | low | medium | high | max
+    max_turns: int = 4  # model turns per question, our own loop cap
+    max_output_tokens: int = 1500  # reasoning + visible text share this
+    max_cost_usd: float = 0.25  # per-question hard stop on top of the global ledger cap
+    turn_estimate_usd: float = 0.03  # pre-check per turn against the global budget
+    max_segment_calls: int = 2  # SAM calls per question (each costs $0.0025)
+    max_image_side: int = 512
+    timeout_s: float = 90.0
+    # True: resend the whole conversation each turn. False: chain with previous_response_id.
+    stateless: bool = True
+
+    @property
+    def api_key(self) -> str | None:
+        return os.environ.get("MODEL_API_KEY") or os.environ.get("LLAMA_API_KEY")
+
+    @classmethod
+    def from_env(cls) -> "WonderConfig":
+        flag = os.environ.get("STREETSENSE_WONDER", "").strip().lower()
+        return cls(enabled=flag in {"1", "true", "yes", "on"})
+
+
+@dataclass
 class Config:
     detector: DetectorConfig = field(default_factory=DetectorConfig)
     surface: SurfaceConfig = field(default_factory=SurfaceConfig)
@@ -119,4 +147,5 @@ class Config:
     camera: CameraConfig = field(default_factory=CameraConfig)
     alerts: AlertConfig = field(default_factory=AlertConfig)
     vlm: VisionLLMConfig = field(default_factory=VisionLLMConfig)
+    wonder: WonderConfig = field(default_factory=WonderConfig)
     crosswalk_every_n_frames: int = 2

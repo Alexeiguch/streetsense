@@ -15,6 +15,7 @@ from .detector import ApproachTracker, YoloDetector
 from .geometry import estimate_distance_m
 from .meta_api import MetaSamSegmenter, MetaVisionAssistant, sam_boxes_to_crosswalk
 from .open_vocab import OpenVocabHazardDetector
+from .observations import ObservationLog, summarise_frame
 from .open_vocab_sched import OpenVocabScheduler
 from .overlay import draw
 from .rules import FrameFacts, build_alerts
@@ -120,6 +121,8 @@ class Pipeline:
                 print(f"[open-vocab] disabled: {type(e).__name__}: {e}")
                 self.open_vocab = None
         self.recent: list[Alert] = []
+        # Rolling compact facts for the opt-in Muse Wonder guide (no model calls).
+        self.observations = ObservationLog()
         self.timing_totals: dict[str, float] = defaultdict(float)
 
     def _track_kind(self, track_id: int | None, kind: str) -> str:
@@ -256,5 +259,9 @@ class Pipeline:
         for k, v in tm.items():
             self.timing_totals[k] += v
         out = FrameOutput(self._i, t, dets, self._last_cw, self._last_surface, cands, spoken, tm, ann)
+        try:
+            self.observations.add(summarise_frame(out, W, H))
+        except Exception as e:  # the log must never break the fast loop
+            print(f"[observations] skipped: {type(e).__name__}: {e}")
         self._i += 1
         return out

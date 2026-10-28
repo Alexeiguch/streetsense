@@ -5,6 +5,8 @@
   python -m streetsense ask   --image frame.png --question "Can I cross now?"   # Muse Spark, needs MODEL_API_KEY
   python -m streetsense sam   --image frame.png --out docs/benchmark/sam.png
   python -m streetsense serve --port 8000                    # phone-camera web demo
+  python -m streetsense guide --source clip.webm --at 8 --question "How do I get to the crosswalk?"  # Muse Wonder, opt in
+  python -m streetsense glasses-sim --source clip.webm --resolution medium --fps 15  # Ray-Ban stream profile, offline
 """
 
 from __future__ import annotations
@@ -194,6 +196,134 @@ def cmd_sam(a: argparse.Namespace) -> int:
     return 0
 
 
+def _local_config(a: argparse.Namespace):
+    from .config import Config
+
+    cfg = Config()
+    cfg.detector.weights = getattr(a, "weights", cfg.detector.weights)
+    cfg.detector.backend = getattr(a, "backend", "openvino")
+    cfg.surface.backend = getattr(a, "backend", "openvino")
+    cfg.vlm.interval_s = float("inf")  # no background Muse calls; only explicit ones
+    return cfg
+
+
+def _sample_frames(source: str, start: float, seconds: float, fps: float):
+    """Yield (video_t, frame) from a file at `fps` in video time, or one still image."""
+    import cv2
+
+    img = cv2.imread(source) if Path(source).suffix.lower() in {".png", ".jpg", ".jpeg", ".webp"} else None
+    if img is not None:
+        yield 0.0, img
+        return
+    cap = cv2.VideoCapture(source)
+    if not cap.isOpened():
+        raise SystemExit(f"cannot open source {source}")
+    fps_in = cap.get(cv2.CAP_PROP_FPS) or 30.0
+    cap.set(cv2.CAP_PROP_POS_MSEC, start * 1000)
+    step = max(1, int(round(fps_in / max(0.5, fps))))
+    i = 0
+    t0 = start
+    while True:
+        ok, frame = cap.read()
+        if not ok:
+            break
+        t = t0 + i / fps_in
+        if t - start > seconds:
+            break
+        if i % step == 0:
+            yield t, frame
+        i += 1
+    cap.release()
+
+
+def cmd_guide(a: argparse.Namespace) -> int:
+    """Opt-in Muse Wonder guide: warm the local log on a clip, then ask one planning question."""
+    from .config import WonderConfig
+    from .glasses import GlassesStreamConfig, adapt_frame
+    from .meta_usage import get_ledger
+    from .pipeline import Pipeline
+    from .wonder_agent import GuideTools, WonderGuide
+
+    cfg = _local_config(a)
+    gcfg = GlassesStreamConfig(resolution=a.glasses) if a.glasses else None
+    if gcfg is not None:
+        cfg.camera.hfov_deg = gcfg.hfov_deg
+    clock = VideoClock()
+    pipe = Pipeline(cfg, use_surface=not a.no_surface, clock=clock)
+    start = max(0.0, a.at - a.warmup)
+    frame = out = None
+    for t, f in _sample_frames(a.source, start, a.warmup, a.sample_fps):
+        clock.t = t
+        if gcfg is not None:
+            f = adapt_frame(f, gcfg)
+        out = pipe.process(f, annotate=False)
+        frame = f
+    if frame is None:
+        print("no frames read", file=sys.stderr)
+        return 2
+    wcfg = WonderConfig(enabled=True, reasoning_effort=a.effort, max_turns=a.max_turns)
+    guide = WonderGuide(wcfg)
+    if not guide.available:
+        print("Muse Wonder disabled: export MODEL_API_KEY=...", file=sys.stderr)
+        return 3
+    res = guide.run(a.question, frame, GuideTools.from_pipeline(pipe, frame, out, clock=clock))
+    payload = {"source": a.source, "at_s": a.at, "warmup_frames": len(pipe.observations),
+               "glasses": gcfg.to_dict() if gcfg else None, **res.to_dict(),
+               "meta_usage": get_ledger().summary()}
+    print(json.dumps(payload, indent=2, default=str))
+    if a.out:
+        Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+        with open(a.out, "a") as f:
+            f.write(json.dumps({"question": a.question, **payload}, default=str) + "\n")
+    return 0
+
+
+def cmd_glasses_sim(a: argparse.Namespace) -> int:
+    """Run the local pipeline on a clip reshaped to a Ray-Ban toolkit stream. No Meta calls."""
+    import statistics
+
+    from .glasses import GlassesStreamConfig, adapt_frame, glasses_cue
+    from .pipeline import Pipeline
+
+    gcfg = GlassesStreamConfig(resolution=a.resolution, frame_rate=a.fps, jpeg_quality=a.jpeg_quality)
+    cfg = _local_config(a)
+    cfg.vlm.enabled = False
+    cfg.camera.hfov_deg = gcfg.hfov_deg
+    clock = VideoClock()
+    pipe = Pipeline(cfg, use_surface=not a.no_surface, clock=clock)
+    lat, cues = [], []
+    for t, f in _sample_frames(a.source, a.start, a.seconds, gcfg.frame_rate):
+        clock.t = t
+        g = adapt_frame(f, gcfg)
+        t0 = time.perf_counter()
+        out = pipe.process(g, annotate=False)
+        lat.append((time.perf_counter() - t0) * 1000)
+        cue = glasses_cue(out.spoken)
+        if cue:
+            cues.append({"t": round(t, 2), **cue})
+    if not lat:
+        print("no frames read", file=sys.stderr)
+        return 2
+    lat_sorted = sorted(lat)
+    p95 = lat_sorted[min(len(lat_sorted) - 1, int(0.95 * len(lat_sorted)))]
+    budget_ms = 1000.0 / gcfg.frame_rate
+    stats = {
+        "source": a.source,
+        "profile": gcfg.to_dict(),
+        "frames": len(lat),
+        "process_ms_p50": round(statistics.median(lat), 1),
+        "process_ms_p95": round(p95, 1),
+        "frame_budget_ms": round(budget_ms, 1),
+        "keeps_up_p50": statistics.median(lat) <= budget_ms,
+        "cues": cues,
+    }
+    print(json.dumps(stats, indent=2))
+    if a.stats:
+        Path(a.stats).parent.mkdir(parents=True, exist_ok=True)
+        Path(a.stats).write_text(json.dumps(stats, indent=2))
+    return 0
+
+
 def cmd_serve(a: argparse.Namespace) -> int:
     from .web import create_app
 
@@ -262,6 +392,33 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--backend", default="openvino", choices=["openvino", "torch"])
     s.add_argument("--surface-backend", default=None, choices=["openvino", "torch"])
     s.set_defaults(fn=cmd_serve)
+    g = sub.add_parser("guide", help="opt-in Muse Wonder guide agent over local facts (needs MODEL_API_KEY)")
+    g.add_argument("--source", required=True, help="video file or still image")
+    g.add_argument("--question", required=True)
+    g.add_argument("--at", type=float, default=8.0, help="video second the question is asked at")
+    g.add_argument("--warmup", type=float, default=6.0, help="seconds of local processing before the question")
+    g.add_argument("--sample-fps", type=float, default=5.0)
+    g.add_argument("--effort", default="low", choices=["minimal", "low", "medium", "high", "max"])
+    g.add_argument("--max-turns", type=int, default=4)
+    g.add_argument("--glasses", default=None, choices=["low", "medium", "high"],
+                   help="reshape frames to a Ray-Ban toolkit stream first")
+    g.add_argument("--weights", default="models/yolo11s.pt")
+    g.add_argument("--backend", default="openvino", choices=["openvino", "torch"])
+    g.add_argument("--no-surface", action="store_true")
+    g.add_argument("--out", help="append the JSON result to this JSONL file")
+    g.set_defaults(fn=cmd_guide)
+    gs = sub.add_parser("glasses-sim", help="run the local pipeline on a clip shaped like a Ray-Ban stream")
+    gs.add_argument("--source", required=True)
+    gs.add_argument("--resolution", default="medium", choices=["low", "medium", "high"])
+    gs.add_argument("--fps", type=int, default=15, choices=[2, 7, 15, 24, 30])
+    gs.add_argument("--jpeg-quality", type=int, default=60)
+    gs.add_argument("--start", type=float, default=0.0)
+    gs.add_argument("--seconds", type=float, default=10.0)
+    gs.add_argument("--weights", default="models/yolo11s.pt")
+    gs.add_argument("--backend", default="openvino", choices=["openvino", "torch"])
+    gs.add_argument("--no-surface", action="store_true")
+    gs.add_argument("--stats", help="write stats JSON here")
+    gs.set_defaults(fn=cmd_glasses_sim)
     a = p.parse_args(argv)
     return a.fn(a)
 

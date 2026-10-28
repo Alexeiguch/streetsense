@@ -109,6 +109,16 @@ With `MODEL_API_KEY` set, `run` and `serve` also send a frame to Muse Spark ever
 
 For a public tunnel, set `STREETSENSE_DEMO_TOKEN` so `/ask` requires `X-Demo-Token`. See [docs/META.md](docs/META.md).
 
+**Muse Wonder guide (opt in).** `python -m streetsense guide --source clip.webm --at 8 --question "Where is the crosswalk?"`,
+or `STREETSENSE_WONDER=1` for the web "Guide me" button. Wonder plans over the last few seconds of local
+facts, SAM 3.1 and the crossing check, and answers in 1 or 2 short sentences in about 4 to 7 s for 1 to 2 cents.
+It can never authorise a crossing: that line always comes from the local plus Muse Spark fusion. See [docs/META.md](docs/META.md).
+
+**Ray-Ban Meta (not yet run on glasses).** Glasses mode in the web app (`/glasses`) and
+`python -m streetsense glasses-sim` use the glasses camera stream sizes and frame rates, short phrases and earcons.
+`/v1/chat/completions` speaks the protocol of Meta's VisionClaw sample app, so it can use StreetSense as its gateway.
+Status and the phone app still needed: [docs/RAYBAN.md](docs/RAYBAN.md).
+
 Tests: `python -m pytest -q`
 
 ## Measured on the dev box (8 vCPU x86, no GPU, 27 Oct 2026)
@@ -133,7 +143,7 @@ Web `/frame` server p50 (Tyumen JPEG): all-OpenVINO **13.2 ms** vs all-torch **1
 - Optional `--depth` (Depth Anything V2 Small, Apache-2.0, OpenVINO ~47 ms every 6th) keeps pipeline **~17 FPS**; absolute metres still prior-calibrated — not default.
 - RF-DETR Nano selectable (`--weights rfdetr-nano`, Apache-2.0); fixed COCO-91 mapping; hand F1 0.78 but **~13 FPS** — not default.
 
-`python -m pytest -q`: 100+ tests passing (see CI).
+`python -m pytest -q`: 172 tests passing.
 
 ## Known gaps
 - Distances use class height priors and an assumed 70° HFOV (optionally calibrated via `--depth`). Absolute metres remain rough; Tyumen far cars still overestimate.
