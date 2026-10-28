@@ -10,9 +10,10 @@ from __future__ import annotations
 
 from typing import Callable
 
+import os
 import time
 from collections import Counter, deque
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import cv2
 import numpy as np
@@ -83,7 +84,137 @@ def _figure_silhouette(lit_mask: np.ndarray) -> tuple[bool, float]:
     return is_fig, float(aspect)
 
 
+def _bottom_gap(mask: np.ndarray) -> float:
+    """Widest gap between lit runs along the bottom band of a figure, as a fraction of its width.
+
+    A walking man has two feet apart at the bottom. Seven-segment digits (0-9), arrows and
+    round lamps end in one bar, one stroke or one curve, so their bottom band is one run.
+    """
+    cols = mask.any(axis=0)
+    runs: list[tuple[int, int]] = []
+    start = None
+    for j, v in enumerate(list(cols) + [False]):
+        if v and start is None:
+            start = j
+        elif not v and start is not None:
+            runs.append((start, j))
+            start = None
+    if len(runs) < 2:
+        return 0.0
+    return max(b[0] - a[1] for a, b in zip(runs, runs[1:])) / max(1, mask.shape[1])
+
+
+def eu_figure_enabled() -> bool:
+    return os.environ.get("STREETSENSE_EU_FIGURE", "1").strip().lower() not in ("0", "false", "no", "off")
+
+
+def lamp_figure(crop_bgr: np.ndarray, kind: str = "unknown") -> tuple[bool, dict]:
+    """Per-lamp check for a lit green walking figure on a European-style head.
+
+    Built for the cases the colour vote misses: a dotted LED outline that fragments at 64 px,
+    a sun-washed figure that is pale green or white, and a night figure that blooms into a white
+    core with a green halo. Every condition below must hold, so a miss means "not walk":
+
+    * never on a vehicle-shaped head; the box must be dark housing (not a sign or screen);
+    * figure pixels = green (relaxed saturation) plus a white core whose surrounding ring is
+      green (the halo), joined by a small morphological close;
+    * the largest blob is a standing shape: 18-80 % of the head height, aspect 1.3-4.5, not
+      solid (fill <= 0.65), not touching the crop edge (sky or a wall leaking into the box);
+    * two feet apart at the bottom (rejects digits, arrows and round lamps);
+    * in the lower half of a tall head (the walk lamp sits under the stop lamp);
+    * no other lit green away from the figure (a countdown or second lamp), no lit red.
+    """
+    info: dict = {}
+    if kind == "vehicle" or crop_bgr is None or crop_bgr.size == 0:
+        return False, {"why": "kind"}
+    h0, w0 = crop_bgr.shape[:2]
+    if h0 < 24 or w0 < 12:
+        return False, {"why": "small"}
+    H = 128
+    W = max(8, round(w0 * H / h0))
+    c = cv2.resize(crop_bgr, (W, H), interpolation=cv2.INTER_AREA if h0 > H else cv2.INTER_LINEAR)
+    hsv = cv2.cvtColor(c, cv2.COLOR_BGR2HSV)
+    hue, sat, val = hsv[..., 0], hsv[..., 1], hsv[..., 2]
+    dark = float((val < 100).mean())
+    info["dark"] = round(dark, 2)
+    if dark < 0.3:
+        return False, {**info, "why": "bright box"}
+    lo, hi = HUE_RANGES["green"][0]
+    gh = (hue >= lo) & (hue <= hi)
+    green = gh & (sat >= 50) & (val >= 120)
+    core = (sat < 70) & (val >= 220)
+    k7 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
+    fig = green.copy()
+    if core.any():
+        ring = cv2.dilate(core.astype(np.uint8), k7, iterations=2).astype(bool) & ~core
+        halo = float((ring & gh & (sat >= 30) & (val >= 80)).sum()) / max(1, int(ring.sum()))
+        info["halo"] = round(halo, 2)
+        if halo >= 0.12:
+            fig |= core
+    kc = max(3, int(round(H * 0.04)) | 1)
+    closed = cv2.morphologyEx(fig.astype(np.uint8), cv2.MORPH_CLOSE,
+                              cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (kc, kc)))
+    n, lab, st, _ = cv2.connectedComponentsWithStats(closed, connectivity=8)
+    if n <= 1:
+        return False, {**info, "why": "no figure"}
+    i = 1 + int(np.argmax(st[1:, cv2.CC_STAT_AREA]))
+    x, y, w, h, a = (int(v) for v in st[i])
+    comp = lab == i
+    aspect, fill, cy = h / max(1, w), a / max(1, w * h), (y + h / 2) / H
+    y0 = y + int(h * 0.86)
+    gap = _bottom_gap(comp[y0:y + h, x:x + w])
+    near = np.zeros_like(comp)
+    my, mx = int(0.25 * H), int(0.25 * W)
+    near[max(0, y - my):y + h + my, max(0, x - mx):x + w + mx] = True
+    other_green = int((gh & (sat >= MIN_SAT) & (val >= MIN_VAL) & ~near).sum())
+    red = int((_hue_mask(hsv, HUE_RANGES["red"]) & (sat >= 120) & (val >= 170)).sum())
+    info.update(h=round(h / H, 2), aspect=round(aspect, 2), fill=round(fill, 2), cy=round(cy, 2),
+                area=a, gap=round(gap, 2), other_green=round(other_green / max(1, a), 2),
+                red=round(red / max(1, a), 2))
+    why = []
+    if not 0.18 <= h / H <= 0.8:
+        why.append("height")
+    if not 1.3 <= aspect <= 4.5:
+        why.append("aspect")
+    if fill > 0.65:
+        why.append("solid")
+    if a < 40:
+        why.append("area")
+    if x <= 0 or y <= 0 or x + w >= W or y + h >= H:
+        why.append("edge")
+    if gap < 0.12:
+        why.append("feet")
+    if h0 / w0 >= 1.4 and cy < 0.5:
+        why.append("upper lamp")
+    if other_green >= 0.2 * a:
+        why.append("other green")
+    if red >= 0.3 * a:
+        why.append("red lit")
+    info["why"] = ",".join(why)
+    return not why, info
+
+
 def classify_light(crop_bgr: np.ndarray, kind: str = "unknown") -> LightReading:
+    """Colour vote (`_classify_colour`), then the per-lamp EU figure check for heads that read
+    green or unknown. The figure check can only turn green/unknown into walk on a non-vehicle
+    head; it never touches red, yellow, countdown or the US white-walk rule. With
+    STREETSENSE_EU_FIGURE=0 the old colour-vote reader runs unchanged."""
+    r = _classify_colour(crop_bgr, kind)
+    if not eu_figure_enabled():
+        return r
+    if r.state == "walk" and r.figure:
+        # The coarse 64 px silhouette also accepts a tall hollow green digit ("8", "0") from a
+        # countdown box. A figure walk must pass the stricter per-lamp check (feet apart) too.
+        return r if lamp_figure(crop_bgr, kind)[0] else replace(r, state="green")
+    if kind == "vehicle" or r.state not in ("green", "unknown"):
+        return r
+    ok, info = lamp_figure(crop_bgr, kind)
+    if not ok:
+        return r
+    return LightReading("walk", max(0.6, r.confidence), r.lit_fraction, info.get("cy"), False, True)
+
+
+def _classify_colour(crop_bgr: np.ndarray, kind: str = "unknown") -> LightReading:
     """Classify the lit state of a traffic/pedestrian light crop (BGR uint8).
 
     `kind` matters for orange: on a vehicle head an orange lamp is amber ("yellow"); on a
@@ -161,6 +292,44 @@ def classify_light(crop_bgr: np.ndarray, kind: str = "unknown") -> LightReading:
     if is_fig and state in ("red", "green") and kind != "vehicle":
         return LightReading(state, float(conf), n_lit / total, pos, False, True)
     return LightReading(state, float(conf), n_lit / total, pos, False, is_fig and state in ("red", "green"))
+
+
+def beside_display(frame_bgr: np.ndarray, box: Box) -> bool:
+    """True when a lit display (countdown digits or another lamp) sits right beside the head.
+
+    Some EU heads (Most, CZ) put a green countdown next to the green man. The reader cannot read
+    the digits, so a figure walk with a lit display beside it is downgraded to green (no walk):
+    a single digit there means the phase is ending. Checks strips 0.9 box widths wide on both
+    sides, at the head's height, for a lit coloured blob at least 15 % of the head height.
+    """
+    Hf, Wf = frame_bgr.shape[:2]
+    b = box.clip(Wf, Hf)
+    if b.w < 4 or b.h < 4:
+        return False
+    y1, y2 = int(b.y1), int(b.y2)
+    sw = int(round(0.9 * b.w))
+    for x1, x2 in ((int(b.x1) - sw, int(b.x1)), (int(b.x2), int(b.x2) + sw)):
+        x1, x2 = max(0, x1), min(Wf, x2)
+        if x2 - x1 < 3:
+            continue
+        hsv = cv2.cvtColor(frame_bgr[y1:y2, x1:x2], cv2.COLOR_BGR2HSV)
+        lit = (hsv[..., 1] >= MIN_SAT) & (hsv[..., 2] >= MIN_VAL)
+        lit &= _hue_mask(hsv, HUE_RANGES["red"] + HUE_RANGES["orange"] + HUE_RANGES["yellow"] + HUE_RANGES["green"])
+        if not lit.any():
+            continue
+        k = max(3, int(round(0.04 * b.h)) | 1)
+        m = cv2.morphologyEx(lit.astype(np.uint8), cv2.MORPH_CLOSE, np.ones((k, k), np.uint8))
+        n, _, st, _ = cv2.connectedComponentsWithStats(m, connectivity=8)
+        if n > 1 and int(st[1:, cv2.CC_STAT_HEIGHT].max()) >= 0.15 * b.h:
+            return True
+    return False
+
+
+def figure_walk_guard(reading: LightReading, frame_bgr: np.ndarray, box: Box) -> LightReading:
+    """Downgrade an EU figure walk to green when a lit display sits beside the head."""
+    if reading.state == "walk" and reading.figure and beside_display(frame_bgr, box):
+        return replace(reading, state="green", countdown=True)
+    return reading
 
 
 def signal_kind(box_w: float, box_h: float) -> str:

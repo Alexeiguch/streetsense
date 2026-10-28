@@ -192,6 +192,68 @@ class YoloDetector:
             out.append(Detection(label, Box(*map(float, b)), float(p), None if tid is None else int(tid)))
         return out
 
+    def zoomed_lights(self, frame_bgr: np.ndarray, scales: tuple[float, ...], conf: float) -> list[Detection]:
+        """Traffic lights found on zoomed-out copies of the frame, mapped back to frame pixels.
+
+        Runs on a second model handle with plain predict, so the ByteTrack state of the main
+        model never sees the rescaled frames. Stops at the first scale that finds a light.
+        Detections are untracked (track_id None); the light smoother keys them by IoU.
+        """
+        if not scales:
+            return []
+        if getattr(self, "_zoom_model", None) is None:
+            from ultralytics import YOLO
+
+            self._zoom_model = YOLO(self.model_path)
+        H, W = frame_bgr.shape[:2]
+        for s in scales:
+            canvas, ox, oy = zoom_out_canvas(frame_bgr, s)
+            res = self._zoom_model.predict(canvas, imgsz=self.cfg.imgsz, conf=conf, iou=self.cfg.iou,
+                                           device=self.cfg.device, verbose=False)[0]
+            if res.boxes is None:
+                continue
+            out = []
+            for b, c, p in zip(res.boxes.xyxy.cpu().numpy(), res.boxes.cls.cpu().numpy().astype(int),
+                               res.boxes.conf.cpu().numpy()):
+                if self.names[int(c)] != "traffic light" or float(p) < conf:
+                    continue
+                x1, y1, x2, y2 = ((float(b[0]) - ox) / s, (float(b[1]) - oy) / s,
+                                  (float(b[2]) - ox) / s, (float(b[3]) - oy) / s)
+                box = Box(max(0.0, x1), max(0.0, y1), min(float(W), x2), min(float(H), y2))
+                if box.w >= 4 and box.h >= 4:
+                    out.append(Detection("traffic light", box, float(p), None, {"zoom": s}))
+            if out:
+                return out
+        return []
+
+
+def light_zoom_scales(cfg: DetectorConfig) -> tuple[float, ...]:
+    """Scales for the zoom-out light pass; env STREETSENSE_LIGHT_ZOOM overrides ("0" = off)."""
+    import os
+
+    env = os.environ.get("STREETSENSE_LIGHT_ZOOM")
+    if env is None:
+        return tuple(getattr(cfg, "light_zoom_scales", ()) or ())
+    env = env.strip().lower()
+    if env in ("", "0", "off", "false", "no"):
+        return ()
+    try:
+        return tuple(float(v) for v in env.split(",") if 0.05 < float(v) < 1.0)
+    except ValueError:
+        return ()
+
+
+def zoom_out_canvas(frame: np.ndarray, scale: float) -> tuple[np.ndarray, int, int]:
+    """Frame shrunk by `scale` and centred on a grey (114) canvas of the original size."""
+    import cv2
+
+    H, W = frame.shape[:2]
+    h, w = max(1, int(H * scale)), max(1, int(W * scale))
+    oy, ox = (H - h) // 2, (W - w) // 2
+    canvas = np.full_like(frame, 114)
+    canvas[oy:oy + h, ox:ox + w] = cv2.resize(frame, (w, h), interpolation=cv2.INTER_AREA)
+    return canvas, ox, oy
+
 
 class ApproachTracker:
     """Flags tracks whose box height grows quickly (object getting closer).

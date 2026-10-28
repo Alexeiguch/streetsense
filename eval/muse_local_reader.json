@@ -953,14 +953,14 @@
    ],
    [
     0.25,
-    "green"
+    "unknown"
    ],
    [
     0.0,
-    "green"
+    "walk"
    ]
   ],
-  "state": "green"
+  "state": "walk"
  },
  "eu_ped_a@4.50": {
   "history": [
@@ -974,18 +974,18 @@
    ],
    [
     0.5,
-    "green"
+    "unknown"
    ],
    [
     0.25,
-    "green"
+    "unknown"
    ],
    [
     0.0,
-    "green"
+    "walk"
    ]
   ],
-  "state": "green"
+  "state": "walk"
  },
  "eu_ped_a@6.50": {
   "history": [
@@ -999,18 +999,18 @@
    ],
    [
     0.5,
-    "green"
+    "unknown"
    ],
    [
     0.25,
-    "green"
+    "walk"
    ],
    [
     0.0,
-    "green"
+    "walk"
    ]
   ],
-  "state": "green"
+  "state": "walk"
  },
  "eu_ped_a@9.50": {
   "history": [
@@ -1091,11 +1091,11 @@
    ],
    [
     0.5,
-    "red"
+    "unclear"
    ],
    [
     0.25,
-    "red"
+    "unclear"
    ],
    [
     0.0,
@@ -1116,18 +1116,18 @@
    ],
    [
     0.5,
-    "red"
+    "green"
    ],
    [
     0.25,
-    "red"
+    "green"
    ],
    [
     0.0,
-    "red"
+    "green"
    ]
   ],
-  "state": "red"
+  "state": "green"
  },
  "eu_ped_b@6.00": {
   "history": [
@@ -1141,18 +1141,18 @@
    ],
    [
     0.5,
-    "red"
+    "green"
    ],
    [
     0.25,
-    "red"
+    "green"
    ],
    [
     0.0,
-    "red"
+    "green"
    ]
   ],
-  "state": "red"
+  "state": "green"
  },
  "eu_ped_b@7.00": {
   "history": [
@@ -1283,14 +1283,14 @@
    ],
    [
     0.25,
-    "unknown"
+    "green"
    ],
    [
     0.0,
-    "unknown"
+    "green"
    ]
   ],
-  "state": "unknown"
+  "state": "green"
  },
  "mazatlan@3.00": {
   "history": [
@@ -1677,14 +1677,14 @@
    ],
    [
     0.25,
-    "unknown"
+    "walk"
    ],
    [
     0.0,
-    "unknown"
+    "walk"
    ]
   ],
-  "state": "unknown"
+  "state": "walk"
  },
  "night_ped@1.60": {
   "history": [
@@ -1698,7 +1698,7 @@
    ],
    [
     0.5,
-    "unknown"
+    "walk"
    ],
    [
     0.25,
@@ -1831,10 +1831,10 @@
    ],
    [
     0.0,
-    "green"
+    "unknown"
    ]
   ],
-  "state": "green"
+  "state": "unknown"
  },
  "tomaszow@3.00": {
   "history": [

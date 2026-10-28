@@ -29,6 +29,11 @@ class DetectorConfig:
     iou: float = 0.5
     device: str = "cpu"
     track: bool = True  # ByteTrack ids -> lets us tell "approaching" from "standing still"
+    # Zoom-out fallback for traffic lights: when no light scores >= light_zoom_conf, shrink the
+    # frame onto a grey canvas at these scales and look again (close-up heads that fill the frame
+    # are missed at full size). Env STREETSENSE_LIGHT_ZOOM="0" turns it off, "0.5,0.3" sets scales.
+    light_zoom_scales: tuple[float, ...] = (0.5, 0.3)
+    light_zoom_conf: float = 0.35
 
 
 @dataclass

@@ -11,7 +11,7 @@ import numpy as np
 from .alerts import AlertManager
 from .config import Config
 from .crosswalk import CrosswalkHysteresis, CrosswalkResult, detect_crosswalk
-from .detector import ApproachTracker, YoloDetector
+from .detector import ApproachTracker, YoloDetector, light_zoom_scales
 from .geometry import estimate_distance_m
 from .meta_api import MetaSamSegmenter, MetaVisionAssistant, sam_boxes_to_crosswalk
 from .open_vocab import OpenVocabHazardDetector
@@ -22,7 +22,7 @@ from .frame_history import FrameHistory
 from . import signal_distance
 from .rules import FrameFacts, build_alerts, select_crossing_signal
 from .surface import SIDEWALK, ROAD, SurfaceResult
-from .traffic_light import LightStateSmoother, classify_light, signal_kind
+from .traffic_light import LightStateSmoother, classify_light, figure_walk_guard, signal_kind
 from .types import Alert, Detection, Priority
 
 
@@ -153,13 +153,25 @@ class Pipeline:
         dets = self.detector(frame)
         tm["detect"] = (time.perf_counter() - t0) * 1000
 
+        # Close-up heads that fill the frame are often missed (or scored < 0.35) at full size.
+        # Only when no light is confident, look again on zoomed-out copies (traffic lights only).
+        dcfg = self.cfg.detector
+        zoom = light_zoom_scales(dcfg) if hasattr(self.detector, "zoomed_lights") else ()
+        zconf = float(getattr(dcfg, "light_zoom_conf", 0.35))
+        if zoom and not any(d.label == "traffic light" and d.conf >= zconf for d in dets):
+            t0 = time.perf_counter()
+            extra = self.detector.zoomed_lights(frame, zoom, zconf)
+            if extra:
+                dets = [d for d in dets if d.label != "traffic light"] + extra
+            tm["detect_zoom"] = (time.perf_counter() - t0) * 1000
+
         t0 = time.perf_counter()
         for d in dets:
             if d.label == "traffic light":
                 b = d.box.clip(W, H)
                 crop = frame[int(b.y1):int(b.y2), int(b.x1):int(b.x2)]
                 kind = signal_kind(b.w, b.h)
-                r = classify_light(crop, kind)
+                r = figure_walk_guard(classify_light(crop, kind), frame, b)
                 if r.state == "walk" or getattr(r, "figure", False):
                     kind = "pedestrian"
                 kind = self._track_kind(d.track_id, kind)

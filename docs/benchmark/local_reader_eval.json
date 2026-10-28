@@ -1,0 +1,4355 @@
+{
+ "dense": {
+  "beacon_a@0.0-3.9": {
+   "frames": 16,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "beacon_b@0.0-3.1": {
+   "frames": 13,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "cdmx@0.0-112.0": {
+   "frames": 448,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "dc@0.0-9.5": {
+   "frames": 38,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "dc@53.5-62.8": {
+   "frames": 37,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "eu_ped_a@0.0-1.0": {
+   "frames": 5,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "eu_ped_b@0.0-3.0": {
+   "frames": 13,
+   "raw_walk_heads": 2,
+   "walk": 0,
+   "walk_at": []
+  },
+  "eu_ped_side@0.0-1.0": {
+   "frames": 4,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "h:ffm_vehicle.mp4@0.0-5.4": {
+   "frames": 22,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "h:nz.ogv@3.4-4.1": {
+   "frames": 3,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "h:pexels_6415590.mp4@0.0-6.5": {
+   "frames": 26,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "mazatlan@0.0-5.1": {
+   "frames": 21,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "most02@6.0-8.7": {
+   "frames": 11,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "most04@12.0-16.0": {
+   "frames": 16,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "most11@0.0-5.5": {
+   "frames": 22,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "most11@9.5-16.5": {
+   "frames": 28,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "night_hand@0.0-10.2": {
+   "frames": 41,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "night_ped@3.5-10.0": {
+   "frames": 26,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "night_square@0.0-28.0": {
+   "frames": 113,
+   "raw_walk_heads": 12,
+   "walk": 0,
+   "walk_at": []
+  },
+  "tirana@0.0-12.8": {
+   "frames": 52,
+   "raw_walk_heads": 5,
+   "walk": 0,
+   "walk_at": []
+  },
+  "tomaszow@0.0-11.7": {
+   "frames": 47,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "tyumen@0.0-20.5": {
+   "frames": 82,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  },
+  "us_ped@7.5-23.4": {
+   "frames": 64,
+   "raw_walk_heads": 0,
+   "walk": 0,
+   "walk_at": []
+  }
+ },
+ "dense_info": {
+  "dc@48.5-53.0": {
+   "frames": 19,
+   "raw_walk_heads": 8,
+   "walk": 16,
+   "walk_at": [
+    49.28,
+    49.52,
+    49.76,
+    50.0,
+    50.28,
+    50.52,
+    50.76,
+    51.0,
+    51.28,
+    51.52,
+    51.76,
+    52.0,
+    52.28,
+    52.52,
+    52.76,
+    53.0
+   ]
+  }
+ },
+ "rows": [
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.77,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      45,
+      99
+     ]
+    },
+    {
+     "conf": 0.56,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      27,
+      63
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_10.80",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.79,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      47,
+      99
+     ]
+    },
+    {
+     "conf": 0.63,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      27,
+      62
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_13.80",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.77,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      45,
+      98
+     ]
+    },
+    {
+     "conf": 0.52,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      26,
+      61
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_17.80",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.73,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      46,
+      100
+     ]
+    },
+    {
+     "conf": 0.46,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      26,
+      62
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_21.72",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.79,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      45,
+      99
+     ]
+    },
+    {
+     "conf": 0.49,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      27,
+      62
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_25.72",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      44,
+      99
+     ]
+    },
+    {
+     "conf": 0.62,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      27,
+      62
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_29.72",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.78,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      43,
+      99
+     ]
+    },
+    {
+     "conf": 0.63,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      26,
+      62
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_33.72",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.77,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      46,
+      100
+     ]
+    },
+    {
+     "conf": 0.61,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      28,
+      61
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_37.72",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      44,
+      100
+     ]
+    },
+    {
+     "conf": 0.53,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      27,
+      61
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_41.72",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      43,
+      99
+     ]
+    },
+    {
+     "conf": 0.62,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      28,
+      64
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_45.72",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.79,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      47,
+      100
+     ]
+    },
+    {
+     "conf": 0.62,
+     "kind": "pedestrian",
+     "raw": "countdown",
+     "state": "walk",
+     "wh": [
+      29,
+      63
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "walk"
+   ],
+   "id": "dc_13.24",
+   "label": "walk_symbol_off",
+   "local": "walk",
+   "muse_safe": "unsure",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.78,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      46,
+      99
+     ]
+    },
+    {
+     "conf": 0.52,
+     "kind": "pedestrian",
+     "raw": "countdown",
+     "state": "walk",
+     "wh": [
+      30,
+      63
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "walk"
+   ],
+   "id": "dc_25.28",
+   "label": "walk_symbol_off",
+   "local": "walk",
+   "muse_safe": "unsure",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.78,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      46,
+      100
+     ]
+    },
+    {
+     "conf": 0.55,
+     "kind": "pedestrian",
+     "raw": "countdown",
+     "state": "walk",
+     "wh": [
+      29,
+      62
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "walk"
+   ],
+   "id": "dc_37.28",
+   "label": "walk_symbol_off",
+   "local": "walk",
+   "muse_safe": "unsure",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      45,
+      100
+     ]
+    },
+    {
+     "conf": 0.61,
+     "kind": "pedestrian",
+     "raw": "countdown",
+     "state": "walk",
+     "wh": [
+      31,
+      65
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "walk"
+   ],
+   "id": "dc_45.28",
+   "label": "walk_symbol_off",
+   "local": "walk",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      46,
+      99
+     ]
+    },
+    {
+     "conf": 0.57,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      29,
+      63
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_48.72",
+   "label": "countdown_ending",
+   "local": "walk",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.78,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      48,
+      98
+     ]
+    },
+    {
+     "conf": 0.64,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      28,
+      66
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_49.88",
+   "label": "countdown_ending",
+   "local": "walk",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.79,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      48,
+      98
+     ]
+    },
+    {
+     "conf": 0.61,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      25,
+      62
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "walk",
+    "walk",
+    "green",
+    "walk"
+   ],
+   "id": "dc_50.08",
+   "label": "countdown_ending",
+   "local": "walk",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.79,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      45,
+      98
+     ]
+    },
+    {
+     "conf": 0.58,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      27,
+      63
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "dc_51.88",
+   "label": "countdown_ending",
+   "local": "walk",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "walk",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      46,
+      98
+     ]
+    },
+    {
+     "conf": 0.71,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "unknown",
+     "wh": [
+      27,
+      65
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "walk",
+    "walk",
+    "green",
+    "green"
+   ],
+   "id": "dc_53.00",
+   "label": "flashing",
+   "local": "green",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "green",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.75,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      48,
+      100
+     ]
+    },
+    {
+     "conf": 0.7,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      29,
+      67
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "red",
+    "red",
+    "green",
+    "red"
+   ],
+   "id": "dc_54.00",
+   "label": "flashing",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.78,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      47,
+      99
+     ]
+    },
+    {
+     "conf": 0.7,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      29,
+      66
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "red",
+    "red",
+    "green",
+    "red"
+   ],
+   "id": "dc_55.00",
+   "label": "flashing",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      46,
+      99
+     ]
+    },
+    {
+     "conf": 0.66,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      30,
+      68
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "red",
+    "red",
+    "green",
+    "red"
+   ],
+   "id": "dc_56.00",
+   "label": "flashing",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.77,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      46,
+      98
+     ]
+    },
+    {
+     "conf": 0.69,
+     "kind": "unknown",
+     "raw": "countdown",
+     "state": "red",
+     "wh": [
+      32,
+      67
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "red",
+    "red"
+   ],
+   "id": "dc_54.48",
+   "label": "flashing",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.73,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      31,
+      65
+     ]
+    },
+    {
+     "conf": 0.72,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      46,
+      98
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "dc_01.00",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      47,
+      98
+     ]
+    },
+    {
+     "conf": 0.74,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      33,
+      67
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "dc_03.00",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.74,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      48,
+      99
+     ]
+    },
+    {
+     "conf": 0.73,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      31,
+      67
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "dc_05.00",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      48,
+      98
+     ]
+    },
+    {
+     "conf": 0.73,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      32,
+      65
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "dc_07.00",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.73,
+     "kind": "unknown",
+     "raw": "yellow",
+     "state": "green",
+     "wh": [
+      46,
+      99
+     ]
+    },
+    {
+     "conf": 0.71,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      31,
+      65
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "red",
+    "red"
+   ],
+   "id": "dc_58.60",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.75,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      30,
+      67
+     ]
+    },
+    {
+     "conf": 0.74,
+     "kind": "unknown",
+     "raw": "yellow",
+     "state": "yellow",
+     "wh": [
+      45,
+      100
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "dc_60.60",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.7,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      31,
+      67
+     ]
+    },
+    {
+     "conf": 0.79,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "yellow",
+     "wh": [
+      45,
+      99
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "dc_62.20",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.8,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      49,
+      114
+     ]
+    },
+    {
+     "conf": 0.84,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      50,
+      115
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unclear",
+    "unknown"
+   ],
+   "id": "tyumen_01.00",
+   "label": "unclear",
+   "local": "unknown",
+   "muse_safe": "yes",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      52,
+      112
+     ]
+    },
+    {
+     "conf": 0.73,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      50,
+      114
+     ]
+    },
+    {
+     "conf": 0.74,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      41,
+      79
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unclear"
+   ],
+   "id": "tyumen_06.00",
+   "label": "unclear",
+   "local": "unclear",
+   "muse_safe": "yes",
+   "split": "heldout",
+   "state": "unclear",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.79,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      50,
+      115
+     ]
+    },
+    {
+     "conf": 0.75,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      50,
+      114
+     ]
+    },
+    {
+     "conf": 0.36,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      33,
+      72
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unclear",
+    "unclear"
+   ],
+   "id": "tyumen_12.00",
+   "label": "unclear",
+   "local": "unclear",
+   "muse_safe": "unsure",
+   "split": "heldout",
+   "state": "unclear",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.69,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      51,
+      113
+     ]
+    },
+    {
+     "conf": 0.79,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      49,
+      116
+     ]
+    },
+    {
+     "conf": 0.35,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "unknown",
+     "wh": [
+      38,
+      74
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "tyumen_18.00",
+   "label": "unclear",
+   "local": "unknown",
+   "muse_safe": "unsure",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "cdmx_02.00",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": "no",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "cdmx_30.00",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": "unsure",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "cdmx_50.00",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": "unsure",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "cdmx_90.00",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": "unsure",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "mazatlan_03.00",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": "unsure",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "tomaszow_03.00",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": "unsure",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "dc_orig"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.82,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "unknown",
+     "wh": [
+      226,
+      453
+     ]
+    },
+    {
+     "conf": 0.83,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      199,
+      807
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown"
+   ],
+   "id": "eu_ped_a_00.30",
+   "label": "red",
+   "local": "unknown",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "unknown",
+   "subset": "eu_style"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      234,
+      821
+     ]
+    },
+    {
+     "conf": 0.75,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      227,
+      448
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "walk"
+   ],
+   "id": "eu_ped_a_02.50",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "eu_style"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.83,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      220,
+      448
+     ]
+    },
+    {
+     "conf": 0.79,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      198,
+      811
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "walk"
+   ],
+   "id": "eu_ped_a_04.50",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "eu_style"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.79,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      231,
+      469
+     ]
+    },
+    {
+     "conf": 0.65,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      186,
+      769
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "walk",
+    "walk"
+   ],
+   "id": "eu_ped_a_06.50",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.85,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      209,
+      810
+     ]
+    },
+    {
+     "conf": 0.72,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "unknown",
+     "wh": [
+      226,
+      459
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "eu_ped_a_09.50",
+   "label": "walk",
+   "local": "unknown",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "unknown",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.85,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      266,
+      473
+     ]
+    },
+    {
+     "conf": 0.73,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "unknown",
+     "wh": [
+      308,
+      801
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red"
+   ],
+   "id": "eu_ped_b_00.50",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.84,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      266,
+      475
+     ]
+    },
+    {
+     "conf": 0.84,
+     "kind": "vehicle",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      340,
+      891
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "eu_ped_b_01.80",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.75,
+     "kind": "vehicle",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      340,
+      889
+     ]
+    },
+    {
+     "conf": 0.82,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      269,
+      476
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "eu_ped_b_02.80",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.85,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      275,
+      475
+     ]
+    },
+    {
+     "conf": 0.9,
+     "kind": "vehicle",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      327,
+      894
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "green"
+   ],
+   "id": "eu_ped_b_04.50",
+   "label": "walk",
+   "local": "green",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "green",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.85,
+     "kind": "vehicle",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      322,
+      888
+     ]
+    },
+    {
+     "conf": 0.81,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      274,
+      484
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "green"
+   ],
+   "id": "eu_ped_b_06.00",
+   "label": "walk",
+   "local": "green",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "green",
+   "subset": "eu_style"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.87,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      345,
+      886
+     ]
+    },
+    {
+     "conf": 0.83,
+     "kind": "pedestrian",
+     "raw": "countdown",
+     "state": "green",
+     "wh": [
+      280,
+      475
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "eu_ped_b_07.00",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.42,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "unknown",
+     "wh": [
+      1581,
+      1780
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown"
+   ],
+   "id": "eu_ped_side_00.40",
+   "label": "red",
+   "local": "unknown",
+   "muse_safe": "no",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "eu_ped_side_02.50",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": "unsure",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.41,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      1537,
+      1782
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "eu_ped_side_05.50",
+   "label": "walk",
+   "local": "unknown",
+   "muse_safe": "yes",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.66,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "green",
+     "wh": [
+      1582,
+      1652
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "green",
+    "green"
+   ],
+   "id": "eu_ped_side_08.00",
+   "label": "walk",
+   "local": "green",
+   "muse_safe": "yes",
+   "split": "heldout",
+   "state": "green",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.75,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      1585,
+      1752
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "eu_ped_side_10.00",
+   "label": "walk",
+   "local": "unknown",
+   "muse_safe": "yes",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.88,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      90,
+      111
+     ]
+    },
+    {
+     "conf": 0.82,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      86,
+      184
+     ]
+    },
+    {
+     "conf": 0.53,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      31,
+      63
+     ]
+    },
+    {
+     "conf": 0.56,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "unknown",
+     "wh": [
+      30,
+      34
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green"
+   ],
+   "id": "most11_00.50",
+   "label": "countdown_ending",
+   "local": "green",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "green",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.88,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      85,
+      106
+     ]
+    },
+    {
+     "conf": 0.87,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      88,
+      185
+     ]
+    },
+    {
+     "conf": 0.54,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      29,
+      66
+     ]
+    },
+    {
+     "conf": 0.41,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      30,
+      33
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "green"
+   ],
+   "id": "most11_03.00",
+   "label": "countdown_ending",
+   "local": "green",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "green",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.89,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      89,
+      111
+     ]
+    },
+    {
+     "conf": 0.82,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      86,
+      182
+     ]
+    },
+    {
+     "conf": 0.43,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "unknown",
+     "wh": [
+      31,
+      64
+     ]
+    },
+    {
+     "conf": 0.59,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      29,
+      34
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "green"
+   ],
+   "id": "most11_05.50",
+   "label": "countdown_ending",
+   "local": "green",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "green",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.91,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      88,
+      113
+     ]
+    },
+    {
+     "conf": 0.86,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      85,
+      197
+     ]
+    },
+    {
+     "conf": 0.8,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      31,
+      66
+     ]
+    },
+    {
+     "conf": 0.42,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      26,
+      30
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "most11_09.50",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.91,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      88,
+      113
+     ]
+    },
+    {
+     "conf": 0.85,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      83,
+      194
+     ]
+    },
+    {
+     "conf": 0.7,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      31,
+      67
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "most11_13.00",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.51,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      82,
+      154
+     ]
+    },
+    {
+     "conf": 0.42,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      84,
+      102
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "beacon_a_01.00",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": "unsure",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.42,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      123,
+      148
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "beacon_a_03.00",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": "unsure",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.79,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      68,
+      138
+     ]
+    },
+    {
+     "conf": 0.79,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      73,
+      180
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "beacon_b_01.50",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": "unsure",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "eu_style"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "unknown",
+     "wh": [
+      1016,
+      1919
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown"
+   ],
+   "id": "night_ped_00.40",
+   "label": "walk",
+   "local": "unknown",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "unknown",
+   "subset": "night"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.48,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      1019,
+      1929
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "walk",
+    "walk"
+   ],
+   "id": "night_ped_01.00",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "unknown",
+    "unknown"
+   ],
+   "id": "night_ped_01.60",
+   "label": "walk",
+   "local": "unknown",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "unknown",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.37,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      94,
+      139
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "night_ped_03.50",
+   "label": "red",
+   "local": "unknown",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "unknown",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.46,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      1070,
+      1990
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "night_ped_06.00",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.36,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "unknown",
+     "wh": [
+      1060,
+      1973
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "night_ped_08.50",
+   "label": "red",
+   "local": "unknown",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "unknown",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.65,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "unknown",
+     "wh": [
+      846,
+      1056
+     ]
+    },
+    {
+     "conf": 0.4,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "unknown",
+     "wh": [
+      578,
+      433
+     ]
+    }
+   ],
+   "history": [
+    "unknown"
+   ],
+   "id": "night_jp_00.10",
+   "label": "red",
+   "local": "unknown",
+   "muse_safe": "no",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "night_jp_00.80",
+   "label": "walk",
+   "local": "unknown",
+   "muse_safe": "yes",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "night_jp_01.10",
+   "label": "walk",
+   "local": "unknown",
+   "muse_safe": "yes",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.38,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      789,
+      641
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "unknown",
+    "red"
+   ],
+   "id": "night_hand_02.00",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "heldout",
+   "state": "red",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.72,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      812,
+      689
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "night_hand_07.00",
+   "label": "red",
+   "local": "unknown",
+   "muse_safe": "no",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "night_square_16.40",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": "unsure",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.5,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      38,
+      83
+     ]
+    },
+    {
+     "conf": 0.6,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      102,
+      99
+     ]
+    },
+    {
+     "conf": 0.52,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      60,
+      135
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "most02_07.00",
+   "label": "red",
+   "local": "unknown",
+   "muse_safe": "no",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.36,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      41,
+      93
+     ]
+    },
+    {
+     "conf": 0.38,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      46,
+      88
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "most04_13.00",
+   "label": "red",
+   "local": "unknown",
+   "muse_safe": "no",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.65,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      59,
+      117
+     ]
+    },
+    {
+     "conf": 0.48,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      93,
+      90
+     ]
+    },
+    {
+     "conf": 0.57,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      36,
+      78
+     ]
+    },
+    {
+     "conf": 0.56,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      57,
+      134
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "green"
+   ],
+   "id": "most02_02.00",
+   "label": "unclear",
+   "local": "green",
+   "muse_safe": "yes",
+   "split": "heldout",
+   "state": "green",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.48,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      82,
+      150
+     ]
+    },
+    {
+     "conf": 0.4,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      43,
+      94
+     ]
+    },
+    {
+     "conf": 0.54,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "unknown",
+     "wh": [
+      220,
+      173
+     ]
+    },
+    {
+     "conf": 0.36,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "unknown",
+     "wh": [
+      108,
+      111
+     ]
+    },
+    {
+     "conf": 0.41,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "unknown",
+     "wh": [
+      68,
+      151
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "unclear",
+    "unclear"
+   ],
+   "id": "most04_08.00",
+   "label": "unclear",
+   "local": "unclear",
+   "muse_safe": "no",
+   "split": "heldout",
+   "state": "unclear",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.76,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "unknown",
+     "wh": [
+      108,
+      178
+     ]
+    },
+    {
+     "conf": 0.66,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "unknown",
+     "wh": [
+      35,
+      73
+     ]
+    },
+    {
+     "conf": 0.6,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "unknown",
+     "wh": [
+      95,
+      100
+     ]
+    },
+    {
+     "conf": 0.44,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "unknown",
+     "wh": [
+      94,
+      66
+     ]
+    },
+    {
+     "conf": 0.41,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "unknown",
+     "wh": [
+      67,
+      132
+     ]
+    }
+   ],
+   "history": [
+    "unknown"
+   ],
+   "id": "most03_00.20",
+   "label": "unclear",
+   "local": "unknown",
+   "muse_safe": "yes",
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "night"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.65,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      36,
+      43
+     ]
+    },
+    {
+     "conf": 0.37,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      30,
+      58
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "green"
+   ],
+   "id": "tirana_02.00",
+   "label": "no_signal",
+   "local": "green",
+   "muse_safe": "unsure",
+   "split": "dev",
+   "state": "green",
+   "subset": "night"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.9,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      1367,
+      1320
+     ]
+    },
+    {
+     "conf": 0.47,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      594,
+      113
+     ]
+    },
+    {
+     "conf": 0.45,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      850,
+      2123
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "us_ped_01.00",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "us_day2"
+  },
+  {
+   "go": true,
+   "heads": [
+    {
+     "conf": 0.9,
+     "kind": "pedestrian",
+     "raw": "walk",
+     "state": "walk",
+     "wh": [
+      1381,
+      1327
+     ]
+    },
+    {
+     "conf": 0.48,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      585,
+      112
+     ]
+    },
+    {
+     "conf": 0.36,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      844,
+      2123
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "walk",
+    "walk",
+    "walk"
+   ],
+   "id": "us_ped_04.00",
+   "label": "walk",
+   "local": "walk",
+   "muse_safe": "yes",
+   "split": "dev",
+   "state": "walk",
+   "subset": "us_day2"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.9,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      1388,
+      1333
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "red",
+    "red"
+   ],
+   "id": "us_ped_08.00",
+   "label": "flashing",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "us_day2"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.94,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      1373,
+      1309
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "us_ped_11.70",
+   "label": "flashing",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "us_day2"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.86,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      1383,
+      1316
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "us_ped_13.70",
+   "label": "flashing",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "us_day2"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.9,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      1380,
+      1317
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "us_ped_19.00",
+   "label": "red",
+   "local": "red",
+   "muse_safe": "no",
+   "split": "dev",
+   "state": "red",
+   "subset": "us_day2"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.97,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      882,
+      1064
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "pex6415590_01.50",
+   "label": "red",
+   "local": "red",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "red",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.96,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      970,
+      1062
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "pex6415590_02.50",
+   "label": "red",
+   "local": "red",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "red",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.96,
+     "kind": "pedestrian",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      959,
+      1060
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "pex6415590_03.50",
+   "label": "red",
+   "local": "red",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "red",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.97,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      957,
+      1059
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "pex6415590_05.00",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.97,
+     "kind": "pedestrian",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      961,
+      1061
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown",
+    "unknown"
+   ],
+   "id": "pex6415590_06.00",
+   "label": "no_signal",
+   "local": "unknown",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "unknown",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.96,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      958,
+      1061
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unknown",
+    "green",
+    "green"
+   ],
+   "id": "pex6415590_07.75",
+   "label": "walk",
+   "local": "green",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "green",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.95,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      948,
+      1056
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "green"
+   ],
+   "id": "pex6415590_08.50",
+   "label": "walk",
+   "local": "green",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "green",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.95,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      951,
+      1056
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "green"
+   ],
+   "id": "pex6415590_09.25",
+   "label": "walk",
+   "local": "green",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "green",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.95,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      955,
+      1061
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "green"
+   ],
+   "id": "pex6415590_10.00",
+   "label": "walk",
+   "local": "green",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "green",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.84,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      124,
+      289
+     ]
+    },
+    {
+     "conf": 0.76,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      119,
+      228
+     ]
+    },
+    {
+     "conf": 0.82,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      123,
+      310
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unclear"
+   ],
+   "id": "nz_00.60",
+   "label": "walk",
+   "local": "unclear",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "unclear",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.74,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      125,
+      335
+     ]
+    },
+    {
+     "conf": 0.71,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      124,
+      284
+     ]
+    },
+    {
+     "conf": 0.64,
+     "kind": "pedestrian",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      123,
+      239
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "green"
+   ],
+   "id": "nz_01.50",
+   "label": "walk",
+   "local": "green",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "green",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.72,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      121,
+      325
+     ]
+    },
+    {
+     "conf": 0.62,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      113,
+      263
+     ]
+    },
+    {
+     "conf": 0.57,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      117,
+      239
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "unclear",
+    "unclear",
+    "green"
+   ],
+   "id": "nz_02.50",
+   "label": "walk",
+   "local": "green",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "green",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.73,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      123,
+      294
+     ]
+    },
+    {
+     "conf": 0.7,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      122,
+      317
+     ]
+    },
+    {
+     "conf": 0.82,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "green",
+     "wh": [
+      108,
+      223
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "unclear",
+    "unclear"
+   ],
+   "id": "nz_03.60",
+   "label": "countdown_ending",
+   "local": "unclear",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "unclear",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.81,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      128,
+      293
+     ]
+    },
+    {
+     "conf": 0.75,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      107,
+      224
+     ]
+    },
+    {
+     "conf": 0.54,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      127,
+      319
+     ]
+    },
+    {
+     "conf": 0.48,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      70,
+      247
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "nz_04.00",
+   "label": "countdown_ending",
+   "local": "red",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "red",
+   "subset": "heldout_eu"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.94,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      58,
+      117
+     ]
+    },
+    {
+     "conf": 0.92,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      63,
+      117
+     ]
+    },
+    {
+     "conf": 0.9,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      42,
+      78
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "green"
+   ],
+   "id": "uk_green_00.00",
+   "label": "walk",
+   "local": "green",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "green",
+   "subset": "heldout_still"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.93,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      1233,
+      3089
+     ]
+    },
+    {
+     "conf": 0.72,
+     "kind": "unknown",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      1003,
+      1840
+     ]
+    },
+    {
+     "conf": 0.56,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      1202,
+      2978
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "red",
+    "red",
+    "red"
+   ],
+   "id": "uk_red_00.00",
+   "label": "red",
+   "local": "red",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "red",
+   "subset": "heldout_still"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.91,
+     "kind": "unknown",
+     "raw": "green",
+     "state": "green",
+     "wh": [
+      622,
+      1196
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "green",
+    "green",
+    "green"
+   ],
+   "id": "basel_00.00",
+   "label": "walk",
+   "local": "green",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "green",
+   "subset": "heldout_still"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.89,
+     "kind": "vehicle",
+     "raw": "red",
+     "state": "red",
+     "wh": [
+      276,
+      759
+     ]
+    },
+    {
+     "conf": 0.86,
+     "kind": "vehicle",
+     "raw": "yellow",
+     "state": "yellow",
+     "wh": [
+      286,
+      800
+     ]
+    },
+    {
+     "conf": 0.49,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      114,
+      442
+     ]
+    },
+    {
+     "conf": 0.62,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      82,
+      128
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "yellow",
+    "yellow",
+    "yellow"
+   ],
+   "id": "ffm_01.00",
+   "label": "no_signal",
+   "local": "yellow",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "yellow",
+   "subset": "heldout_vehicle"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.87,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "yellow",
+     "wh": [
+      298,
+      812
+     ]
+    },
+    {
+     "conf": 0.86,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      275,
+      757
+     ]
+    },
+    {
+     "conf": 0.58,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      88,
+      129
+     ]
+    },
+    {
+     "conf": 0.57,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      119,
+      450
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "yellow",
+    "yellow",
+    "yellow"
+   ],
+   "id": "ffm_03.50",
+   "label": "no_signal",
+   "local": "yellow",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "yellow",
+   "subset": "heldout_vehicle"
+  },
+  {
+   "go": false,
+   "heads": [
+    {
+     "conf": 0.88,
+     "kind": "vehicle",
+     "raw": "yellow",
+     "state": "yellow",
+     "wh": [
+      295,
+      816
+     ]
+    },
+    {
+     "conf": 0.79,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      277,
+      756
+     ]
+    },
+    {
+     "conf": 0.52,
+     "kind": "unknown",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      90,
+      140
+     ]
+    },
+    {
+     "conf": 0.49,
+     "kind": "vehicle",
+     "raw": "unknown",
+     "state": "unknown",
+     "wh": [
+      115,
+      441
+     ]
+    }
+   ],
+   "history": [
+    "unknown",
+    "unknown",
+    "yellow",
+    "yellow",
+    "yellow"
+   ],
+   "id": "ffm_05.30",
+   "label": "no_signal",
+   "local": "yellow",
+   "muse_safe": null,
+   "split": "heldout",
+   "state": "yellow",
+   "subset": "heldout_vehicle"
+  }
+ ],
+ "summary": {
+  "ALL": {
+   "false_go": 0,
+   "false_walk": 8,
+   "go": 16,
+   "muse_cached": 27,
+   "nonwalk_frames": 72,
+   "reader_walk": 17,
+   "walk_frames": 36
+  },
+  "dev/ALL": {
+   "false_go": 0,
+   "false_walk": 8,
+   "go": 16,
+   "muse_cached": 22,
+   "nonwalk_frames": 37,
+   "reader_walk": 17,
+   "walk_frames": 22
+  },
+  "dev/dc_orig": {
+   "false_go": 0,
+   "false_walk": 8,
+   "go": 9,
+   "muse_cached": 10,
+   "nonwalk_frames": 20,
+   "reader_walk": 10,
+   "walk_frames": 10
+  },
+  "dev/eu_style": {
+   "false_go": 0,
+   "false_walk": 0,
+   "go": 4,
+   "muse_cached": 7,
+   "nonwalk_frames": 9,
+   "reader_walk": 4,
+   "walk_frames": 7
+  },
+  "dev/night": {
+   "false_go": 0,
+   "false_walk": 0,
+   "go": 1,
+   "muse_cached": 3,
+   "nonwalk_frames": 4,
+   "reader_walk": 1,
+   "walk_frames": 3
+  },
+  "dev/us_day2": {
+   "false_go": 0,
+   "false_walk": 0,
+   "go": 2,
+   "muse_cached": 2,
+   "nonwalk_frames": 4,
+   "reader_walk": 2,
+   "walk_frames": 2
+  },
+  "heldout/ALL": {
+   "false_go": 0,
+   "false_walk": 0,
+   "go": 0,
+   "muse_cached": 5,
+   "nonwalk_frames": 35,
+   "reader_walk": 0,
+   "walk_frames": 14
+  },
+  "heldout/dc_orig": {
+   "false_go": 0,
+   "false_walk": 0,
+   "go": 0,
+   "muse_cached": 0,
+   "nonwalk_frames": 10,
+   "reader_walk": 0,
+   "walk_frames": 0
+  },
+  "heldout/eu_style": {
+   "false_go": 0,
+   "false_walk": 0,
+   "go": 0,
+   "muse_cached": 3,
+   "nonwalk_frames": 5,
+   "reader_walk": 0,
+   "walk_frames": 3
+  },
+  "heldout/heldout_eu": {
+   "false_go": 0,
+   "false_walk": 0,
+   "go": 0,
+   "muse_cached": 0,
+   "nonwalk_frames": 7,
+   "reader_walk": 0,
+   "walk_frames": 7
+  },
+  "heldout/heldout_still": {
+   "false_go": 0,
+   "false_walk": 0,
+   "go": 0,
+   "muse_cached": 0,
+   "nonwalk_frames": 1,
+   "reader_walk": 0,
+   "walk_frames": 2
+  },
+  "heldout/heldout_vehicle": {
+   "false_go": 0,
+   "false_walk": 0,
+   "go": 0,
+   "muse_cached": 0,
+   "nonwalk_frames": 3,
+   "reader_walk": 0,
+   "walk_frames": 0
+  },
+  "heldout/night": {
+   "false_go": 0,
+   "false_walk": 0,
+   "go": 0,
+   "muse_cached": 2,
+   "nonwalk_frames": 9,
+   "reader_walk": 0,
+   "walk_frames": 2
+  }
+ }
+}

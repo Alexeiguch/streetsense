@@ -1,0 +1,21 @@
+id,subset,clip,file,time_s,label,confidence,note
+pex6415590_01.50,heldout_eu,pex6415590,pexels_6415590.mp4,1.50,red,high,close-up two-lamp head; dotted red man lit; red countdown digits above
+pex6415590_02.50,heldout_eu,pex6415590,pexels_6415590.mp4,2.50,red,high,same; dotted red man lit
+pex6415590_03.50,heldout_eu,pex6415590,pexels_6415590.mp4,3.50,red,high,same; dotted red man lit
+pex6415590_05.00,heldout_eu,pex6415590,pexels_6415590.mp4,5.00,no_signal,high,head dark between phases
+pex6415590_06.00,heldout_eu,pex6415590,pexels_6415590.mp4,6.00,no_signal,high,head dark between phases
+pex6415590_07.75,heldout_eu,pex6415590,pexels_6415590.mp4,7.75,walk,medium,dotted green walking man lit in lower lamp; green countdown partly out of frame at start of walk phase
+pex6415590_08.50,heldout_eu,pex6415590,pexels_6415590.mp4,8.50,walk,medium,same; two-digit countdown partly out of frame
+pex6415590_09.25,heldout_eu,pex6415590,pexels_6415590.mp4,9.25,walk,medium,same
+pex6415590_10.00,heldout_eu,pex6415590,pexels_6415590.mp4,10.00,walk,medium,same
+nz_00.60,heldout_eu,nz,nz.ogv,0.60,walk,high,New Zealand; green walking man lit in lower pedestrian head; vehicle red above
+nz_01.50,heldout_eu,nz,nz.ogv,1.50,walk,high,same
+nz_02.50,heldout_eu,nz,nz.ogv,2.50,walk,high,same
+nz_03.60,heldout_eu,nz,nz.ogv,3.60,countdown_ending,high,red man flashing with countdown 29 below; clearance phase; do not start
+nz_04.00,heldout_eu,nz,nz.ogv,4.00,countdown_ending,high,same
+uk_green_00.00,heldout_still,uk_green,uk_green.jpg,0.00,walk,high,still; UK green man lit
+uk_red_00.00,heldout_still,uk_red,uk_red_shrews.jpg,0.00,red,high,still; UK red man lit
+basel_00.00,heldout_still,basel,basel.jpg,0.00,walk,medium,still; Basel special green figure (footballer) lit in lower lamp
+ffm_01.00,heldout_vehicle,ffm,ffm_vehicle.mp4,1.00,no_signal,high,Frankfurt; vehicle and tram heads only; round red lamp lit
+ffm_03.50,heldout_vehicle,ffm,ffm_vehicle.mp4,3.50,no_signal,high,same; red+amber lit
+ffm_05.30,heldout_vehicle,ffm,ffm_vehicle.mp4,5.30,no_signal,high,same; round green vehicle lamp lit; tram bar lit; must never read walk

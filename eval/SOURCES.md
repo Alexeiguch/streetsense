@@ -36,3 +36,29 @@ Licence links:
 Caveats:
 - "EU" in the results means *European-style heads*. Only the Most clips are known to be in the EU (Czechia). The three `eu_ped_*` Pexels clips do not state a location; the Turkey beacon clips come from Turkey.
 - Pexels download URLs redirect to a rendition chosen by Pexels. If the sha256 check fails, Pexels served a different rendition, and the labelled times may need rechecking.
+
+## Held-out reader frames (eval/reader_labels_heldout.csv)
+
+These files are only for checking the local light reader (`scripts/eval_local_reader.py`). None of the reader changes were tuned on them. They live in `samples/heldout/` (gitignored). `scripts/get_heldout_clips.sh` fetches the three clips and re-encodes the FFM clip. The three photos are placed by hand.
+
+| id | file | source | author | licence | notes |
+|---|---|---|---|---|---|
+| `pex6415590` | pexels_6415590.mp4 | https://www.pexels.com/video/6415590/ ("Close Up Shot of a Pedestrian Light Signal") | Davlat Tursunov | Pexels License | Close-up dotted LED two-lamp head with countdown digits. Red, dark, then green man. |
+| `nz` | nz.ogv | https://commons.wikimedia.org/wiki/File:Pedestrian_signals_in_New_Zealand.ogv | Wikimedia Commons uploader (see file page) | CC BY-SA 3.0 | Green man, then flashing red man with countdown. |
+| `uk_green` | uk_green.jpg | Wikimedia Commons, UK green man photo | C.Ford | CC BY-SA 3.0 | Still. |
+| `uk_red` | uk_red_shrews.jpg | Wikimedia Commons, Shrewsbury red man photo | Tk420 | CC BY-SA 4.0 | Still. |
+| `basel` | basel.jpg | Flickr via Wikimedia Commons, Basel footballer green man | see file page | CC BY-SA 4.0 | Still. Non-standard figure. |
+| `ffm` | ffm_vehicle.webm → ffm_vehicle.mp4 | https://commons.wikimedia.org/wiki/File:FFM_-_M%C3%BCnchener_Stra%C3%9Fe,_Gr%C3%BCnschaltung_Auto-_und_Stra%C3%9Fenbahnampel.webm | ManuelB701 | CC0 | Vehicle and tram heads only. Round green vehicle lamp at 5.3 s; it must never read walk. |
+
+sha256:
+```
+89bd7db2fc30645770803d73cb65c2a5e1f3be9eef73a78c7000ce7935e9be3a  pexels_6415590.mp4
+7f2bc8e1305232ba04c6cee052aa6ea29ecf40ebec8da7eccaf55a7cae8e7d5c  nz.ogv
+73790974cee83cdcf141bc7acb1911a1c44f4d6a5f5328ef3b176c778eeed0f7  uk_green.jpg
+aae1c76f77c9b09f653e100e5f38b23344069ad0847d3d472457d41f12b3a3c2  uk_red_shrews.jpg
+ce4818b7d7292728d9c917122e53ff63ebb0a2eb735f53301f6fe7343005dade  basel.jpg
+28a4c3402174fe6f536e8bc9bef0ac2001e088e74d34a474181a04e9ebc5d010  ffm_vehicle.webm
+dc3b74f4a5ae28ebd5d0ce744761b66c6a1e54720a0ea59b7fa197ecbe24ef15  ffm_vehicle.mp4 (local re-encode; may differ by ffmpeg version)
+```
+
+Licence links: CC BY-SA 3.0 https://creativecommons.org/licenses/by-sa/3.0/ , CC BY-SA 4.0 https://creativecommons.org/licenses/by-sa/4.0/ .

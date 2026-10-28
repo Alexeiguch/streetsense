@@ -87,6 +87,8 @@ The demo is local only, with no Meta calls. It writes an 18 s, 960×842 H.264/yu
 
 ## Why the local reader rarely says walk on EU and night frames
 
+Update: the fixes and before/after numbers are in [READER.md](READER.md).
+
 These are the concrete causes, from `traffic_light.classify_light` and the actual eval frames:
 
 1. **No box at all on 8 of the 15 frames.** COCO YOLO11s at 640 px finds no "traffic light" on:
