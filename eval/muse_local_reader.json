@@ -211,11 +211,11 @@
    ],
    [
     0.5,
-    "walk"
+    "unclear"
    ],
    [
     0.25,
-    "walk"
+    "unclear"
    ],
    [
     0.0,
@@ -244,10 +244,10 @@
    ],
    [
     0.0,
-    "walk"
+    "unclear"
    ]
   ],
-  "state": "walk"
+  "state": "unclear"
  },
  "dc@13.80": {
   "history": [
@@ -261,11 +261,11 @@
    ],
    [
     0.5,
-    "walk"
+    "unclear"
    ],
    [
     0.25,
-    "walk"
+    "unclear"
    ],
    [
     0.0,
@@ -286,11 +286,11 @@
    ],
    [
     0.5,
-    "walk"
+    "unclear"
    ],
    [
     0.25,
-    "walk"
+    "unclear"
    ],
    [
     0.0,
@@ -311,11 +311,11 @@
    ],
    [
     0.5,
-    "walk"
+    "unclear"
    ],
    [
     0.25,
-    "walk"
+    "unclear"
    ],
    [
     0.0,
@@ -344,10 +344,10 @@
    ],
    [
     0.0,
-    "walk"
+    "unclear"
    ]
   ],
-  "state": "walk"
+  "state": "unclear"
  },
  "dc@25.72": {
   "history": [
@@ -361,11 +361,11 @@
    ],
    [
     0.5,
-    "walk"
+    "unclear"
    ],
    [
     0.25,
-    "walk"
+    "unclear"
    ],
    [
     0.0,
@@ -386,11 +386,11 @@
    ],
    [
     0.5,
-    "walk"
+    "unclear"
    ],
    [
     0.25,
-    "walk"
+    "unclear"
    ],
    [
     0.0,
@@ -436,11 +436,11 @@
    ],
    [
     0.5,
-    "walk"
+    "unclear"
    ],
    [
     0.25,
-    "walk"
+    "unclear"
    ],
    [
     0.0,
@@ -469,10 +469,10 @@
    ],
    [
     0.0,
-    "walk"
+    "unclear"
    ]
   ],
-  "state": "walk"
+  "state": "unclear"
  },
  "dc@37.72": {
   "history": [
@@ -486,11 +486,11 @@
    ],
    [
     0.5,
-    "walk"
+    "unclear"
    ],
    [
     0.25,
-    "walk"
+    "unclear"
    ],
    [
     0.0,
@@ -511,11 +511,11 @@
    ],
    [
     0.5,
-    "walk"
+    "unclear"
    ],
    [
     0.25,
-    "walk"
+    "unclear"
    ],
    [
     0.0,
@@ -544,10 +544,10 @@
    ],
    [
     0.0,
-    "walk"
+    "unclear"
    ]
   ],
-  "state": "walk"
+  "state": "unclear"
  },
  "dc@45.72": {
   "history": [
@@ -561,11 +561,11 @@
    ],
    [
     0.5,
-    "walk"
+    "unclear"
    ],
    [
     0.25,
-    "walk"
+    "unclear"
    ],
    [
     0.0,
@@ -586,11 +586,11 @@
    ],
    [
     0.5,
-    "walk"
+    "unclear"
    ],
    [
     0.25,
-    "walk"
+    "unclear"
    ],
    [
     0.0,
@@ -607,22 +607,22 @@
    ],
    [
     0.75,
-    "unknown"
+    "unclear"
    ],
    [
     0.5,
-    "walk"
+    "unclear"
    ],
    [
     0.25,
-    "walk"
+    "unclear"
    ],
    [
     0.0,
-    "walk"
+    "unclear"
    ]
   ],
-  "state": "walk"
+  "state": "unclear"
  },
  "dc@5.00": {
   "history": [
@@ -657,11 +657,11 @@
    ],
    [
     0.75,
-    "walk"
+    "unknown"
    ],
    [
     0.5,
-    "walk"
+    "green"
    ],
    [
     0.25,
@@ -669,10 +669,10 @@
    ],
    [
     0.0,
-    "walk"
+    "green"
    ]
   ],
-  "state": "walk"
+  "state": "green"
  },
  "dc@51.88": {
   "history": [
@@ -686,18 +686,18 @@
    ],
    [
     0.5,
-    "walk"
+    "green"
    ],
    [
     0.25,
-    "walk"
+    "green"
    ],
    [
     0.0,
-    "walk"
+    "green"
    ]
   ],
-  "state": "walk"
+  "state": "green"
  },
  "dc@53.00": {
   "history": [
@@ -707,11 +707,11 @@
    ],
    [
     0.75,
-    "walk"
+    "unknown"
    ],
    [
     0.5,
-    "walk"
+    "green"
    ],
    [
     0.25,
@@ -953,7 +953,7 @@
    ],
    [
     0.25,
-    "unknown"
+    "walk"
    ],
    [
     0.0,
@@ -1091,18 +1091,18 @@
    ],
    [
     0.5,
-    "unclear"
+    "red"
    ],
    [
     0.25,
-    "unclear"
+    "red"
    ],
    [
     0.0,
-    "unclear"
+    "red"
    ]
   ],
-  "state": "unclear"
+  "state": "red"
  },
  "eu_ped_b@4.50": {
   "history": [
@@ -1166,18 +1166,18 @@
    ],
    [
     0.5,
-    "walk"
+    "unknown"
    ],
    [
     0.25,
-    "walk"
+    "unknown"
    ],
    [
     0.0,
-    "unclear"
+    "red"
    ]
   ],
-  "state": "unclear"
+  "state": "red"
  },
  "eu_ped_side@0.40": {
   "history": [
@@ -1677,14 +1677,14 @@
    ],
    [
     0.25,
-    "walk"
+    "unknown"
    ],
    [
     0.0,
-    "walk"
+    "unknown"
    ]
   ],
-  "state": "walk"
+  "state": "unknown"
  },
  "night_ped@1.60": {
   "history": [
@@ -1702,7 +1702,7 @@
    ],
    [
     0.25,
-    "unknown"
+    "walk"
    ],
    [
     0.0,

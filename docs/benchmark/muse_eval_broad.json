@@ -16,7 +16,7 @@
       "unsure": 0,
       "invalid": 0,
       "n": 17,
-      "fused_go": 6
+      "fused_go": 5
      },
      "walk_symbol_off": {
       "yes": 0,
@@ -70,7 +70,7 @@
     "walk_yes_rate": "17/17",
     "false_yes_non_walk": 0,
     "fused_go_non_walk": 0,
-    "fused_go_walk": "6/17",
+    "fused_go_walk": "5/17",
     "fused_go_unclear": 0,
     "unsure_or_invalid_rate": 0.125,
     "mean_latency_s": 1.824,
@@ -165,7 +165,7 @@
        "unsure": 0,
        "invalid": 0,
        "n": 5,
-       "fused_go": 1
+       "fused_go": 0
       },
       "walk_symbol_off": {
        "yes": 0,
@@ -219,7 +219,7 @@
      "walk_yes_rate": "5/5",
      "false_yes_non_walk": 0,
      "fused_go_non_walk": 0,
-     "fused_go_walk": "1/5",
+     "fused_go_walk": "0/5",
      "fused_go_unclear": 0,
      "unsure_or_invalid_rate": 0.111,
      "mean_latency_s": 1.93,
@@ -467,7 +467,7 @@
      "subset": "eu_style",
      "variant": "E",
      "cached": true,
-     "local": "unclear",
+     "local": "red",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -533,7 +533,7 @@
      "subset": "eu_style",
      "variant": "E",
      "cached": true,
-     "local": "unclear",
+     "local": "red",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -863,7 +863,7 @@
      "subset": "night",
      "variant": "E",
      "cached": true,
-     "local": "walk",
+     "local": "unknown",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -871,7 +871,7 @@
      "muse_signal": "green",
      "countdown": null,
      "desc": "Close pedestrian box with lit green walking person",
-     "fused": "go",
+     "fused": "unsure",
      "latency_s": 1.828,
      "cost_usd": 0.002328,
      "prompt_tokens": 1228,
@@ -1381,7 +1381,7 @@
       "unsure": 0,
       "invalid": 1,
       "n": 17,
-      "fused_go": 6
+      "fused_go": 5
      },
      "walk_symbol_off": {
       "yes": 0,
@@ -1435,7 +1435,7 @@
     "walk_yes_rate": "16/17",
     "false_yes_non_walk": 0,
     "fused_go_non_walk": 0,
-    "fused_go_walk": "6/17",
+    "fused_go_walk": "5/17",
     "fused_go_unclear": 0,
     "unsure_or_invalid_rate": 0.125,
     "mean_latency_s": 2.027,
@@ -1530,7 +1530,7 @@
        "unsure": 0,
        "invalid": 1,
        "n": 5,
-       "fused_go": 1
+       "fused_go": 0
       },
       "walk_symbol_off": {
        "yes": 0,
@@ -1584,7 +1584,7 @@
      "walk_yes_rate": "4/5",
      "false_yes_non_walk": 0,
      "fused_go_non_walk": 0,
-     "fused_go_walk": "1/5",
+     "fused_go_walk": "0/5",
      "fused_go_unclear": 0,
      "unsure_or_invalid_rate": 0.167,
      "mean_latency_s": 2.234,
@@ -1832,7 +1832,7 @@
      "subset": "eu_style",
      "variant": "F",
      "cached": true,
-     "local": "unclear",
+     "local": "red",
      "n_images": 3,
      "valid": true,
      "error": null,
@@ -1898,7 +1898,7 @@
      "subset": "eu_style",
      "variant": "F",
      "cached": true,
-     "local": "unclear",
+     "local": "red",
      "n_images": 3,
      "valid": true,
      "error": null,
@@ -2228,7 +2228,7 @@
      "subset": "night",
      "variant": "F",
      "cached": true,
-     "local": "walk",
+     "local": "unknown",
      "n_images": 3,
      "valid": true,
      "error": null,
@@ -2236,7 +2236,7 @@
      "muse_signal": "green",
      "countdown": null,
      "desc": "Green walking person lit on push-button pole box",
-     "fused": "go",
+     "fused": "unsure",
      "latency_s": 1.465,
      "cost_usd": 0.003968,
      "prompt_tokens": 2809,
@@ -2734,7 +2734,7 @@
  "ledger": {
   "n_calls": 462,
   "total_usd": 1.26495,
-  "budget_usd": 3.2,
-  "remaining_usd": 1.93505
+  "budget_usd": 20.0,
+  "remaining_usd": 18.73505
  }
 }

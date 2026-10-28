@@ -62,3 +62,58 @@ The broad Muse rescore (E@768) went from 2/17 → 6/17 fused go on walk frames, 
 - The zoom pass adds one or two extra YOLO runs on frames without a confident light.
 - Labels were made by eye. Pex walk frames are medium confidence because the figure is partly out of frame.
 - Held-out night coverage is only night_jp (2 walk frames) plus the non-walk night clips.
+
+## Signal crop classifier (fd45421)
+
+A small CNN now looks at every traffic-light crop and gives one more input to the local reader. **It can never authorise crossing on its own.** Go still needs local walk AND Muse yes. When the hand rules and the classifier disagree, the reader goes with "not walk".
+
+**Model.** `streetsense/signal_cnn.py` holds a 4-stage CNN (421k params). The ONNX file is `models/signal_cnn/signal_cnn.onnx`, 1.7 MB, and it runs on OpenVINO CPU with 1 thread. It takes 0.59 ms per crop including preprocessing, measured on the box. Input is the tight box crop, letterboxed on black to 64×64.
+
+There are four classes:
+- `walk`
+- `stop` (red man or hand)
+- `countdown` (any digits, including walk plus digits)
+- `other` (off or unclear)
+
+A MobileNetV3-small (6.1 MB) was also trained. It came out worse at the zero-false-walk threshold: test walk recall 0.42 with 2 false walks, against 0.51 with 0 for the tiny CNN.
+
+**Data.** Data and licences are listed in `eval/SOURCES.md`: the PTL dataset and Wikimedia Commons, both commercial-use licences, plus dev-clip crops. Labels are in `eval/signal_labels.csv.gz`. To rebuild, run `scripts/get_signal_data.sh` to fetch, then `scripts/train_signal_cnn.py` to train.
+
+Held-out clips and stills are not in the training or validation data. Commons near-duplicates of held-out frames were dropped (`eval/signal_commons_excluded.json`). The one held-out frame that now reads walk, `uk_green`, has no near-duplicate in the Commons crops (best 32×32 correlation 0.57).
+
+**Combining rules** (`traffic_light.apply_signal_cnn`, `cnn_hold_veto`):
+- **Veto.** A hand-rule walk becomes countdown or unknown when p(stop|countdown|other) ≥ 0.8 or p(walk) < 0.5.
+- **Promote.** A non-vehicle head that the hand rules read as green or unknown becomes a walk figure when p(walk) ≥ `t_walk`. Red, yellow, countdown and vehicle heads are never promoted. `figure_walk_guard` and the 3-of-5 smoother still apply after this.
+  - `t_walk` is 0.952, set at the largest validation p(walk) of any non-walk crop plus 0.02, so validation has 0 false walks.
+- **Hold veto.** The smoother's history, including its 1 s countdown flicker hold, cannot carry a walk through a frame that the classifier confidently reads as not-walk. This is what fixes the US `countdown_ending` and `walk_symbol_off` frames.
+- **Switching off.** `STREETSENSE_SIGNAL_CNN=0` turns all of this off, and the reader falls back to hand rules only. If the model fails to load, the reader also runs hand rules only and never says walk because of the failure.
+
+**External crop test split** (PTL + Commons test, 1,897 crops): accuracy 0.906, walk recall at `t_walk` 0.51, false walks 0. Validation: accuracy 0.910, recall 0.63, false walks 0.
+
+**Results.** Both runs used the same venv. Off = `STREETSENSE_SIGNAL_CNN=0`; on = fd45421.
+
+| split / subset | walk recall off → on | reader walk on non-walk off → on | go (cached Muse) off → on | false go |
+|---|---|---|---|---|
+| dev/dc_orig | 9/10 → 10/10 | **8/20 → 1/20** | 8/10 → 9/10 | 0 → 0 |
+| dev/eu_style | 3/7 → 3/7 | 0/9 → 0/9 | 3/7 → 3/7 | 0 → 0 |
+| dev/night | 1/3 → 1/3 | 0/4 → 0/4 | 1/3 → 1/3 | 0 → 0 |
+| dev/us_day2 | 2/2 → 2/2 | 0/4 → 0/4 | 2/2 → 2/2 | 0 → 0 |
+| heldout/eu_style | 0/3 → 0/3 | 0/5 → 0/5 | 0/3 → 0/3 | 0 → 0 |
+| heldout/night | 0/2 → 0/2 | 0/9 → 0/9 | 0/2 → 0/2 | 0 → 0 |
+| heldout/new EU (pex, nz) | 0/7 → 0/7 | 0/7 → 0/7 | no Muse cache | – |
+| heldout/new stills | 0/2 → **1/2** (uk_green) | 0/1 → 0/1 | no Muse cache | – |
+| heldout/dc_orig, vehicle | – | 0/13 → 0/13 | – | – |
+| **all** | 15/36 → 17/36 | **8/72 → 1/72** | 14/27 → 15/27 | 0 → 0 |
+
+- **Dense non-walk scan:** 1,148 frames, 0 walk decisions both off and on.
+- **US countdown_ending:** the dense DC 48.5–53 s countdown-ending stretch went from 16/19 frames reading walk to **0/19**. One labelled frame, `dc_48.72`, still reads walk, because the classifier is not confident on it. Muse says no on that frame, so go stays 0.
+
+**Environment drift.** The venv was rebuilt (openvino 2026.4.1, ultralytics 8.4.191). With that rebuild, the off run gives 15/22 dev walk recall where 3837a00 reported 17/22. The two changed frames are dc_17.80, where a detection is missing, and eu_ped_b_07.00, where a red read made it unclear. The off → on comparison above is like-for-like.
+
+**Caveats.**
+- The held-out gain is one frame (1/14). The NZ, pex and night_jp walks are still missed. Usually the detector finds no head there, or the classifier is under `t_walk`.
+- The threshold is strict because the auto-labelled training crops are noisy. A second review pass relabelled 100 lit walk figures, and walk recall at the zero-false-walk threshold went from about 0.2 to about 0.5. Noise is still there, mostly bloom blobs and small heads.
+- Most training walks are PTL phone photos, Commons photos and dev crops. Night and US white-figure crops are a small share.
+- **Muse rescore from cache ($0, no API calls; the ledger stays at 462 lines).** `eval/muse_local_reader.json` was recomputed with the classifier on.
+  - DC set: E, E#1 and E@768 stay at 9/10 fused go on walk frames, with 0 go on non-walk frames. Variant F, which is not shipped, had 3 fused go on non-walk DC frames before because the reader held walk there. It now has 0.
+  - Broad set (E@768 and F@768): 6/17 → 5/17 on walk frames, still 0 on non-walk frames. The lost frame is `night_ped@1.00`. **This comes from the local reader not being deterministic, not from the classifier.** The classifier gives p(walk) 0.96 on that head. A rerun of the same 48 broad rows in a fresh process read walk there. Overall, 3 of 48 rows came out differently between runs: `eu_ped_b@7.00`, `night_ped@1.00` and `most04@8.00`. They are near-threshold YOLO detections at night or close up. None of the changes created a walk on a non-walk frame.
