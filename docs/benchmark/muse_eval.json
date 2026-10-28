@@ -71,6 +71,7 @@
     "false_yes_non_walk": 0,
     "fused_go_non_walk": 0,
     "fused_go_walk": "0/10",
+    "fused_go_unclear": 0,
     "unsure_or_invalid_rate": 0.325,
     "mean_latency_s": 2.004,
     "p95_latency_s": 2.866,
@@ -81,10 +82,87 @@
     "max_completion_tokens": 371,
     "n": 40
    },
+   "by_subset": {
+    "dc_day": {
+     "per_label": {
+      "walk": {
+       "yes": 0,
+       "no": 10,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 10,
+       "fused_go": 0
+      },
+      "walk_symbol_off": {
+       "yes": 0,
+       "no": 4,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      },
+      "countdown_ending": {
+       "yes": 0,
+       "no": 3,
+       "unsure": 1,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      },
+      "flashing": {
+       "yes": 0,
+       "no": 4,
+       "unsure": 1,
+       "invalid": 0,
+       "n": 5,
+       "fused_go": 0
+      },
+      "red": {
+       "yes": 0,
+       "no": 4,
+       "unsure": 3,
+       "invalid": 0,
+       "n": 7,
+       "fused_go": 0
+      },
+      "no_signal": {
+       "yes": 0,
+       "no": 1,
+       "unsure": 5,
+       "invalid": 0,
+       "n": 6,
+       "fused_go": 0
+      },
+      "unclear": {
+       "yes": 1,
+       "no": 0,
+       "unsure": 3,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      }
+     },
+     "walk_yes_rate": "0/10",
+     "false_yes_non_walk": 0,
+     "fused_go_non_walk": 0,
+     "fused_go_walk": "0/10",
+     "fused_go_unclear": 0,
+     "unsure_or_invalid_rate": 0.325,
+     "mean_latency_s": 2.004,
+     "p95_latency_s": 2.866,
+     "cost_usd": 0.056238,
+     "mean_prompt_tokens": 360,
+     "truncated": 0,
+     "mean_completion_tokens": 252.7,
+     "max_completion_tokens": 371,
+     "n": 40
+    }
+   },
    "rows": [
     {
      "id": "dc_10.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -106,6 +184,7 @@
     {
      "id": "dc_13.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -127,6 +206,7 @@
     {
      "id": "dc_17.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -148,6 +228,7 @@
     {
      "id": "dc_21.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -169,6 +250,7 @@
     {
      "id": "dc_25.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -190,6 +272,7 @@
     {
      "id": "dc_29.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -211,6 +294,7 @@
     {
      "id": "dc_33.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -232,6 +316,7 @@
     {
      "id": "dc_37.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -253,6 +338,7 @@
     {
      "id": "dc_41.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -274,6 +360,7 @@
     {
      "id": "dc_45.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -295,6 +382,7 @@
     {
      "id": "dc_13.24",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -316,6 +404,7 @@
     {
      "id": "dc_25.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -337,6 +426,7 @@
     {
      "id": "dc_37.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -358,6 +448,7 @@
     {
      "id": "dc_45.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -379,6 +470,7 @@
     {
      "id": "dc_48.72",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -400,6 +492,7 @@
     {
      "id": "dc_49.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -421,6 +514,7 @@
     {
      "id": "dc_50.08",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -442,6 +536,7 @@
     {
      "id": "dc_51.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "walk",
@@ -463,6 +558,7 @@
     {
      "id": "dc_53.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "green",
@@ -484,6 +580,7 @@
     {
      "id": "dc_54.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "red",
@@ -505,6 +602,7 @@
     {
      "id": "dc_55.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "red",
@@ -526,6 +624,7 @@
     {
      "id": "dc_56.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "red",
@@ -547,6 +646,7 @@
     {
      "id": "dc_54.48",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "red",
@@ -568,6 +668,7 @@
     {
      "id": "dc_01.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "red",
@@ -589,6 +690,7 @@
     {
      "id": "dc_03.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "red",
@@ -610,6 +712,7 @@
     {
      "id": "dc_05.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "red",
@@ -631,6 +734,7 @@
     {
      "id": "dc_07.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "red",
@@ -652,6 +756,7 @@
     {
      "id": "dc_58.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "red",
@@ -673,6 +778,7 @@
     {
      "id": "dc_60.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "red",
@@ -694,6 +800,7 @@
     {
      "id": "dc_62.20",
      "label": "red",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "red",
@@ -715,6 +822,7 @@
     {
      "id": "tyumen_01.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "unknown",
@@ -736,9 +844,10 @@
     {
      "id": "tyumen_06.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -757,9 +866,10 @@
     {
      "id": "tyumen_12.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -778,9 +888,10 @@
     {
      "id": "tyumen_18.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
-     "local": "unknown",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -799,6 +910,7 @@
     {
      "id": "cdmx_02.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "unknown",
@@ -820,6 +932,7 @@
     {
      "id": "cdmx_30.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "unknown",
@@ -841,6 +954,7 @@
     {
      "id": "cdmx_50.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "unknown",
@@ -862,6 +976,7 @@
     {
      "id": "cdmx_90.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "unknown",
@@ -883,6 +998,7 @@
     {
      "id": "mazatlan_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "unknown",
@@ -904,6 +1020,7 @@
     {
      "id": "tomaszow_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "A",
      "cached": true,
      "local": "unknown",
@@ -995,6 +1112,7 @@
     "false_yes_non_walk": 0,
     "fused_go_non_walk": 0,
     "fused_go_walk": "0/10",
+    "fused_go_unclear": 0,
     "unsure_or_invalid_rate": 0.4,
     "mean_latency_s": 2.014,
     "p95_latency_s": 3.12,
@@ -1005,10 +1123,87 @@
     "max_completion_tokens": 512,
     "n": 40
    },
+   "by_subset": {
+    "dc_day": {
+     "per_label": {
+      "walk": {
+       "yes": 0,
+       "no": 10,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 10,
+       "fused_go": 0
+      },
+      "walk_symbol_off": {
+       "yes": 0,
+       "no": 2,
+       "unsure": 1,
+       "invalid": 1,
+       "n": 4,
+       "fused_go": 0
+      },
+      "countdown_ending": {
+       "yes": 0,
+       "no": 3,
+       "unsure": 1,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      },
+      "flashing": {
+       "yes": 0,
+       "no": 4,
+       "unsure": 1,
+       "invalid": 0,
+       "n": 5,
+       "fused_go": 0
+      },
+      "red": {
+       "yes": 0,
+       "no": 3,
+       "unsure": 4,
+       "invalid": 0,
+       "n": 7,
+       "fused_go": 0
+      },
+      "no_signal": {
+       "yes": 0,
+       "no": 0,
+       "unsure": 6,
+       "invalid": 0,
+       "n": 6,
+       "fused_go": 0
+      },
+      "unclear": {
+       "yes": 2,
+       "no": 0,
+       "unsure": 2,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      }
+     },
+     "walk_yes_rate": "0/10",
+     "false_yes_non_walk": 0,
+     "fused_go_non_walk": 0,
+     "fused_go_walk": "0/10",
+     "fused_go_unclear": 0,
+     "unsure_or_invalid_rate": 0.4,
+     "mean_latency_s": 2.014,
+     "p95_latency_s": 3.12,
+     "cost_usd": 0.065658,
+     "mean_prompt_tokens": 631,
+     "truncated": 1,
+     "mean_completion_tokens": 286.6,
+     "max_completion_tokens": 512,
+     "n": 40
+    }
+   },
    "rows": [
     {
      "id": "dc_10.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1030,6 +1225,7 @@
     {
      "id": "dc_13.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1051,6 +1247,7 @@
     {
      "id": "dc_17.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1072,6 +1269,7 @@
     {
      "id": "dc_21.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1093,6 +1291,7 @@
     {
      "id": "dc_25.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1114,6 +1313,7 @@
     {
      "id": "dc_29.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1135,6 +1335,7 @@
     {
      "id": "dc_33.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1156,6 +1357,7 @@
     {
      "id": "dc_37.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1177,6 +1379,7 @@
     {
      "id": "dc_41.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1198,6 +1401,7 @@
     {
      "id": "dc_45.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1219,6 +1423,7 @@
     {
      "id": "dc_13.24",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1240,6 +1445,7 @@
     {
      "id": "dc_25.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1261,6 +1467,7 @@
     {
      "id": "dc_37.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1282,6 +1489,7 @@
     {
      "id": "dc_45.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1303,6 +1511,7 @@
     {
      "id": "dc_48.72",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1324,6 +1533,7 @@
     {
      "id": "dc_49.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1345,6 +1555,7 @@
     {
      "id": "dc_50.08",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1366,6 +1577,7 @@
     {
      "id": "dc_51.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "walk",
@@ -1387,6 +1599,7 @@
     {
      "id": "dc_53.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "green",
@@ -1408,6 +1621,7 @@
     {
      "id": "dc_54.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "red",
@@ -1429,6 +1643,7 @@
     {
      "id": "dc_55.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "red",
@@ -1450,6 +1665,7 @@
     {
      "id": "dc_56.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "red",
@@ -1471,6 +1687,7 @@
     {
      "id": "dc_54.48",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "red",
@@ -1492,6 +1709,7 @@
     {
      "id": "dc_01.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "red",
@@ -1513,6 +1731,7 @@
     {
      "id": "dc_03.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "red",
@@ -1534,6 +1753,7 @@
     {
      "id": "dc_05.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "red",
@@ -1555,6 +1775,7 @@
     {
      "id": "dc_07.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "red",
@@ -1576,6 +1797,7 @@
     {
      "id": "dc_58.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "red",
@@ -1597,6 +1819,7 @@
     {
      "id": "dc_60.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "red",
@@ -1618,6 +1841,7 @@
     {
      "id": "dc_62.20",
      "label": "red",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "red",
@@ -1639,6 +1863,7 @@
     {
      "id": "tyumen_01.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "unknown",
@@ -1660,9 +1885,10 @@
     {
      "id": "tyumen_06.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -1681,9 +1907,10 @@
     {
      "id": "tyumen_12.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -1702,9 +1929,10 @@
     {
      "id": "tyumen_18.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
-     "local": "unknown",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -1712,7 +1940,7 @@
      "muse_signal": "green",
      "countdown": null,
      "desc": "Small green walking person lit on center pole",
-     "fused": "unsure",
+     "fused": "stop",
      "latency_s": 3.12,
      "cost_usd": 0.002249,
      "prompt_tokens": 631,
@@ -1723,6 +1951,7 @@
     {
      "id": "cdmx_02.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "unknown",
@@ -1744,6 +1973,7 @@
     {
      "id": "cdmx_30.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "unknown",
@@ -1765,6 +1995,7 @@
     {
      "id": "cdmx_50.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "unknown",
@@ -1786,6 +2017,7 @@
     {
      "id": "cdmx_90.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "unknown",
@@ -1807,6 +2039,7 @@
     {
      "id": "mazatlan_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "unknown",
@@ -1828,6 +2061,7 @@
     {
      "id": "tomaszow_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "B",
      "cached": true,
      "local": "unknown",
@@ -1919,6 +2153,7 @@
     "false_yes_non_walk": 0,
     "fused_go_non_walk": 0,
     "fused_go_walk": "0/10",
+    "fused_go_unclear": 0,
     "unsure_or_invalid_rate": 0.225,
     "mean_latency_s": 2.754,
     "p95_latency_s": 4.476,
@@ -1929,10 +2164,87 @@
     "max_completion_tokens": 512,
     "n": 40
    },
+   "by_subset": {
+    "dc_day": {
+     "per_label": {
+      "walk": {
+       "yes": 0,
+       "no": 10,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 10,
+       "fused_go": 0
+      },
+      "walk_symbol_off": {
+       "yes": 0,
+       "no": 4,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      },
+      "countdown_ending": {
+       "yes": 0,
+       "no": 4,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      },
+      "flashing": {
+       "yes": 0,
+       "no": 5,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 5,
+       "fused_go": 0
+      },
+      "red": {
+       "yes": 0,
+       "no": 5,
+       "unsure": 2,
+       "invalid": 0,
+       "n": 7,
+       "fused_go": 0
+      },
+      "no_signal": {
+       "yes": 0,
+       "no": 0,
+       "unsure": 6,
+       "invalid": 0,
+       "n": 6,
+       "fused_go": 0
+      },
+      "unclear": {
+       "yes": 3,
+       "no": 0,
+       "unsure": 0,
+       "invalid": 1,
+       "n": 4,
+       "fused_go": 0
+      }
+     },
+     "walk_yes_rate": "0/10",
+     "false_yes_non_walk": 0,
+     "fused_go_non_walk": 0,
+     "fused_go_walk": "0/10",
+     "fused_go_unclear": 0,
+     "unsure_or_invalid_rate": 0.225,
+     "mean_latency_s": 2.754,
+     "p95_latency_s": 4.476,
+     "cost_usd": 0.085622,
+     "mean_prompt_tokens": 1018,
+     "truncated": 1,
+     "mean_completion_tokens": 290.2,
+     "max_completion_tokens": 512,
+     "n": 40
+    }
+   },
    "rows": [
     {
      "id": "dc_10.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -1954,6 +2266,7 @@
     {
      "id": "dc_13.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -1975,6 +2288,7 @@
     {
      "id": "dc_17.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -1996,6 +2310,7 @@
     {
      "id": "dc_21.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2017,6 +2332,7 @@
     {
      "id": "dc_25.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2038,6 +2354,7 @@
     {
      "id": "dc_29.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2059,6 +2376,7 @@
     {
      "id": "dc_33.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2080,6 +2398,7 @@
     {
      "id": "dc_37.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2101,6 +2420,7 @@
     {
      "id": "dc_41.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2122,6 +2442,7 @@
     {
      "id": "dc_45.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2143,6 +2464,7 @@
     {
      "id": "dc_13.24",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2164,6 +2486,7 @@
     {
      "id": "dc_25.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2185,6 +2508,7 @@
     {
      "id": "dc_37.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2206,6 +2530,7 @@
     {
      "id": "dc_45.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2227,6 +2552,7 @@
     {
      "id": "dc_48.72",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2248,6 +2574,7 @@
     {
      "id": "dc_49.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2269,6 +2596,7 @@
     {
      "id": "dc_50.08",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2290,6 +2618,7 @@
     {
      "id": "dc_51.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "walk",
@@ -2311,6 +2640,7 @@
     {
      "id": "dc_53.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "green",
@@ -2332,6 +2662,7 @@
     {
      "id": "dc_54.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "red",
@@ -2353,6 +2684,7 @@
     {
      "id": "dc_55.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "red",
@@ -2374,6 +2706,7 @@
     {
      "id": "dc_56.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "red",
@@ -2395,6 +2728,7 @@
     {
      "id": "dc_54.48",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "red",
@@ -2416,6 +2750,7 @@
     {
      "id": "dc_01.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "red",
@@ -2437,6 +2772,7 @@
     {
      "id": "dc_03.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "red",
@@ -2458,6 +2794,7 @@
     {
      "id": "dc_05.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "red",
@@ -2479,6 +2816,7 @@
     {
      "id": "dc_07.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "red",
@@ -2500,6 +2838,7 @@
     {
      "id": "dc_58.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "red",
@@ -2521,6 +2860,7 @@
     {
      "id": "dc_60.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "red",
@@ -2542,6 +2882,7 @@
     {
      "id": "dc_62.20",
      "label": "red",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "red",
@@ -2563,6 +2904,7 @@
     {
      "id": "tyumen_01.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "unknown",
@@ -2584,9 +2926,10 @@
     {
      "id": "tyumen_06.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 3,
      "valid": true,
      "error": null,
@@ -2605,9 +2948,10 @@
     {
      "id": "tyumen_12.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 3,
      "valid": true,
      "error": null,
@@ -2626,9 +2970,10 @@
     {
      "id": "tyumen_18.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
-     "local": "unknown",
+     "local": "unclear",
      "n_images": 3,
      "valid": true,
      "error": null,
@@ -2636,7 +2981,7 @@
      "muse_signal": "green",
      "countdown": null,
      "desc": "green walking person lit on center pole",
-     "fused": "unsure",
+     "fused": "stop",
      "latency_s": 3.266,
      "cost_usd": 0.002584,
      "prompt_tokens": 1018,
@@ -2647,6 +2992,7 @@
     {
      "id": "cdmx_02.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "unknown",
@@ -2668,6 +3014,7 @@
     {
      "id": "cdmx_30.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "unknown",
@@ -2689,6 +3036,7 @@
     {
      "id": "cdmx_50.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "unknown",
@@ -2710,6 +3058,7 @@
     {
      "id": "cdmx_90.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "unknown",
@@ -2731,6 +3080,7 @@
     {
      "id": "mazatlan_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "unknown",
@@ -2752,6 +3102,7 @@
     {
      "id": "tomaszow_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "C",
      "cached": true,
      "local": "unknown",
@@ -2843,6 +3194,7 @@
     "false_yes_non_walk": 0,
     "fused_go_non_walk": 0,
     "fused_go_walk": "9/10",
+    "fused_go_unclear": 0,
     "unsure_or_invalid_rate": 0.225,
     "mean_latency_s": 2.484,
     "p95_latency_s": 3.719,
@@ -2853,10 +3205,87 @@
     "max_completion_tokens": 512,
     "n": 40
    },
+   "by_subset": {
+    "dc_day": {
+     "per_label": {
+      "walk": {
+       "yes": 9,
+       "no": 1,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 10,
+       "fused_go": 9
+      },
+      "walk_symbol_off": {
+       "yes": 0,
+       "no": 1,
+       "unsure": 2,
+       "invalid": 1,
+       "n": 4,
+       "fused_go": 0
+      },
+      "countdown_ending": {
+       "yes": 0,
+       "no": 4,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      },
+      "flashing": {
+       "yes": 0,
+       "no": 5,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 5,
+       "fused_go": 0
+      },
+      "red": {
+       "yes": 0,
+       "no": 7,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 7,
+       "fused_go": 0
+      },
+      "no_signal": {
+       "yes": 0,
+       "no": 1,
+       "unsure": 5,
+       "invalid": 0,
+       "n": 6,
+       "fused_go": 0
+      },
+      "unclear": {
+       "yes": 3,
+       "no": 0,
+       "unsure": 1,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      }
+     },
+     "walk_yes_rate": "9/10",
+     "false_yes_non_walk": 0,
+     "fused_go_non_walk": 0,
+     "fused_go_walk": "9/10",
+     "fused_go_unclear": 0,
+     "unsure_or_invalid_rate": 0.225,
+     "mean_latency_s": 2.484,
+     "p95_latency_s": 3.719,
+     "cost_usd": 0.091576,
+     "mean_prompt_tokens": 1228,
+     "truncated": 1,
+     "mean_completion_tokens": 273.0,
+     "max_completion_tokens": 512,
+     "n": 40
+    }
+   },
    "rows": [
     {
      "id": "dc_10.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -2878,6 +3307,7 @@
     {
      "id": "dc_13.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -2899,6 +3329,7 @@
     {
      "id": "dc_17.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -2920,6 +3351,7 @@
     {
      "id": "dc_21.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -2941,6 +3373,7 @@
     {
      "id": "dc_25.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -2962,6 +3395,7 @@
     {
      "id": "dc_29.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -2983,6 +3417,7 @@
     {
      "id": "dc_33.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -3004,6 +3439,7 @@
     {
      "id": "dc_37.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -3025,6 +3461,7 @@
     {
      "id": "dc_41.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -3046,6 +3483,7 @@
     {
      "id": "dc_45.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -3067,6 +3505,7 @@
     {
      "id": "dc_13.24",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -3088,6 +3527,7 @@
     {
      "id": "dc_25.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -3109,6 +3549,7 @@
     {
      "id": "dc_37.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -3130,6 +3571,7 @@
     {
      "id": "dc_45.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -3151,6 +3593,7 @@
     {
      "id": "dc_48.72",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -3172,6 +3615,7 @@
     {
      "id": "dc_49.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -3193,6 +3637,7 @@
     {
      "id": "dc_50.08",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -3214,6 +3659,7 @@
     {
      "id": "dc_51.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -3235,6 +3681,7 @@
     {
      "id": "dc_53.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "green",
@@ -3256,6 +3703,7 @@
     {
      "id": "dc_54.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -3277,6 +3725,7 @@
     {
      "id": "dc_55.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -3298,6 +3747,7 @@
     {
      "id": "dc_56.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -3319,6 +3769,7 @@
     {
      "id": "dc_54.48",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -3340,6 +3791,7 @@
     {
      "id": "dc_01.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -3361,6 +3813,7 @@
     {
      "id": "dc_03.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -3382,6 +3835,7 @@
     {
      "id": "dc_05.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -3403,6 +3857,7 @@
     {
      "id": "dc_07.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -3424,6 +3879,7 @@
     {
      "id": "dc_58.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -3445,6 +3901,7 @@
     {
      "id": "dc_60.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -3466,6 +3923,7 @@
     {
      "id": "dc_62.20",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -3487,6 +3945,7 @@
     {
      "id": "tyumen_01.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -3508,9 +3967,10 @@
     {
      "id": "tyumen_06.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -3529,9 +3989,10 @@
     {
      "id": "tyumen_12.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -3550,9 +4011,10 @@
     {
      "id": "tyumen_18.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
-     "local": "unknown",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -3560,7 +4022,7 @@
      "muse_signal": "green",
      "countdown": 36,
      "desc": "green pedestrian signal with countdown 36 on pole",
-     "fused": "unsure",
+     "fused": "stop",
      "latency_s": 2.377,
      "cost_usd": 0.002136,
      "prompt_tokens": 1228,
@@ -3571,6 +4033,7 @@
     {
      "id": "cdmx_02.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -3592,6 +4055,7 @@
     {
      "id": "cdmx_30.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -3613,6 +4077,7 @@
     {
      "id": "cdmx_50.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -3634,6 +4099,7 @@
     {
      "id": "cdmx_90.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -3655,6 +4121,7 @@
     {
      "id": "mazatlan_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -3676,6 +4143,7 @@
     {
      "id": "tomaszow_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -3767,6 +4235,7 @@
     "false_yes_non_walk": 0,
     "fused_go_non_walk": 0,
     "fused_go_walk": "1/10",
+    "fused_go_unclear": 0,
     "unsure_or_invalid_rate": 0.4,
     "mean_latency_s": 2.735,
     "p95_latency_s": 4.16,
@@ -3777,10 +4246,87 @@
     "max_completion_tokens": 512,
     "n": 40
    },
+   "by_subset": {
+    "dc_day": {
+     "per_label": {
+      "walk": {
+       "yes": 1,
+       "no": 1,
+       "unsure": 6,
+       "invalid": 2,
+       "n": 10,
+       "fused_go": 1
+      },
+      "walk_symbol_off": {
+       "yes": 0,
+       "no": 4,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      },
+      "countdown_ending": {
+       "yes": 0,
+       "no": 3,
+       "unsure": 1,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      },
+      "flashing": {
+       "yes": 0,
+       "no": 5,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 5,
+       "fused_go": 0
+      },
+      "red": {
+       "yes": 0,
+       "no": 7,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 7,
+       "fused_go": 0
+      },
+      "no_signal": {
+       "yes": 0,
+       "no": 1,
+       "unsure": 5,
+       "invalid": 0,
+       "n": 6,
+       "fused_go": 0
+      },
+      "unclear": {
+       "yes": 2,
+       "no": 0,
+       "unsure": 1,
+       "invalid": 1,
+       "n": 4,
+       "fused_go": 0
+      }
+     },
+     "walk_yes_rate": "1/10",
+     "false_yes_non_walk": 0,
+     "fused_go_non_walk": 0,
+     "fused_go_walk": "1/10",
+     "fused_go_unclear": 0,
+     "unsure_or_invalid_rate": 0.4,
+     "mean_latency_s": 2.735,
+     "p95_latency_s": 4.16,
+     "cost_usd": 0.096238,
+     "mean_prompt_tokens": 957,
+     "truncated": 3,
+     "mean_completion_tokens": 311.0,
+     "max_completion_tokens": 512,
+     "n": 40
+    }
+   },
    "rows": [
     {
      "id": "dc_10.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -3802,6 +4348,7 @@
     {
      "id": "dc_13.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -3823,6 +4370,7 @@
     {
      "id": "dc_17.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -3844,6 +4392,7 @@
     {
      "id": "dc_21.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -3865,6 +4414,7 @@
     {
      "id": "dc_25.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -3886,6 +4436,7 @@
     {
      "id": "dc_29.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -3907,6 +4458,7 @@
     {
      "id": "dc_33.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -3928,6 +4480,7 @@
     {
      "id": "dc_37.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -3949,6 +4502,7 @@
     {
      "id": "dc_41.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -3970,6 +4524,7 @@
     {
      "id": "dc_45.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -3991,6 +4546,7 @@
     {
      "id": "dc_13.24",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -4012,6 +4568,7 @@
     {
      "id": "dc_25.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -4033,6 +4590,7 @@
     {
      "id": "dc_37.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -4054,6 +4612,7 @@
     {
      "id": "dc_45.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -4075,6 +4634,7 @@
     {
      "id": "dc_48.72",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -4096,6 +4656,7 @@
     {
      "id": "dc_49.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -4117,6 +4678,7 @@
     {
      "id": "dc_50.08",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -4138,6 +4700,7 @@
     {
      "id": "dc_51.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "walk",
@@ -4159,6 +4722,7 @@
     {
      "id": "dc_53.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "green",
@@ -4180,6 +4744,7 @@
     {
      "id": "dc_54.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "red",
@@ -4201,6 +4766,7 @@
     {
      "id": "dc_55.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "red",
@@ -4222,6 +4788,7 @@
     {
      "id": "dc_56.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "red",
@@ -4243,6 +4810,7 @@
     {
      "id": "dc_54.48",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "red",
@@ -4264,6 +4832,7 @@
     {
      "id": "dc_01.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "red",
@@ -4285,6 +4854,7 @@
     {
      "id": "dc_03.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "red",
@@ -4306,6 +4876,7 @@
     {
      "id": "dc_05.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "red",
@@ -4327,6 +4898,7 @@
     {
      "id": "dc_07.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "red",
@@ -4348,6 +4920,7 @@
     {
      "id": "dc_58.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "red",
@@ -4369,6 +4942,7 @@
     {
      "id": "dc_60.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "red",
@@ -4390,6 +4964,7 @@
     {
      "id": "dc_62.20",
      "label": "red",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "red",
@@ -4411,6 +4986,7 @@
     {
      "id": "tyumen_01.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "unknown",
@@ -4432,9 +5008,10 @@
     {
      "id": "tyumen_06.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -4453,9 +5030,10 @@
     {
      "id": "tyumen_12.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -4474,9 +5052,10 @@
     {
      "id": "tyumen_18.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
-     "local": "unknown",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -4484,7 +5063,7 @@
      "muse_signal": "countdown",
      "countdown": null,
      "desc": "Green walk signal, people crossing, cars waiting on right",
-     "fused": "unsure",
+     "fused": "stop",
      "latency_s": 3.485,
      "cost_usd": 0.003086,
      "prompt_tokens": 957,
@@ -4495,6 +5074,7 @@
     {
      "id": "cdmx_02.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "unknown",
@@ -4516,6 +5096,7 @@
     {
      "id": "cdmx_30.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "unknown",
@@ -4537,6 +5118,7 @@
     {
      "id": "cdmx_50.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "unknown",
@@ -4558,6 +5140,7 @@
     {
      "id": "cdmx_90.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "unknown",
@@ -4579,6 +5162,7 @@
     {
      "id": "mazatlan_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "unknown",
@@ -4600,6 +5184,7 @@
     {
      "id": "tomaszow_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "G",
      "cached": true,
      "local": "unknown",
@@ -4691,6 +5276,7 @@
     "false_yes_non_walk": 0,
     "fused_go_non_walk": 0,
     "fused_go_walk": "8/10",
+    "fused_go_unclear": 0,
     "unsure_or_invalid_rate": 0.175,
     "mean_latency_s": 2.683,
     "p95_latency_s": 4.185,
@@ -4701,10 +5287,87 @@
     "max_completion_tokens": 512,
     "n": 40
    },
+   "by_subset": {
+    "dc_day": {
+     "per_label": {
+      "walk": {
+       "yes": 8,
+       "no": 1,
+       "unsure": 0,
+       "invalid": 1,
+       "n": 10,
+       "fused_go": 8
+      },
+      "walk_symbol_off": {
+       "yes": 3,
+       "no": 0,
+       "unsure": 0,
+       "invalid": 1,
+       "n": 4,
+       "fused_go": 3
+      },
+      "countdown_ending": {
+       "yes": 0,
+       "no": 4,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      },
+      "flashing": {
+       "yes": 0,
+       "no": 5,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 5,
+       "fused_go": 0
+      },
+      "red": {
+       "yes": 0,
+       "no": 7,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 7,
+       "fused_go": 0
+      },
+      "no_signal": {
+       "yes": 0,
+       "no": 2,
+       "unsure": 4,
+       "invalid": 0,
+       "n": 6,
+       "fused_go": 0
+      },
+      "unclear": {
+       "yes": 3,
+       "no": 0,
+       "unsure": 0,
+       "invalid": 1,
+       "n": 4,
+       "fused_go": 0
+      }
+     },
+     "walk_yes_rate": "8/10",
+     "false_yes_non_walk": 0,
+     "fused_go_non_walk": 0,
+     "fused_go_walk": "8/10",
+     "fused_go_unclear": 0,
+     "unsure_or_invalid_rate": 0.175,
+     "mean_latency_s": 2.683,
+     "p95_latency_s": 4.185,
+     "cost_usd": 0.178434,
+     "mean_prompt_tokens": 2809,
+     "truncated": 3,
+     "mean_completion_tokens": 314.2,
+     "max_completion_tokens": 512,
+     "n": 40
+    }
+   },
    "rows": [
     {
      "id": "dc_10.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4726,6 +5389,7 @@
     {
      "id": "dc_13.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4747,6 +5411,7 @@
     {
      "id": "dc_17.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4768,6 +5433,7 @@
     {
      "id": "dc_21.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4789,6 +5455,7 @@
     {
      "id": "dc_25.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4810,6 +5477,7 @@
     {
      "id": "dc_29.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4831,6 +5499,7 @@
     {
      "id": "dc_33.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4852,6 +5521,7 @@
     {
      "id": "dc_37.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4873,6 +5543,7 @@
     {
      "id": "dc_41.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4894,6 +5565,7 @@
     {
      "id": "dc_45.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4915,6 +5587,7 @@
     {
      "id": "dc_13.24",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4936,6 +5609,7 @@
     {
      "id": "dc_25.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4957,6 +5631,7 @@
     {
      "id": "dc_37.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4978,6 +5653,7 @@
     {
      "id": "dc_45.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -4999,6 +5675,7 @@
     {
      "id": "dc_48.72",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -5020,6 +5697,7 @@
     {
      "id": "dc_49.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -5041,6 +5719,7 @@
     {
      "id": "dc_50.08",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -5062,6 +5741,7 @@
     {
      "id": "dc_51.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "walk",
@@ -5083,6 +5763,7 @@
     {
      "id": "dc_53.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "green",
@@ -5104,6 +5785,7 @@
     {
      "id": "dc_54.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "red",
@@ -5125,6 +5807,7 @@
     {
      "id": "dc_55.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "red",
@@ -5146,6 +5829,7 @@
     {
      "id": "dc_56.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "red",
@@ -5167,6 +5851,7 @@
     {
      "id": "dc_54.48",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "red",
@@ -5188,6 +5873,7 @@
     {
      "id": "dc_01.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "red",
@@ -5209,6 +5895,7 @@
     {
      "id": "dc_03.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "red",
@@ -5230,6 +5917,7 @@
     {
      "id": "dc_05.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "red",
@@ -5251,6 +5939,7 @@
     {
      "id": "dc_07.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "red",
@@ -5272,6 +5961,7 @@
     {
      "id": "dc_58.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "red",
@@ -5293,6 +5983,7 @@
     {
      "id": "dc_60.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "red",
@@ -5314,6 +6005,7 @@
     {
      "id": "dc_62.20",
      "label": "red",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "red",
@@ -5335,6 +6027,7 @@
     {
      "id": "tyumen_01.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "unknown",
@@ -5356,9 +6049,10 @@
     {
      "id": "tyumen_06.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 3,
      "valid": true,
      "error": null,
@@ -5377,9 +6071,10 @@
     {
      "id": "tyumen_12.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 3,
      "valid": true,
      "error": null,
@@ -5398,9 +6093,10 @@
     {
      "id": "tyumen_18.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
-     "local": "unknown",
+     "local": "unclear",
      "n_images": 3,
      "valid": false,
      "error": "missing hazards",
@@ -5419,6 +6115,7 @@
     {
      "id": "cdmx_02.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "unknown",
@@ -5440,6 +6137,7 @@
     {
      "id": "cdmx_30.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "unknown",
@@ -5461,6 +6159,7 @@
     {
      "id": "cdmx_50.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "unknown",
@@ -5482,6 +6181,7 @@
     {
      "id": "cdmx_90.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "unknown",
@@ -5503,6 +6203,7 @@
     {
      "id": "mazatlan_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "unknown",
@@ -5524,6 +6225,7 @@
     {
      "id": "tomaszow_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "F",
      "cached": true,
      "local": "unknown",
@@ -5615,6 +6317,7 @@
     "false_yes_non_walk": 0,
     "fused_go_non_walk": 0,
     "fused_go_walk": "9/10",
+    "fused_go_unclear": 0,
     "unsure_or_invalid_rate": 0.25,
     "mean_latency_s": 2.223,
     "p95_latency_s": 3.332,
@@ -5625,10 +6328,87 @@
     "max_completion_tokens": 512,
     "n": 40
    },
+   "by_subset": {
+    "dc_day": {
+     "per_label": {
+      "walk": {
+       "yes": 9,
+       "no": 1,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 10,
+       "fused_go": 9
+      },
+      "walk_symbol_off": {
+       "yes": 0,
+       "no": 1,
+       "unsure": 2,
+       "invalid": 1,
+       "n": 4,
+       "fused_go": 0
+      },
+      "countdown_ending": {
+       "yes": 0,
+       "no": 4,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      },
+      "flashing": {
+       "yes": 0,
+       "no": 4,
+       "unsure": 0,
+       "invalid": 1,
+       "n": 5,
+       "fused_go": 0
+      },
+      "red": {
+       "yes": 0,
+       "no": 7,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 7,
+       "fused_go": 0
+      },
+      "no_signal": {
+       "yes": 0,
+       "no": 1,
+       "unsure": 5,
+       "invalid": 0,
+       "n": 6,
+       "fused_go": 0
+      },
+      "unclear": {
+       "yes": 3,
+       "no": 0,
+       "unsure": 1,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      }
+     },
+     "walk_yes_rate": "9/10",
+     "false_yes_non_walk": 0,
+     "fused_go_non_walk": 0,
+     "fused_go_walk": "9/10",
+     "fused_go_unclear": 0,
+     "unsure_or_invalid_rate": 0.25,
+     "mean_latency_s": 2.223,
+     "p95_latency_s": 3.332,
+     "cost_usd": 0.09759,
+     "mean_prompt_tokens": 1228,
+     "truncated": 2,
+     "mean_completion_tokens": 303.6,
+     "max_completion_tokens": 512,
+     "n": 40
+    }
+   },
    "rows": [
     {
      "id": "dc_10.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5650,6 +6430,7 @@
     {
      "id": "dc_13.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5671,6 +6452,7 @@
     {
      "id": "dc_17.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5692,6 +6474,7 @@
     {
      "id": "dc_21.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5713,6 +6496,7 @@
     {
      "id": "dc_25.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5734,6 +6518,7 @@
     {
      "id": "dc_29.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5755,6 +6540,7 @@
     {
      "id": "dc_33.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5776,6 +6562,7 @@
     {
      "id": "dc_37.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5797,6 +6584,7 @@
     {
      "id": "dc_41.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5818,6 +6606,7 @@
     {
      "id": "dc_45.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5839,6 +6628,7 @@
     {
      "id": "dc_13.24",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5860,6 +6650,7 @@
     {
      "id": "dc_25.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5881,6 +6672,7 @@
     {
      "id": "dc_37.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5902,6 +6694,7 @@
     {
      "id": "dc_45.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5923,6 +6716,7 @@
     {
      "id": "dc_48.72",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5944,6 +6738,7 @@
     {
      "id": "dc_49.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5965,6 +6760,7 @@
     {
      "id": "dc_50.08",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -5986,6 +6782,7 @@
     {
      "id": "dc_51.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "walk",
@@ -6007,6 +6804,7 @@
     {
      "id": "dc_53.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "green",
@@ -6028,6 +6826,7 @@
     {
      "id": "dc_54.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -6049,6 +6848,7 @@
     {
      "id": "dc_55.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -6070,6 +6870,7 @@
     {
      "id": "dc_56.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -6091,6 +6892,7 @@
     {
      "id": "dc_54.48",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -6112,6 +6914,7 @@
     {
      "id": "dc_01.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -6133,6 +6936,7 @@
     {
      "id": "dc_03.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -6154,6 +6958,7 @@
     {
      "id": "dc_05.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -6175,6 +6980,7 @@
     {
      "id": "dc_07.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -6196,6 +7002,7 @@
     {
      "id": "dc_58.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -6217,6 +7024,7 @@
     {
      "id": "dc_60.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -6238,6 +7046,7 @@
     {
      "id": "dc_62.20",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "red",
@@ -6259,6 +7068,7 @@
     {
      "id": "tyumen_01.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -6280,9 +7090,10 @@
     {
      "id": "tyumen_06.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -6301,9 +7112,10 @@
     {
      "id": "tyumen_12.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
-     "local": "green",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -6322,9 +7134,10 @@
     {
      "id": "tyumen_18.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
-     "local": "unknown",
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -6343,6 +7156,7 @@
     {
      "id": "cdmx_02.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -6364,6 +7178,7 @@
     {
      "id": "cdmx_30.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -6385,6 +7200,7 @@
     {
      "id": "cdmx_50.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -6406,6 +7222,7 @@
     {
      "id": "cdmx_90.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -6427,6 +7244,7 @@
     {
      "id": "mazatlan_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -6448,6 +7266,7 @@
     {
      "id": "tomaszow_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
      "cached": true,
      "local": "unknown",
@@ -6539,6 +7358,7 @@
     "false_yes_non_walk": 0,
     "fused_go_non_walk": 0,
     "fused_go_walk": "9/10",
+    "fused_go_unclear": 0,
     "unsure_or_invalid_rate": 0.25,
     "mean_latency_s": 2.225,
     "p95_latency_s": 3.757,
@@ -6549,12 +7369,89 @@
     "max_completion_tokens": 659,
     "n": 40
    },
+   "by_subset": {
+    "dc_day": {
+     "per_label": {
+      "walk": {
+       "yes": 9,
+       "no": 1,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 10,
+       "fused_go": 9
+      },
+      "walk_symbol_off": {
+       "yes": 0,
+       "no": 1,
+       "unsure": 3,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      },
+      "countdown_ending": {
+       "yes": 0,
+       "no": 4,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      },
+      "flashing": {
+       "yes": 0,
+       "no": 5,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 5,
+       "fused_go": 0
+      },
+      "red": {
+       "yes": 0,
+       "no": 7,
+       "unsure": 0,
+       "invalid": 0,
+       "n": 7,
+       "fused_go": 0
+      },
+      "no_signal": {
+       "yes": 0,
+       "no": 1,
+       "unsure": 5,
+       "invalid": 0,
+       "n": 6,
+       "fused_go": 0
+      },
+      "unclear": {
+       "yes": 2,
+       "no": 0,
+       "unsure": 2,
+       "invalid": 0,
+       "n": 4,
+       "fused_go": 0
+      }
+     },
+     "walk_yes_rate": "9/10",
+     "false_yes_non_walk": 0,
+     "fused_go_non_walk": 0,
+     "fused_go_walk": "9/10",
+     "fused_go_unclear": 0,
+     "unsure_or_invalid_rate": 0.25,
+     "mean_latency_s": 2.225,
+     "p95_latency_s": 3.757,
+     "cost_usd": 0.098842,
+     "mean_prompt_tokens": 1228,
+     "truncated": 0,
+     "mean_completion_tokens": 306.2,
+     "max_completion_tokens": 659,
+     "n": 40
+    }
+   },
    "rows": [
     {
      "id": "dc_10.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6574,8 +7471,9 @@
     {
      "id": "dc_13.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6595,8 +7493,9 @@
     {
      "id": "dc_17.80",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6616,8 +7515,9 @@
     {
      "id": "dc_21.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6637,8 +7537,9 @@
     {
      "id": "dc_25.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6658,8 +7559,9 @@
     {
      "id": "dc_29.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6679,8 +7581,9 @@
     {
      "id": "dc_33.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6700,8 +7603,9 @@
     {
      "id": "dc_37.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6721,8 +7625,9 @@
     {
      "id": "dc_41.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6742,8 +7647,9 @@
     {
      "id": "dc_45.72",
      "label": "walk",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6763,8 +7669,9 @@
     {
      "id": "dc_13.24",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6784,8 +7691,9 @@
     {
      "id": "dc_25.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6805,8 +7713,9 @@
     {
      "id": "dc_37.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6826,8 +7735,9 @@
     {
      "id": "dc_45.28",
      "label": "walk_symbol_off",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6847,8 +7757,9 @@
     {
      "id": "dc_48.72",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6868,8 +7779,9 @@
     {
      "id": "dc_49.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6889,8 +7801,9 @@
     {
      "id": "dc_50.08",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6910,8 +7823,9 @@
     {
      "id": "dc_51.88",
      "label": "countdown_ending",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "walk",
      "n_images": 1,
      "valid": true,
@@ -6931,8 +7845,9 @@
     {
      "id": "dc_53.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "green",
      "n_images": 1,
      "valid": true,
@@ -6952,8 +7867,9 @@
     {
      "id": "dc_54.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "red",
      "n_images": 1,
      "valid": true,
@@ -6973,8 +7889,9 @@
     {
      "id": "dc_55.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "red",
      "n_images": 1,
      "valid": true,
@@ -6994,8 +7911,9 @@
     {
      "id": "dc_56.00",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "red",
      "n_images": 1,
      "valid": true,
@@ -7015,8 +7933,9 @@
     {
      "id": "dc_54.48",
      "label": "flashing",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "red",
      "n_images": 1,
      "valid": true,
@@ -7036,8 +7955,9 @@
     {
      "id": "dc_01.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "red",
      "n_images": 1,
      "valid": true,
@@ -7057,8 +7977,9 @@
     {
      "id": "dc_03.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "red",
      "n_images": 1,
      "valid": true,
@@ -7078,8 +7999,9 @@
     {
      "id": "dc_05.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "red",
      "n_images": 1,
      "valid": true,
@@ -7099,8 +8021,9 @@
     {
      "id": "dc_07.00",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "red",
      "n_images": 1,
      "valid": true,
@@ -7120,8 +8043,9 @@
     {
      "id": "dc_58.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "red",
      "n_images": 1,
      "valid": true,
@@ -7141,8 +8065,9 @@
     {
      "id": "dc_60.60",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "red",
      "n_images": 1,
      "valid": true,
@@ -7162,8 +8087,9 @@
     {
      "id": "dc_62.20",
      "label": "red",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "red",
      "n_images": 1,
      "valid": true,
@@ -7183,8 +8109,9 @@
     {
      "id": "tyumen_01.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "unknown",
      "n_images": 1,
      "valid": true,
@@ -7204,9 +8131,10 @@
     {
      "id": "tyumen_06.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
-     "local": "green",
+     "cached": true,
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -7225,9 +8153,10 @@
     {
      "id": "tyumen_12.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
-     "local": "green",
+     "cached": true,
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -7246,9 +8175,10 @@
     {
      "id": "tyumen_18.00",
      "label": "unclear",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
-     "local": "unknown",
+     "cached": true,
+     "local": "unclear",
      "n_images": 1,
      "valid": true,
      "error": null,
@@ -7267,8 +8197,9 @@
     {
      "id": "cdmx_02.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "unknown",
      "n_images": 1,
      "valid": true,
@@ -7288,8 +8219,9 @@
     {
      "id": "cdmx_30.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "unknown",
      "n_images": 1,
      "valid": true,
@@ -7309,8 +8241,9 @@
     {
      "id": "cdmx_50.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "unknown",
      "n_images": 1,
      "valid": true,
@@ -7330,8 +8263,9 @@
     {
      "id": "cdmx_90.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "unknown",
      "n_images": 1,
      "valid": true,
@@ -7351,8 +8285,9 @@
     {
      "id": "mazatlan_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "unknown",
      "n_images": 1,
      "valid": true,
@@ -7372,8 +8307,9 @@
     {
      "id": "tomaszow_03.00",
      "label": "no_signal",
+     "subset": "dc_day",
      "variant": "E",
-     "cached": false,
+     "cached": true,
      "local": "unknown",
      "n_images": 1,
      "valid": true,
@@ -7394,9 +8330,9 @@
   }
  },
  "ledger": {
-  "n_calls": 371,
-  "total_usd": 0.974165,
+  "n_calls": 462,
+  "total_usd": 1.26495,
   "budget_usd": 3.2,
-  "remaining_usd": 2.225835
+  "remaining_usd": 1.93505
  }
 }

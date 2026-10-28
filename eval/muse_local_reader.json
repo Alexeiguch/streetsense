@@ -1049,37 +1049,12 @@
    ],
    [
     0.0,
-    "unclear"
+    "red"
    ]
   ],
-  "state": "unclear"
+  "state": "red"
  },
  "eu_ped_b@1.80": {
-  "history": [
-   [
-    1.0,
-    "unknown"
-   ],
-   [
-    0.75,
-    "unknown"
-   ],
-   [
-    0.5,
-    "red"
-   ],
-   [
-    0.25,
-    "unclear"
-   ],
-   [
-    0.0,
-    "unclear"
-   ]
-  ],
-  "state": "unclear"
- },
- "eu_ped_b@2.80": {
   "history": [
    [
     1.0,
@@ -1103,6 +1078,31 @@
    ]
   ],
   "state": "red"
+ },
+ "eu_ped_b@2.80": {
+  "history": [
+   [
+    1.0,
+    "unknown"
+   ],
+   [
+    0.75,
+    "unknown"
+   ],
+   [
+    0.5,
+    "red"
+   ],
+   [
+    0.25,
+    "red"
+   ],
+   [
+    0.0,
+    "unclear"
+   ]
+  ],
+  "state": "unclear"
  },
  "eu_ped_b@4.50": {
   "history": [
@@ -1141,18 +1141,18 @@
    ],
    [
     0.5,
-    "unknown"
+    "red"
    ],
    [
     0.25,
-    "walk"
+    "red"
    ],
    [
     0.0,
-    "walk"
+    "red"
    ]
   ],
-  "state": "walk"
+  "state": "red"
  },
  "eu_ped_b@7.00": {
   "history": [
@@ -1417,14 +1417,14 @@
    ],
    [
     0.25,
-    "green"
+    "unclear"
    ],
    [
     0.0,
-    "green"
+    "unclear"
    ]
   ],
-  "state": "green"
+  "state": "unclear"
  },
  "most11@0.50": {
   "history": [
@@ -1877,7 +1877,7 @@
    ],
    [
     0.25,
-    "green"
+    "unclear"
    ],
    [
     0.0,
@@ -1902,14 +1902,14 @@
    ],
    [
     0.25,
-    "green"
+    "unclear"
    ],
    [
     0.0,
-    "green"
+    "unclear"
    ]
   ],
-  "state": "green"
+  "state": "unclear"
  },
  "tyumen@18.00": {
   "history": [
@@ -1931,10 +1931,10 @@
    ],
    [
     0.0,
-    "unknown"
+    "unclear"
    ]
   ],
-  "state": "unknown"
+  "state": "unclear"
  },
  "tyumen@6.00": {
   "history": [
@@ -1956,10 +1956,10 @@
    ],
    [
     0.0,
-    "green"
+    "unclear"
    ]
   ],
-  "state": "green"
+  "state": "unclear"
  },
  "us_ped@1.00": {
   "history": [

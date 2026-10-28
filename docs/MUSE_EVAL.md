@@ -159,8 +159,8 @@ The hard requirement covers 28 non-walk frames: 16 red, 3 flashing, 3 countdown_
 | Subset | Variant | n | Walk yes (Muse) | Walk go (fused) | False yes, non-walk | Fused go, non-walk | Unclear yes (fused go) | Truncated | Unsure + invalid | Mean / p95 latency | Cost |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | DC day | E@768 | 40 | 9/10 | 9/10 | **0/22** | **0** | 2/4 (0) | 0 | 10/40 | 2.23 / 3.76 s | $0.0988 |
-| EU-style | E@768 | 24 | 10/10 | 1/10 | **0/14** | **0** | n/a | 0 | 4/24 | 1.81 / 2.23 s | $0.0539 |
-| EU-style | F@768 | 24 | 10/10 | 1/10 | **0/14** | **0** | n/a | 1 | 3/24 | 1.94 / 3.53 s | $0.0938 |
+| EU-style | E@768 | 24 | 10/10 | 0/10 † | **0/14** | **0** | n/a | 0 | 4/24 | 1.81 / 2.23 s | $0.0539 |
+| EU-style | F@768 | 24 | 10/10 | 0/10 † | **0/14** | **0** | n/a | 1 | 3/24 | 1.94 / 3.53 s | $0.0938 |
 | Night | E@768 | 18 | 5/5 | 0/5 | **0/10** | **0** | 2/3 (0) | 0 | 2/18 | 1.93 / 2.89 s | $0.0424 |
 | Night | F@768 | 18 | 4/5 | 0/5 | **0/10** | **0** | 2/3 (0) | 1 | 3/18 | 2.23 / 4.38 s | $0.0714 |
 | US day 2 | E@768 | 6 | 2/2 | 2/2 | **0/4** | **0** | n/a | 0 | 0/6 | 1.58 / 1.85 s | $0.0141 |
@@ -186,22 +186,24 @@ These show that Muse can pick the wrong head when several are in view. The local
 
 | Subset / label | Local reader states |
 |---|---|
-| eu_style walk (10) | walk 1, green 3, red 1, unclear 1, unknown 4 |
-| eu_style red (7) | red 3, unclear 2, unknown 2 |
+| eu_style walk (10) | green 3, red 2, unclear 1, unknown 4 |
+| eu_style red (7) | red 4, unclear 1, unknown 2 |
 | eu_style countdown_ending (3) | green 3 |
 | eu_style no_signal (4) | unknown 4 |
 | night walk (5) | unknown 5 |
 | night red (8) | red 2, unknown 6 |
 | night no_signal (2) | green 1, unknown 1 |
-| night unclear (3) | green 2, unknown 1 |
+| night unclear (3) | green 1, unclear 1, unknown 1 |
 | us_day2 walk (2) | walk 2 |
 | us_day2 flashing (3) | red 3 |
 | us_day2 red (1) | red 1 |
 
 - The local reader never said `walk` on a non-walk frame. Its one wrong-but-safe call is `eu_ped_b_04.50`: walk labelled, local `red`, Muse yes → stop.
-- It rarely recognises EU green-man heads as `walk` (1 of 10), and it recognised none of the 5 night walk frames (all `unknown`). On EU heads it often returns `green`, a lit green head not classified as a pedestrian walk figure, which never allows go.
-- So on EU-style and night footage the bottleneck is the local reader, not Muse. Fused go was 1/10 on EU walk frames and 0/5 at night, against Muse alone at 10/10 and 5/5.
-- I did not change the local reader or the fusion. Improving the reader's EU and night recall is the next step if those settings matter. It needs its own labelled tests so it never says `walk` on red.
+- It does not recognise EU green-man heads as `walk` (0 of 10; it was 1 of 10 before the white-rule fix below), and it recognised none of the 5 night walk frames (all `unknown`). On EU heads it often returns `green`, a lit green head not classified as a pedestrian walk figure, which never allows go.
+- So on EU-style and night footage the bottleneck is the local reader, not Muse. Fused go was 0/10 on EU walk frames (1/10 before the fix) and 0/5 at night, against Muse alone at 10/10 and 5/5.
+- The fusion is unchanged. The local reader got one trivial tightening (see the next section); otherwise it is unchanged. Improving the reader's EU and night recall is the next step if those settings matter. It needs its own labelled tests so it never says `walk` on red.
+
+† **Re-scored 2026-10-28 after the signal-distance work** (cached Muse replies, no new calls). The one EU walk "go" (`eu_ped_b_06.00`) was right for the wrong reason: the local `walk` came from a side-on, unlit *vehicle* head, where white sky between the visors matched the US white-walk-figure rule. That rule now skips heads classified as vehicle, so the frame reads `red` (from the true walk head's washed-out figure plus ghost red) and fuses to stop. The distance rules also turned some local `green` into `unclear` (`tyumen_06/12/18`, `most04_08.00`, all labelled unclear) and `eu_ped_b_02.80` (red) into `unclear`. DC-day results per label are unchanged. Why the reader misses EU and night walks: [SIGNAL_DISTANCE.md](SIGNAL_DISTANCE.md#why-the-local-reader-rarely-says-walk-on-eu-and-night-frames).
 
 ### Part 2 caveats
 

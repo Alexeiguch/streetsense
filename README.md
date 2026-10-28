@@ -49,6 +49,7 @@ flowchart LR
 | `streetsense/rules.py` | Perception to candidate alerts (one traffic light per frame, pedestrian heads first) |
 | `streetsense/alerts.py` | What gets said and when (see below) |
 | `streetsense/meta_api.py` | Muse Spark vision client (OpenAI-compatible, `MODEL_API_KEY`), JSON reply parsing, SAM 3.1 segmenter + Voice Transcribe |
+| `streetsense/signal_distance.py` | Distance to signal heads and signs (pinhole from housing size, camera HFOV presets, optional depth fusion) and caution-only rules: far, off-to-the-side, or out-ranked walk/green heads become "unclear, wait". See [docs/SIGNAL_DISTANCE.md](docs/SIGNAL_DISTANCE.md) |
 | `streetsense/meta_usage.py` | Token/SAM/voice cost ledger + hard budget cap (`STREETSENSE_META_BUDGET_USD`) |
 | `docs/META.md` | How StreetSense uses each Meta model; measured latency, cost, crossing agreement |
 | `streetsense/web.py` | Phone demo: the browser camera posts frames, alerts are spoken with `speechSynthesis`, and a "Can I cross?" button asks Muse Spark |
@@ -66,7 +67,7 @@ flowchart LR
 Guarantees added after the Oct 2026 external review:
 
 1. **No stale contradictory speech.** Light alerts share a pending family (`light:{kind}`) so walk/red replace each other; cooldown stays per `light:{kind}:{state}` so real transitions still speak. Pending speech is revalidated against current facts before emit.
-2. **Signal selection by relevance.** Prefer central, larger, crosswalk-associated heads. Conflicting relevant walk+red → announce "crossing signals unclear, wait" instead of picking walk. A sticky vehicle-green head does not silence a real walk.
+2. **Signal selection by relevance.** Prefer central, larger, crosswalk-associated heads. Conflicting relevant walk+red → announce "crossing signals unclear, wait" instead of picking walk. A sticky vehicle-green head does not silence a real walk. Distance checks can only add caution: a walk/green head that is far (>40 m), more than 25° off-axis, or behind a nearer non-walk/unreadable head is announced as "wait"; the spoken line includes distance ("walk signal on, about 15 metres ahead").
 3. **Speech keeps urgency.** The speaker accepts structured `Alert`s, expires stale queue items, lets CRITICAL evict lower-priority phrases, supports interruption, and reports delivery so a dropped phrase is not counted as spoken.
 4. **Crossing answers have a contract.** Muse JSON must pass strict schema validation. Malformed / free-text replies become the fixed fallback *"I can't tell, please wait"*. Spoken go requires local walk **and** Muse yes; speech is rendered from validated fields only. Capture timestamps expire stale answers.
 5. **Per-session web state.** Each browser gets its own Pipeline (tracker, votes, cooldowns) keyed by session cookie, with TTL and reset on camera restart. Models/config are shared.
