@@ -5,7 +5,8 @@ Labels come from the authors' CSVs (ronaldosm/PedestrianTrafficLightsAndCrosswal
 PTL-Crosswalk Dataset/*.csv): light_class 0=red->stop, 1=green->walk, 2=none->other. The CSV gives a crosswalk
 midline, not a light box, so the box comes from our detector (YOLO full + 2x3 tiles, NMS). A frame is kept only if
 it has exactly ONE light >= --conf that is not vehicle-shaped (signal_kind != "vehicle"), so the image label can be
-pinned to that box.
+pinned to that box, and only if our colour reader agrees with the label (W: green/walk, S: red/yellow,
+O: not green/walk).
 
 Split: the authors' folders ("training set" / "testing set", FR/ likewise) are separate recordings; we keep them.
 Val = every 5th block of 50 frame numbers from train (block-level, so no neighbouring frames leak).
@@ -25,6 +26,10 @@ PT = Path("/workspace/datasets/ptlcw")
 IMG = PT / "GIT - PTL-Crosswalk Dataset/base"
 ANN = PT / "repo/Datasets/Annotations/PTL-Crosswalk Dataset"
 LAB = {0: "S", 1: "W", 2: "O"}
+# Label noise guard (seen on the contact sheet): the label is per image, our box may be another head.
+COLOUR_OK = {"W": lambda s: s in ("green", "walk"), "S": lambda s: s in ("red", "yellow"),
+             "O": lambda s: s not in ("green", "walk")}
+DROP = {"PTL-Crosswalk-Base/training set/342NHT.png"}  # contact-sheet review: red blob read as green
 
 
 def labels():
@@ -82,6 +87,7 @@ def mine(a):
 
 def build(a):
     from build_crops import CL, cut
+    from streetsense.traffic_light import classify_light
     L = labels()
     by = collections.defaultdict(list)
     for r in csv.DictReader(open(PT / "boxes.csv")):
@@ -93,12 +99,15 @@ def build(a):
         split, cond, seq = meta(rel)
         hi = [r for r in by.get(rel, []) if float(r["conf"]) >= a.conf]
         ped = [r for r in hi if r["kind"] != "vehicle"]
-        why = "ok" if len(hi) == 1 and len(ped) == 1 else ("no_box" if not hi else "vehicle_shape" if not ped else "multi_box")
+        why = "manual_drop" if rel in DROP else "ok" if len(hi) == 1 and len(ped) == 1 else ("no_box" if not hi else "vehicle_shape" if not ped else "multi_box")
         row = dict(file=rel, label=lab, split=split, cond=cond, seq=seq, kept=int(why == "ok"), why=why,
                    x1="", y1="", x2="", y2="", conf="")
         if why == "ok":
             b = ped[0]; row.update({k: b[k] for k in ("x1", "y1", "x2", "y2", "conf")})
             img = cv2.imread(str(IMG / rel))
+            st = classify_light(img[int(b["y1"]):int(b["y2"]), int(b["x1"]):int(b["x2"])], "pedestrian").state
+            if not COLOUR_OK[lab](st):  # image label does not match this box's lit colour -> drop
+                row.update(kept=0, why="colour_mismatch"); man.append(row); continue
             c, pad, s = cut(img, *(int(b[k]) for k in ("x1", "y1", "x2", "y2")))
             D.append(dict(src=f"ptlcw:{cond}", grp=f"ptlcw:{seq}", split=split, y=CL[lab], crop=c, pad=pad, scale=s,
                           name=f"ptlcw_{Path(rel).stem}_{'FR' if '/FR/' in rel else 'BR'}"))
