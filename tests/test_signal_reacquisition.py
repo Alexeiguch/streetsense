@@ -43,14 +43,54 @@ def test_countdown_cannot_bypass_walk_confirmation():
     assert sm.update(1, "countdown", t=0.7) != "walk"
 
 
-@pytest.mark.parametrize("t", [2.0, -1.0])
+@pytest.mark.parametrize("t,max_gap", [(2.0, 1.0), (-1.0, None)])
 @pytest.mark.parametrize("track_id", [1, None])
-def test_gap_or_rewind_cannot_reuse_walk_votes(t, track_id):
-    sm = LightStateSmoother()
+def test_gap_or_rewind_cannot_reuse_walk_votes(t, max_gap, track_id):
+    sm = LightStateSmoother(max_gap_s=max_gap)
     box = Box(20, 20, 60, 100)
     for i in range(3):
         sm.update(track_id, "walk", box, t=i / 10)
     assert sm.update(track_id, "walk", box, t=t) == "unknown"
+
+
+@pytest.mark.parametrize("track_id", [1, None])
+@pytest.mark.parametrize("reset_on_veto", [False, True])
+def test_fresh_red_cancels_walk_and_its_countdown_hold(track_id, reset_on_veto):
+    sm = LightStateSmoother(reset_walk_on_veto=reset_on_veto)
+    box = Box(20, 20, 60, 100)
+    for i in range(3):
+        state = sm.update(track_id, "walk", box, t=i / 10)
+    assert state == "walk"
+    assert sm.update(track_id, "red", box, t=0.3) != "walk"
+    assert sm.update(track_id, "countdown", box, t=0.4) != "walk"
+    assert sm.update(track_id, "walk", box, t=0.5) != "walk"
+    assert sm.update(track_id, "walk", box, t=0.6) != "walk"
+    assert sm.update(track_id, "walk", box, t=0.7) == "walk"
+
+
+@pytest.mark.parametrize("track_id", [1, None])
+@pytest.mark.parametrize("gap", [1.1, 2.0, 5.0])
+def test_default_can_confirm_steady_walk_at_slow_frame_rates(track_id, gap):
+    sm = LightStateSmoother(reset_walk_on_veto=False)
+    box = Box(20, 20, 60, 100)
+    states = [sm.update(track_id, "walk", box, t=i * gap) for i in range(4)]
+    assert states == ["unknown", "unknown", "walk", "walk"]
+
+
+@pytest.mark.parametrize("track_id", [1, None])
+@pytest.mark.parametrize("confirmed", [False, True])
+@pytest.mark.parametrize("sparse", [False, True])
+def test_long_countdown_discards_pre_countdown_walk_votes(track_id, confirmed, sparse):
+    sm = LightStateSmoother(reset_walk_on_veto=False)
+    box = Box(20, 20, 60, 100)
+    for i in range(3 if confirmed else 1):
+        sm.update(track_id, "walk", box, t=i / 10)
+    # Sparse input expires between the last countdown frame and the next WALK.
+    for t in ([0.3] if sparse else [0.3, 0.6, 0.9, 1.2, 1.5]):
+        sm.update(track_id, "countdown", box, t=t)
+    assert sm.update(track_id, "walk", box, t=1.6) != "walk"
+    assert sm.update(track_id, "walk", box, t=1.7) != "walk"
+    assert sm.update(track_id, "walk", box, t=1.8) == "walk"
 
 
 def test_explicit_frame_time_controls_countdown_hold():

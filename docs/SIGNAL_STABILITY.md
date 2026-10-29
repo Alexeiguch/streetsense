@@ -3,6 +3,10 @@
 GO still requires local WALK and a validated Muse yes. Uncertainty remains WAIT.
 No Meta calls were made for this work.
 
+This branch provides timing cleanup, safer confirmation and diagnostics. It does
+not establish a performance improvement. The external no-tiles evaluation supplied
+by Alex tied main; that evaluation has not been rerun after the corrections below.
+
 ## Decisions
 
 - **Use frame time.** The smoother now shares the pipeline clock and accepts each
@@ -11,8 +15,16 @@ No Meta calls were made for this work.
 - **Confirm before holding.** A raw WALK cannot prime the countdown hold before
   three votes confirm it. Only a fresh observation of the confirmed colour renews
   its hold. Countdown-only frames cannot renew it.
-- **Expire old evidence.** A gap longer than one second, or a timestamp rewind,
-  clears signal history and untracked position matches. Reappearance needs fresh votes.
+- **Cancel WALK on red.** A fresh red reading removes WALK votes and its countdown
+  hold immediately, including before three votes have confirmed red.
+- **Expire countdown evidence.** Once a countdown has outlasted the one-second hold,
+  pre-countdown WALK votes cannot help restore WALK. This also applies when a sparse
+  stream resumes with WALK after the hold elapsed between frames.
+- **Allow slow streams.** Frame gaps do not erase evidence by default. Steady WALK
+  can confirm over three sparse observations. `max_gap_s` remains an optional
+  constructor setting for callers with a known cadence. Timestamp rewinds still
+  clear signal history and untracked position matches. Gateway photos retain their
+  existing per-photo reset; this is not a real-glasses test.
 - **Keep reset-on-veto opt-in.** `STREETSENSE_SIGNAL_RESET_ON_VETO=1` discards WALK
   votes and its hold after every confident CNN rejection, including during recovery.
   The existing CNN veto still applies immediately under both policies. The stricter
@@ -22,7 +34,28 @@ No Meta calls were made for this work.
   shows a regular countdown-only interval, consistent with the documented LED/camera
   flicker. Stabilising a box cannot restore a figure absent from a captured frame.
 
-## Measurement
+## Review corrections
+
+Review found two defects in `205c599`: a fresh red did not cancel the cached WALK
+hold, and its fixed one-second gap expiry prevented steady WALK from confirming on
+slow streams. It also identified an older defect: WALK votes survived an expired
+countdown hold. All three were reproduced in standalone smoother tests and corrected.
+
+The regression cases cover tracked and position-matched untracked heads, both reset
+policies for red cancellation, steady frame gaps of 1.1/2/5 seconds, and countdown
+expiry before or between frames, with and without an initially confirmed WALK.
+Red and an expired countdown require three fresh WALK votes for recovery. A short
+countdown can still hold an already confirmed colour within the existing limit.
+
+Validation after these corrections: **366 passed, 2 skipped**; Python compilation
+and `git diff --check` passed. No Meta calls were made. The full clip evaluation,
+including tiles, must be rerun on the corrected version before judging merge readiness.
+
+## Historical measurement at 205c599
+
+The table and JSON below record the earlier implementation, before the review
+corrections. They are retained as historical measurements, not results for the
+current code. The 11-to-7 demo change count did not establish an accuracy gain.
 
 Full DC clip, 628 frames sampled at 10 fps, resized to 1280×720. YOLO11s OpenVINO,
 v1 CNN, 2×3 tiles always, surface/depth/remote models off. Local Mac ARM runtime:
@@ -35,7 +68,7 @@ context was regenerated for the original trace and reproduced all baseline selec
 These are local reader measurements on one development clip, not general accuracy
 or fused crossing results. Baseline wall-clock expiry also depends on replay speed.
 
-| Measurement | Baseline | Proposed default | Reset-on-veto experiment |
+| Measurement | Baseline | Default at 205c599 | Reset-on-veto at 205c599 |
 |---|---:|---:|---:|
 | WALK readings, full clip (628 frames) | 176 | 188 | 59 |
 | WALK readings, 10–47 s (371 frames) | 167 | 180 | 58 |

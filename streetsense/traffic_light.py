@@ -352,8 +352,9 @@ class LightStateSmoother:
     Untracked detections (track_id is None) use an IoU/position key and the same vote rule —
     internal states like `countdown` never leave this layer as-is for untracked heads.
     Countdown frames hold the last positive colour only within `countdown_hold_s`.
-    Opt-in reset-on-veto removes walk evidence after a CNN rejection. Gaps longer
-    than `max_gap_s` and rewinds expire evidence, including untracked position matches.
+    Fresh red cancels walk evidence immediately. A countdown past its hold discards
+    earlier walk votes. Opt-in reset-on-veto also removes them after a CNN rejection.
+    Rewinds expire evidence; a gap limit is optional so sparse streams can confirm.
     """
 
     def __init__(
@@ -363,7 +364,7 @@ class LightStateSmoother:
         countdown_hold_s: float = 1.0,
         clock: Callable[[], float] | None = None,
         iou_match: float = 0.4,
-        max_gap_s: float = 1.0,
+        max_gap_s: float | None = None,
         reset_walk_on_veto: bool | None = None,
     ):
         self.window = window
@@ -382,16 +383,31 @@ class LightStateSmoother:
         self._untracked_boxes: dict[str, Box] = {}
         self._next_uid = 0
         self._last_seen: dict[int | str, float] = {}
+        self._last_walk_vote_ts: dict[int | str, float] = {}
+        self._countdown_since_walk: set[int | str] = set()
 
     def _expire(self, now: float) -> None:
-        # Gaps and replay rewinds must not revive old walk evidence or position matches.
+        # A fixed gap limit is opt-in: applying one to slow streams prevents confirmation.
         for key, seen in list(self._last_seen.items()):
-            if now < seen or now - seen > self.max_gap_s:
+            if now < seen or (self.max_gap_s is not None and now - seen > self.max_gap_s):
                 self._hist.pop(key, None)
                 self._last_positive_ts.pop(key, None)
                 self._last_positive_state.pop(key, None)
                 self._untracked_boxes.pop(key, None)
                 self._last_seen.pop(key, None)
+                self._last_walk_vote_ts.pop(key, None)
+                self._countdown_since_walk.discard(key)
+
+    def _discard_walk(self, key: int | str, *, clear_hold: bool = True) -> None:
+        q = self._hist.get(key)
+        if q is not None:
+            keep = [s for s in q if s != "walk"]
+            q.clear()
+            q.extend(keep)
+        self._last_walk_vote_ts.pop(key, None)
+        if clear_hold and self._last_positive_state.get(key) == "walk":
+            self._last_positive_ts.pop(key, None)
+            self._last_positive_state.pop(key, None)
 
     def _key_for_untracked(self, box: Box | None) -> str:
         if box is None:
@@ -419,13 +435,23 @@ class LightStateSmoother:
 
         self._last_seen[key] = now
         q = self._hist.setdefault(key, deque(maxlen=self.window))
+        if state == "countdown":
+            self._countdown_since_walk.add(key)
+        last_walk = self._last_walk_vote_ts.get(key)
+        if (key in self._countdown_since_walk and last_walk is not None
+                and now - last_walk > self.countdown_hold_s):
+            # This also runs when the next frame is WALK: a sparse stream may have
+            # no countdown frame at the precise moment its hold expires.
+            self._discard_walk(key, clear_hold=False)
+
+        if state == "red":
+            # Do not offer walk after fresh stop evidence, even before red confirms.
+            self._discard_walk(key)
+            self._countdown_since_walk.discard(key)
         if walk_blocked and self.reset_walk_on_veto:
             # A CNN veto is fresh negative evidence, even before walk has confirmed.
             # Discard walk votes and the flicker hold so recovery needs min_votes new votes.
-            q = self._hist[key] = deque((s for s in q if s != "walk"), maxlen=self.window)
-            if self._last_positive_state.get(key) == "walk":
-                self._last_positive_ts.pop(key, None)
-                self._last_positive_state.pop(key, None)
+            self._discard_walk(key)
             if state == "walk":
                 state = "unknown"
 
@@ -443,6 +469,9 @@ class LightStateSmoother:
             return "countdown" if last_st else "unknown"
 
         q.append(state)
+        if state == "walk":
+            self._last_walk_vote_ts[key] = now
+            self._countdown_since_walk.discard(key)
         known = [s for s in q if s not in ("unknown", "countdown")]
         if not known:
             return "unknown"
