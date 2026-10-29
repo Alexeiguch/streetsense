@@ -352,6 +352,8 @@ class LightStateSmoother:
     Untracked detections (track_id is None) use an IoU/position key and the same vote rule —
     internal states like `countdown` never leave this layer as-is for untracked heads.
     Countdown frames hold the last positive colour only within `countdown_hold_s`.
+    Opt-in reset-on-veto removes walk evidence after a CNN rejection. Gaps longer
+    than `max_gap_s` and rewinds expire evidence, including untracked position matches.
     """
 
     def __init__(
@@ -361,17 +363,35 @@ class LightStateSmoother:
         countdown_hold_s: float = 1.0,
         clock: Callable[[], float] | None = None,
         iou_match: float = 0.4,
+        max_gap_s: float = 1.0,
+        reset_walk_on_veto: bool | None = None,
     ):
         self.window = window
         self.min_votes = min_votes
         self.countdown_hold_s = countdown_hold_s
         self.clock = clock or time.monotonic
         self.iou_match = iou_match
+        self.max_gap_s = max_gap_s
+        self.reset_walk_on_veto = (
+            os.environ.get("STREETSENSE_SIGNAL_RESET_ON_VETO", "0").strip().lower() in {"1", "true", "yes", "on"}
+            if reset_walk_on_veto is None else reset_walk_on_veto
+        )
         self._hist: dict[int | str, deque[str]] = {}
         self._last_positive_ts: dict[int | str, float] = {}
         self._last_positive_state: dict[int | str, str] = {}
         self._untracked_boxes: dict[str, Box] = {}
         self._next_uid = 0
+        self._last_seen: dict[int | str, float] = {}
+
+    def _expire(self, now: float) -> None:
+        # Gaps and replay rewinds must not revive old walk evidence or position matches.
+        for key, seen in list(self._last_seen.items()):
+            if now < seen or now - seen > self.max_gap_s:
+                self._hist.pop(key, None)
+                self._last_positive_ts.pop(key, None)
+                self._last_positive_state.pop(key, None)
+                self._untracked_boxes.pop(key, None)
+                self._last_seen.pop(key, None)
 
     def _key_for_untracked(self, box: Box | None) -> str:
         if box is None:
@@ -387,18 +407,31 @@ class LightStateSmoother:
         self._untracked_boxes[k] = box
         return k
 
-    def update(self, track_id: int | None, state: str, box: Box | None = None) -> str:
+    def update(self, track_id: int | None, state: str, box: Box | None = None,
+               *, t: float | None = None, walk_blocked: bool = False) -> str:
+        now = float(self.clock() if t is None else t)
+        self._expire(now)
         key: int | str
         if track_id is None:
             key = self._key_for_untracked(box)
-            # Internal countdown must not reach the alert layer for untracked heads.
-            if state == "countdown":
-                return "unknown"
         else:
             key = track_id
 
-        now = float(self.clock())
+        self._last_seen[key] = now
         q = self._hist.setdefault(key, deque(maxlen=self.window))
+        if walk_blocked and self.reset_walk_on_veto:
+            # A CNN veto is fresh negative evidence, even before walk has confirmed.
+            # Discard walk votes and the flicker hold so recovery needs min_votes new votes.
+            q = self._hist[key] = deque((s for s in q if s != "walk"), maxlen=self.window)
+            if self._last_positive_state.get(key) == "walk":
+                self._last_positive_ts.pop(key, None)
+                self._last_positive_state.pop(key, None)
+            if state == "walk":
+                state = "unknown"
+
+        # Internal countdown must not reach the alert layer for untracked heads.
+        if track_id is None and state == "countdown":
+            return "unknown"
 
         if state == "countdown":
             last_ts = self._last_positive_ts.get(key)
@@ -410,15 +443,17 @@ class LightStateSmoother:
             return "countdown" if last_st else "unknown"
 
         q.append(state)
-        if state not in ("unknown", "countdown"):
-            self._last_positive_ts[key] = now
-            self._last_positive_state[key] = state
-
         known = [s for s in q if s not in ("unknown", "countdown")]
         if not known:
             return "unknown"
         best, votes = Counter(known).most_common(1)[0]
-        return best if votes >= self.min_votes else "unknown"
+        confirmed = best if votes >= self.min_votes else "unknown"
+        # A single raw walk must not prime the countdown hold before confirmation.
+        # Only a fresh observation of the confirmed colour refreshes its hold.
+        if confirmed == state and state != "unknown":
+            self._last_positive_ts[key] = now
+            self._last_positive_state[key] = state
+        return confirmed
 
 
 def apply_signal_cnn(reading: LightReading, probs, kind: str, t_walk: float, t_veto: float = 0.8) -> LightReading:
@@ -448,13 +483,19 @@ def apply_signal_cnn(reading: LightReading, probs, kind: str, t_walk: float, t_v
     return reading
 
 
+def cnn_rejects_walk(probs, t_veto: float = 0.8) -> bool:
+    """Current crop confidently contradicts walk, even while confirmation is pending."""
+    if probs is None:
+        return False
+    pw, ps, pc, po = (float(v) for v in probs)
+    return max(ps, pc, po) >= t_veto and pw < 0.5
+
+
 def cnn_hold_veto(smoothed: str, raw: str, probs, t_veto: float = 0.8) -> str:
     """Stop the smoother's history (3-of-5 vote, 1 s countdown flicker hold) from carrying a
     walk through a frame where the classifier is confident the head is NOT walk right now
     (stop, countdown digits, or off). Never turns anything into walk."""
-    if smoothed != "walk" or probs is None:
+    if smoothed != "walk" or not cnn_rejects_walk(probs, t_veto):
         return smoothed
     pw, ps, pc, po = (float(v) for v in probs)
-    if max(ps, pc, po) >= t_veto and pw < 0.5:
-        return "countdown" if (raw == "countdown" or pc >= max(ps, po)) else "unknown"
-    return smoothed
+    return "countdown" if (raw == "countdown" or pc >= max(ps, po)) else "unknown"

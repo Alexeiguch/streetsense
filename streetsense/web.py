@@ -469,7 +469,7 @@ def create_app(no_surface: bool = False, backend: str | None = None, weights: st
                     # add up to a confirmed walk. Each photo is read on its own.
                     from .traffic_light import LightStateSmoother
 
-                    sess.pipe.smoother = LightStateSmoother()
+                    sess.pipe.smoother = LightStateSmoother(clock=getattr(sess.pipe, "clock", time.monotonic))
                 out = sess.pipe.process(img, annotate=False)
             from .config import WonderConfig
 
