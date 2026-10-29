@@ -121,3 +121,39 @@ Held-out clips and stills are not in the training or validation data. Commons ne
 ## Detectors
 
 The detector benchmark and the opt-in tiled light pass (held-out walk reads 1/14 -> 5/14, 0/1148 dense false walks) are in [DETECTORS.md](DETECTORS.md).
+
+## signal_cnn v1 vs v2 (29 Oct 2026)
+
+v2 (`models/signal_cnn_v2`, `STREETSENSE_SIGNAL_CNN_VERSION=v2`) = v1 data + Commons video train clips.
+Reader evals: `scripts/eval_local_reader.py --dense`, logs in `/workspace/datasets/runs/eval/{v1,v2,v1_tiles,v2_tiles}.log`
+(tiles = `STREETSENSE_LIGHT_TILES=2x3 STREETSENSE_LIGHT_TILES_MODE=always`). Crop eval: `scripts/compare_signal_cnn.py` → `docs/benchmark/signal_cnn_compare.json`.
+
+| Metric | v1 | v2 | v1 + tiles | v2 + tiles |
+|---|---|---|---|---|
+| Held-out walk recall (14) | 1/14 | 5/14 | 5/14 | 5/14 |
+| Dev walk recall (22) | 16/22 | 17/22 | 16/22 | 16/22 |
+| Dev false walk (37) | 1/37 | 1/37 | **0/37** | **1/37** (dc_48.72) |
+| All walk recall / misses (36) | 17 / 19 missed | 22 / 14 missed | 21 / 15 | 21 / 15 |
+| Held-out false walk (35) | 0 | 0 | 0 | 0 |
+| Dense non-walk walk decisions (1073 frames) | 0 | 0 | 0 | 0 |
+| US countdown dc 48.5–53 (19 frames) | 0 walk | 0 walk | 0 walk | 0 walk |
+| Night walk recall dev / held-out | 1/3, 0/2 | 1/3, 0/2 | 2/3, 0/2 | 2/3, 0/2 |
+| Cached-Muse go / false go | 15/27, 0 | 19/27, 0 | 15/27, 0 | 15/27, 0 |
+
+Crop test split (each model at its own t_walk: v1 0.952, v2 0.885):
+
+| Group | v1 acc / walk rec / false walk | v2 acc / walk rec / false walk |
+|---|---|---|
+| Commons video clips (405) | 0.807 / 6/27 / 0 | 0.807 / 14/27 / 0 |
+| cvid:dus_g2r (76, 13 walk) | 0.803 / 0.462 / 0 | 0.921 / 0.846 / 0 |
+| cvid:tw_pingtung (37, 14 walk) | 1.000 / 0.000 / 0 | 0.973 / 0.214 / 0 |
+| cvid:tw_chaozhou (34) | 0.941 / – / 0 | **0.353** / – / 0 |
+| cvid:china / gau / sanjose / us_blinkred | 0.874 / 0.753 / 0.111 / 0.529 | 0.856 / 0.818 / 0.778 / 0.647 |
+| Commons stills (356, 45 walk) | 0.862 / 0.289 / 0 | 0.868 / 0.711 / **2** |
+| PTL (1541, 80 walk) | 0.916 / 0.650 / 0 | 0.909 / 0.912 / **2** |
+
+Per-class acc on video clips (v1 → v2): walk 1.00→1.00, stop 0.99→0.73, countdown 0.95→0.63, other 0.71→0.84.
+
+**Decision: v1 stays the default; v2 stays opt-in.** v2 improves walk recall without tiles, but it adds false walks:
+dc_48.72 (countdown ending) with tiles always (v1+tiles 0/37 → v2+tiles 1/37), plus 2 on Commons stills and 2 on PTL crops.
+With tiles always, held-out recall is the same (5/14). Safety rule unchanged: go only if the local reader says walk AND Muse says yes.
