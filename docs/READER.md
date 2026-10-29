@@ -157,3 +157,44 @@ Per-class acc on video clips (v1 → v2): walk 1.00→1.00, stop 0.99→0.73, co
 **Decision: v1 stays the default; v2 stays opt-in.** v2 improves walk recall without tiles, but it adds false walks:
 dc_48.72 (countdown ending) with tiles always (v1+tiles 0/37 → v2+tiles 1/37), plus 2 on Commons stills and 2 on PTL crops.
 With tiles always, held-out recall is the same (5/14). Safety rule unchanged: go only if the local reader says walk AND Muse says yes.
+
+## signal_cnn v3 (29 Oct 2026): v2 data + PTL-Crosswalk train crops (licence unconfirmed)
+
+`models/signal_cnn_v3`, `STREETSENSE_SIGNAL_CNN_VERSION=v3`. `trained_on` in its json lists
+`ptl_crosswalk_train_LICENCE_UNCONFIRMED`; rollback = v1 (default) or v2. Trained 30 epochs; the epoch is picked on **val**
+rec@0fw + acc (never test): epoch 18 (val rec@0fw 0.811, acc 0.898). Val rec@0fw swings 0.03–0.81 between epochs
+(ep 17 0.028, ep 18 0.811, ep 23 0.028), so a single-epoch pick is noisy; EMA/averaging of the last epochs is the next
+thing to try (not done: only the best state is checkpointed). t_walk 0.965.
+
+PTL-Crosswalk crops (`eval/ptlcw_manifest.csv`, 2,710 labelled frames: day 1713 / night 497 / rain 500):
+2,314 no light box, 126 multi-box, 116 vehicle-shaped, 154 single ped box → 94 dropped by the colour check, 1 manual drop
+(342NHT, red read as green) → **59 kept** (W 19, S 17, O 23; train 35 / val 5 / test 19). **No rain frame survived.**
+Label noise: the label is per image and our box may be a different head; 61% of single-box frames disagreed with our
+colour reader. The PTLCW test split is tiny (19 crops, 3 walk), so its numbers are only indicative.
+
+| Metric | v1 | v2 | v3 | v1 + tiles | v2 + tiles | v3 + tiles |
+|---|---|---|---|---|---|---|
+| Held-out walk recall (14) | 1/14 | 5/14 | 1/14 | 5/14 | 5/14 | 5/14 |
+| Dev walk recall (22) | 16/22 | 17/22 | 16/22 | 16/22 | 16/22 | 16/22 |
+| Dev false walk (37) | 1/37 | 1/37 | 1/37 (dc_48.72) | **0/37** | 1/37 (dc_48.72) | **1/37** (dc_48.72) |
+| All walk recall (36) | 17 | 22 | 17 | 21 | 21 | 21 |
+| Held-out false walk (35) | 0 | 0 | 0 | 0 | 0 | 0 |
+| Dense non-walk walk decisions | 0 | 0 | 0 | 0 | 0 | 0 |
+| US countdown dc 48.5–53 (19 frames) | 0 walk | 0 walk | 0 walk | 0 walk | 0 walk | 0 walk |
+| Night walk recall dev / held-out | 1/3, 0/2 | 1/3, 0/2 | 1/3, 0/2 | 2/3, 0/2 | 2/3, 0/2 | 2/3, 0/2 |
+| Cached-Muse go / false go | 15/27, 0 | 19/27, 0 | 15/27, 0 | 15/27, 0 | 15/27, 0 | 15/27, 0 |
+
+Crop test split (`signal_ds_v3.pkl`, each at its own t_walk: v1 0.952, v2 0.885, v3 0.965; acc / walk rec / false walk):
+
+| Group | v1 | v2 | v3 |
+|---|---|---|---|
+| Commons video clips (405, 27 walk) | 0.807 / 6/27 / 0 | 0.807 / 14/27 / 0 | 0.763 / 6/27 / 0 |
+| Commons stills (356, 45 walk) | 0.862 / 0.289 / 0 | 0.865 / 0.711 / 2 | 0.857 / 0.267 / 0 |
+| PTL (1541, 80 walk) | 0.916 / 0.650 / 0 | 0.909 / 0.912 / 2 | 0.905 / 0.550 / **1** |
+| PTLCW test day (13, 2 walk) | 0.692 / 0/2 / 0 | 0.692 / 0/2 / 0 | 0.692 / 0/2 / 0 |
+| PTLCW test night (6, 1 walk) | 0.500 / 0/1 / 0 | 0.667 / 0/1 / 0 | 0.833 / 0/1 / 0 |
+| PTLCW test rain | 0 crops | 0 crops | 0 crops |
+
+**Decision: v1 stays the default; v3 is opt-in.** v3 fails both parts of the rule. It adds false walks: dc_48.72
+with tiles always (v1+tiles 0/37 → v3+tiles 1/37) and 1 PTL test crop (v1 0). Its walk recall is also no better: the same
+as v1 or lower (held-out 1/14, PTL crops 0.550 vs 0.650). Logs are in `/workspace/datasets/runs/eval/v3*.log` and `v3.log`. The safety rule is unchanged: go only if the local reader says walk AND Muse says yes.

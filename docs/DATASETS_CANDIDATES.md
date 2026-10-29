@@ -40,5 +40,6 @@ Next: a **Mapillary API pull** (CC BY-SA) filtered to `traffic-light--pedestrian
 
 ## Status (29 Oct 2026)
 - **Wikimedia Commons signal videos (#3): in use.** Train clips are in signal_cnn_v2 (opt-in); test clips are scored per clip in READER.md.
-- **PTLD (#2): blocked.** The Drive folder is private and needs sign-in. Licence unconfirmed. Not used.
+- **PTLD (#2): blocked.** The Google Drive folder is private and needs sign-in. Licence unconfirmed. Not used.
 - **PTL-Crosswalk (#1): download needed sign-in; obtained by browser on 29 Oct.** Licence still **unconfirmed** (no licence file), so it is used only for an opt-in, rollback-able model (see READER.md).
+  **Used for training signal_cnn v3** (train split only, 35 crops; 59 of 2,710 frames survived box + colour filters, no rain). v3 is opt-in, not the default. `trained_on` records `ptl_crosswalk_train_LICENCE_UNCONFIRMED`.
