@@ -250,13 +250,79 @@
      597
     ]
    }
+  },
+  "ptlcw": {
+   "n": 19,
+   "acc": 0.632,
+   "walk_n": 3,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "walk": [
+     0.333,
+     3
+    ],
+    "stop": [
+     1.0,
+     3
+    ],
+    "other": [
+     0.615,
+     13
+    ]
+   }
+  },
+  "ptlcw:day": {
+   "n": 13,
+   "acc": 0.692,
+   "walk_n": 2,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "walk": [
+     0.5,
+     2
+    ],
+    "stop": [
+     1.0,
+     1
+    ],
+    "other": [
+     0.7,
+     10
+    ]
+   }
+  },
+  "ptlcw:night": {
+   "n": 6,
+   "acc": 0.5,
+   "walk_n": 1,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "walk": [
+     0.0,
+     1
+    ],
+    "stop": [
+     1.0,
+     2
+    ],
+    "other": [
+     0.333,
+     3
+    ]
+   }
   }
  },
  "models/signal_cnn_v2": {
   "t_walk": 0.8847842407226563,
   "commons": {
    "n": 356,
-   "acc": 0.868,
+   "acc": 0.865,
    "walk_n": 45,
    "walk_recall": 0.711,
    "false_walk": 2,
@@ -267,7 +333,7 @@
      45
     ],
     "stop": [
-     0.848,
+     0.841,
      151
     ],
     "countdown": [
@@ -501,6 +567,391 @@
     "other": [
      0.948,
      597
+    ]
+   }
+  },
+  "ptlcw": {
+   "n": 19,
+   "acc": 0.684,
+   "walk_n": 3,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "walk": [
+     0.333,
+     3
+    ],
+    "stop": [
+     0.667,
+     3
+    ],
+    "other": [
+     0.769,
+     13
+    ]
+   }
+  },
+  "ptlcw:day": {
+   "n": 13,
+   "acc": 0.692,
+   "walk_n": 2,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "walk": [
+     0.5,
+     2
+    ],
+    "stop": [
+     0.0,
+     1
+    ],
+    "other": [
+     0.8,
+     10
+    ]
+   }
+  },
+  "ptlcw:night": {
+   "n": 6,
+   "acc": 0.667,
+   "walk_n": 1,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "walk": [
+     0.0,
+     1
+    ],
+    "stop": [
+     1.0,
+     2
+    ],
+    "other": [
+     0.667,
+     3
+    ]
+   }
+  }
+ },
+ "models/signal_cnn_v3": {
+  "t_walk": 0.9654194903373718,
+  "commons": {
+   "n": 356,
+   "acc": 0.857,
+   "walk_n": 45,
+   "walk_recall": 0.267,
+   "false_walk": 0,
+   "walk_precision": 1.0,
+   "per_class_acc": {
+    "walk": [
+     0.889,
+     45
+    ],
+    "stop": [
+     0.927,
+     151
+    ],
+    "countdown": [
+     0.333,
+     3
+    ],
+    "other": [
+     0.79,
+     157
+    ]
+   }
+  },
+  "cvid": {
+   "n": 405,
+   "acc": 0.763,
+   "walk_n": 27,
+   "walk_recall": 0.222,
+   "false_walk": 0,
+   "walk_precision": 1.0,
+   "per_class_acc": {
+    "walk": [
+     1.0,
+     27
+    ],
+    "stop": [
+     0.872,
+     78
+    ],
+    "countdown": [
+     0.634,
+     41
+    ],
+    "other": [
+     0.726,
+     259
+    ]
+   }
+  },
+  "cvid:china": {
+   "n": 111,
+   "acc": 0.883,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "stop": [
+     0.941,
+     51
+    ],
+    "countdown": [
+     1.0,
+     2
+    ],
+    "other": [
+     0.828,
+     58
+    ]
+   }
+  },
+  "cvid:dus_g2r": {
+   "n": 76,
+   "acc": 0.803,
+   "walk_n": 13,
+   "walk_recall": 0.462,
+   "false_walk": 0,
+   "walk_precision": 1.0,
+   "per_class_acc": {
+    "walk": [
+     1.0,
+     13
+    ],
+    "stop": [
+     1.0,
+     7
+    ],
+    "other": [
+     0.732,
+     56
+    ]
+   }
+  },
+  "cvid:gau": {
+   "n": 77,
+   "acc": 0.688,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.688,
+     77
+    ]
+   }
+  },
+  "cvid:montreal": {
+   "n": 9,
+   "acc": 0.667,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.667,
+     9
+    ]
+   }
+  },
+  "cvid:pl_przejscie": {
+   "n": 7,
+   "acc": 0.429,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "stop": [
+     1.0,
+     2
+    ],
+    "other": [
+     0.2,
+     5
+    ]
+   }
+  },
+  "cvid:sanjose": {
+   "n": 9,
+   "acc": 0.667,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.667,
+     9
+    ]
+   }
+  },
+  "cvid:tw_chaozhou": {
+   "n": 34,
+   "acc": 0.353,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "stop": [
+     0.3,
+     10
+    ],
+    "countdown": [
+     0.375,
+     24
+    ]
+   }
+  },
+  "cvid:tw_flicker": {
+   "n": 28,
+   "acc": 0.821,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.821,
+     28
+    ]
+   }
+  },
+  "cvid:tw_pingtung": {
+   "n": 37,
+   "acc": 1.0,
+   "walk_n": 14,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "walk": [
+     1.0,
+     14
+    ],
+    "stop": [
+     1.0,
+     8
+    ],
+    "countdown": [
+     1.0,
+     15
+    ]
+   }
+  },
+  "cvid:us_blinkred": {
+   "n": 17,
+   "acc": 0.588,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.588,
+     17
+    ]
+   }
+  },
+  "ptl": {
+   "n": 1541,
+   "acc": 0.905,
+   "walk_n": 80,
+   "walk_recall": 0.55,
+   "false_walk": 1,
+   "walk_precision": 0.978,
+   "per_class_acc": {
+    "walk": [
+     0.975,
+     80
+    ],
+    "stop": [
+     0.931,
+     816
+    ],
+    "countdown": [
+     0.938,
+     48
+    ],
+    "other": [
+     0.858,
+     597
+    ]
+   }
+  },
+  "ptlcw": {
+   "n": 19,
+   "acc": 0.737,
+   "walk_n": 3,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "walk": [
+     0.333,
+     3
+    ],
+    "stop": [
+     1.0,
+     3
+    ],
+    "other": [
+     0.769,
+     13
+    ]
+   }
+  },
+  "ptlcw:day": {
+   "n": 13,
+   "acc": 0.692,
+   "walk_n": 2,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "walk": [
+     0.5,
+     2
+    ],
+    "stop": [
+     1.0,
+     1
+    ],
+    "other": [
+     0.7,
+     10
+    ]
+   }
+  },
+  "ptlcw:night": {
+   "n": 6,
+   "acc": 0.833,
+   "walk_n": 1,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "walk": [
+     0.0,
+     1
+    ],
+    "stop": [
+     1.0,
+     2
+    ],
+    "other": [
+     1.0,
+     3
     ]
    }
   }
