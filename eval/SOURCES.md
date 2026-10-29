@@ -79,3 +79,42 @@ Looked at and not used:
 - Mendeley "pedestrian traffic light" (809 images): web-scraped, unclear provenance.
 - Roboflow Universe sets: need an account; licences vary per set.
 - Zenodo ped-signal-data: timing data, no images.
+
+## Commons signal videos (`eval/signal_video_clips.csv`, `eval/signal_video_labels.csv`)
+
+Downloaded 29 Oct 2026 from Wikimedia Commons ("Category:Videos of traffic signals", its countdown subcategory, and a filetype:video search). Licence and author were read from the Commons API (`extmetadata`) that day. Videos live in `/workspace/datasets/commons_video` (not committed); `scripts/get_signal_videos.sh` re-fetches them and rebuilds the crops.
+
+Boxes: our detector at 2 fps (YOLO11s OpenVINO, imgsz 960, zoom-out 0.5 when nothing found, plus 2×3 tiles). Labels: `scripts/signal_data/label_video_crops.py` (per-clip rules + HSV lit buckets; flashing beacons and vehicle heads → O), then every walk candidate was checked by eye on contact sheets and the rules tightened until the walk set was clean; 4 manual fixes in `eval/signal_video_fixes.json`. Split by clip: train clips = crossing_fr, toronto_diag, dus_r2g, faulty, wien, chelyabinsk, toronto_pxo; all others are test only.
+
+| id | split | licence | author | crops W/S/C/O | what it shows | page |
+|---|---|---|---|---|---|---|
+| `wien` | train | Public domain | Priwo | 0/0/0/155 | Vienna, AT. Vehicle head cycle. | https://commons.wikimedia.org/wiki/File:Ampel-Wien-01.ogv |
+| `china` | test | CC0 | XZise | 0/51/2/58 | China. Red man + red countdown digits, vehicle round lamps. | https://commons.wikimedia.org/wiki/File:Chinese_Signal.webm |
+| `crossing_fr` | train | CC BY-SA 3.0 | Pleclown (talk) | 54/143/0/347 | France. Green-panel white walking man / red man, vehicle heads, night-ish dusk street. | https://commons.wikimedia.org/wiki/File:Crossing_light.ogv |
+| `sanjose` | test | CC BY-SA 4.0 | Minh Nguyen | 0/0/0/9 | San José airport, US. Crosswalk, small heads. | https://commons.wikimedia.org/wiki/File:Crosswalk_at_San_Jos%C3%A9_International_Airport_Consolidated_Rental_Car_Facility_exit.webm |
+| `toronto_diag` | train | CC0 | Raysonho @ Open Grid Scheduler / Grid Engine | 12/307/283/166 | Toronto, CA. Yonge–Dundas scramble: white walking person, orange hand + countdown digits, vehicle heads. | https://commons.wikimedia.org/wiki/File:DiagonalCrosswalkYongeDundas.webm |
+| `dus_g2r` | test | Public domain | noebse | 13/7/0/56 | Düsseldorf, DE. Pedestrian green man → amber → red (3-lamp ped head), day. | https://commons.wikimedia.org/wiki/File:D%C3%BCsseldorfer_Ampel_Gr%C3%BCn_nach_Rot.ogv |
+| `dus_r2g` | train | Public domain | noebse | 6/14/0/34 | Düsseldorf, DE. Same heads, red → green. | https://commons.wikimedia.org/wiki/File:D%C3%BCsseldorfer_Ampel_von_Rot_nach_Gr%C3%BCn.ogv |
+| `faulty` | train | CC BY 2.0 | Franklin Rainier | 0/0/0/233 | Vehicle head with red countdown digits, faulty/flicker. | https://commons.wikimedia.org/wiki/File:Faulty_traffic_light_(1).webm |
+| `kyiv_floor` | excluded | CC0 | Роман Рябенко | 0/0/0/0 | Kyiv, UA. In-ground floor lights. No boxes found; not labelled. | https://commons.wikimedia.org/wiki/File:Floor_traffic_lights_at_Pushkinska_Street_in_Kyiv.webm |
+| `gau` | test | CC0 | ManuelB701 | 0/0/0/77 | Gau-Bischofsheim, DE. Vehicle head to red. | https://commons.wikimedia.org/wiki/File:Gau-Bischofsheim_-_Steigstra%C3%9Fe,_Ampelschaltung_auf_Rot.webm |
+| `montreal` | test | CC BY-SA 4.0 | Thomas1313 | 0/0/0/9 | Montréal, CA. Intersection, small heads. | https://commons.wikimedia.org/wiki/File:Intersection_Pie-IX-Sherbrooke.webm |
+| `tw_chaozhou` | test | CC BY-SA 4.0 | Tze Chiang Hao | 0/10/24/0 | Taiwan. Animated green man (Xiaolüren) + green countdown, then red man. | https://commons.wikimedia.org/wiki/File:June_2023_Xiaol%C3%BCren,_pedestrian_signal_of_Taiwan_in_Chaozhou_Township.webm |
+| `tw_kaohsiung` | excluded | CC BY-SA 4.0 | Tze Chiang Hao | 0/0/0/0 | Taiwan. Combined pedestrian + bicycle heads with countdown. Not labelled (mixed heads). | https://commons.wikimedia.org/wiki/File:June_2023_pedestrian_and_bicycle_signal_in_Kaohsiung.webm |
+| `tw_pingtung` | test | CC BY-SA 4.0 | Tze Chiang Hao | 14/8/15/0 | Taiwan. Dot-matrix green man + countdown (digits blank near end), red man. | https://commons.wikimedia.org/wiki/File:June_2023_pedestrian_signal_for_elderly_people_in_Pingtung.webm |
+| `ottawa_temp` | excluded | CC0 | 137a | 0/0/0/0 | Ottawa, CA. Temporary vehicle signal. AV1, not decoded on the box; not labelled. | https://commons.wikimedia.org/wiki/File:Temporary_traffic_signal_at_Colonel_By_Drive.webm |
+| `us_blinkred` | test | Public domain | SPUI | 0/0/0/17 | US. Vehicle signal blinking red (flashing). | https://commons.wikimedia.org/wiki/File:Traffic_signal_blinking_red_at_bottom.ogv |
+| `chelyabinsk` | train | CC BY-SA 4.0 | Ural-66 | 0/0/0/128 | Chelyabinsk, RU. Vehicle head. | https://commons.wikimedia.org/wiki/File:%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9_%D1%81%D0%B2%D0%B5%D1%82%D0%BE%D1%84%D0%BE%D1%80_(%D0%A7%D0%B5%D0%BB%D1%8F%D0%B1%D0%B8%D0%BD%D1%81%D0%BA,_%D0%B2%D0%B8%D0%B4%D0%B5%D0%BE)_v001.webm |
+| `pl_przejscie` | test | CC BY-SA 3.0 | shot by Jakub Sochacki, movie created by Julo | 0/2/0/5 | Poland. Pedestrian crossing, 1.7 s. | https://commons.wikimedia.org/wiki/File:Przejsciedlapieszych.ogv |
+| `toronto_pxo` | train | CC BY-SA 4.0 | Qviri | 0/0/0/283 | Toronto, CA. PXO Type A crossing, flashing amber beacons (flashing, no ped head). | https://commons.wikimedia.org/wiki/File:Roncesvalles_Ave_crossing_at_Galley_Ave,_PXO_Type_A_lights_flashing,_July_2026.webm |
+| `tw_flicker` | test | CC BY 4.0 | Fumikas Sagisavas | 0/0/0/28 | Taiwan. Flashing yellow / slow-light vehicle signal (flashing). | https://commons.wikimedia.org/wiki/File:The_traffic_signal_light_of_the_flickering_yellow_light_and_the_slow_light.webm |
+
+Excluded as duplicates of clips we already use: `Pedestrian crossing light washington dc.ogv` (= `dc`), the CDMX Eje Central clip (= `cdmx`), the Most, Tirana, NZ and FFM clips. Skipped: Katella Anaheim (500 MB), Tbilisi and Traffic Light Tree (art installation, >100 MB), a 1950s b/w public-information film.
+
+Label noise seen on the sheets: a few partly visible French walk figures are labelled O; vehicle red lamps in `crossing_fr` and `china` are labelled S rather than O; Toronto hand vs hand+digits is split by box shape (wide → C), so some S/C swaps. No non-walk crop is labelled W on the review sheets.
+
+## Not obtained (licence unconfirmed, download blocked)
+
+- **PTLD (Brazil, PUCRS)**: https://tinyurl.com/y9z7xodw → Google Drive folder `0B2MY7T7S8OmJVVlCTW1jYWxqUVE`. On 29 Oct 2026 Drive returned a sign-in page (HTTP 401 for gdown; legacy link without resource key). Licence: **unconfirmed**. Nothing downloaded.
+- **PTL-Crosswalk (Brazil/France)**: https://github.com/ronaldosm/PedestrianTrafficLightsAndCrosswalkDetection → OneDrive folder. On 29 Oct 2026 the OneDrive share and its API both returned "authentication required". Licence: **unconfirmed** (no LICENSE in the repo). Nothing downloaded.
+- Retry with `scripts/get_ptld_ptlcw.sh` (re-checked 29 Oct 2026 14:25 UK time: still 401/403). If either is obtained later: store under `/workspace/datasets/ptld` / `ptlcw`, never commit images or crops, and record the licence here as unconfirmed until the authors reply.

@@ -107,3 +107,12 @@ def test_pipeline_smoother_cannot_hold_walk_through_cnn_countdown():
     held = sm.update(1, "countdown")
     assert held == "walk"  # existing flicker hold
     assert cnn_hold_veto(held, "countdown", P(0.02, 0.0, 0.95), 0.8) != "walk"
+
+
+def test_version_env_selects_model_dir(monkeypatch):
+    monkeypatch.delenv("STREETSENSE_SIGNAL_CNN_VERSION", raising=False)
+    assert signal_cnn.selected_model_dir() == signal_cnn.MODELS / ("signal_cnn" if signal_cnn.DEFAULT_VERSION == "v1" else f"signal_cnn_{signal_cnn.DEFAULT_VERSION}")
+    monkeypatch.setenv("STREETSENSE_SIGNAL_CNN_VERSION", "v1")
+    assert signal_cnn.selected_model_dir() == signal_cnn.MODEL_DIR
+    monkeypatch.setenv("STREETSENSE_SIGNAL_CNN_VERSION", "2")
+    assert signal_cnn.selected_model_dir() == signal_cnn.MODELS / "signal_cnn_v2"

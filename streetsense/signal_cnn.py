@@ -20,7 +20,15 @@ import numpy as np
 
 CLASSES = ("walk", "stop", "countdown", "other")
 SIZE = 64
-MODEL_DIR = Path(__file__).resolve().parent.parent / "models" / "signal_cnn"
+MODELS = Path(__file__).resolve().parent.parent / "models"
+MODEL_DIR = MODELS / "signal_cnn"  # v1 (PTL + Commons stills + dev crops)
+DEFAULT_VERSION = "v1"
+
+
+def selected_model_dir() -> Path:
+    """STREETSENSE_SIGNAL_CNN_VERSION=v1|v2 picks models/signal_cnn or models/signal_cnn_v2 (rollback = v1)."""
+    v = (os.environ.get("STREETSENSE_SIGNAL_CNN_VERSION") or DEFAULT_VERSION).strip().lower()
+    return MODEL_DIR if v in ("", "v1", "1") else MODELS / f"signal_cnn_{v if v.startswith('v') else 'v' + v}"
 
 
 def enabled() -> bool:
@@ -56,10 +64,11 @@ class SignalPrediction:
 
 
 class SignalCNN:
-    def __init__(self, model_dir: Path | str = MODEL_DIR):
+    def __init__(self, path: Path | str | None = None):
         import openvino as ov
 
-        model_dir = Path(model_dir)
+        model_dir = Path(path) if path else selected_model_dir()
+        self.model_dir = model_dir
         self.meta = json.loads((model_dir / "signal_cnn.json").read_text())
         self.t_walk = float(self.meta["t_walk"])
         self.t_veto = float(self.meta.get("t_veto", 0.8))
