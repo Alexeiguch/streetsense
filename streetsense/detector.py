@@ -227,6 +227,96 @@ class YoloDetector:
         return []
 
 
+    def tiled_lights(self, frame_bgr: np.ndarray, grid: tuple[int, int], conf: float) -> list[Detection]:
+        """Traffic lights found on overlapping tiles (rows x cols, 30% overlap), mapped to frame pixels.
+
+        Uses the plain-predict handle (no tracker state). Untracked detections tagged {"tile": (r, c)}.
+        """
+        rows, cols = grid
+        if rows < 1 or cols < 1 or rows * cols < 2:
+            return []
+        if getattr(self, "_zoom_model", None) is None:
+            from ultralytics import YOLO
+
+            self._zoom_model = YOLO(self.model_path)
+        H, W = frame_bgr.shape[:2]
+        return tile_detections(frame_bgr, grid, conf, lambda im: [
+            (b, self.names[int(c)], float(p)) for b, c, p in _boxes(self._zoom_model.predict(
+                im, imgsz=self.cfg.imgsz, conf=conf, iou=self.cfg.iou, device=self.cfg.device, verbose=False)[0])])
+
+
+def _boxes(res):
+    if res.boxes is None:
+        return []
+    return list(zip(res.boxes.xyxy.cpu().numpy(), res.boxes.cls.cpu().numpy().astype(int), res.boxes.conf.cpu().numpy()))
+
+
+def tile_windows(W: int, H: int, grid: tuple[int, int], overlap: float = 1.3) -> list[tuple[int, int, int, int]]:
+    """(x0, y0, w, h) for a rows x cols grid of tiles each `overlap` times the plain cell size."""
+    rows, cols = grid
+    tw, th = min(W, int(W / cols * overlap)), min(H, int(H / rows * overlap))
+    xs = np.linspace(0, W - tw, cols).astype(int) if cols > 1 else [0]
+    ys = np.linspace(0, H - th, rows).astype(int) if rows > 1 else [0]
+    return [(int(x0), int(y0), tw, th) for y0 in ys for x0 in xs]
+
+
+def tile_detections(frame: np.ndarray, grid: tuple[int, int], conf: float, predict) -> list[Detection]:
+    """Run `predict(tile) -> [(xyxy, label, conf)]` on each tile; keep traffic lights >= conf in frame pixels."""
+    H, W = frame.shape[:2]
+    out: list[Detection] = []
+    for i, (x0, y0, tw, th) in enumerate(tile_windows(W, H, grid)):
+        for b, label, p in predict(frame[y0:y0 + th, x0:x0 + tw]):
+            if label != "traffic light" or p < conf:
+                continue
+            box = Box(max(0.0, float(b[0]) + x0), max(0.0, float(b[1]) + y0),
+                      min(float(W), float(b[2]) + x0), min(float(H), float(b[3]) + y0))
+            if box.w >= 4 and box.h >= 4:
+                out.append(Detection("traffic light", box, float(p), None, {"tile": i}))
+    return out
+
+
+def _iou(a: Box, b: Box) -> float:
+    ix = max(0.0, min(a.x2, b.x2) - max(a.x1, b.x1)); iy = max(0.0, min(a.y2, b.y2) - max(a.y1, b.y1))
+    inter = ix * iy
+    u = a.w * a.h + b.w * b.h - inter
+    return inter / u if u > 0 else 0.0
+
+
+def nms_lights(dets: list[Detection], iou: float = 0.5) -> list[Detection]:
+    """Greedy NMS by confidence; on overlap the higher-confidence box wins (track ids kept if it had one)."""
+    keep: list[Detection] = []
+    for d in sorted(dets, key=lambda d: -d.conf):
+        if all(_iou(d.box, k.box) < iou for k in keep):
+            keep.append(d)
+    return keep
+
+
+def light_tiles(cfg: DetectorConfig | None = None) -> tuple[tuple[int, int], str, int]:
+    """Opt-in tiled light pass from env (default off).
+
+    STREETSENSE_LIGHT_TILES="2x3" (rows x cols; unset/"0" = off).
+    STREETSENSE_LIGHT_TILES_MODE="always" | "fallback" (default fallback: only when no light
+    >= light_zoom_conf at full size, plus every Nth frame if STREETSENSE_LIGHT_TILES_EVERY=N > 0).
+    """
+    import os
+
+    env = (os.environ.get("STREETSENSE_LIGHT_TILES") or "").strip().lower()
+    mode = (os.environ.get("STREETSENSE_LIGHT_TILES_MODE") or "fallback").strip().lower()
+    if mode not in ("always", "fallback"):
+        mode = "fallback"
+    try:
+        every = max(0, int(os.environ.get("STREETSENSE_LIGHT_TILES_EVERY") or 0))
+    except ValueError:
+        every = 0
+    try:
+        r, c = (int(v) for v in env.split("x"))
+    except ValueError:
+        return (0, 0), mode, every
+    if r < 1 or c < 1 or r * c < 2 or r * c > 16:
+        return (0, 0), mode, every
+    return (r, c), mode, every
+
+
 def light_zoom_scales(cfg: DetectorConfig) -> tuple[float, ...]:
     """Scales for the zoom-out light pass; env STREETSENSE_LIGHT_ZOOM overrides ("0" = off)."""
     import os

@@ -11,7 +11,7 @@ import numpy as np
 from .alerts import AlertManager
 from .config import Config
 from .crosswalk import CrosswalkHysteresis, CrosswalkResult, detect_crosswalk
-from .detector import ApproachTracker, YoloDetector, light_zoom_scales
+from .detector import ApproachTracker, YoloDetector, light_tiles, light_zoom_scales, nms_lights
 from .geometry import estimate_distance_m
 from .meta_api import MetaSamSegmenter, MetaVisionAssistant, sam_boxes_to_crosswalk
 from .open_vocab import OpenVocabHazardDetector
@@ -158,7 +158,20 @@ class Pipeline:
         dcfg = self.cfg.detector
         zoom = light_zoom_scales(dcfg) if hasattr(self.detector, "zoomed_lights") else ()
         zconf = float(getattr(dcfg, "light_zoom_conf", 0.35))
-        if zoom and not any(d.label == "traffic light" and d.conf >= zconf for d in dets):
+        confident = any(d.label == "traffic light" and d.conf >= zconf for d in dets)
+        # Opt-in tiles (STREETSENSE_LIGHT_TILES=2x3): extra light boxes only, merged by NMS and read by
+        # the same reader/CNN/smoother below. They add candidates; they never decide walk themselves.
+        grid, tmode, tevery = light_tiles(dcfg) if hasattr(self.detector, "tiled_lights") else ((0, 0), "", 0)
+        self._tile_n = getattr(self, "_tile_n", 0) + 1
+        if grid[0] and (tmode == "always" or not confident or (tevery and self._tile_n % tevery == 0)):
+            t0 = time.perf_counter()
+            tconf = float(getattr(dcfg, "light_tile_conf", 0.5))
+            extra = self.detector.tiled_lights(frame, grid, tconf)
+            lights = [d for d in dets if d.label == "traffic light"]
+            dets = [d for d in dets if d.label != "traffic light"] + nms_lights(lights + extra)
+            tm["detect_tiles"] = (time.perf_counter() - t0) * 1000
+            zoom = ()  # tiles replace the zoom-out pass on this frame (as benchmarked)
+        if zoom and not confident:
             t0 = time.perf_counter()
             extra = self.detector.zoomed_lights(frame, zoom, zconf)
             if extra:

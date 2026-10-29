@@ -34,6 +34,8 @@ class DetectorConfig:
     # are missed at full size). Env STREETSENSE_LIGHT_ZOOM="0" turns it off, "0.5,0.3" sets scales.
     light_zoom_scales: tuple[float, ...] = (0.5, 0.3)
     light_zoom_conf: float = 0.35
+    # Opt-in tiled light pass (env STREETSENSE_LIGHT_TILES=2x3); tile boxes below this are dropped.
+    light_tile_conf: float = 0.5
 
 
 @dataclass
