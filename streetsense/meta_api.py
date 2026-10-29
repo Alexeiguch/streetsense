@@ -514,11 +514,13 @@ class MetaSamSegmenter:
 
             self._client = OpenAI(base_url=self.base_url, api_key=self.api_key, timeout=timeout_s)
 
-    def segment(self, frame_bgr: np.ndarray, prompt: str, *, decode_masks: bool = True) -> SamSegment:
+    def segment(
+        self, frame_bgr: np.ndarray, prompt: str, *, decode_masks: bool = True, jpeg_quality: int = 85
+    ) -> SamSegment:
         if not self.enabled:
             raise RuntimeError("Meta SAM disabled: set MODEL_API_KEY")
         get_ledger().check_budget(estimate_cost(self.model, images=1))
-        img_url = encode_jpeg_data_url(frame_bgr, self.max_image_side, quality=85)
+        img_url = encode_jpeg_data_url(frame_bgr, self.max_image_side, quality=jpeg_quality)
         t0 = time.perf_counter()
         # Non-streaming is fine for stills; streaming recommended for video.
         resp = self._client.responses.create(
