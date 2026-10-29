@@ -1,0 +1,508 @@
+{
+ "models/signal_cnn": {
+  "t_walk": 0.9521122765541077,
+  "commons": {
+   "n": 356,
+   "acc": 0.862,
+   "walk_n": 45,
+   "walk_recall": 0.289,
+   "false_walk": 0,
+   "walk_precision": 1.0,
+   "per_class_acc": {
+    "walk": [
+     0.889,
+     45
+    ],
+    "stop": [
+     0.947,
+     151
+    ],
+    "countdown": [
+     0.333,
+     3
+    ],
+    "other": [
+     0.783,
+     157
+    ]
+   }
+  },
+  "cvid": {
+   "n": 405,
+   "acc": 0.807,
+   "walk_n": 27,
+   "walk_recall": 0.222,
+   "false_walk": 0,
+   "walk_precision": 1.0,
+   "per_class_acc": {
+    "walk": [
+     1.0,
+     27
+    ],
+    "stop": [
+     0.987,
+     78
+    ],
+    "countdown": [
+     0.951,
+     41
+    ],
+    "other": [
+     0.71,
+     259
+    ]
+   }
+  },
+  "cvid:china": {
+   "n": 111,
+   "acc": 0.874,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "stop": [
+     1.0,
+     51
+    ],
+    "countdown": [
+     1.0,
+     2
+    ],
+    "other": [
+     0.759,
+     58
+    ]
+   }
+  },
+  "cvid:dus_g2r": {
+   "n": 76,
+   "acc": 0.803,
+   "walk_n": 13,
+   "walk_recall": 0.462,
+   "false_walk": 0,
+   "walk_precision": 1.0,
+   "per_class_acc": {
+    "walk": [
+     1.0,
+     13
+    ],
+    "stop": [
+     0.857,
+     7
+    ],
+    "other": [
+     0.75,
+     56
+    ]
+   }
+  },
+  "cvid:gau": {
+   "n": 77,
+   "acc": 0.753,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.753,
+     77
+    ]
+   }
+  },
+  "cvid:montreal": {
+   "n": 9,
+   "acc": 0.444,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.444,
+     9
+    ]
+   }
+  },
+  "cvid:pl_przejscie": {
+   "n": 7,
+   "acc": 0.714,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "stop": [
+     1.0,
+     2
+    ],
+    "other": [
+     0.6,
+     5
+    ]
+   }
+  },
+  "cvid:sanjose": {
+   "n": 9,
+   "acc": 0.111,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.111,
+     9
+    ]
+   }
+  },
+  "cvid:tw_chaozhou": {
+   "n": 34,
+   "acc": 0.941,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "stop": [
+     1.0,
+     10
+    ],
+    "countdown": [
+     0.917,
+     24
+    ]
+   }
+  },
+  "cvid:tw_flicker": {
+   "n": 28,
+   "acc": 0.821,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.821,
+     28
+    ]
+   }
+  },
+  "cvid:tw_pingtung": {
+   "n": 37,
+   "acc": 1.0,
+   "walk_n": 14,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "walk": [
+     1.0,
+     14
+    ],
+    "stop": [
+     1.0,
+     8
+    ],
+    "countdown": [
+     1.0,
+     15
+    ]
+   }
+  },
+  "cvid:us_blinkred": {
+   "n": 17,
+   "acc": 0.529,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.529,
+     17
+    ]
+   }
+  },
+  "ptl": {
+   "n": 1541,
+   "acc": 0.916,
+   "walk_n": 80,
+   "walk_recall": 0.65,
+   "false_walk": 0,
+   "walk_precision": 1.0,
+   "per_class_acc": {
+    "walk": [
+     0.975,
+     80
+    ],
+    "stop": [
+     0.944,
+     816
+    ],
+    "countdown": [
+     0.958,
+     48
+    ],
+    "other": [
+     0.868,
+     597
+    ]
+   }
+  }
+ },
+ "models/signal_cnn_v2": {
+  "t_walk": 0.8847842407226563,
+  "commons": {
+   "n": 356,
+   "acc": 0.868,
+   "walk_n": 45,
+   "walk_recall": 0.711,
+   "false_walk": 2,
+   "walk_precision": 0.941,
+   "per_class_acc": {
+    "walk": [
+     0.844,
+     45
+    ],
+    "stop": [
+     0.848,
+     151
+    ],
+    "countdown": [
+     0.333,
+     3
+    ],
+    "other": [
+     0.904,
+     157
+    ]
+   }
+  },
+  "cvid": {
+   "n": 405,
+   "acc": 0.807,
+   "walk_n": 27,
+   "walk_recall": 0.519,
+   "false_walk": 0,
+   "walk_precision": 1.0,
+   "per_class_acc": {
+    "walk": [
+     1.0,
+     27
+    ],
+    "stop": [
+     0.731,
+     78
+    ],
+    "countdown": [
+     0.634,
+     41
+    ],
+    "other": [
+     0.838,
+     259
+    ]
+   }
+  },
+  "cvid:china": {
+   "n": 111,
+   "acc": 0.856,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "stop": [
+     0.804,
+     51
+    ],
+    "countdown": [
+     1.0,
+     2
+    ],
+    "other": [
+     0.897,
+     58
+    ]
+   }
+  },
+  "cvid:dus_g2r": {
+   "n": 76,
+   "acc": 0.921,
+   "walk_n": 13,
+   "walk_recall": 0.846,
+   "false_walk": 0,
+   "walk_precision": 1.0,
+   "per_class_acc": {
+    "walk": [
+     1.0,
+     13
+    ],
+    "stop": [
+     0.571,
+     7
+    ],
+    "other": [
+     0.946,
+     56
+    ]
+   }
+  },
+  "cvid:gau": {
+   "n": 77,
+   "acc": 0.818,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.818,
+     77
+    ]
+   }
+  },
+  "cvid:montreal": {
+   "n": 9,
+   "acc": 0.556,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.556,
+     9
+    ]
+   }
+  },
+  "cvid:pl_przejscie": {
+   "n": 7,
+   "acc": 0.571,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "stop": [
+     1.0,
+     2
+    ],
+    "other": [
+     0.4,
+     5
+    ]
+   }
+  },
+  "cvid:sanjose": {
+   "n": 9,
+   "acc": 0.778,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.778,
+     9
+    ]
+   }
+  },
+  "cvid:tw_chaozhou": {
+   "n": 34,
+   "acc": 0.353,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "stop": [
+     0.3,
+     10
+    ],
+    "countdown": [
+     0.375,
+     24
+    ]
+   }
+  },
+  "cvid:tw_flicker": {
+   "n": 28,
+   "acc": 0.857,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.857,
+     28
+    ]
+   }
+  },
+  "cvid:tw_pingtung": {
+   "n": 37,
+   "acc": 0.973,
+   "walk_n": 14,
+   "walk_recall": 0.214,
+   "false_walk": 0,
+   "walk_precision": 1.0,
+   "per_class_acc": {
+    "walk": [
+     1.0,
+     14
+    ],
+    "stop": [
+     0.875,
+     8
+    ],
+    "countdown": [
+     1.0,
+     15
+    ]
+   }
+  },
+  "cvid:us_blinkred": {
+   "n": 17,
+   "acc": 0.647,
+   "walk_n": 0,
+   "walk_recall": 0.0,
+   "false_walk": 0,
+   "walk_precision": null,
+   "per_class_acc": {
+    "other": [
+     0.647,
+     17
+    ]
+   }
+  },
+  "ptl": {
+   "n": 1541,
+   "acc": 0.909,
+   "walk_n": 80,
+   "walk_recall": 0.912,
+   "false_walk": 2,
+   "walk_precision": 0.973,
+   "per_class_acc": {
+    "walk": [
+     0.975,
+     80
+    ],
+    "stop": [
+     0.871,
+     816
+    ],
+    "countdown": [
+     0.938,
+     48
+    ],
+    "other": [
+     0.948,
+     597
+    ]
+   }
+  }
+ }
+}

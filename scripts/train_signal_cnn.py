@@ -146,6 +146,8 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--threads", type=int, default=8)
     ap.add_argument("--ckpt", default="", help="save best state here each time it improves")
+    ap.add_argument("--from-ckpt", action="store_true", help="skip training; export the best state in --ckpt")
+    ap.add_argument("--trained-on", default="", help="comma list of dataset ids recorded in the json (rollback)")
     ap.add_argument("--out", default=str(ROOT / "models/signal_cnn"))
     ap.add_argument("--margin", type=float, default=0.02, help="added to max non-walk p(walk) on val")
     a = ap.parse_args()
@@ -169,6 +171,9 @@ def main():
     sched = torch.optim.lr_scheduler.OneCycleLR(opt, a.lr, total_steps=a.epochs * steps)
     Xva = np.stack([plain(r) for r in va]); yva = np.array([r["y"] for r in va])
     best, best_state = -1, None
+    if a.from_ckpt:
+        ck = torch.load(a.ckpt); best_state = ck["state"]; a.epochs = 0
+        print("from ckpt epoch", ck["epoch"], "score", ck["score"])
     for ep in range(a.epochs):
         model.train(); t0 = time.time(); tot = 0
         for _ in range(steps):
@@ -195,6 +200,7 @@ def main():
     print("t_walk", t_walk)
     meta = {"classes": list(CLASSES), "size": SIZE, "arch": a.arch, "t_walk": t_walk, "t_veto": 0.8,
             "preprocess": "tight box, aspect letterbox on black to 64x64, BGR, x/255-0.5",
+            "trained_on": [x for x in a.trained_on.split(",") if x],
             "train_counts": dict(collections.Counter(CLASSES[r["y"]] for r in tr))}
     meta["val"] = report("val", P, yva, [r["src"].split(":")[0] for r in va], t_walk)
     Xte = np.stack([plain(r) for r in te]); yte = np.array([r["y"] for r in te])

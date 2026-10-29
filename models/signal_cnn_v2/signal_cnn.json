@@ -1,0 +1,198 @@
+{
+ "classes": [
+  "walk",
+  "stop",
+  "countdown",
+  "other"
+ ],
+ "size": 64,
+ "arch": "tiny",
+ "t_walk": 0.8847842407226563,
+ "t_veto": 0.8,
+ "preprocess": "tight box, aspect letterbox on black to 64x64, BGR, x/255-0.5",
+ "trained_on": [
+  "ptl_imvisible",
+  "commons_stills",
+  "dev_crops",
+  "commons_video_train"
+ ],
+ "train_counts": {
+  "other": 5879,
+  "stop": 5540,
+  "countdown": 586,
+  "walk": 855
+ },
+ "val": {
+  "n": 2119,
+  "acc": 0.9079754601226994,
+  "walk_recall_at_T": 0.8722222222222222,
+  "false_walk_at_T": 0,
+  "per_src": {
+   "commons": {
+    "n": 360,
+    "acc": 0.8638888888888889,
+    "walk_n": 29,
+    "walk_recall_at_T": 0.5862068965517241,
+    "false_walk_at_T": 0
+   },
+   "dev": {
+    "n": 48,
+    "acc": 1.0,
+    "walk_n": 10,
+    "walk_recall_at_T": 1.0,
+    "false_walk_at_T": 0
+   },
+   "ptl": {
+    "n": 1711,
+    "acc": 0.9146697837521917,
+    "walk_n": 141,
+    "walk_recall_at_T": 0.9219858156028369,
+    "false_walk_at_T": 0
+   }
+  },
+  "confusion_rows_true": [
+   [
+    173,
+    0,
+    0,
+    7
+   ],
+   [
+    1,
+    872,
+    1,
+    139
+   ],
+   [
+    0,
+    0,
+    44,
+    0
+   ],
+   [
+    10,
+    20,
+    17,
+    835
+   ]
+  ]
+ },
+ "test": {
+  "n": 2302,
+  "acc": 0.8853171155516942,
+  "walk_recall_at_T": 0.7763157894736842,
+  "false_walk_at_T": 4,
+  "per_src": {
+   "commons": {
+    "n": 356,
+    "acc": 0.8679775280898876,
+    "walk_n": 45,
+    "walk_recall_at_T": 0.7111111111111111,
+    "false_walk_at_T": 2
+   },
+   "cvid:china": {
+    "n": 111,
+    "acc": 0.8648648648648649,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:dus_g2r": {
+    "n": 76,
+    "acc": 0.9210526315789473,
+    "walk_n": 13,
+    "walk_recall_at_T": 0.8461538461538461,
+    "false_walk_at_T": 0
+   },
+   "cvid:gau": {
+    "n": 77,
+    "acc": 0.8181818181818182,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:montreal": {
+    "n": 9,
+    "acc": 0.5555555555555556,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:pl_przejscie": {
+    "n": 7,
+    "acc": 0.5714285714285714,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:sanjose": {
+    "n": 9,
+    "acc": 0.7777777777777778,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:tw_chaozhou": {
+    "n": 34,
+    "acc": 0.35294117647058826,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:tw_flicker": {
+    "n": 28,
+    "acc": 0.8571428571428571,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:tw_pingtung": {
+    "n": 37,
+    "acc": 0.972972972972973,
+    "walk_n": 14,
+    "walk_recall_at_T": 0.14285714285714285,
+    "false_walk_at_T": 0
+   },
+   "cvid:us_blinkred": {
+    "n": 17,
+    "acc": 0.6470588235294118,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "ptl": {
+    "n": 1541,
+    "acc": 0.90914990266061,
+    "walk_n": 80,
+    "walk_recall_at_T": 0.9125,
+    "false_walk_at_T": 2
+   }
+  },
+  "confusion_rows_true": [
+   [
+    143,
+    0,
+    1,
+    8
+   ],
+   [
+    1,
+    898,
+    3,
+    143
+   ],
+   [
+    15,
+    1,
+    72,
+    4
+   ],
+   [
+    11,
+    59,
+    18,
+    925
+   ]
+  ]
+ }
+}
