@@ -113,6 +113,18 @@ class Pipeline:
             except Exception as e:
                 print(f"[sam] disabled: {type(e).__name__}: {e}")
                 self.sam = None
+        # Cost-capped SAM 3.1 signal fallback (docs/SAM_FALLBACK.md). Candidate boxes only; never decides walk.
+        self.sam_fallback = None
+        self._sam_prev_state = "unknown"
+        try:
+            from .sam_fallback import SamControlConfig, SamFallbackController
+
+            scfg = SamControlConfig.from_env()
+            if scfg.enabled:
+                self.sam_fallback = SamFallbackController(scfg)
+        except Exception as e:
+            print(f"[sam-fallback] disabled: {type(e).__name__}: {e}")
+            self.sam_fallback = None
         self._i = 0
         self._last_surface: SurfaceResult | None = None
         self._last_cw: CrosswalkResult | None = None
@@ -136,6 +148,42 @@ class Pipeline:
         # Rolling compact facts for the opt-in Muse Wonder guide (no model calls).
         self.observations = ObservationLog()
         self.timing_totals: dict[str, float] = defaultdict(float)
+
+    # -- SAM fallback hooks (context inputs + accounting) ----------------------------------------------------
+    def note_crossing_check(self, t: float | None = None) -> None:
+        """User asked 'can I cross?': opens a crossing context for the SAM fallback."""
+        if self.sam_fallback is not None:
+            self.sam_fallback.note_crossing_check(self.clock() if t is None else t)
+
+    def note_crossing_distance(self, meters: float | None) -> None:
+        """Maps distance to the next crossing (None = unknown)."""
+        if self.sam_fallback is not None:
+            self.sam_fallback.note_crossing_distance(meters)
+
+    def sam_fallback_summary(self) -> dict:
+        return self.sam_fallback.summary() if self.sam_fallback is not None else {"enabled": False, "calls": 0, "usd": 0.0}
+
+    def _inject_sam_lights(self, frame, t, dets, W, H):
+        """Add SAM signal-head boxes as extra traffic-light candidates (only where no local box overlaps).
+        They go through the same reader/CNN/smoother/selection; walk still needs Muse yes in answers.py."""
+        from .detector import _iou
+        from .types import Box
+
+        lights = [d for d in dets if d.label == "traffic light"]
+        local_conf = max((d.conf for d in lights), default=0.0)
+        crosswalk_ahead = bool(self._last_cw is not None and getattr(self._last_cw, "found", False))
+        try:
+            boxes = self.sam_fallback.step(frame, t, crosswalk_ahead=crosswalk_ahead, local_conf=local_conf,
+                                           local_state=self._sam_prev_state)
+        except Exception as e:  # the fallback must never break the fast loop
+            print(f"[sam-fallback] step failed: {type(e).__name__}: {e}")
+            return dets
+        extra = []
+        for x1, y1, x2, y2, c in boxes:
+            b = Box(x1, y1, x2, y2).clip(W, H)
+            if all(_iou(b, d.box) < 0.3 for d in lights + extra):
+                extra.append(Detection("traffic light", b, float(c), None, {"source": "sam_fallback"}))
+        return list(dets) + extra
 
     def _track_kind(self, track_id: int | None, kind: str) -> str:
         if track_id is None:
@@ -177,6 +225,11 @@ class Pipeline:
             if extra:
                 dets = [d for d in dets if d.label != "traffic light"] + extra
             tm["detect_zoom"] = (time.perf_counter() - t0) * 1000
+
+        if self.sam_fallback is not None:
+            t0 = time.perf_counter()
+            dets = self._inject_sam_lights(frame, t, dets, W, H)
+            tm["sam_fallback"] = (time.perf_counter() - t0) * 1000
 
         t0 = time.perf_counter()
         for d in dets:
@@ -323,6 +376,12 @@ class Pipeline:
                 self.frame_history.add(t, frame, sel.decision if sel is not None else "unknown")
             except Exception as e:  # history must never break the fast loop
                 print(f"[frame_history] skipped: {type(e).__name__}: {e}")
+        if self.sam_fallback is not None and self.sam_fallback.in_crossing:
+            try:
+                sel = select_crossing_signal(dets, W, H, self._last_cw)
+                self._sam_prev_state = sel.decision if sel is not None else "unknown"
+            except Exception:
+                self._sam_prev_state = "unknown"
         try:
             self.observations.add(summarise_frame(out, W, H))
         except Exception as e:  # the log must never break the fast loop

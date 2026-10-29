@@ -51,6 +51,7 @@ flowchart LR
 | `streetsense/meta_api.py` | Muse Spark vision client (OpenAI-compatible, `MODEL_API_KEY`), JSON reply parsing, SAM 3.1 segmenter + Voice Transcribe |
 | `streetsense/signal_distance.py` | Distance to signal heads and signs (pinhole from housing size, camera HFOV presets, optional depth fusion) and caution-only rules: far, off-to-the-side, or out-ranked walk/green heads become "unclear, wait". See [docs/SIGNAL_DISTANCE.md](docs/SIGNAL_DISTANCE.md) |
 | `streetsense/meta_usage.py` | Token/SAM/voice cost ledger + hard budget cap (`STREETSENSE_META_BUDGET_USD`) |
+| `streetsense/sam_fallback.py` | Cost-capped SAM 3.1 signal-box fallback (crossing context only; boxes only, never authorises crossing). See [docs/SAM_FALLBACK.md](docs/SAM_FALLBACK.md) |
 | `docs/META.md` | How StreetSense uses each Meta model; measured latency, cost, crossing agreement |
 | `streetsense/web.py` | Phone demo: the browser camera posts frames, alerts are spoken with `speechSynthesis`, and a "Can I cross?" button asks Muse Spark |
 | `streetsense/cli.py` | `run` / `ask` / `serve` |

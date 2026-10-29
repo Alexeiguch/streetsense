@@ -219,7 +219,9 @@ def create_app(no_surface: bool = False, backend: str | None = None, weights: st
     def _purge(now: float) -> None:
         dead = [k for k, s in sessions.items() if now - s.last_seen > SESSION_TTL_S]
         for k in dead:
-            sessions.pop(k, None)
+            s = sessions.pop(k, None)
+            if s is not None and getattr(s.pipe, "sam_fallback", None) is not None:
+                print(f"[sam-fallback] session end: {s.pipe.sam_fallback_summary()}")
 
     def get_session() -> tuple[str, SessionState]:
         now = time.monotonic()

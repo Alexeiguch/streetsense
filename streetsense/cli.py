@@ -132,6 +132,7 @@ def cmd_run(a: argparse.Namespace) -> int:
         "input_resolution": list(last_shape[1::-1]) if last_shape else None,
         "yolo_imgsz": cfg.detector.imgsz,
         "surface_every_n_frames": cfg.surface.every_n_frames if pipe.surface_seg else None,
+        "sam_fallback": pipe.sam_fallback_summary(),
     }
     print(json.dumps(stats, indent=2))
     if a.stats:

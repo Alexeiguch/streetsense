@@ -76,6 +76,8 @@ Raw rows: `docs/benchmark/meta_crossing_eval.json`.
 
 ## SAM 3.1
 
+Signal fallback limits and decisions: [SAM_FALLBACK.md](SAM_FALLBACK.md). Latency study: [SAM_LATENCY.md](SAM_LATENCY.md).
+
 - Module: `MetaSamSegmenter` (Responses API, `metadata.mask_encoding=one_bit`)
 - CLI: `python -m streetsense sam --image frame.jpg --prompts crosswalk,curb --out overlay.png`
 - Pipeline: optional `--sam` flag; every `SamConfig.interval_s` (default 8 s) runs the configured prompts (default just `crosswalk`) and fills in a classical miss via `sam_boxes_to_crosswalk`

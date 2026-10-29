@@ -62,6 +62,12 @@ def crossing_answer(
     `out` may be a FrameOutput already computed for `img` (saves a detector pass).
     """
     capture_ts = clock() if capture_ts is None else capture_ts
+    note = getattr(pipe, "note_crossing_check", None)
+    if callable(note):  # opens a crossing context for the SAM signal fallback (boxes only)
+        try:
+            note()
+        except Exception:
+            pass
     if out is None:
         out = pipe.process(img, annotate=False)
     local = local_signal_state(out, img.shape)
