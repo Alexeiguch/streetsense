@@ -39,7 +39,10 @@ def labels():
 def meta(rel):
     p = Path(rel); stem = p.stem
     m = re.match(r"(?:FR)?(\d+)([A-Z]*)$", stem)
-    num, suf = int(m.group(1)), m.group(2)
+    if m:
+        num, suf = int(m.group(1)), m.group(2)
+    else:  # FR phone stills IMG_YYYYMMDD_HHMMSS: one "sequence" per minute
+        num, suf = int(re.sub(r"\D", "", stem)[-6:-2]) * 50, "IMG"
     fr = "/FR/" in rel
     split = "test" if "testing set" in rel else ("val" if (num // 50) % 5 == 4 else "train")
     cond = "night" if suf == "NHT" else "rain" if suf == "RNY" else "day"
