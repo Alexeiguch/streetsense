@@ -116,3 +116,5 @@ def test_version_env_selects_model_dir(monkeypatch):
     assert signal_cnn.selected_model_dir() == signal_cnn.MODEL_DIR
     monkeypatch.setenv("STREETSENSE_SIGNAL_CNN_VERSION", "2")
     assert signal_cnn.selected_model_dir() == signal_cnn.MODELS / "signal_cnn_v2"
+    monkeypatch.setenv("STREETSENSE_SIGNAL_CNN_VERSION", "v3")
+    assert signal_cnn.selected_model_dir() == signal_cnn.MODELS / "signal_cnn_v3"

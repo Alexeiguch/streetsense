@@ -34,7 +34,7 @@ def main():
     groups = collections.defaultdict(list)
     for r in D:
         s = r["src"]; groups[s.split(":")[0]].append(r)
-        if s.startswith("cvid:"):
+        if s.startswith(("cvid:", "ptlcw:")):
             groups[s].append(r)
     res = {}
     for m in a.models:
