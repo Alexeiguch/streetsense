@@ -117,3 +117,7 @@ Held-out clips and stills are not in the training or validation data. Commons ne
 - **Muse rescore from cache ($0, no API calls; the ledger stays at 462 lines).** `eval/muse_local_reader.json` was recomputed with the classifier on.
   - DC set: E, E#1 and E@768 stay at 9/10 fused go on walk frames, with 0 go on non-walk frames. Variant F, which is not shipped, had 3 fused go on non-walk DC frames before because the reader held walk there. It now has 0.
   - Broad set (E@768 and F@768): 6/17 → 5/17 on walk frames, still 0 on non-walk frames. The lost frame is `night_ped@1.00`. **This comes from the local reader not being deterministic, not from the classifier.** The classifier gives p(walk) 0.96 on that head. A rerun of the same 48 broad rows in a fresh process read walk there. Overall, 3 of 48 rows came out differently between runs: `eu_ped_b@7.00`, `night_ped@1.00` and `most04@8.00`. They are near-threshold YOLO detections at night or close up. None of the changes created a walk on a non-walk frame.
+
+## Detectors
+
+The detector benchmark and the opt-in tiled light pass (held-out walk reads 1/14 -> 5/14, 0/1148 dense false walks) are in [DETECTORS.md](DETECTORS.md).

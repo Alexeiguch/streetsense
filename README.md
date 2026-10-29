@@ -154,6 +154,8 @@ Web `/frame` server p50 (Tyumen JPEG): all-OpenVINO **13.2 ms** vs all-torch **1
 
 `python -m pytest -q`: 172 tests passing.
 
+Traffic-light detector comparison (11 detectors, reader replay, latency, licences) and the opt-in tiled pass `STREETSENSE_LIGHT_TILES=2x3`: [docs/DETECTORS.md](docs/DETECTORS.md).
+
 ## Known gaps
 - Distances use class height priors and an assumed 70° HFOV (optionally calibrated via `--depth`). Absolute metres remain rough; Tyumen far cars still overestimate.
 - Vehicle vs pedestrian signal heads can't be reliably told apart by shape alone. A head is called "pedestrian" on walk figure or EU tall red/green silhouette; ranking prefers position/relevance to the crossing ahead, and refuses walk when relevant heads conflict.

@@ -1,0 +1,1376 @@
+[
+ {
+  "label": "YOLO11s OV 640, no zoom",
+  "name": "y11s",
+  "thr": 0.35,
+  "metrics": {
+   "dev": {
+    "recall": 0.601063829787234,
+    "tp": 113,
+    "n": 188,
+    "fp_per_frame": 0.06779661016949153,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.5185185185185185,
+    "tp": 84,
+    "n": 162,
+    "fp_per_frame": 0.04081632653061224,
+    "frames": 49,
+    "unverified_fp": 0,
+    "nosignal_frames": 16,
+    "nosignal_fp": 2,
+    "walk_frames_with_crop": 9,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.5742574257425742,
+    "tp": 174,
+    "n": 303,
+    "fp_per_frame": 0.175,
+    "frames": 80,
+    "unverified_fp": 0,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 21.020543500071653,
+   "lat_ms_p90": 47.24272150033357
+  },
+  "replay": {
+   "dev": {
+    "walk": 17,
+    "walk_n": 22,
+    "fw": 1,
+    "nw_n": 37,
+    "go": 16,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 1,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 0,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": null,
+  "size": "37 MB OV FP32",
+  "licence": "AGPL-3.0"
+ },
+ {
+  "label": "**YOLO11s OV 640 + zoom-out (current)**",
+  "name": "y11s_zoom",
+  "thr": 0.35,
+  "metrics": {
+   "dev": {
+    "recall": 0.601063829787234,
+    "tp": 113,
+    "n": 188,
+    "fp_per_frame": 0.05084745762711865,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 21,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.5308641975308642,
+    "tp": 86,
+    "n": 162,
+    "fp_per_frame": 0.04081632653061224,
+    "frames": 49,
+    "unverified_fp": 0,
+    "nosignal_frames": 16,
+    "nosignal_fp": 2,
+    "walk_frames_with_crop": 12,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.5742574257425742,
+    "tp": 174,
+    "n": 303,
+    "fp_per_frame": 0.1875,
+    "frames": 80,
+    "unverified_fp": 0,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 25.08031800016397,
+   "lat_ms_p90": 80.63592040034565
+  },
+  "replay": {
+   "dev": {
+    "walk": 15,
+    "walk_n": 22,
+    "fw": 1,
+    "nw_n": 37,
+    "go": 14,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 1,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 0,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": [
+   0,
+   1148,
+   0,
+   19
+  ],
+  "lat_clean": {
+   "name": "y11s_zoom",
+   "median_ms": 19.6,
+   "p90_ms": 81.1,
+   "frames": 30,
+   "torch_threads": 7,
+   "shape": [
+    2011,
+    1557,
+    3
+   ],
+   "load1": 1.791015625
+  },
+  "size": "37 MB OV FP32",
+  "licence": "AGPL-3.0"
+ },
+ {
+  "label": "YOLO11s OV 1280",
+  "name": "y11s_1280",
+  "thr": 0.35,
+  "metrics": {
+   "dev": {
+    "recall": 0.5904255319148937,
+    "tp": 111,
+    "n": 188,
+    "fp_per_frame": 0.06779661016949153,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 1,
+    "walk_frames_with_crop": 21,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.5061728395061729,
+    "tp": 82,
+    "n": 162,
+    "fp_per_frame": 0.12244897959183673,
+    "frames": 49,
+    "unverified_fp": 1,
+    "nosignal_frames": 16,
+    "nosignal_fp": 3,
+    "walk_frames_with_crop": 9,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.6468646864686468,
+    "tp": 196,
+    "n": 303,
+    "fp_per_frame": 0.125,
+    "frames": 80,
+    "unverified_fp": 2,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 44.37998949970279,
+   "lat_ms_p90": 87.74737429976085
+  },
+  "replay": {
+   "dev": {
+    "walk": 7,
+    "walk_n": 22,
+    "fw": 0,
+    "nw_n": 37,
+    "go": 7,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 1,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 0,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": null,
+  "size": "37 MB OV FP32",
+  "licence": "AGPL-3.0"
+ },
+ {
+  "label": "YOLO11s OV full + 2x3 tiles",
+  "name": "y11s_tile",
+  "thr": 0.5,
+  "metrics": {
+   "dev": {
+    "recall": 0.6170212765957447,
+    "tp": 116,
+    "n": 188,
+    "fp_per_frame": 0.13559322033898305,
+    "frames": 59,
+    "unverified_fp": 1,
+    "nosignal_frames": 1,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.5185185185185185,
+    "tp": 84,
+    "n": 162,
+    "fp_per_frame": 0.12244897959183673,
+    "frames": 49,
+    "unverified_fp": 1,
+    "nosignal_frames": 16,
+    "nosignal_fp": 3,
+    "walk_frames_with_crop": 11,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.5874587458745875,
+    "tp": 178,
+    "n": 303,
+    "fp_per_frame": 0.3,
+    "frames": 80,
+    "unverified_fp": 16,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 1454.524226999638,
+   "lat_ms_p90": 1784.923821999655
+  },
+  "replay": {
+   "dev": {
+    "walk": 14,
+    "walk_n": 22,
+    "fw": 0,
+    "nw_n": 37,
+    "go": 13,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 5,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 0,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": [
+   0,
+   1148,
+   0,
+   19
+  ],
+  "lat_clean": {
+   "name": "y11s_tile",
+   "median_ms": 113.4,
+   "p90_ms": 135.2,
+   "frames": 30,
+   "torch_threads": 7,
+   "shape": [
+    2011,
+    1557,
+    3
+   ],
+   "load1": 1.7275390625
+  },
+  "size": "37 MB OV FP32",
+  "licence": "AGPL-3.0"
+ },
+ {
+  "label": "YOLO11m OV 640",
+  "name": "y11m",
+  "thr": 0.35,
+  "metrics": {
+   "dev": {
+    "recall": 0.5851063829787234,
+    "tp": 110,
+    "n": 188,
+    "fp_per_frame": 0.0,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.4691358024691358,
+    "tp": 76,
+    "n": 162,
+    "fp_per_frame": 0.04081632653061224,
+    "frames": 49,
+    "unverified_fp": 0,
+    "nosignal_frames": 16,
+    "nosignal_fp": 2,
+    "walk_frames_with_crop": 13,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.5775577557755776,
+    "tp": 175,
+    "n": 303,
+    "fp_per_frame": 0.125,
+    "frames": 80,
+    "unverified_fp": 0,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 55.11061549987062,
+   "lat_ms_p90": 137.38050040055904
+  },
+  "replay": {
+   "dev": {
+    "walk": 9,
+    "walk_n": 22,
+    "fw": 0,
+    "nw_n": 37,
+    "go": 9,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 2,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 1,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": {
+   "name": "y11m",
+   "median_ms": 26.1,
+   "p90_ms": 30.0,
+   "frames": 30,
+   "torch_threads": 7,
+   "shape": [
+    2011,
+    1557,
+    3
+   ],
+   "load1": 2.5732421875
+  },
+  "size": "78 MB OV FP32",
+  "licence": "AGPL-3.0"
+ },
+ {
+  "label": "RT-DETR-L OV 640",
+  "name": "rtdetr_l",
+  "thr": 0.5,
+  "metrics": {
+   "dev": {
+    "recall": 0.6808510638297872,
+    "tp": 128,
+    "n": 188,
+    "fp_per_frame": 0.03389830508474576,
+    "frames": 59,
+    "unverified_fp": 1,
+    "nosignal_frames": 1,
+    "nosignal_fp": 1,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.6049382716049383,
+    "tp": 98,
+    "n": 162,
+    "fp_per_frame": 0.12244897959183673,
+    "frames": 49,
+    "unverified_fp": 1,
+    "nosignal_frames": 16,
+    "nosignal_fp": 5,
+    "walk_frames_with_crop": 14,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.6303630363036303,
+    "tp": 191,
+    "n": 303,
+    "fp_per_frame": 0.1375,
+    "frames": 80,
+    "unverified_fp": 1,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 104.2841070002396,
+   "lat_ms_p90": 175.01799989950086
+  },
+  "replay": {
+   "dev": {
+    "walk": 15,
+    "walk_n": 22,
+    "fw": 0,
+    "nw_n": 37,
+    "go": 15,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 1,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 0,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": {
+   "name": "rtdetr_l",
+   "median_ms": 45.3,
+   "p90_ms": 57.7,
+   "frames": 30,
+   "torch_threads": 7,
+   "shape": [
+    2011,
+    1557,
+    3
+   ],
+   "load1": 2.71044921875
+  },
+  "size": "124 MB OV FP32",
+  "licence": "AGPL-3.0 (Ultralytics impl.)"
+ },
+ {
+  "label": "RT-DETR-L OV 640",
+  "name": "rtdetr_l",
+  "thr": 0.35,
+  "metrics": {
+   "dev": {
+    "recall": 0.8351063829787234,
+    "tp": 157,
+    "n": 188,
+    "fp_per_frame": 0.2711864406779661,
+    "frames": 59,
+    "unverified_fp": 1,
+    "nosignal_frames": 1,
+    "nosignal_fp": 9,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.7407407407407407,
+    "tp": 120,
+    "n": 162,
+    "fp_per_frame": 0.30612244897959184,
+    "frames": 49,
+    "unverified_fp": 3,
+    "nosignal_frames": 16,
+    "nosignal_fp": 6,
+    "walk_frames_with_crop": 14,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.7722772277227723,
+    "tp": 234,
+    "n": 303,
+    "fp_per_frame": 0.425,
+    "frames": 80,
+    "unverified_fp": 2,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 104.2841070002396,
+   "lat_ms_p90": 175.01799989950086
+  },
+  "replay": {
+   "dev": {
+    "walk": 13,
+    "walk_n": 22,
+    "fw": 0,
+    "nw_n": 37,
+    "go": 13,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 1,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 0,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": {
+   "name": "rtdetr_l",
+   "median_ms": 45.3,
+   "p90_ms": 57.7,
+   "frames": 30,
+   "torch_threads": 7,
+   "shape": [
+    2011,
+    1557,
+    3
+   ],
+   "load1": 2.71044921875
+  },
+  "size": "124 MB OV FP32",
+  "licence": "AGPL-3.0 (Ultralytics impl.)"
+ },
+ {
+  "label": "RF-DETR nano (torch)",
+  "name": "rfdetr_nano",
+  "thr": 0.35,
+  "metrics": {
+   "dev": {
+    "recall": 0.7925531914893617,
+    "tp": 149,
+    "n": 188,
+    "fp_per_frame": 0.01694915254237288,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.5493827160493827,
+    "tp": 89,
+    "n": 162,
+    "fp_per_frame": 0.16326530612244897,
+    "frames": 49,
+    "unverified_fp": 3,
+    "nosignal_frames": 16,
+    "nosignal_fp": 4,
+    "walk_frames_with_crop": 13,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.6303630363036303,
+    "tp": 191,
+    "n": 303,
+    "fp_per_frame": 0.2,
+    "frames": 80,
+    "unverified_fp": 0,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 65.12315049985773,
+   "lat_ms_p90": 109.21212040020691
+  },
+  "replay": {
+   "dev": {
+    "walk": 9,
+    "walk_n": 22,
+    "fw": 0,
+    "nw_n": 37,
+    "go": 9,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 1,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 0,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": null,
+  "size": "not measured",
+  "licence": "Apache-2.0"
+ },
+ {
+  "label": "RF-DETR base (torch)",
+  "name": "rfdetr_base",
+  "thr": 0.35,
+  "metrics": {
+   "dev": {
+    "recall": 0.8138297872340425,
+    "tp": 153,
+    "n": 188,
+    "fp_per_frame": 0.06779661016949153,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 1,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.6481481481481481,
+    "tp": 105,
+    "n": 162,
+    "fp_per_frame": 0.061224489795918366,
+    "frames": 49,
+    "unverified_fp": 1,
+    "nosignal_frames": 16,
+    "nosignal_fp": 3,
+    "walk_frames_with_crop": 12,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.693069306930693,
+    "tp": 210,
+    "n": 303,
+    "fp_per_frame": 0.1125,
+    "frames": 80,
+    "unverified_fp": 1,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 139.58583250041556,
+   "lat_ms_p90": 190.80515530049524
+  },
+  "replay": {
+   "dev": {
+    "walk": 14,
+    "walk_n": 22,
+    "fw": 0,
+    "nw_n": 37,
+    "go": 14,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 1,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 0,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": null,
+  "size": "not measured",
+  "licence": "Apache-2.0"
+ },
+ {
+  "label": "RF-DETR medium (torch)",
+  "name": "rfdetr_medium",
+  "thr": 0.35,
+  "metrics": {
+   "dev": {
+    "recall": 0.851063829787234,
+    "tp": 160,
+    "n": 188,
+    "fp_per_frame": 0.06779661016949153,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 3,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.6296296296296297,
+    "tp": 102,
+    "n": 162,
+    "fp_per_frame": 0.10204081632653061,
+    "frames": 49,
+    "unverified_fp": 3,
+    "nosignal_frames": 16,
+    "nosignal_fp": 3,
+    "walk_frames_with_crop": 14,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.7095709570957096,
+    "tp": 215,
+    "n": 303,
+    "fp_per_frame": 0.1875,
+    "frames": 80,
+    "unverified_fp": 0,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 135.18361649994404,
+   "lat_ms_p90": 503.3167246000641
+  },
+  "replay": {
+   "dev": {
+    "walk": 14,
+    "walk_n": 22,
+    "fw": 0,
+    "nw_n": 37,
+    "go": 14,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 1,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 0,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": {
+   "name": "rfdetr_medium",
+   "median_ms": 126.3,
+   "p90_ms": 176.5,
+   "frames": 30,
+   "torch_threads": 8,
+   "shape": [
+    2011,
+    1557,
+    3
+   ],
+   "load1": 2.2236328125
+  },
+  "size": "not measured",
+  "licence": "Apache-2.0"
+ },
+ {
+  "label": "YOLO-World v2 s, 5 prompts (torch)",
+  "name": "yolo_world",
+  "thr": 0.2,
+  "metrics": {
+   "dev": {
+    "recall": 0.7393617021276596,
+    "tp": 139,
+    "n": 188,
+    "fp_per_frame": 0.6949152542372882,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 4,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.4444444444444444,
+    "tp": 72,
+    "n": 162,
+    "fp_per_frame": 0.1836734693877551,
+    "frames": 49,
+    "unverified_fp": 2,
+    "nosignal_frames": 16,
+    "nosignal_fp": 6,
+    "walk_frames_with_crop": 14,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.6567656765676567,
+    "tp": 199,
+    "n": 303,
+    "fp_per_frame": 1.0625,
+    "frames": 80,
+    "unverified_fp": 65,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 453.54324849995464,
+   "lat_ms_p90": 783.6722715010184
+  },
+  "replay": {
+   "dev": {
+    "walk": 17,
+    "walk_n": 22,
+    "fw": 1,
+    "nw_n": 37,
+    "go": 16,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 2,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 1,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": null,
+  "size": "25 MB + CLIP ViT-B/32 text enc. (prompt time)",
+  "licence": "AGPL-3.0"
+ },
+ {
+  "label": "YOLOE-11s-seg, 5 prompts (torch)",
+  "name": "yoloe",
+  "thr": 0.3,
+  "metrics": {
+   "dev": {
+    "recall": 0.5797872340425532,
+    "tp": 109,
+    "n": 188,
+    "fp_per_frame": 0.1694915254237288,
+    "frames": 59,
+    "unverified_fp": 1,
+    "nosignal_frames": 1,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.4012345679012346,
+    "tp": 65,
+    "n": 162,
+    "fp_per_frame": 0.1836734693877551,
+    "frames": 49,
+    "unverified_fp": 2,
+    "nosignal_frames": 16,
+    "nosignal_fp": 3,
+    "walk_frames_with_crop": 14,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.5082508250825083,
+    "tp": 154,
+    "n": 303,
+    "fp_per_frame": 0.1375,
+    "frames": 80,
+    "unverified_fp": 5,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 454.9469419989691,
+   "lat_ms_p90": 1484.4776452002407
+  },
+  "replay": {
+   "dev": {
+    "walk": 17,
+    "walk_n": 22,
+    "fw": 1,
+    "nw_n": 37,
+    "go": 16,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 2,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 1,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": null,
+  "size": "27 MB + MobileCLIP 572 MB text enc. (prompt time)",
+  "licence": "AGPL-3.0"
+ },
+ {
+  "label": "OWLv2 base ens. (torch)",
+  "name": "owlv2",
+  "thr": 0.2,
+  "metrics": {
+   "dev": {
+    "recall": 0.9787234042553191,
+    "tp": 184,
+    "n": 188,
+    "fp_per_frame": 6.593220338983051,
+    "frames": 59,
+    "unverified_fp": 316,
+    "nosignal_frames": 1,
+    "nosignal_fp": 21,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.9135802469135802,
+    "tp": 148,
+    "n": 162,
+    "fp_per_frame": 3.163265306122449,
+    "frames": 49,
+    "unverified_fp": 112,
+    "nosignal_frames": 16,
+    "nosignal_fp": 41,
+    "walk_frames_with_crop": 14,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.900990099009901,
+    "tp": 273,
+    "n": 303,
+    "fp_per_frame": 5.4625,
+    "frames": 80,
+    "unverified_fp": 387,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 2605.9391600010713,
+   "lat_ms_p90": 3786.6411546005133
+  },
+  "replay": {
+   "dev": {
+    "walk": 0,
+    "walk_n": 0,
+    "fw": 0,
+    "nw_n": 0,
+    "go": 0,
+    "go_n": 0,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 2,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 1,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": null,
+  "size": "not measured",
+  "licence": "Apache-2.0"
+ },
+ {
+  "label": "Grounding DINO tiny (torch)",
+  "name": "gdino_tiny",
+  "thr": 0.3,
+  "metrics": {
+   "dev": {
+    "recall": 0.5957446808510638,
+    "tp": 112,
+    "n": 188,
+    "fp_per_frame": 0.11864406779661017,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 1,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.5802469135802469,
+    "tp": 94,
+    "n": 162,
+    "fp_per_frame": 0.6530612244897959,
+    "frames": 49,
+    "unverified_fp": 3,
+    "nosignal_frames": 16,
+    "nosignal_fp": 12,
+    "walk_frames_with_crop": 13,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.6534653465346535,
+    "tp": 198,
+    "n": 303,
+    "fp_per_frame": 0.2,
+    "frames": 80,
+    "unverified_fp": 7,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 5420.670654999412,
+   "lat_ms_p90": 7863.640571999713
+  },
+  "replay": null,
+  "dense": null,
+  "lat_clean": null,
+  "size": "not measured",
+  "licence": "Apache-2.0"
+ },
+ {
+  "label": "Florence-2 base `<OD>` (torch)",
+  "name": "florence2",
+  "thr": 0.5,
+  "metrics": {
+   "dev": {
+    "recall": 0.4734042553191489,
+    "tp": 89,
+    "n": 188,
+    "fp_per_frame": 1.1694915254237288,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 9,
+    "walk_frames_with_crop": 14,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.5864197530864198,
+    "tp": 95,
+    "n": 162,
+    "fp_per_frame": 0.42857142857142855,
+    "frames": 49,
+    "unverified_fp": 1,
+    "nosignal_frames": 16,
+    "nosignal_fp": 10,
+    "walk_frames_with_crop": 14,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.6435643564356436,
+    "tp": 195,
+    "n": 303,
+    "fp_per_frame": 1.3625,
+    "frames": 80,
+    "unverified_fp": 98,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 1368.6495380006818,
+   "lat_ms_p90": 2163.613547400019
+  },
+  "replay": {
+   "dev": {
+    "walk": 0,
+    "walk_n": 0,
+    "fw": 0,
+    "nw_n": 0,
+    "go": 0,
+    "go_n": 0,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 2,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 1,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": null,
+  "size": "not measured",
+  "licence": "MIT"
+ },
+ {
+  "label": "Meta SAM 3.1 API 'traffic light' (held-out only)",
+  "name": "sam_tl",
+  "thr": 0.5,
+  "metrics": {
+   "dev": {
+    "recall": 0.0,
+    "tp": 0,
+    "n": 0,
+    "fp_per_frame": 0.0,
+    "frames": 0,
+    "unverified_fp": 0,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "heldout": {
+    "recall": 0.7469135802469136,
+    "tp": 121,
+    "n": 162,
+    "fp_per_frame": 0.24489795918367346,
+    "frames": 49,
+    "unverified_fp": 3,
+    "nosignal_frames": 16,
+    "nosignal_fp": 6,
+    "walk_frames_with_crop": 14,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.0,
+    "tp": 0,
+    "n": 0,
+    "fp_per_frame": 0.0,
+    "frames": 0,
+    "unverified_fp": 0,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 607.5,
+   "lat_ms_p90": 1264.3000000000004
+  },
+  "replay": {
+   "dev": {
+    "walk": 0,
+    "walk_n": 0,
+    "fw": 0,
+    "nw_n": 0,
+    "go": 0,
+    "go_n": 0,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 2,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 1,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": null,
+  "size": "remote",
+  "licence": "Meta API terms"
+ },
+ {
+  "label": "Fallback: current, then YOLO11m if no light",
+  "name": "y11s_zoom+y11m",
+  "thr": 0.35,
+  "metrics": {
+   "dev": {
+    "recall": 0.6063829787234043,
+    "tp": 114,
+    "n": 188,
+    "fp_per_frame": 0.05084745762711865,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.5432098765432098,
+    "tp": 88,
+    "n": 162,
+    "fp_per_frame": 0.04081632653061224,
+    "frames": 49,
+    "unverified_fp": 0,
+    "nosignal_frames": 16,
+    "nosignal_fp": 2,
+    "walk_frames_with_crop": 14,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.5742574257425742,
+    "tp": 174,
+    "n": 303,
+    "fp_per_frame": 0.1875,
+    "frames": 80,
+    "unverified_fp": 0,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 29.058372992232094,
+   "lat_ms_p90": 29.058372992232094
+  },
+  "replay": {
+   "dev": {
+    "walk": 15,
+    "walk_n": 22,
+    "fw": 1,
+    "nw_n": 37,
+    "go": 14,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 2,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 1,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": null,
+  "size": "37 + 78 MB",
+  "licence": "AGPL-3.0"
+ },
+ {
+  "label": "Fallback: current, then RF-DETR medium if no light",
+  "name": "y11s_zoom+rfdetr_medium",
+  "thr": 0.35,
+  "metrics": {
+   "dev": {
+    "recall": 0.6170212765957447,
+    "tp": 116,
+    "n": 188,
+    "fp_per_frame": 0.05084745762711865,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.5740740740740741,
+    "tp": 93,
+    "n": 162,
+    "fp_per_frame": 0.04081632653061224,
+    "frames": 49,
+    "unverified_fp": 0,
+    "nosignal_frames": 16,
+    "nosignal_fp": 2,
+    "walk_frames_with_crop": 14,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.5808580858085809,
+    "tp": 176,
+    "n": 303,
+    "fp_per_frame": 0.1875,
+    "frames": 80,
+    "unverified_fp": 0,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 34.83829031794162,
+   "lat_ms_p90": 34.83829031794162
+  },
+  "replay": {
+   "dev": {
+    "walk": 16,
+    "walk_n": 22,
+    "fw": 1,
+    "nw_n": 37,
+    "go": 15,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 2,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 1,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": null,
+  "size": "37 MB + RF-DETR-M",
+  "licence": "AGPL + Apache"
+ },
+ {
+  "label": "Fallback: current, then RT-DETR-L if no light",
+  "name": "y11s_zoom+rtdetr_l",
+  "thr": 0.35,
+  "metrics": {
+   "dev": {
+    "recall": 0.6170212765957447,
+    "tp": 116,
+    "n": 188,
+    "fp_per_frame": 0.06779661016949153,
+    "frames": 59,
+    "unverified_fp": 0,
+    "nosignal_frames": 1,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 22,
+    "walk_frames": 22
+   },
+   "heldout": {
+    "recall": 0.5679012345679012,
+    "tp": 92,
+    "n": 162,
+    "fp_per_frame": 0.10204081632653061,
+    "frames": 49,
+    "unverified_fp": 0,
+    "nosignal_frames": 16,
+    "nosignal_fp": 5,
+    "walk_frames_with_crop": 14,
+    "walk_frames": 14
+   },
+   "ext_test": {
+    "recall": 0.5742574257425742,
+    "tp": 174,
+    "n": 303,
+    "fp_per_frame": 0.1875,
+    "frames": 80,
+    "unverified_fp": 0,
+    "nosignal_frames": 0,
+    "nosignal_fp": 0,
+    "walk_frames_with_crop": 0,
+    "walk_frames": 0
+   },
+   "lat_ms_median": 32.60786797729394,
+   "lat_ms_p90": 32.60786797729394
+  },
+  "replay": {
+   "dev": {
+    "walk": 16,
+    "walk_n": 22,
+    "fw": 1,
+    "nw_n": 37,
+    "go": 15,
+    "go_n": 22,
+    "fgo": 0
+   },
+   "heldout": {
+    "walk": 2,
+    "walk_n": 14,
+    "fw": 0,
+    "nw_n": 35,
+    "go": 1,
+    "go_n": 5,
+    "fgo": 0
+   }
+  },
+  "dense": null,
+  "lat_clean": null,
+  "size": "37 + 124 MB",
+  "licence": "AGPL-3.0"
+ }
+]
