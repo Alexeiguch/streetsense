@@ -37,3 +37,8 @@ Next: a **Mapillary API pull** (CC BY-SA) filtered to `traffic-light--pedestrian
 - **Flashing / blinking states**: still images can't show a flash. We need video (Commons, our own recordings).
 - **US white walking-person and orange hand at night**: still a small share. LISA is non-commercial, so record our own or use Commons/Pexels clips.
 - **Egocentric walking at crossings with signal labels**: none open. FPVCrosswalk only labels crosswalks.
+
+## Status (29 Oct 2026)
+- **Wikimedia Commons signal videos (#3): in use.** Train clips are in signal_cnn_v2 (opt-in); test clips are scored per clip in READER.md.
+- **PTLD (#2): blocked.** The Drive folder is private and needs sign-in. Licence unconfirmed. Not used.
+- **PTL-Crosswalk (#1): download needed sign-in; obtained by browser on 29 Oct.** Licence still **unconfirmed** (no licence file), so it is used only for an opt-in, rollback-able model (see READER.md).
