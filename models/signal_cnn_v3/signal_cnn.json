@@ -1,0 +1,223 @@
+{
+ "classes": [
+  "walk",
+  "stop",
+  "countdown",
+  "other"
+ ],
+ "size": 64,
+ "arch": "tiny",
+ "t_walk": 0.9654194903373718,
+ "t_veto": 0.8,
+ "preprocess": "tight box, aspect letterbox on black to 64x64, BGR, x/255-0.5",
+ "trained_on": [
+  "ptl_imvisible",
+  "commons_stills",
+  "dev_crops",
+  "commons_video_train",
+  "ptl_crosswalk_train_LICENCE_UNCONFIRMED"
+ ],
+ "train_counts": {
+  "other": 5887,
+  "stop": 5551,
+  "countdown": 586,
+  "walk": 871
+ },
+ "val": {
+  "n": 2124,
+  "acc": 0.8983050847457628,
+  "walk_recall_at_T": 0.5777777777777777,
+  "false_walk_at_T": 0,
+  "per_src": {
+   "commons": {
+    "n": 360,
+    "acc": 0.8222222222222222,
+    "walk_n": 29,
+    "walk_recall_at_T": 0.20689655172413793,
+    "false_walk_at_T": 0
+   },
+   "dev": {
+    "n": 48,
+    "acc": 1.0,
+    "walk_n": 10,
+    "walk_recall_at_T": 0.3,
+    "false_walk_at_T": 0
+   },
+   "ptl": {
+    "n": 1711,
+    "acc": 0.9111630625365283,
+    "walk_n": 141,
+    "walk_recall_at_T": 0.6737588652482269,
+    "false_walk_at_T": 0
+   },
+   "ptlcw": {
+    "n": 5,
+    "acc": 1.0,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   }
+  },
+  "confusion_rows_true": [
+   [
+    174,
+    0,
+    0,
+    6
+   ],
+   [
+    2,
+    934,
+    2,
+    78
+   ],
+   [
+    0,
+    0,
+    44,
+    0
+   ],
+   [
+    20,
+    79,
+    29,
+    756
+   ]
+  ]
+ },
+ "test": {
+  "n": 2321,
+  "acc": 0.8716070659198621,
+  "walk_recall_at_T": 0.3870967741935484,
+  "false_walk_at_T": 1,
+  "per_src": {
+   "commons": {
+    "n": 356,
+    "acc": 0.8567415730337079,
+    "walk_n": 45,
+    "walk_recall_at_T": 0.2222222222222222,
+    "false_walk_at_T": 0
+   },
+   "cvid:china": {
+    "n": 111,
+    "acc": 0.8828828828828829,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:dus_g2r": {
+    "n": 76,
+    "acc": 0.8026315789473685,
+    "walk_n": 13,
+    "walk_recall_at_T": 0.46153846153846156,
+    "false_walk_at_T": 0
+   },
+   "cvid:gau": {
+    "n": 77,
+    "acc": 0.6883116883116883,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:montreal": {
+    "n": 9,
+    "acc": 0.6666666666666666,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:pl_przejscie": {
+    "n": 7,
+    "acc": 0.42857142857142855,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:sanjose": {
+    "n": 9,
+    "acc": 0.6666666666666666,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:tw_chaozhou": {
+    "n": 34,
+    "acc": 0.35294117647058826,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:tw_flicker": {
+    "n": 28,
+    "acc": 0.8214285714285714,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:tw_pingtung": {
+    "n": 37,
+    "acc": 1.0,
+    "walk_n": 14,
+    "walk_recall_at_T": 0.0,
+    "false_walk_at_T": 0
+   },
+   "cvid:us_blinkred": {
+    "n": 17,
+    "acc": 0.5882352941176471,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "ptl": {
+    "n": 1541,
+    "acc": 0.9052563270603504,
+    "walk_n": 80,
+    "walk_recall_at_T": 0.55,
+    "false_walk_at_T": 1
+   },
+   "ptlcw:day": {
+    "n": 13,
+    "acc": 0.6923076923076923,
+    "walk_n": 2,
+    "walk_recall_at_T": 0.0,
+    "false_walk_at_T": 0
+   },
+   "ptlcw:night": {
+    "n": 6,
+    "acc": 0.8333333333333334,
+    "walk_n": 1,
+    "walk_recall_at_T": 0.0,
+    "false_walk_at_T": 0
+   }
+  },
+  "confusion_rows_true": [
+   [
+    146,
+    2,
+    1,
+    6
+   ],
+   [
+    1,
+    971,
+    7,
+    69
+   ],
+   [
+    17,
+    2,
+    72,
+    1
+   ],
+   [
+    25,
+    137,
+    30,
+    834
+   ]
+  ]
+ },
+ "selected_epoch": 18,
+ "selected_by": "val rec@0fw + val acc (never test)",
+ "licence_note": "ptl_crosswalk licence unconfirmed; rollback = STREETSENSE_SIGNAL_CNN_VERSION=v1"
+}
