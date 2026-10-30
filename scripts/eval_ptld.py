@@ -53,7 +53,8 @@ def main():
         rd = figure_walk_guard(rd, img, Box(x1, y1, x2, y2))
         full[r["label"]][rd.state] += 1
         if p:
-            alone[r["label"]]["walk" if p.p_walk >= cnn.t_walk else signal_cnn.CLASSES[max(range(4), key=lambda k: p.probs[k])]] += 1
+            top = signal_cnn.CLASSES[max(range(4), key=lambda k: p.probs[k])]  # argmax walk below t_walk is NOT walk
+            alone[r["label"]]["walk" if p.p_walk >= cnn.t_walk else ("argmax_walk_below_t" if top == "walk" else top)] += 1
     res["crops_reader"] = summary(full); res["crops_rules_only"] = summary(rules); res["crops_cnn_only"] = summary(alone)
     if a.images:
         from streetsense.answers import local_signal_state

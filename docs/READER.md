@@ -209,7 +209,7 @@ Test split: 524 boxes (240 walk / 249 stop / 35 off) in 478 images. Cells = said
 |---|---|---|---|
 | Crops, full reader (HSV + CNN + figure guard): walk recall | 31/240 (0.129) | 33/240 (0.138) | 24/240 (0.100) |
 | Crops, full reader: false walk on stop / off | 0/249, 0/35 | 0/249, 0/35 | 0/249, 0/35 |
-| Crops, CNN alone (p_walk ≥ t_walk): walk recall | 90/240 | 83/240 | 82/240 |
+| Crops, CNN alone (p_walk ≥ t_walk): walk recall | 27/240 | 43/240 | 25/240 |
 | Crops, CNN alone: false walk on stop / off | 0/249, 0/35 | 0/249, 0/35 | 0/249, 0/35 |
 | Full images, Pipeline (detector, 5 repeats, local_signal_state): walk recall | 28/217 | 30/217 | 30/217 |
 | Full images: false walk on stop / off images | 0/232, 0/26 | 0/232, 0/26 | 0/232, 0/26 |
@@ -218,7 +218,25 @@ HSV rules alone (CNN off, same for all versions) said walk on 11/240 walk, **32/
 removed all of them. Image label = walk if any go box, else stop, else off (3 images have no box). Not measured: smoother over
 real video, Muse, night/rain split (PTLD has no such tags).
 
-Why recall is low: on walk crops the reader most often says green (v1 139/240) or **yellow (40/240)**. Likely cause (not verified per crop): many Brazilian heads have
-yellow housings and green countdown digits above the walk figure; the CNN only promotes green/unknown, so a "yellow" read blocks
-it even when the CNN is sure. On full images the detector path mostly ends in unknown (v1 117/217). This is a recall gap, not a
-safety gap: no version produced a false walk anywhere on PTLD. Decision unchanged (v1 default). Outputs: `/workspace/datasets/ptld/eval/v*.json`.
+Correction (30 Oct): the first version of this table said CNN alone 90/83/82; that counted any crop whose
+*argmax* was walk, even below t_walk. The real p_walk ≥ t_walk counts are above (fixed in `eval_ptld.py`).
+Outputs: `/workspace/datasets/ptld/eval/v*.json`.
+
+### Where PTLD walks are lost (diagnosis, 30 Oct; no reader change)
+
+**Crops, v1, test (240 walk):** reader walk 31; lost 209 = CNN p_walk below t_walk on every one of them: HSV green 138,
+yellow 40, unknown 24; plus HSV walk vetoed by the CNN 6, figure guard 1. **Not one** lost crop had p_walk ≥ t_walk, so
+letting the CNN upgrade a "yellow" reading would gain 0/240 on test and 0/201 on valid (all versions). Valid is worse:
+0/201 walk crops reach t_walk for v1, v2 or v3. The CNN's argmax on walk crops is mostly **countdown** (test v1 131/240;
+these heads show green digits beside the walk figure) or other.
+
+**Full images, v1, test (217 walk images):** walk 28; **the go head was not detected (IoU > 0.3) in 142**; detected but read
+green (not walk) in 38, unknown/unclear/yellow/red in the rest.
+
+**Why no threshold change:** on our own crop set (signal_ds_v2 val/test) non-walk crops that HSV reads green or unknown reach
+p_walk 0.93–0.97 (vehicle-green and Commons "other"), so a lower walk threshold for green heads would add false walks. On PTLD
+the lost walks score low, so even large threshold cuts barely help on valid (v1: 18/201 at p_walk ≥ 0.5).
+
+**Decision:** no change to traffic_light.py; own evals (dev, held-out, dense, countdown, PTLCW) therefore unchanged and not
+re-run. Recall on these heads needs (a) the detector to find them and (b) a CNN that has seen them, i.e. training data with a
+clear licence (PTLD cannot be used). Treating "walk + green countdown" as walk would be a policy change and was not tried.
