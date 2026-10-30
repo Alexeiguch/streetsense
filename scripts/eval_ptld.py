@@ -65,16 +65,33 @@ def main():
             o = {"walk": 0, "stop": 1, "other": 2}[r["label"]]
             lab[r["file"]] = min(lab.get(r["file"], 9), o)
         imgs = sorted((root / a.split / a.split).glob("*.txt"))[: a.images]
-        conf = collections.defaultdict(collections.Counter); t0 = time.time()
+        conf = collections.defaultdict(collections.Counter); t0 = time.time(); ms = []; det = [0, 0]
+        gt = collections.defaultdict(list)
+        for r in rows:
+            if r["label"] == "walk":
+                gt[r["file"]].append([int(r[k]) for k in ("x1", "y1", "x2", "y2")])
+
+        def iou(p, q):
+            iw = max(0, min(p[2], q[2]) - max(p[0], q[0])); ih = max(0, min(p[3], q[3]) - max(p[1], q[1])); i = iw * ih
+            return i / ((p[2] - p[0]) * (p[3] - p[1]) + (q[2] - q[0]) * (q[3] - q[1]) - i + 1e-9)
         for t in imgs:
             ip = next(p for p in t.parent.glob(t.stem + ".*") if p.suffix.lower() != ".txt")
             rel = str(ip.relative_to(root)); L = {0: "walk", 1: "stop", 2: "other"}.get(lab.get(rel), "none")
             cfg = Config(); cfg.vlm.enabled = False; pipe = Pipeline(cfg, use_surface=False)
             im = cv2.imread(str(ip)); st = "unknown"
             for k in range(5):
-                st = local_signal_state(pipe.process(im, annotate=False, t=float(k)), im.shape)
+                t1 = time.perf_counter(); out = pipe.process(im, annotate=False, t=float(k))
+                if k: ms.append((time.perf_counter() - t1) * 1000)  # frame 0 includes warm-up
+                st = local_signal_state(out, im.shape)
             conf[L][st] += 1
+            if L == "walk":  # walk image: is a go head detected (IoU > 0.3 with any go box)?
+                det[1] += 1
+                det[0] += any(iou([d.box.x1, d.box.y1, d.box.x2, d.box.y2], g) > 0.3
+                              for d in out.detections if d.label == "traffic light" for g in gt[rel])
         res["images_pipeline"] = summary(conf); res["images_s"] = round(time.time() - t0, 1)
+        ms.sort(); res["walk_head_detected"] = det
+        res["frame_ms"] = {"median": round(ms[len(ms) // 2], 1), "p90": round(ms[int(len(ms) * 0.9)], 1)}
+        res["tiles"] = os.environ.get("STREETSENSE_LIGHT_TILES", "off") + "/" + os.environ.get("STREETSENSE_LIGHT_TILES_MODE", "-")
     print(json.dumps(res, indent=1))
     if a.out:
         Path(a.out).write_text(json.dumps(res, indent=1))
