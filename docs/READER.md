@@ -198,3 +198,27 @@ Crop test split (`signal_ds_v3.pkl`, each at its own t_walk: v1 0.952, v2 0.885,
 **Decision: v1 stays the default; v3 is opt-in.** v3 fails both parts of the rule. It adds false walks: dc_48.72
 with tiles always (v1+tiles 0/37 → v3+tiles 1/37) and 1 PTL test crop (v1 0). Its walk recall is also no better: the same
 as v1 or lower (held-out 1/14, PTL crops 0.550 vs 0.650). Logs are in `/workspace/datasets/runs/eval/v3*.log` and `v3.log`. The safety rule is unchanged: go only if the local reader says walk AND Muse says yes.
+
+## PTLD test split (30 Oct 2026): test only, licence unconfirmed
+
+PTLD (PUCRS, Brazil; see DATASETS_CANDIDATES.md #2) is **not** used for training. Labels: go→walk, stop→stop, off→other.
+`scripts/get_ptld_crops.py` cuts the GT boxes; `scripts/eval_ptld.py` scores them (STREETSENSE_SAM_FALLBACK=0, no API calls).
+Test split: 524 boxes (240 walk / 249 stop / 35 off) in 478 images. Cells = said walk / n.
+
+| Path | v1 (default) | v2 | v3 |
+|---|---|---|---|
+| Crops, full reader (HSV + CNN + figure guard): walk recall | 31/240 (0.129) | 33/240 (0.138) | 24/240 (0.100) |
+| Crops, full reader: false walk on stop / off | 0/249, 0/35 | 0/249, 0/35 | 0/249, 0/35 |
+| Crops, CNN alone (p_walk ≥ t_walk): walk recall | 90/240 | 83/240 | 82/240 |
+| Crops, CNN alone: false walk on stop / off | 0/249, 0/35 | 0/249, 0/35 | 0/249, 0/35 |
+| Full images, Pipeline (detector, 5 repeats, local_signal_state): walk recall | 28/217 | 30/217 | 30/217 |
+| Full images: false walk on stop / off images | 0/232, 0/26 | 0/232, 0/26 | 0/232, 0/26 |
+
+HSV rules alone (CNN off, same for all versions) said walk on 11/240 walk, **32/249 stop and 3/35 off** crops; the CNN veto
+removed all of them. Image label = walk if any go box, else stop, else off (3 images have no box). Not measured: smoother over
+real video, Muse, night/rain split (PTLD has no such tags).
+
+Why recall is low: on walk crops the reader most often says green (v1 139/240) or **yellow (40/240)**. Likely cause (not verified per crop): many Brazilian heads have
+yellow housings and green countdown digits above the walk figure; the CNN only promotes green/unknown, so a "yellow" read blocks
+it even when the CNN is sure. On full images the detector path mostly ends in unknown (v1 117/217). This is a recall gap, not a
+safety gap: no version produced a false walk anywhere on PTLD. Decision unchanged (v1 default). Outputs: `/workspace/datasets/ptld/eval/v*.json`.
