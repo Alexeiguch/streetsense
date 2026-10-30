@@ -240,3 +240,23 @@ the lost walks score low, so even large threshold cuts barely help on valid (v1:
 **Decision:** no change to traffic_light.py; own evals (dev, held-out, dense, countdown, PTLCW) therefore unchanged and not
 re-run. Recall on these heads needs (a) the detector to find them and (b) a CNN that has seen them, i.e. training data with a
 clear licence (PTLD cannot be used). Treating "walk + green countdown" as walk would be a policy change and was not tried.
+
+## Tiled detection on PTLD test (v1, 478 full images, 30 Oct 2026)
+
+`scripts/eval_ptld.py --images 478`, local reader only (no Muse Spark, no Meta API), tiles mode `always`.
+"Walk head detected" = a traffic-light detection with IoU > 0.3 against a labelled walk box.
+
+| setting | walk head detected | walk recall | false walk stop (232) | false walk other (26) | frame ms median / p90 |
+|---|---|---|---|---|---|
+| no tiles | 76/217 (35.0%) | 28/217 (12.9%) | 0 | 0 | 176.5 / 362.4 |
+| tiles 2x3 | 75/217 (34.6%) | 30/217 (13.8%) | 0 | 0 | 350.9 / 826.2 |
+| tiles 3x4 | 81/217 (37.3%) | 28/217 (12.9%) | 0 | 0 | 474.3 / 1180.4 |
+
+Latency caveat: the 2x3 and 3x4 runs ran at the same time on the same CPU, so their ms figures are inflated
+relative to the untiled run; the ratio is still roughly 2-3x per frame.
+
+Own sets (`eval_local_reader.py --dense`, main): tiles 2x3 always gives identical dev 16/22 walk, 1/37 false,
+held-out 5/14, 0/35 false, 0 dense non-walk walk decisions, vs no tiles.
+
+Decision: tiles stay **opt-in** (`STREETSENSE_LIGHT_TILES`). No added false walks, but recall gain is within noise
+(+2 or +0 of 217) and frame latency roughly doubles or triples, which is too much for live use.
