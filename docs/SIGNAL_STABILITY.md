@@ -7,6 +7,9 @@ This branch provides timing cleanup, safer confirmation and diagnostics. It does
 not establish a performance improvement. The external no-tiles evaluation supplied
 by Alex tied main; that evaluation has not been rerun after the corrections below.
 
+The subsequent no-tiles recall report and the controlled detector-input comparison
+are documented in [SIGNAL_RECALL_REVIEW.md](SIGNAL_RECALL_REVIEW.md).
+
 ## Decisions
 
 - **Use frame time.** The smoother now shares the pipeline clock and accepts each

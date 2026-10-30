@@ -13,7 +13,7 @@ def summarise_signals(out, width: int, height: int) -> dict:
         a = d.attrs
         heads.append({
             "track_id": d.track_id,
-            "source": a.get("source") or ("tile" if a.get("tile") else "local"),
+            "source": a.get("source") or ("tile" if "tile" in a else "zoom" if "zoom" in a else "local"),
             "box": [d.box.x1, d.box.y1, d.box.x2, d.box.y2],
             "confidence": float(d.conf),
             "selected": bool(sel is not None and sel.detection is d),

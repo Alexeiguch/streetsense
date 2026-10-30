@@ -48,7 +48,7 @@ def dump(root: Path, tag: str):
             if out.spoken: last_spoken = out.spoken.text
             dets = [{"box": [d.box.x1, d.box.y1, d.box.x2, d.box.y2], "label": d.label, "conf": round(float(d.conf), 3),
                      "state": d.attrs.get("light_state"), "kind": d.attrs.get("signal_kind"),
-                     "src": d.attrs.get("source") or ("tile" if d.attrs.get("tile") else None)}
+                     "src": d.attrs.get("source") or ("tile" if "tile" in d.attrs else None)}
                     for d in out.detections if d.label in ("traffic light",)]
             try:
                 from streetsense.rules import select_crossing_signal
