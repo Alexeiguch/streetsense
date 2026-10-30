@@ -22,7 +22,7 @@ from .frame_history import FrameHistory
 from . import signal_cnn, signal_distance
 from .rules import FrameFacts, build_alerts, select_crossing_signal
 from .surface import SIDEWALK, ROAD, SurfaceResult
-from .traffic_light import LightStateSmoother, apply_signal_cnn, cnn_hold_veto, classify_light, figure_walk_guard, signal_kind
+from .traffic_light import LightStateSmoother, apply_signal_cnn, cnn_hold_veto, cnn_rejects_walk, classify_light, figure_walk_guard, signal_kind
 from .types import Alert, Detection, Priority
 
 
@@ -84,7 +84,7 @@ class Pipeline:
                 self.depth = None
         self.alerts = AlertManager(self.cfg.alerts, clock=clock)
         self.approach = ApproachTracker()
-        self.smoother = LightStateSmoother()
+        self.smoother = LightStateSmoother(clock=self.clock)
         self.signal_dist_cfg = signal_distance.SignalDistanceConfig.from_env()
         self.cw_hyst = CrosswalkHysteresis()
         self._kinds: dict[int, str] = {}
@@ -238,12 +238,16 @@ class Pipeline:
                 crop = frame[int(b.y1):int(b.y2), int(b.x1):int(b.x2)]
                 kind = signal_kind(b.w, b.h)
                 r = classify_light(crop, kind)
+                d.attrs["light_heuristic"] = r.state
                 cnn = signal_cnn.get()
                 pred = None
                 if cnn is not None and crop.size:
                     pred = cnn(crop)
                     d.attrs["signal_cnn"] = pred.label
                     d.attrs["signal_cnn_p_walk"] = round(pred.p_walk, 3)
+                    d.attrs["signal_cnn_probs"] = dict(zip(signal_cnn.CLASSES, pred.probs))
+                    d.attrs["signal_cnn_t_walk"] = cnn.t_walk
+                    d.attrs["signal_cnn_t_veto"] = cnn.t_veto
                     r = apply_signal_cnn(r, pred.probs, kind, cnn.t_walk, cnn.t_veto)
                 r = figure_walk_guard(r, frame, b)
                 if r.state == "walk" or getattr(r, "figure", False):
@@ -253,9 +257,14 @@ class Pipeline:
                 d.attrs["countdown"] = r.countdown
                 d.attrs["light_raw"] = r.state
                 d.attrs["figure"] = bool(getattr(r, "figure", False))
-                st = self.smoother.update(d.track_id, r.state, box=b)
+                blocked = pred is not None and cnn_rejects_walk(pred.probs, cnn.t_veto)
+                d.attrs["light_walk_blocked"] = blocked
+                d.attrs["light_reset_on_veto"] = self.smoother.reset_walk_on_veto
+                st = self.smoother.update(d.track_id, r.state, box=b, t=t, walk_blocked=blocked)
+                d.attrs["light_smoothed"] = st
                 if pred is not None:
                     st = cnn_hold_veto(st, r.state, pred.probs, cnn.t_veto)
+                d.attrs["light_cnn_veto"] = st != d.attrs["light_smoothed"]
                 d.attrs["light_state"] = st
             if d.label == "traffic light" or "sign" in d.label:
                 est = signal_distance.estimate(d.box, d.label, d.attrs.get("signal_kind", "unknown"),

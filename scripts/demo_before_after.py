@@ -48,7 +48,7 @@ def dump(root: Path, tag: str):
             if out.spoken: last_spoken = out.spoken.text
             dets = [{"box": [d.box.x1, d.box.y1, d.box.x2, d.box.y2], "label": d.label, "conf": round(float(d.conf), 3),
                      "state": d.attrs.get("light_state"), "kind": d.attrs.get("signal_kind"),
-                     "src": d.attrs.get("source") or ("tile" if d.attrs.get("tile") else None)}
+                     "src": d.attrs.get("source") or ("tile" if "tile" in d.attrs else None)}
                     for d in out.detections if d.label in ("traffic light",)]
             try:
                 from streetsense.rules import select_crossing_signal
@@ -56,8 +56,14 @@ def dump(root: Path, tag: str):
                 local = sel.decision if sel is not None else "unknown"
             except Exception as e:
                 local = f"n/a ({type(e).__name__})"
-            frames.append({"t": round(t, 2), "dets": dets, "spoken": out.spoken.text if out.spoken else None,
-                           "last_spoken": last_spoken, "local": local, "shape": list(f.shape[:2])})
+            record = {"t": round(t, 2), "dets": dets, "spoken": out.spoken.text if out.spoken else None,
+                      "last_spoken": last_spoken, "local": local, "shape": list(f.shape[:2])}
+            try:
+                from streetsense.signal_trace import summarise_signals
+                record["signal_trace"] = summarise_signals(out, f.shape[1], f.shape[0])
+            except ImportError:  # old worktree has no trace module
+                pass
+            frames.append(record)
             t = round(t + 1 / FPS, 4)
         res[name] = frames
         print(tag, name, len(frames), "local states:", sorted({x["local"] for x in frames if x["t"] >= t0 + WARM}), flush=True)

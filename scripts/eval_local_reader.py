@@ -22,8 +22,12 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
+import platform
+import subprocess
 import sys
 from collections import defaultdict
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 import cv2
@@ -36,6 +40,9 @@ import eval_muse_crossing as ev  # noqa: E402
 from streetsense.answers import local_signal_state  # noqa: E402
 from streetsense.config import Config  # noqa: E402
 from streetsense.pipeline import Pipeline  # noqa: E402
+from streetsense.detector import light_tiles, light_zoom_scales  # noqa: E402
+from streetsense import signal_cnn  # noqa: E402
+from streetsense.signal_trace import summarise_signals  # noqa: E402
 
 HELDOUT_DIR = ROOT / "samples" / "heldout"
 FRAME_DIR = ROOT / "outputs" / "muse_eval_frames"
@@ -58,8 +65,8 @@ NON_WALK = [
     ("h:pexels_6415590.mp4", 0.0, 6.5), ("h:nz.ogv", 3.4, 4.1), ("h:ffm_vehicle.mp4", 0.0, 5.4),
 ]
 
-# US countdown-ending stretch: the reader cannot read digits and says walk here by design;
-# Muse vetoes it (see docs/MUSE_EVAL.md). Reported separately, must not grow.
+# US countdown-ending stretch: report separately so reader errors remain visible.
+# A local walk still cannot authorise crossing without Muse agreement.
 DENSE_INFO = [("dc", 48.5, 53.0)]
 
 
@@ -89,23 +96,59 @@ def frame_at(r: dict, t: float):
 
 
 def new_pipe() -> Pipeline:
+    os.environ["STREETSENSE_SAM_FALLBACK"] = "0"
     cfg = Config()
-    cfg.vlm.enabled = False
+    cfg.vlm.enabled = cfg.sam.enabled = False
     return Pipeline(cfg, use_surface=False)
+
+
+def eval_configuration(*, no_tiles: bool = False) -> dict:
+    """Record effective settings, not the filename or an assumed shell environment."""
+    if no_tiles:
+        os.environ["STREETSENSE_LIGHT_TILES"] = "0"
+        os.environ["STREETSENSE_LIGHT_TILES_EVERY"] = "0"
+    cfg = Config()
+    grid, mode, every = light_tiles(cfg.detector)
+    commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True)
+    dirty = subprocess.run(["git", "diff", "HEAD", "--quiet"], cwd=ROOT, capture_output=True)
+    versions = {}
+    for package in ("openvino", "ultralytics", "opencv-python-headless", "opencv-python"):
+        try:
+            versions[package] = version(package)
+        except PackageNotFoundError:
+            continue
+    model_dir = signal_cnn.selected_model_dir()
+    return {
+        "commit": commit.stdout.strip() if commit.returncode == 0 else None,
+        "dirty": bool(dirty.returncode),
+        "python": platform.python_version(),
+        "versions": versions,
+        "tiles": {"grid": list(grid), "mode": mode, "every_n_frames": every},
+        "zoom_scales": list(light_zoom_scales(cfg.detector)),
+        "detector": {"weights": cfg.detector.weights, "requested_backend": cfg.detector.backend},
+        "signal_cnn": {"enabled": signal_cnn.enabled(), "model": model_dir.name},
+        "reset_on_veto": os.environ.get("STREETSENSE_SIGNAL_RESET_ON_VETO", "0"),
+        "remote_models": False,
+    }
 
 
 def heads(out) -> list[dict]:
     return [{"kind": d.attrs.get("signal_kind"), "raw": d.attrs.get("light_raw"),
              "state": d.attrs.get("light_state"), "conf": round(float(d.conf), 2),
-             "wh": [int(d.box.w), int(d.box.h)]}
+             "wh": [int(d.box.w), int(d.box.h)], "track_id": d.track_id,
+             "source": d.attrs.get("source") or ("tile" if "tile" in d.attrs else
+                                                  "zoom" if "zoom" in d.attrs else "local"),
+             "box": [d.box.x1, d.box.y1, d.box.x2, d.box.y2],
+             "cnn_probs": d.attrs.get("signal_cnn_probs")}
             for d in out.detections if d.label == "traffic light"]
 
 
-def read_row(r: dict) -> dict:
+def read_row(r: dict, *, trace: bool = False) -> dict:
     t = float(r["time_s"])
     still = bool(r.get("file")) and Path(r["file"]).suffix.lower() in STILL_EXT
     pipe = new_pipe()
     hist = []
+    traces = []
     out = img = None
     for k in range(4, -1, -1):
         tt = round(t - 0.25 * k, 2) if not still else float(4 - k)
@@ -114,7 +157,14 @@ def read_row(r: dict) -> dict:
         img = frame_at(r, tt)
         out = pipe.process(img, annotate=False, t=tt)
         hist.append(local_signal_state(out, img.shape))
-    return {"state": hist[-1], "history": hist, "heads": heads(out)}
+        if trace:
+            traces.append(summarise_signals(out, img.shape[1], img.shape[0]))
+    result = {"state": hist[-1], "history": hist, "heads": heads(out),
+              "detector_backend": getattr(pipe.detector, "backend", None),
+              "detector_model": getattr(pipe.detector, "model_path", None)}
+    if trace:
+        result["trace"] = traces
+    return result
 
 
 def muse_answers() -> dict:
@@ -132,9 +182,11 @@ def dense_scan(spans) -> dict:
     for clip, a, b in spans:
         path = HELDOUT_DIR / clip[2:] if clip.startswith("h:") else ROOT / ev.CLIPS[clip]
         cap = cv2.VideoCapture(str(path))
+        if not cap.isOpened():
+            raise FileNotFoundError(f"cannot open dense-scan clip: {path}")
         fps = cap.get(cv2.CAP_PROP_FPS) or 25.0
         pipe = new_pipe()
-        n = walk = raw_walk = 0
+        n = walk = raw_walk = tile_frames = 0
         hits = []
         next_t = a
         i = 0
@@ -151,6 +203,7 @@ def dense_scan(spans) -> dict:
             next_t += 0.25
             out = pipe.process(img, annotate=False, t=t)
             n += 1
+            tile_frames += "detect_tiles" in out.timings_ms
             st = local_signal_state(out, img.shape)
             rw = sum(1 for d in out.detections if d.label == "traffic light" and d.attrs.get("light_raw") == "walk")
             raw_walk += rw
@@ -158,7 +211,8 @@ def dense_scan(spans) -> dict:
                 walk += 1
                 hits.append(round(t, 2))
         cap.release()
-        res[f"{clip}@{a}-{b}"] = {"frames": n, "walk": walk, "raw_walk_heads": raw_walk, "walk_at": hits[:20]}
+        res[f"{clip}@{a}-{b}"] = {"frames": n, "walk": walk, "raw_walk_heads": raw_walk,
+                                    "walk_at": hits[:20], "tile_frames": tile_frames}
         print(f"  dense {clip} {a}-{b}: frames {n} walk {walk} raw-walk heads {raw_walk}", flush=True)
     return res
 
@@ -167,13 +221,18 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dense", action="store_true")
     ap.add_argument("--out", default="")
+    ap.add_argument("--no-tiles", action="store_true", help="force tiles off, overriding inherited tile settings")
+    ap.add_argument("--trace", action="store_true", help="include every warm-up frame's signal stages")
     args = ap.parse_args()
+    os.environ["STREETSENSE_SAM_FALLBACK"] = "0"
+    configuration = eval_configuration(no_tiles=args.no_tiles)
+    print("Evaluation configuration:", json.dumps(configuration, sort_keys=True), flush=True)
     FRAME_DIR.mkdir(parents=True, exist_ok=True)
     muse = muse_answers()
     rows = load_rows()
     per = []
     for r in rows:
-        res = read_row(r)
+        res = read_row(r, trace=args.trace)
         m = muse.get(r["id"])
         per.append({"id": r["id"], "subset": r["subset"], "split": r["split"], "label": r["label"],
                     "local": res["state"], "muse_safe": m,
@@ -200,7 +259,7 @@ def main() -> None:
     bad = [p for p in per if p["label"] != "walk" and p["local"] == "walk"]
     for p in bad:
         print("  FALSE WALK:", p["id"], p["label"], p["heads"])
-    result = {"summary": dict(agg), "rows": per}
+    result = {"configuration": configuration, "summary": dict(agg), "rows": per}
     if args.dense:
         result["dense"] = dense_scan(NON_WALK)
         tot = sum(v["walk"] for v in result["dense"].values())

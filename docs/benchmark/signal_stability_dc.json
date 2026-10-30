@@ -1,0 +1,219 @@
+{
+  "date": "2026-10-29",
+  "baseline_commit": "e62853fd2258f3255cea02c2bedf02668b5229ff",
+  "method": "Full DC local trace plus identical-input smoother replay. Strict replay matched a separate full Pipeline run on all 628 frames. Baseline selection context was regenerated and matched on all frames. No fused GO evaluation.",
+  "runtime": {
+    "python": "3.14.0",
+    "machine": "arm64",
+    "openvino": "2026.4.1",
+    "ultralytics": "8.4.192",
+    "detector": "YOLO11s OpenVINO",
+    "cnn": "v1",
+    "tiles": "2x3 always",
+    "sample_fps": 10,
+    "frame_size": [
+      1280,
+      720
+    ]
+  },
+  "meta_calls": 0,
+  "policies": {
+    "baseline": {
+      "frames": 628,
+      "local_counts": {
+        "unknown": 4,
+        "red": 166,
+        "green": 12,
+        "unclear": 268,
+        "walk": 176,
+        "yellow": 2
+      },
+      "local_state_changes": 107,
+      "intervals": {
+        "demo_walk": {
+          "seconds": [
+            9.8,
+            13.8
+          ],
+          "frames": 41,
+          "walk_frames": 15,
+          "walk_wait_changes": 11
+        },
+        "walk_phase": {
+          "seconds": [
+            10,
+            47
+          ],
+          "frames": 371,
+          "walk_frames": 167,
+          "walk_wait_changes": 75
+        },
+        "initial_red": {
+          "seconds": [
+            0,
+            9.5
+          ],
+          "frames": 95,
+          "walk_frames": 0,
+          "walk_wait_changes": 0
+        },
+        "countdown_ending": {
+          "seconds": [
+            48.5,
+            53
+          ],
+          "frames": 46,
+          "walk_frames": 2,
+          "walk_wait_changes": 2
+        },
+        "hand_red": {
+          "seconds": [
+            53.5,
+            62.8
+          ],
+          "frames": 93,
+          "walk_frames": 0,
+          "walk_wait_changes": 0
+        }
+      }
+    },
+    "default": {
+      "frames": 628,
+      "local_counts": {
+        "unknown": 5,
+        "red": 164,
+        "green": 14,
+        "unclear": 254,
+        "walk": 188,
+        "yellow": 3
+      },
+      "local_state_changes": 107,
+      "intervals": {
+        "demo_walk": {
+          "seconds": [
+            9.8,
+            13.8
+          ],
+          "frames": 41,
+          "walk_frames": 16,
+          "walk_wait_changes": 7
+        },
+        "walk_phase": {
+          "seconds": [
+            10,
+            47
+          ],
+          "frames": 371,
+          "walk_frames": 180,
+          "walk_wait_changes": 73
+        },
+        "initial_red": {
+          "seconds": [
+            0,
+            9.5
+          ],
+          "frames": 95,
+          "walk_frames": 0,
+          "walk_wait_changes": 0
+        },
+        "countdown_ending": {
+          "seconds": [
+            48.5,
+            53
+          ],
+          "frames": 46,
+          "walk_frames": 2,
+          "walk_wait_changes": 2
+        },
+        "hand_red": {
+          "seconds": [
+            53.5,
+            62.8
+          ],
+          "frames": 93,
+          "walk_frames": 0,
+          "walk_wait_changes": 0
+        }
+      }
+    },
+    "reset_on_veto": {
+      "frames": 628,
+      "local_counts": {
+        "unknown": 10,
+        "red": 186,
+        "green": 283,
+        "unclear": 87,
+        "walk": 59,
+        "yellow": 3
+      },
+      "local_state_changes": 121,
+      "intervals": {
+        "demo_walk": {
+          "seconds": [
+            9.8,
+            13.8
+          ],
+          "frames": 41,
+          "walk_frames": 0,
+          "walk_wait_changes": 0
+        },
+        "walk_phase": {
+          "seconds": [
+            10,
+            47
+          ],
+          "frames": 371,
+          "walk_frames": 58,
+          "walk_wait_changes": 46
+        },
+        "initial_red": {
+          "seconds": [
+            0,
+            9.5
+          ],
+          "frames": 95,
+          "walk_frames": 0,
+          "walk_wait_changes": 0
+        },
+        "countdown_ending": {
+          "seconds": [
+            48.5,
+            53
+          ],
+          "frames": 46,
+          "walk_frames": 0,
+          "walk_wait_changes": 0
+        },
+        "hand_red": {
+          "seconds": [
+            53.5,
+            62.8
+          ],
+          "frames": 93,
+          "walk_frames": 0,
+          "walk_wait_changes": 0
+        }
+      }
+    }
+  },
+  "additional_check": {
+    "clip": "New Zealand held-out",
+    "method": "End-to-end default Pipeline, 10 fps, identical configuration. Local trace replay matched all decisions.",
+    "frames": 42,
+    "walk_frames": 0,
+    "nonwalk_interval_s": [
+      3.4,
+      4.1
+    ],
+    "nonwalk_frames": 8,
+    "nonwalk_walk_frames": 0,
+    "heldout_recall_gain_established": false
+  },
+  "validation": {
+    "passed": 348,
+    "skipped": 2,
+    "meta_calls": 0
+  },
+  "measured_implementation_commit": "205c59916830d4c0e9de2a74be9679e1a75848b1",
+  "status": "Historical measurement before smoother review corrections; not current branch performance."
+}

@@ -1,0 +1,181 @@
+{
+  "date": "2026-10-30",
+  "main_commit": "5b70b28e8ce274e6155a1f60cfac72fae081b905",
+  "branch_commit": "eb13a2776c4c1a5feaae72c3fe78364d3c59b887",
+  "meta_calls": 0,
+  "method": "Same licensed clips and labelled times; common YOLO11s OpenVINO detections and CNN v1 readings were processed by the main and branch smoothers. Tracker reset between labelled rows; Up to 5 samples at 0.25 s intervals as in eval_local_reader.py. This isolates smoothing; it is not a rerun of all 108 rows or the dense suite.",
+  "source_eval_files": {
+    "eval3_sr_main_tiles.json": "6c24f96f566d224b61612e1e1e974a433541aaabe684fbfc9cf8ee2d2a9d3d39",
+    "eval3_sr_merged_notiles.json": "664deb82c05c784a716c8ec799a43c54497b34aef46b8c84698df6b4b98e4e3e",
+    "eval2_sr_main_notiles.json": "e28e9fc99ab82a1849374cdbee5418beb342821b3da4368fce2832233d4be6eb",
+    "eval3_sr_merged_tiles.json": "cf7c6f10cf2e33547ced173ce932119b4cf431bbf81a985a7d9876a16454425d"
+  },
+  "local_notiles": {
+    "heldout_eu": {
+      "walk_frames": 7,
+      "nonwalk_frames": 7,
+      "main": {
+        "walk": 0,
+        "false_walk": 0
+      },
+      "branch": {
+        "walk": 0,
+        "false_walk": 0
+      }
+    },
+    "dev_night": {
+      "walk_frames": 3,
+      "nonwalk_frames": 3,
+      "main": {
+        "walk": 1,
+        "false_walk": 0
+      },
+      "branch": {
+        "walk": 1,
+        "false_walk": 0
+      }
+    }
+  },
+  "local_diagnostic_tiles_only": {
+    "pex6415590": {
+      "walk_frames": 4,
+      "nonwalk_frames": 5,
+      "main": {
+        "walk": 4,
+        "false_walk": 0
+      },
+      "branch": {
+        "walk": 4,
+        "false_walk": 0
+      }
+    }
+  },
+  "local_rows": [
+    {
+      "id": "pex6415590_01.50",
+      "label": "red",
+      "main": "red",
+      "branch": "red"
+    },
+    {
+      "id": "pex6415590_02.50",
+      "label": "red",
+      "main": "red",
+      "branch": "red"
+    },
+    {
+      "id": "pex6415590_03.50",
+      "label": "red",
+      "main": "red",
+      "branch": "red"
+    },
+    {
+      "id": "pex6415590_05.00",
+      "label": "no_signal",
+      "main": "unknown",
+      "branch": "unknown"
+    },
+    {
+      "id": "pex6415590_06.00",
+      "label": "no_signal",
+      "main": "unknown",
+      "branch": "unknown"
+    },
+    {
+      "id": "pex6415590_07.75",
+      "label": "walk",
+      "main": "green",
+      "branch": "green"
+    },
+    {
+      "id": "pex6415590_08.50",
+      "label": "walk",
+      "main": "green",
+      "branch": "green"
+    },
+    {
+      "id": "pex6415590_09.25",
+      "label": "walk",
+      "main": "green",
+      "branch": "green"
+    },
+    {
+      "id": "pex6415590_10.00",
+      "label": "walk",
+      "main": "green",
+      "branch": "green"
+    },
+    {
+      "id": "nz_00.60",
+      "label": "walk",
+      "main": "unclear",
+      "branch": "unclear"
+    },
+    {
+      "id": "nz_01.50",
+      "label": "walk",
+      "main": "green",
+      "branch": "green"
+    },
+    {
+      "id": "nz_02.50",
+      "label": "walk",
+      "main": "green",
+      "branch": "green"
+    },
+    {
+      "id": "nz_03.60",
+      "label": "countdown_ending",
+      "main": "unclear",
+      "branch": "unclear"
+    },
+    {
+      "id": "nz_04.00",
+      "label": "countdown_ending",
+      "main": "red",
+      "branch": "red"
+    },
+    {
+      "id": "night_ped_00.40",
+      "label": "walk",
+      "main": "unknown",
+      "branch": "unknown"
+    },
+    {
+      "id": "night_ped_01.00",
+      "label": "walk",
+      "main": "walk",
+      "branch": "walk"
+    },
+    {
+      "id": "night_ped_01.60",
+      "label": "walk",
+      "main": "unknown",
+      "branch": "unknown"
+    },
+    {
+      "id": "night_ped_03.50",
+      "label": "red",
+      "main": "unknown",
+      "branch": "unknown"
+    },
+    {
+      "id": "night_ped_06.00",
+      "label": "red",
+      "main": "red",
+      "branch": "red"
+    },
+    {
+      "id": "night_ped_08.50",
+      "label": "red",
+      "main": "unknown",
+      "branch": "unknown"
+    }
+  ],
+  "finding": "Supplied baseline and merged no-tiles runs have different upstream detection sets. Main no-tiles contains the same extra WALK box shapes as the tiled runs; local tiled detections identify those recovered boxes as tile-sourced. Inherited or differing tile settings are a likely explanation, not proved by old reports because they omit configuration/source metadata. No smoother code was changed in this follow-up.",
+  "validation": {
+    "tests_passed": 370,
+    "tests_skipped": 2,
+    "full_dense_suite_rerun": false
+  }
+}

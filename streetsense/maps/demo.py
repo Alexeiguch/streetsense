@@ -64,7 +64,7 @@ def run(a: Any) -> int:
             pipe = Pipeline(cfg, use_surface=False, clock=VideoClock())
         from ..traffic_light import LightStateSmoother
 
-        pipe.smoother = LightStateSmoother()  # votes never carry over from the last crossing
+        pipe.smoother = LightStateSmoother(clock=pipe.clock)  # votes never carry over from the last crossing
         frame = out = None
         for t, f in _sample_frames(a.clip, start, a.clip_seconds, 4):
             pipe.clock.t = t

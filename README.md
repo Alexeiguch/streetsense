@@ -64,6 +64,9 @@ flowchart LR
 - A light state is announced only after 3 agreeing frames (tracked **or** IoU-matched untracked). Countdown-only frames hold the last colour for ~1 s of flicker, then report countdown/uncertain — they never refresh a stale walk forever. Internal states like `countdown` never reach the alert layer for untracked heads.
 - Unknown / unclear states are never announced as walk. When unsure the system says wait, never go.
 
+Signal timing, confirmation fixes and the measured DC flicker tradeoff are documented
+in [docs/SIGNAL_STABILITY.md](docs/SIGNAL_STABILITY.md), including a local trace/replay tool.
+
 ### Alert safety
 Guarantees added after the Oct 2026 external review:
 
