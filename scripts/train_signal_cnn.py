@@ -149,6 +149,7 @@ def main():
     ap.add_argument("--from-ckpt", action="store_true", help="skip training; export the best state in --ckpt")
     ap.add_argument("--trained-on", default="", help="comma list of dataset ids recorded in the json (rollback)")
     ap.add_argument("--out", default=str(ROOT / "models/signal_cnn"))
+    ap.add_argument("--licence-note", default="", help="recorded in the json (e.g. data with unconfirmed licence)")
     ap.add_argument("--margin", type=float, default=0.02, help="added to max non-walk p(walk) on val")
     a = ap.parse_args()
     torch.manual_seed(a.seed); np.random.seed(a.seed); rng = random.Random(a.seed)
@@ -170,9 +171,9 @@ def main():
     opt = torch.optim.AdamW(model.parameters(), lr=a.lr, weight_decay=1e-3)
     sched = torch.optim.lr_scheduler.OneCycleLR(opt, a.lr, total_steps=a.epochs * steps)
     Xva = np.stack([plain(r) for r in va]); yva = np.array([r["y"] for r in va])
-    best, best_state = -1, None
+    best, best_state, best_ep = -1, None, None
     if a.from_ckpt:
-        ck = torch.load(a.ckpt); best_state = ck["state"]; a.epochs = 0
+        ck = torch.load(a.ckpt); best_state = ck["state"]; best_ep = ck["epoch"]; a.epochs = 0
         print("from ckpt epoch", ck["epoch"], "score", ck["score"])
     for ep in range(a.epochs):
         model.train(); t0 = time.time(); tot = 0
@@ -190,7 +191,7 @@ def main():
         score = rec + acc
         print(f"ep {ep} loss {tot / steps:.3f} val acc {acc:.3f} rec@0fw {rec:.3f} ({time.time() - t0:.0f}s)", flush=True)
         if score > best:
-            best, best_state = score, {k: v.clone() for k, v in model.state_dict().items()}
+            best, best_state, best_ep = score, {k: v.clone() for k, v in model.state_dict().items()}, ep
             if a.ckpt:
                 Path(a.ckpt).parent.mkdir(parents=True, exist_ok=True)
                 torch.save({"epoch": ep, "score": score, "state": best_state, "arch": a.arch}, a.ckpt)
@@ -201,7 +202,10 @@ def main():
     meta = {"classes": list(CLASSES), "size": SIZE, "arch": a.arch, "t_walk": t_walk, "t_veto": 0.8,
             "preprocess": "tight box, aspect letterbox on black to 64x64, BGR, x/255-0.5",
             "trained_on": [x for x in a.trained_on.split(",") if x],
-            "train_counts": dict(collections.Counter(CLASSES[r["y"]] for r in tr))}
+            "train_counts": dict(collections.Counter(CLASSES[r["y"]] for r in tr)),
+            "selected_epoch": best_ep, "selected_by": "val rec@0fw + val acc (never test)"}
+    if a.licence_note:
+        meta["licence_note"] = a.licence_note
     meta["val"] = report("val", P, yva, [r["src"].split(":")[0] for r in va], t_walk)
     Xte = np.stack([plain(r) for r in te]); yte = np.array([r["y"] for r in te])
     meta["test"] = report("test", predict(model, Xte), yte, [r["src"] for r in te], t_walk)

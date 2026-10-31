@@ -26,7 +26,10 @@ DEFAULT_VERSION = "v1"
 
 
 def selected_model_dir() -> Path:
-    """STREETSENSE_SIGNAL_CNN_VERSION=v1|v2|v3 picks models/signal_cnn or models/signal_cnn_vN (rollback = v1)."""
+    """STREETSENSE_SIGNAL_CNN_VERSION=v1|v2|v3|v4_ptld picks models/signal_cnn or models/signal_cnn_vN (rollback = v1).
+
+    v4_ptld is trained on PTLD (licence unconfirmed): opt-in experiments only, never the default, not for shipping.
+    """
     v = (os.environ.get("STREETSENSE_SIGNAL_CNN_VERSION") or DEFAULT_VERSION).strip().lower()
     return MODEL_DIR if v in ("", "v1", "1") else MODELS / f"signal_cnn_{v if v.startswith('v') else 'v' + v}"
 
