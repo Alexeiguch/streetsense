@@ -1,0 +1,141 @@
+{
+ "note": "Docs only, see docs/SIGNALS_BY_COUNTRY.md. Not read by the reader. A family may only make the reader more cautious; it never authorises crossing.",
+ "families": {
+  "NA": {
+   "walk": "white_person",
+   "stop": "orange_hand",
+   "clear": "flash_hand",
+   "countdown": "clearance_only"
+  },
+  "FG": {
+   "walk": "green_figure",
+   "stop": "red_figure",
+   "clear": "flash_green"
+  },
+  "FR": {
+   "walk": "green_figure",
+   "stop": "red_figure",
+   "clear": "flash_red"
+  },
+  "AM": {
+   "walk": "green_figure",
+   "stop": "red_figure",
+   "clear": "amber"
+  },
+  "NF": {
+   "walk": "green_figure",
+   "stop": "red_figure",
+   "clear": "none_or_dark"
+  }
+ },
+ "countries": {
+  "AE": {
+   "family": "FG"
+  },
+  "AR": {
+   "family": "NA"
+  },
+  "AT": {
+   "family": "FG"
+  },
+  "AU": {
+   "family": "FR"
+  },
+  "BR": {
+   "family": "FR"
+  },
+  "CA": {
+   "family": "NA"
+  },
+  "CH": {
+   "family": "FG"
+  },
+  "CL": {
+   "family": "FG"
+  },
+  "CN": {
+   "family": "AM"
+  },
+  "DE": {
+   "family": "NF",
+   "also": [
+    "AM"
+   ]
+  },
+  "DK": {
+   "family": "FG"
+  },
+  "ES": {
+   "family": "FG"
+  },
+  "FI": {
+   "family": "unverified"
+  },
+  "FR": {
+   "family": "NF"
+  },
+  "GB": {
+   "family": "NF",
+   "also": [
+    "FG"
+   ]
+  },
+  "HK": {
+   "family": "FG"
+  },
+  "IE": {
+   "family": "AM",
+   "also": [
+    "FG"
+   ]
+  },
+  "IN": {
+   "family": "FR"
+  },
+  "IT": {
+   "family": "AM"
+  },
+  "JP": {
+   "family": "FG"
+  },
+  "KR": {
+   "family": "FG"
+  },
+  "MX": {
+   "family": "unverified",
+   "also": [
+    "NA"
+   ]
+  },
+  "NL": {
+   "family": "FG"
+  },
+  "NO": {
+   "family": "unverified"
+  },
+  "NZ": {
+   "family": "FR"
+  },
+  "PL": {
+   "family": "FG"
+  },
+  "PT": {
+   "family": "FG"
+  },
+  "SE": {
+   "family": "FG"
+  },
+  "SG": {
+   "family": "FG"
+  },
+  "US": {
+   "family": "NA"
+  },
+  "UY": {
+   "family": "unverified"
+  },
+  "ZA": {
+   "family": "FR"
+  }
+ }
+}
