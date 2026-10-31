@@ -335,3 +335,55 @@ unchanged and the test numbers in the table above stand (own crop test split: 5 
 1 / 0). The test false walks (p_walk 0.847–0.945 on "other" crops) have no counterpart on val, so any higher threshold
 would be chosen from test, which we do not do. No new test run was made because the threshold did not change.
 v4_ptld stays opt-in and not for shipping; v1 stays the default.
+
+## signal_cnn v5_ptld_hn (31 Oct 2026): v4 data + round-green-lamp hard negatives (PTLD licence UNCONFIRMED, NOT FOR SHIPPING)
+
+Opt-in only: `STREETSENSE_SIGNAL_CNN_VERSION=v5_ptld_hn`. `DEFAULT_VERSION` stays `"v1"`; not wired into the demo; rules.py,
+the Muse gate and default reader thresholds unchanged. The model json carries the licence note.
+
+**Hard negatives (label "other")**, `scripts/signal_data/add_hard_negatives.py` on `signal_ds_v4_ptld.pkl` → `signal_ds_v5_ptld_hn.pkl`
+(2,780 added, 24,241 total). Only train/val records are read; the test split is never touched, and each copy keeps its parent's split.
+- Mined: train/val crops already labelled "other" that HSV reads green and whose largest lit green blob is round (aspect 0.7–1.45,
+  fill ≥ 0.55, circularity ≥ 0.6), i.e. vehicle-style round lamps. Two blurred/low-res/noisy/JPEG copies each.
+  Train: ptl 634, commons 126, cvid 66, dev 6. Val: ptl 134, commons 14.
+- Synthetic: drawn 1–3 lamp housings (vertical or horizontal) with a lit round green lamp (glow, optional LED dots) or a bare round
+  blurry green blob, varied backgrounds, degraded. Train 1,500, val 300.
+
+**Training**: same recipe as v4 (TinyNet, 30 epochs, seed 0, class/source-balanced sampling), plus an EMA of the weights
+(decay 0.998 per step; BatchNorm stats re-estimated on 4,096 train crops each epoch), and the EMA weights are evaluated and selected
+(`--ema`). Val rec@0fw is now steady (epochs 15–29: 0.65–0.77; v4 jumped between 0.01 and 0.86). Selected epoch **26** on
+val rec@0fw + val acc. **t_walk 0.9347** = largest non-walk val p_walk (0.9147) + 0.02. Val = own val + PTLD valid + val hard negatives; no test data.
+Val at t_walk: walk 354/381 argmax, recall@T 0.714 (PTLD valid 0.587, ptl 0.915), 0 CNN false walks; hard negatives acc 0.993 mined / 1.000 synth.
+
+Weights: `models/signal_cnn_v5_ptld_hn/signal_cnn.onnx` sha256 `f5c6ea40747a04dec7a8870dc26275151401d17f707c7b3f7136ec077c873f92`,
+`signal_cnn.json` sha256 `2b20aa559735daaada984d1ec7af51be9ea7a3aa18bc7c18121c87b36aa735ba`. Log `/workspace/datasets/runs/v5_ptld_hn.log`.
+
+Measured (SAM fallback off, cached Muse answers, no API calls). Outputs `/workspace/datasets/ptld/eval/v5_ptld_hn_*.json`,
+`/workspace/sr_logs/eval8_v5_*.{json,log}` (comparison `eval8_compare.py`).
+
+| test | v1 (0.952) | v4_ptld (0.834) | v5_ptld_hn (0.935) |
+|---|---|---|---|
+| own crop test (2,321): reader false walks | 1 | 5 | **1** (ptl p2767, blurry green blob labelled other; v4 also fires on it) |
+| own crop test: CNN-alone false walks | 0 | 7 | 1 (same crop, p_walk 0.961) |
+| own crop test: reader walk | 82/155 | 105/155 | 102/155 |
+| own crop test: CNN-alone walk | 71/155 | 111/155 | 105/155 |
+| PTLD test crops: reader walk | 31/240 | 155/240 | 134/240 |
+| PTLD test crops: false walk stop / off | 0/249, 0/35 | 0/249, 0/35 | 0/249, 0/35 |
+| PTLD test crops: CNN-alone walk (false stop / off) | 27/240 | 173/240 (0, 0) | 153/240 (0, 0) |
+| PTLD 478 full images, no tiles: walk | 28/217 | 38/217 | 39/217 |
+| PTLD full images: false walk stop / off | 0/232, 0/26 | 0/232, 0/26 | 0/232, 0/26 |
+| local reader, no tiles: dev walk / false | 16/22, 1/37 | 17/22, 1/37 | 17/22, 1/37 |
+| local reader, no tiles: held-out walk / false | 1/14, 0/35 | 4/14, 0/35 | 3/14, 0/35 |
+| local reader, tiles 2x3 always: dev | 16/22, 1/37 | 16/22, 1/37 | 17/22, 1/37 |
+| local reader, tiles 2x3 always: held-out (EU) | 5/14 (4/7), 0/35 | 5/14 (4/7), 0/35 | 5/14 (4/7), 0/35 |
+| dense non-walk: walk decisions (raw walk heads) no tiles / tiles | 0 (0) / 0 (2) | 0 (7) / 0 (12) | 0 (1) / 0 (4) |
+| dc@48.5–53 walk | 0/19 | 0/19 | 0/19 |
+| false go (cached Muse) | 0 | 0 | 0 |
+
+The dev false walk is dc_48.72 for all three (existing, not new). Own-crop CNN-alone walk counts come from one pass of
+each model on `signal_ds_v3` test crops (tight box), measured together on 31 Oct.
+
+**Safety reading.** v5 removes most of v4's extra false walks on our own test split (reader 5 → 1, CNN alone 7 → 1), back to v1's
+reader count, while keeping most of v4's recall gain (PTLD crops 134/240 vs v1 31/240). It is still not equal to v1: one CNN-alone
+false walk on our test split where v1 has none (the reader count matches v1's 1, but on a different crop), and the train split shows
+reader false walks 19 (v1 12, v4 15) on crops the model saw. It stays opt-in, licence unconfirmed, not for shipping; v1 stays default.

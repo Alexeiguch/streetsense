@@ -1,0 +1,247 @@
+{
+ "classes": [
+  "walk",
+  "stop",
+  "countdown",
+  "other"
+ ],
+ "size": 64,
+ "arch": "tiny",
+ "t_walk": 0.9346711230278015,
+ "t_veto": 0.8,
+ "preprocess": "tight box, aspect letterbox on black to 64x64, BGR, x/255-0.5",
+ "trained_on": [
+  "ptl_imvisible",
+  "commons_stills",
+  "dev_crops",
+  "commons_video_train",
+  "ptl_crosswalk_train_LICENCE_UNCONFIRMED",
+  "ptld_train_LICENCE_UNCONFIRMED",
+  "hard_neg_round_green_mined_train",
+  "hard_neg_round_green_synthetic"
+ ],
+ "train_counts": {
+  "other": 8720,
+  "stop": 7770,
+  "countdown": 586,
+  "walk": 1784
+ },
+ "selected_epoch": 26,
+ "selected_by": "val rec@0fw + val acc (never test), EMA weights decay 0.998 (BN re-estimated on 4096 train crops)",
+ "licence_note": "Trained on PTLD (PUCRS Brazil) train split + PTL-Crosswalk train (both licences UNCONFIRMED) + round-green-lamp hard negatives. NOT FOR SHIPPING. Opt-in only via STREETSENSE_SIGNAL_CNN_VERSION=v5_ptld_hn; default stays v1. Epoch and t_walk picked on val only (own val + PTLD valid + val hard negatives); no test split used.",
+ "val": {
+  "n": 3060,
+  "acc": 0.9222222222222223,
+  "walk_recall_at_T": 0.7139107611548556,
+  "false_walk_at_T": 0,
+  "per_src": {
+   "commons": {
+    "n": 360,
+    "acc": 0.8638888888888889,
+    "walk_n": 29,
+    "walk_recall_at_T": 0.5172413793103449,
+    "false_walk_at_T": 0
+   },
+   "dev": {
+    "n": 48,
+    "acc": 1.0,
+    "walk_n": 10,
+    "walk_recall_at_T": 1.0,
+    "false_walk_at_T": 0
+   },
+   "hn_mined": {
+    "n": 148,
+    "acc": 0.9932432432432432,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "hn_synth": {
+    "n": 300,
+    "acc": 1.0,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "ptl": {
+    "n": 1711,
+    "acc": 0.9199298655756867,
+    "walk_n": 141,
+    "walk_recall_at_T": 0.9148936170212766,
+    "false_walk_at_T": 0
+   },
+   "ptlcw": {
+    "n": 5,
+    "acc": 1.0,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "ptld": {
+    "n": 488,
+    "acc": 0.8954918032786885,
+    "walk_n": 201,
+    "walk_recall_at_T": 0.5870646766169154,
+    "false_walk_at_T": 0
+   }
+  },
+  "confusion_rows_true": [
+   [
+    354,
+    0,
+    0,
+    27
+   ],
+   [
+    3,
+    1167,
+    1,
+    81
+   ],
+   [
+    0,
+    0,
+    44,
+    0
+   ],
+   [
+    41,
+    67,
+    18,
+    1257
+   ]
+  ]
+ },
+ "test": {
+  "n": 2321,
+  "acc": 0.8759155536406721,
+  "walk_recall_at_T": 0.6774193548387096,
+  "false_walk_at_T": 1,
+  "per_src": {
+   "commons": {
+    "n": 356,
+    "acc": 0.8623595505617978,
+    "walk_n": 45,
+    "walk_recall_at_T": 0.6,
+    "false_walk_at_T": 0
+   },
+   "cvid:china": {
+    "n": 111,
+    "acc": 0.8648648648648649,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:dus_g2r": {
+    "n": 76,
+    "acc": 0.7763157894736842,
+    "walk_n": 13,
+    "walk_recall_at_T": 0.46153846153846156,
+    "false_walk_at_T": 0
+   },
+   "cvid:gau": {
+    "n": 77,
+    "acc": 0.7532467532467533,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:montreal": {
+    "n": 9,
+    "acc": 0.5555555555555556,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:pl_przejscie": {
+    "n": 7,
+    "acc": 0.7142857142857143,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:sanjose": {
+    "n": 9,
+    "acc": 0.2222222222222222,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:tw_chaozhou": {
+    "n": 34,
+    "acc": 0.17647058823529413,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:tw_flicker": {
+    "n": 28,
+    "acc": 0.8214285714285714,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:tw_pingtung": {
+    "n": 37,
+    "acc": 0.972972972972973,
+    "walk_n": 14,
+    "walk_recall_at_T": 0.0,
+    "false_walk_at_T": 0
+   },
+   "cvid:us_blinkred": {
+    "n": 17,
+    "acc": 0.6470588235294118,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "ptl": {
+    "n": 1541,
+    "acc": 0.9149902660609993,
+    "walk_n": 80,
+    "walk_recall_at_T": 0.8875,
+    "false_walk_at_T": 1
+   },
+   "ptlcw:day": {
+    "n": 13,
+    "acc": 0.7692307692307693,
+    "walk_n": 2,
+    "walk_recall_at_T": 0.0,
+    "false_walk_at_T": 0
+   },
+   "ptlcw:night": {
+    "n": 6,
+    "acc": 0.8333333333333334,
+    "walk_n": 1,
+    "walk_recall_at_T": 1.0,
+    "false_walk_at_T": 0
+   }
+  },
+  "confusion_rows_true": [
+   [
+    149,
+    0,
+    0,
+    6
+   ],
+   [
+    3,
+    957,
+    2,
+    86
+   ],
+   [
+    23,
+    1,
+    66,
+    2
+   ],
+   [
+    21,
+    124,
+    20,
+    861
+   ]
+  ]
+ }
+}

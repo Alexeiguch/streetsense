@@ -120,10 +120,11 @@ def test_version_env_selects_model_dir(monkeypatch):
     assert signal_cnn.selected_model_dir() == signal_cnn.MODELS / "signal_cnn_v3"
 
 
-def test_v4_ptld_is_opt_in_only(monkeypatch):
-    """v4_ptld is trained on PTLD (licence unconfirmed): it must load only when selected, never by default."""
+@pytest.mark.parametrize("version", ["v4_ptld", "v5_ptld_hn"])
+def test_ptld_versions_are_opt_in_only(monkeypatch, version):
+    """v4_ptld / v5_ptld_hn are trained on PTLD (licence unconfirmed): it must load only when selected, never by default."""
     assert signal_cnn.DEFAULT_VERSION == "v1"
-    v4 = signal_cnn.MODELS / "signal_cnn_v4_ptld"
+    v4 = signal_cnn.MODELS / f"signal_cnn_{version}"
     for unset in (None, "", "v1"):
         if unset is None:
             monkeypatch.delenv("STREETSENSE_SIGNAL_CNN_VERSION", raising=False)
@@ -137,10 +138,10 @@ def test_v4_ptld_is_opt_in_only(monkeypatch):
     if default is not None:  # default instance is v1, not the PTLD model
         assert default.model_dir == signal_cnn.MODEL_DIR
         assert not any("ptld" in s.lower() for s in default.meta.get("trained_on", []))
-    monkeypatch.setenv("STREETSENSE_SIGNAL_CNN_VERSION", "v4_ptld")
+    monkeypatch.setenv("STREETSENSE_SIGNAL_CNN_VERSION", version)
     assert signal_cnn.selected_model_dir() == v4
     if not (v4 / "signal_cnn.onnx").exists():
-        pytest.skip("v4_ptld weights not present")
+        pytest.skip(f"{version} weights not present")
     m = signal_cnn.SignalCNN()
     assert m.model_dir == v4
     assert any("ptld" in s.lower() and "licence_unconfirmed" in s.lower() for s in m.meta["trained_on"])

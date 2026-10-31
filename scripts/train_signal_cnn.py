@@ -149,6 +149,8 @@ def main():
     ap.add_argument("--from-ckpt", action="store_true", help="skip training; export the best state in --ckpt")
     ap.add_argument("--trained-on", default="", help="comma list of dataset ids recorded in the json (rollback)")
     ap.add_argument("--out", default=str(ROOT / "models/signal_cnn"))
+    ap.add_argument("--ema", type=float, default=0.0,
+                    help="if > 0: keep an EMA of the weights (this decay per step), evaluate and select the EMA model")
     ap.add_argument("--licence-note", default="", help="recorded in the json (e.g. data with unconfirmed licence)")
     ap.add_argument("--margin", type=float, default=0.02, help="added to max non-walk p(walk) on val")
     a = ap.parse_args()
@@ -170,6 +172,13 @@ def main():
     steps = max(1, len(tr) // a.bs)
     opt = torch.optim.AdamW(model.parameters(), lr=a.lr, weight_decay=1e-3)
     sched = torch.optim.lr_scheduler.OneCycleLR(opt, a.lr, total_steps=a.epochs * steps)
+    ema = None
+    if a.ema > 0:
+        from torch.optim.swa_utils import AveragedModel, get_ema_multi_avg_fn, update_bn
+        # weights only; BatchNorm stats are re-estimated for the averaged weights each epoch
+        ema = AveragedModel(model, multi_avg_fn=get_ema_multi_avg_fn(a.ema), use_buffers=False)
+        bn_idx = np.random.default_rng(a.seed + 1).choice(len(tr), size=min(4096, len(tr)), p=wts)
+        Xbn = torch.from_numpy(np.stack([plain(tr[i]) for i in bn_idx]))
     Xva = np.stack([plain(r) for r in va]); yva = np.array([r["y"] for r in va])
     best, best_state, best_ep = -1, None, None
     if a.from_ckpt:
@@ -183,7 +192,14 @@ def main():
             y = torch.tensor([tr[i]["y"] for i in idx])
             loss = F.cross_entropy(model(x), y, label_smoothing=0.05)
             opt.zero_grad(); loss.backward(); opt.step(); sched.step(); tot += float(loss.detach())
-        P = predict(model, Xva)
+            if ema is not None:
+                ema.update_parameters(model)
+        sel = model
+        if ema is not None:
+            sel = ema.module
+            with torch.no_grad():
+                update_bn([Xbn[i:i + 256] for i in range(0, len(Xbn), 256)], sel)
+        P = predict(sel, Xva)
         acc = float((P.argmax(1) == yva).mean())
         # selection metric: walk recall at the zero-false-walk threshold + accuracy
         T = float(P[yva != 0, 0].max()) + 1e-6
@@ -191,7 +207,7 @@ def main():
         score = rec + acc
         print(f"ep {ep} loss {tot / steps:.3f} val acc {acc:.3f} rec@0fw {rec:.3f} ({time.time() - t0:.0f}s)", flush=True)
         if score > best:
-            best, best_state, best_ep = score, {k: v.clone() for k, v in model.state_dict().items()}, ep
+            best, best_state, best_ep = score, {k: v.clone() for k, v in sel.state_dict().items()}, ep
             if a.ckpt:
                 Path(a.ckpt).parent.mkdir(parents=True, exist_ok=True)
                 torch.save({"epoch": ep, "score": score, "state": best_state, "arch": a.arch}, a.ckpt)
@@ -203,7 +219,8 @@ def main():
             "preprocess": "tight box, aspect letterbox on black to 64x64, BGR, x/255-0.5",
             "trained_on": [x for x in a.trained_on.split(",") if x],
             "train_counts": dict(collections.Counter(CLASSES[r["y"]] for r in tr)),
-            "selected_epoch": best_ep, "selected_by": "val rec@0fw + val acc (never test)"}
+            "selected_epoch": best_ep,
+            "selected_by": "val rec@0fw + val acc (never test)" + (f", EMA weights decay {a.ema} (BN re-estimated on 4096 train crops)" if a.ema > 0 else "")}
     if a.licence_note:
         meta["licence_note"] = a.licence_note
     meta["val"] = report("val", P, yva, [r["src"].split(":")[0] for r in va], t_walk)
