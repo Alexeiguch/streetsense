@@ -316,3 +316,22 @@ label noise (c1728, c2161; not relabelled). Raw walk reads in dense non-walk vid
 held all of them. **Decision: v4_ptld is NOT a safe default, independent of the licence.** v1 stays the default.
 Not measured: PTLD full images with tiles for v4, Muse on PTLD, night/rain on PTLD (no tags), a v4 threshold re-pick.
 The safety rule is unchanged: go only if the local reader says walk AND Muse Spark says yes.
+
+### v4_ptld stricter threshold? Validation-only sweep (31 Oct 2026): none justified
+
+Rule: pick the highest-recall t_walk where v4 reader false walks on val are ≤ v1's and CNN-alone false walks on val are 0,
+with a small margin above the largest non-walk val p_walk. Val = our own val crop split (2,124) + PTLD valid (488);
+no test data. `scripts/sweep_signal_cnn_threshold_val.py` → `/workspace/sr_logs/eval7_v4_val_sweep.{json,log}`.
+
+- v1 at 0.952 on val: reader false walk 1, CNN-alone 0 (walk 126/180 own, 0/201 PTLD valid).
+- v4 largest non-walk val p_walk = 0.812 (a PTLD valid crop; own val max 0.770). CNN-alone false walks reach 0 at
+  t ≥ 0.82 (0.81: 1). Reader false walks are 0 from 0.82 up.
+- With the margin (0.812 + 0.02) the rule lands on **0.834, the existing v4 t_walk** (it was set the same way at training).
+  Val walk at 0.834: own 142/180, PTLD valid 67/201, 0 false. Stricter values only trade recall on val (0.90: 132/180,
+  50/201; 0.95: 105/180, 12/201) with no false walks left to remove.
+
+**Result: validation gives no basis for a stricter threshold.** The criterion is already met at 0.834, so the json is
+unchanged and the test numbers in the table above stand (own crop test split: 5 reader / 7 CNN-alone false walks vs v1
+1 / 0). The test false walks (p_walk 0.847–0.945 on "other" crops) have no counterpart on val, so any higher threshold
+would be chosen from test, which we do not do. No new test run was made because the threshold did not change.
+v4_ptld stays opt-in and not for shipping; v1 stays the default.
