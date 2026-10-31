@@ -260,3 +260,59 @@ held-out 5/14, 0/35 false, 0 dense non-walk walk decisions, vs no tiles.
 
 Decision: tiles stay **opt-in** (`STREETSENSE_LIGHT_TILES`). No added false walks, but recall gain is within noise
 (+2 or +0 of 217) and frame latency roughly doubles or triples, which is too much for live use.
+
+## signal_cnn v4_ptld (31 Oct 2026): v3 data + PTLD train (licence UNCONFIRMED, NOT FOR SHIPPING)
+
+`models/signal_cnn_v4_ptld`, **opt-in only**: `STREETSENSE_SIGNAL_CNN_VERSION=v4_ptld`. `DEFAULT_VERSION` stays `v1`;
+the demo does not use it (test: `test_v4_ptld_is_opt_in_only`). It is trained on PTLD (PUCRS Brazil), whose licence is
+**unconfirmed**; its json `trained_on` lists `ptld_train_LICENCE_UNCONFIRMED` and `licence_note` says "NOT FOR SHIPPING".
+Weights follow the v1–v3 convention (ONNX + json committed in `models/`):
+`signal_cnn.onnx` sha256 `255e760d3be9dbc18d96507d9cee0e4f78194a24e6002907a1d0b736195e44f4`,
+`signal_cnn.json` sha256 `38b53332220d63435770cb68bbf81b6b08629e65dd4b9a696e90c21c55a54c2a`.
+
+**Data.** `scripts/signal_data/add_ptld_crops.py`: `signal_ds_v3.pkl` (v1–v3 data) + PTLD GT boxes, train → train
+(913 walk / 2,219 stop / 501 other), valid → val (201 / 236 / 51). **PTLD test is never read** by the builder or trainer.
+Map: go→walk, stop→stop, off→other. About half the PTLD go heads show green digits beside the figure; PTLD labels them
+go, so they are walk here, while our own labels put walk+digits in countdown (deliberate difference for this model).
+
+**Recipe.** Same as v1–v3 (`scripts/train_signal_cnn.py`, tiny CNN, 30 epochs from scratch, lr 3e-3, bs 128, seed 0,
+CPU 8 threads). Epoch ~55–65 s; the log sums to 3,091 s because three epochs show 366–623 s (box stalls/pauses).
+Selection on val rec@0fw + acc (never test): **epoch 23** (val acc 0.925, rec@0fw 0.858; checkpoint and json agree).
+t_walk (max non-walk p_walk on val + 0.02) = **0.834** (v1 0.952). **Unstable:** val rec@0fw swings between neighbouring
+epochs (ep 21 0.294, ep 23 0.858, ep 26 0.281; range 0.0–0.86 over the run), so the pick, and the threshold, are noisy.
+Log: `/workspace/datasets/runs/v4_ptld.log`.
+
+All evals: `STREETSENSE_SAM_FALLBACK=0`, no Meta API calls, cached Muse answers.
+
+| Metric | v1 (default) | v4_ptld |
+|---|---|---|
+| PTLD test crops, full reader: walk recall | 31/240 | **155/240** |
+| PTLD test crops, full reader: false walk stop / off | 0/249, 0/35 | 0/249, 0/35 |
+| PTLD test crops, CNN alone (p_walk ≥ own t_walk) | 27/240 | 173/240 |
+| PTLD test full images, Pipeline, no tiles: walk recall | 28/217 | 38/217 |
+| PTLD test full images: false walk stop / off | 0/232, 0/26 | 0/232, 0/26 |
+| PTLD test full images: walk head detected (IoU > 0.3) | 76/217 | 74/217 |
+| Own reader eval, no tiles: dev walk / false walk | 16/22, 1/37 (dc_48.72) | 17/22, 1/37 (dc_48.72) |
+| Own reader eval, no tiles: held-out walk / false walk | 1/14, 0/35 | 4/14, 0/35 |
+| Own reader eval, tiles 2x3 always: dev | 16/22, 1/37 | 16/22, 1/37 |
+| Own reader eval, tiles 2x3 always: held-out (EU) | 5/14 (4/7), 0/35 | 5/14 (4/7), 0/35 |
+| Dense non-walk windows: walk decisions (no tiles / tiles) | 0 / 0 | 0 / 0 |
+| Dense non-walk windows: raw per-head walk reads (no tiles / tiles) | 0 / 2 | 7 / 12 (beacon_a, tyumen) |
+| dc 48.5–53 countdown ending: walk decisions | 0/19 | 0/19 |
+| **Own crop test split (2,321), reader false walk** | 1 | **5** |
+| **Own crop test split, CNN-alone false walk** | 0 | **7** |
+| Own crop test split, reader walk recall | 82/155 | 105/155 |
+
+v4 no-tiles gains held-out eu_ped_side ×3 and dev eu_ped_a_09.50. With tiles the totals match v1 but the set differs
+(v4 loses dc_37.72, gains eu_ped_a_09.50). PTLD full-image recall is capped by detection: the go head is found in only
+74/217 images. Outputs: `/workspace/datasets/ptld/eval/v4_*.json`, `/workspace/sr_logs/eval6_v4_*`
+(`eval6_v4_falsewalk_owncrops.log` from `scripts/eval_signal_cnn_falsewalk.py`).
+
+**Safety caveat.** On our own held-out crop test split, the reader's crop path (HSV → CNN → figure guard) says walk on
+5 non-walk crops with v4 (v1: 1), and the CNN alone clears t_walk on 7 (v1: 0); ptl 3 + commons 2 reader false walks.
+All five are crops labelled "other" that HSV reads green/unknown and v4 promotes because its t_walk is lower: three are
+blurred round green lamps (p2299, p2767, p9809, the car-light-green risk), two look like small green figures that may be
+label noise (c1728, c2161; not relabelled). Raw walk reads in dense non-walk video also rise (0→7, 2→12); the smoother
+held all of them. **Decision: v4_ptld is NOT a safe default, independent of the licence.** v1 stays the default.
+Not measured: PTLD full images with tiles for v4, Muse on PTLD, night/rain on PTLD (no tags), a v4 threshold re-pick.
+The safety rule is unchanged: go only if the local reader says walk AND Muse Spark says yes.

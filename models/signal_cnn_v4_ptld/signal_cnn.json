@@ -1,0 +1,231 @@
+{
+ "classes": [
+  "walk",
+  "stop",
+  "countdown",
+  "other"
+ ],
+ "size": 64,
+ "arch": "tiny",
+ "t_walk": 0.8336863112449646,
+ "t_veto": 0.8,
+ "preprocess": "tight box, aspect letterbox on black to 64x64, BGR, x/255-0.5",
+ "trained_on": [
+  "ptl_imvisible",
+  "commons_stills",
+  "dev_crops",
+  "commons_video_train",
+  "ptl_crosswalk_train_LICENCE_UNCONFIRMED",
+  "ptld_train_LICENCE_UNCONFIRMED"
+ ],
+ "train_counts": {
+  "other": 6388,
+  "stop": 7770,
+  "countdown": 586,
+  "walk": 1784
+ },
+ "selected_epoch": 23,
+ "selected_by": "val rec@0fw + val acc (never test)",
+ "licence_note": "Trained on PTLD (PUCRS Brazil) train split + PTL-Crosswalk train; both licences UNCONFIRMED. NOT FOR SHIPPING. Opt-in only via STREETSENSE_SIGNAL_CNN_VERSION=v4_ptld; default stays v1. PTLD valid used for epoch selection and t_walk; PTLD test never used.",
+ "val": {
+  "n": 2612,
+  "acc": 0.9253445635528331,
+  "walk_recall_at_T": 0.8372703412073491,
+  "false_walk_at_T": 0,
+  "per_src": {
+   "commons": {
+    "n": 360,
+    "acc": 0.8583333333333333,
+    "walk_n": 29,
+    "walk_recall_at_T": 0.6551724137931034,
+    "false_walk_at_T": 0
+   },
+   "dev": {
+    "n": 48,
+    "acc": 1.0,
+    "walk_n": 10,
+    "walk_recall_at_T": 1.0,
+    "false_walk_at_T": 0
+   },
+   "ptl": {
+    "n": 1711,
+    "acc": 0.9298655756867329,
+    "walk_n": 141,
+    "walk_recall_at_T": 0.9219858156028369,
+    "false_walk_at_T": 0
+   },
+   "ptlcw": {
+    "n": 5,
+    "acc": 1.0,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "ptld": {
+    "n": 488,
+    "acc": 0.9508196721311475,
+    "walk_n": 201,
+    "walk_recall_at_T": 0.7960199004975125,
+    "false_walk_at_T": 0
+   }
+  },
+  "confusion_rows_true": [
+   [
+    366,
+    0,
+    0,
+    15
+   ],
+   [
+    2,
+    1171,
+    0,
+    79
+   ],
+   [
+    0,
+    0,
+    44,
+    0
+   ],
+   [
+    25,
+    58,
+    16,
+    836
+   ]
+  ]
+ },
+ "test": {
+  "n": 2321,
+  "acc": 0.8888410168031021,
+  "walk_recall_at_T": 0.7225806451612903,
+  "false_walk_at_T": 7,
+  "per_src": {
+   "commons": {
+    "n": 356,
+    "acc": 0.8567415730337079,
+    "walk_n": 45,
+    "walk_recall_at_T": 0.6888888888888889,
+    "false_walk_at_T": 3
+   },
+   "cvid:china": {
+    "n": 111,
+    "acc": 0.8738738738738738,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:dus_g2r": {
+    "n": 76,
+    "acc": 0.8026315789473685,
+    "walk_n": 13,
+    "walk_recall_at_T": 0.8461538461538461,
+    "false_walk_at_T": 0
+   },
+   "cvid:gau": {
+    "n": 77,
+    "acc": 0.7532467532467533,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:montreal": {
+    "n": 9,
+    "acc": 0.6666666666666666,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:pl_przejscie": {
+    "n": 7,
+    "acc": 0.7142857142857143,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:sanjose": {
+    "n": 9,
+    "acc": 0.0,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:tw_chaozhou": {
+    "n": 34,
+    "acc": 0.6470588235294118,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:tw_flicker": {
+    "n": 28,
+    "acc": 0.8571428571428571,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "cvid:tw_pingtung": {
+    "n": 37,
+    "acc": 1.0,
+    "walk_n": 14,
+    "walk_recall_at_T": 0.0,
+    "false_walk_at_T": 0
+   },
+   "cvid:us_blinkred": {
+    "n": 17,
+    "acc": 0.6470588235294118,
+    "walk_n": 0,
+    "walk_recall_at_T": null,
+    "false_walk_at_T": 0
+   },
+   "ptl": {
+    "n": 1541,
+    "acc": 0.9247242050616483,
+    "walk_n": 80,
+    "walk_recall_at_T": 0.8625,
+    "false_walk_at_T": 4
+   },
+   "ptlcw:day": {
+    "n": 13,
+    "acc": 0.6923076923076923,
+    "walk_n": 2,
+    "walk_recall_at_T": 0.5,
+    "false_walk_at_T": 0
+   },
+   "ptlcw:night": {
+    "n": 6,
+    "acc": 0.5,
+    "walk_n": 1,
+    "walk_recall_at_T": 0.0,
+    "false_walk_at_T": 0
+   }
+  },
+  "confusion_rows_true": [
+   [
+    146,
+    0,
+    1,
+    8
+   ],
+   [
+    1,
+    969,
+    2,
+    76
+   ],
+   [
+    1,
+    2,
+    81,
+    8
+   ],
+   [
+    15,
+    123,
+    21,
+    867
+   ]
+  ]
+ }
+}

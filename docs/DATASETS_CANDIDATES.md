@@ -40,6 +40,6 @@ Next: a **Mapillary API pull** (CC BY-SA) filtered to `traffic-light--pedestrian
 
 ## Status (29 Oct 2026)
 - **Wikimedia Commons signal videos (#3): in use.** Train clips are in signal_cnn_v2 (opt-in); test clips are scored per clip in READER.md.
-- **PTLD (#2): downloaded, test-only, licence unconfirmed** (30 Oct, Drive access granted). The bundled readme.txt states no licence or usage terms; some train images are MS COCO 2014 / Flickr (per their VOC xml). Not used for training. 4,645 boxes (train 913/2,219/501, valid 201/236/51, test 240/249/35 go/stop/off), cut by `scripts/get_ptld_crops.py`; test results in READER.md.
+- **PTLD (#2): downloaded, licence unconfirmed** (30 Oct, Drive access granted). 31 Oct: train+valid used for the opt-in, not-for-shipping signal_cnn v4_ptld only; test split stays held out (READER.md). The bundled readme.txt states no licence or usage terms; some train images are MS COCO 2014 / Flickr (per their VOC xml). Not used by any default model. 4,645 boxes (train 913/2,219/501, valid 201/236/51, test 240/249/35 go/stop/off), cut by `scripts/get_ptld_crops.py`; test results in READER.md.
 - **PTL-Crosswalk (#1): download needed sign-in; obtained by browser on 29 Oct.** Licence still **unconfirmed** (no licence file), so it is used only for an opt-in, rollback-able model (see READER.md).
   **Used for training signal_cnn v3** (train split only, 35 crops; 59 of 2,710 frames survived box + colour filters, no rain). v3 is opt-in, not the default. `trained_on` records `ptl_crosswalk_train_LICENCE_UNCONFIRMED`.
