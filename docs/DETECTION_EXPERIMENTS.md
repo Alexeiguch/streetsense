@@ -49,9 +49,8 @@ use CNN v1 and explicit settings, with SAM and all remote models disabled.
 | Focus enabled | 16/22 | 5/14 | 4/7 | 1/72 |
 
 Recovered rows: `pex6415590_07.75`, `pex6415590_08.50`, `pex6415590_09.25`,
-`pex6415590_10.00`. The New Zealand WALK samples and the Basel figure remain missed. Dev night
-recall stays at 1/3 in both runtime variants; focus does not recover that missed
-night sample.
+`pex6415590_10.00`. The New Zealand WALK samples and the Basel figure remain
+missed. Dev night recall stays at 1/3 in both runtime variants.
 The existing labelled false WALK is `dc_48.72`, in both variants. Do not present
 this result as zero false WALKs.
 
@@ -75,7 +74,7 @@ The exploratory comparison covered 107 of 108 labelled rows. `mazatlan_03.00`
 was omitted while its download was unavailable; it is a non-WALK row. All
 36 WALK rows were present. The subsequent runtime comparison above includes
 all 108 rows. The exploratory job was stopped after its labelled comparison;
-dense verification is reported for the safeguarded runtime candidate below.
+dense verification is reported for the safeguarded runtime candidate above.
 
 | Method | Dev WALK | Held-out WALK | False WALK on other labels |
 |---|---:|---:|---:|
