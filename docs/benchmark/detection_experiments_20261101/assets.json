@@ -1,0 +1,130 @@
+{
+  "samples/cdmx_crossing_720p.webm": {
+    "sha256": "f661b932cd8c1f529e3d7cec83d0c57506f69e8ea8b84fcf6b75935819c21e7e",
+    "bytes": 36923953
+  },
+  "samples/dc_ped_light.ogv": {
+    "sha256": "38bf72374d8e971854d64855a618e5c15d469c399058dcec1cbce4621dc7e23f",
+    "bytes": 24847417
+  },
+  "samples/ext/most_02_dusk.webm": {
+    "sha256": "f62a0cb47856b0570620aed64eecc33b15aec9d45e354f6bcef3ce1d0ca9137e",
+    "bytes": 330007
+  },
+  "samples/ext/most_03_dusk.webm": {
+    "sha256": "6bfc0d097a5c97468462ba48139737aad79c36f067d2f819ee642068c6de0e2a",
+    "bytes": 147449
+  },
+  "samples/ext/most_04_dusk.webm": {
+    "sha256": "0d77b81c7670ff7766240766a83a7fab4a3ad3aeb81d72f039113285b0acf423",
+    "bytes": 2131934
+  },
+  "samples/ext/most_11_day.webm": {
+    "sha256": "06a3af141481155a43f198c7068fd1af87f1141b0e0c989be92d6e094e1953f0",
+    "bytes": 458339
+  },
+  "samples/ext/pexels_17721925_night_ped.mp4": {
+    "sha256": "b879c098ab34799f5bff80593a48c306bd32cc71a390e585139e7a33905cfb09",
+    "bytes": 32983974
+  },
+  "samples/ext/pexels_30404309_eu_ped.mp4": {
+    "sha256": "6a90acd49449efe0d0d49fa06c4deac7f783a2aa547d9bfea554243adff74458",
+    "bytes": 4256175
+  },
+  "samples/ext/pexels_30528306_eu_ped_side.mp4": {
+    "sha256": "37d33143600c15dbc86eba46648a1cfc80b8b5232dbca28bd4e8189505f2a439",
+    "bytes": 29561475
+  },
+  "samples/ext/pexels_4169275_night_ped_jp.mp4": {
+    "sha256": "1933794a2929542043ca46ad463662dc3ab97c9f1fedb107138da4452ad44d89",
+    "bytes": 752985
+  },
+  "samples/ext/pexels_5220221_night_hand.mp4": {
+    "sha256": "a81ac54febbdc0b4b3780e923f51f7570002c596efed010f959051cf2f3bd511",
+    "bytes": 4129724
+  },
+  "samples/ext/pexels_5514350_us_ped.mp4": {
+    "sha256": "fcea1d7a254ee238a57f69330471213e9e0779fc44ba7617dddaa9f7306aacd4",
+    "bytes": 71591797
+  },
+  "samples/ext/pexels_5665107_eu_ped.mp4": {
+    "sha256": "5335cccc0902ae4b8a52b7168cbea5d1b351caec139c2a3b17be0d3654ef7ffa",
+    "bytes": 4636470
+  },
+  "samples/ext/pexels_7251025_night_square.mp4": {
+    "sha256": "5e8ed341c3be7985d41c7b7957fd0bf99f606d578995171fb549c1fb0088062c",
+    "bytes": 81666011
+  },
+  "samples/ext/tirana_dusk.webm": {
+    "sha256": "96b93c02103bbd42ea8b08d3f6c1ea2d6c6607ea426a92e129abcb6ab3b0a6ea",
+    "bytes": 3432978
+  },
+  "samples/ext/turkey_beacon_a.webm": {
+    "sha256": "2ca8c79248e01b1d89c85a6da5fe10d8b62927baf82cd85316b5386484abec84",
+    "bytes": 3170237
+  },
+  "samples/ext/turkey_beacon_b.webm": {
+    "sha256": "8a568f78865a43c4e4d80765987b894f7eaf7e1c476120bba859c97d33752be3",
+    "bytes": 2075690
+  },
+  "samples/heldout/basel.jpg": {
+    "sha256": "ce4818b7d7292728d9c917122e53ff63ebb0a2eb735f53301f6fe7343005dade",
+    "bytes": 1889764
+  },
+  "samples/heldout/ffm_vehicle.mp4": {
+    "sha256": "8c68167e3262884aca66144ea444c02549470b5072be242ed3cd885122f8a65c",
+    "bytes": 1602445
+  },
+  "samples/heldout/ffm_vehicle.webm": {
+    "sha256": "28a4c3402174fe6f536e8bc9bef0ac2001e088e74d34a474181a04e9ebc5d010",
+    "bytes": 1955334
+  },
+  "samples/heldout/nz.ogv": {
+    "sha256": "7f2bc8e1305232ba04c6cee052aa6ea29ecf40ebec8da7eccaf55a7cae8e7d5c",
+    "bytes": 3033839
+  },
+  "samples/heldout/pexels_6415590.mp4": {
+    "sha256": "89bd7db2fc30645770803d73cb65c2a5e1f3be9eef73a78c7000ce7935e9be3a",
+    "bytes": 5578602
+  },
+  "samples/heldout/uk_green.jpg": {
+    "sha256": "73790974cee83cdcf141bc7acb1911a1c44f4d6a5f5328ef3b176c778eeed0f7",
+    "bytes": 29592
+  },
+  "samples/heldout/uk_red_shrews.jpg": {
+    "sha256": "aae1c76f77c9b09f653e100e5f38b23344069ad0847d3d472457d41f12b3a3c2",
+    "bytes": 1756770
+  },
+  "samples/mazatlan_sidewalk.webm": {
+    "sha256": "ec3c9e0829f642ac94bd80a765162e4975c3334240d3481b4dbdaf6dd8cd5074",
+    "bytes": 10960460
+  },
+  "samples/tomaszow_scooter.ogv": {
+    "sha256": "edbc564a5cc22bd531436113ee7de49beaa609a7e74dc86322d282bca02d0970",
+    "bytes": 10284952
+  },
+  "samples/tyumen_crossing.webm": {
+    "sha256": "e434f50cae1ca4796311d7f1e101a886738174f08b494297cd57c22fa7499c33",
+    "bytes": 7417977
+  },
+  "models/signal_cnn/signal_cnn.onnx": {
+    "sha256": "e05e3a4f3daf75f4407950f979798e05f8047a28cc30e657db7ec3f2d8096bab",
+    "bytes": 1685512
+  },
+  "models/signal_cnn/signal_cnn.json": {
+    "sha256": "8c43b55e8664122058862be5f817a9dfc39f3f9da1a68c2d5a765f3bf659f6bc",
+    "bytes": 1686
+  },
+  "models/yolo11s.pt": {
+    "sha256": "85a76fe86dd8afe384648546b56a7a78580c7cb7b404fc595f97969322d502d5",
+    "bytes": 19313732
+  },
+  "models/yolo11s_openvino_model/yolo11s.bin": {
+    "sha256": "49c4105611f1cf5bb13d3ca718083afdb9ce057d4fe49b5f546bdf64f9a9825b",
+    "bytes": 37876148
+  },
+  "models/yolo11s_openvino_model/yolo11s.xml": {
+    "sha256": "7cff841d561e3719b1ace43b0c377d288cbc0ad3d3e1b84623298d08cc0d5467",
+    "bytes": 309198
+  }
+}

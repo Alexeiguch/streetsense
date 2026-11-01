@@ -80,3 +80,9 @@ The rule is unchanged: **go only if the local reader says walk AND Muse Spark sa
 - The bench tile row applies 0.5 to all boxes. The pipeline keeps full-frame lights at the normal threshold and applies 0.5 to tile boxes only. The held-out result is the same (5/14).
 - Latency is on this box only, at image size 2011x1557. Phone or glasses streams at lower resolution will differ.
 - Box sizes for the RF-DETR, OWLv2, Grounding DINO and Florence-2 models were not measured.
+
+## Focused tile experiment (1 November)
+
+A single-tile refinement, disabled by default, recovered four close-up WALK samples
+while preserving dev recall. It keeps parent evidence and gives refinements a
+separate smoother. See [the paired study, safety checks and opt-in switch](DETECTION_EXPERIMENTS.md).
