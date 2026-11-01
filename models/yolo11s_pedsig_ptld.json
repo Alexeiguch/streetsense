@@ -1,0 +1,14 @@
+{
+  "name": "yolo11s_pedsig_ptld",
+  "status": "RESEARCH ONLY - NOT FOR SHIPPING. Opt-in via STREETSENSE_DETECTOR_VARIANT=pedsig_ptld; never the default.",
+  "licence_note": "Trained on PTLD train ground truth; the PTLD licence is UNCONFIRMED, so these weights must not ship.",
+  "base": "models/yolo11s.pt (Ultralytics YOLO11s, COCO 80 classes, class ids unchanged)",
+  "training": "scripts/pedsig/build_yolo_ds.py + scripts/pedsig/train_yolo.py: 10 epochs CPU, imgsz 640, freeze 10, AdamW lr0 5e-4 cos, batch 16, seed 0",
+  "labels": "PTLD train GT signal boxes + Commons GT + teacher (stock YOLO11s) lights and other classes + 128 SAM 3.1 boxes verified 'yes' by Muse Spark (Commons stills/video train frames)",
+  "selected_checkpoint": "epoch6.pt (7th epoch), picked on PTLD valid GT signal recall only (scripts/pedsig/pick_checkpoint.py)",
+  "sha256": {
+    "yolo11s_pedsig_ptld.pt": "d300fcbc6dc6874a4491f63dda90cf462f0387b40d5a7434b0d0d74367f34b5f",
+    "yolo11s_pedsig_ptld_openvino_model/yolo11s_pedsig_ptld.bin": "9417e70288a5efbb196a559f784203075592fa93a162a8ddaf87e603636dfdbf",
+    "yolo11s_pedsig_ptld_openvino_model/yolo11s_pedsig_ptld.xml": "253ac2ec4f141ce32254e6d1f2f339c938a69a59b55ebddb9c1e7576902e4f0a"
+  }
+}

@@ -61,6 +61,7 @@ The rule is unchanged: **go only if the local reader says walk AND Muse Spark sa
 
 ## Switches
 
+- `STREETSENSE_DETECTOR_VARIANT=pedsig_ptld`: opt-in research detector, not for shipping (see below). Default unset.
 - `STREETSENSE_LIGHT_TILES=2x3`: rows x cols, 30 % overlap. Default off.
 - `STREETSENSE_LIGHT_TILES_MODE=fallback|always`: default `fallback`.
 - `STREETSENSE_LIGHT_TILES_EVERY=N`: in fallback mode, also tile every Nth frame.
@@ -80,3 +81,41 @@ The rule is unchanged: **go only if the local reader says walk AND Muse Spark sa
 - The bench tile row applies 0.5 to all boxes. The pipeline keeps full-frame lights at the normal threshold and applies 0.5 to tile boxes only. The held-out result is the same (5/14).
 - Latency is on this box only, at image size 2011x1557. Phone or glasses streams at lower resolution will differ.
 - Box sizes for the RF-DETR, OWLv2, Grounding DINO and Florence-2 models were not measured.
+
+## Opt-in pedestrian-signal detector `pedsig_ptld` (1 Nov 2026)
+
+**RESEARCH ONLY, NOT FOR SHIPPING.** It is trained on PTLD train ground truth and the PTLD licence is unconfirmed. Turn it on with `STREETSENSE_DETECTOR_VARIANT=pedsig_ptld` (loads `models/yolo11s_pedsig_ptld.pt` / `_openvino_model`). The default detector is unchanged (`models/yolo11s.pt`), and an explicit `--weights` still wins. Labels came partly from SAM 3.1 + Muse Spark; see [META.md](META.md#sam-31--muse-spark-as-a-labelling-helper-1-nov-2026-offline-opt-in-result).
+
+Recipe (`scripts/pedsig/build_yolo_ds.py`, `train_yolo.py`):
+- YOLO11s with all 80 COCO classes kept.
+- Train set: 5,140 images (PTLD train 3,443, Commons train stills 1,581, Commons-video train frames 116).
+  - Class 9 "traffic light" boxes: 6,940 GT signal boxes, 1,984 stock-detector lights with conf >= 0.5 that do not overlap GT, and 128 SAM+Muse boxes.
+  - Other classes: stock-detector pseudo-labels at conf >= 0.4, to limit forgetting.
+- Val set: PTLD valid, 478 images.
+- Training: 10 epochs on CPU, imgsz 640, freeze 10, AdamW lr0 5e-4 cosine, batch 16, seed 0. About 2.5 h on 8 cores.
+- Checkpoint picked on PTLD-valid GT signal recall only (`pick_checkpoint.py`: class traffic light, conf 0.35, IoU >= 0.3): epoch index 6 (the 7th epoch). It scores 488/488, against 127/488 for the stock model. Epochs 2–10 all score 486–488, so the metric is saturated.
+- Weights are not in git (`models/*.pt` and `*_openvino_model/` are ignored). sha256: `.pt` d300fcbc…4b5f, OpenVINO `.bin` 9417e702…dfdbf, `.xml` 253ac2ec…4f0a. The full hashes and the not-for-shipping note are in `models/yolo11s_pedsig_ptld.json`.
+
+**Same-domain caveat.** PTLD is split by video, and no image or video id is shared across splits. But 383 of 478 valid images and 294 of 478 test images come from videos shot on the same dates as train videos (same walks, often the same crossings). So the PTLD valid and test numbers are in-domain and flatter this model. Our own dev and held-out clips are the out-of-domain check.
+
+PTLD test, 478 full images, 217 with a walk head (v1 reader, SAM fallback off):
+
+| Detector | Tiles | Walk head detected | Walk read | False walks (stop/other/none) | Median / p90 ms per frame |
+|---|---|---|---|---|---|
+| default yolo11s | off | 76/217 | 28/217 | 0/0/0 | 39.6 / 83.5 |
+| default yolo11s | 2x3 always | 74/217 | 29/217 | 0/0/0 | 137.6 / 184.1 |
+| pedsig_ptld | off | 215/217 | 34/217 | 0/0/0 | 27.4 / 39.4 |
+| pedsig_ptld | 2x3 always | 216/217 | 34/217 | 0/0/0 | 138.5 / 181.4 |
+
+The no-tile run is faster with pedsig because lights are found at full size, so the zoom-out fallback runs less often.
+
+Own clips (`eval_local_reader.py --dense`, cached Muse answers, SAM fallback off; walk / false walk / go / false go):
+
+| Detector | Tiles | dev | held-out | all | dense non-walk walk decisions |
+|---|---|---|---|---|---|
+| default | off | 16/22, 1/37, 15/22, 0 | 1/14, 0/35, 0/5, 0 | 17/36, 1/72, go 15/27, false go 0 | 0 |
+| pedsig_ptld | off | 16/22, 0/37, 16/22, 0 | 1/14, 0/35, 0/5, 0 | 17/36, 0/72, go 16/27, false go 0 | 0 |
+| default | 2x3 always | 16/22, 1/37, 15/22, 0 | 5/14, 0/35, 0/5, 0 | 21/36, 1/72, go 15/27, false go 0 | 0 |
+| pedsig_ptld | 2x3 always | 10/22, 0/37, 10/22, 0 | 7/14, 0/35, 1/5, 0 | 17/36, 0/72, go 11/27, false go 0 | 0 |
+
+Verdict: a large detection gain on in-domain PTLD, but only +6 walks read, because the light reader cannot read most of the newly found PTLD heads. On our own clips there is no gain without tiles. With tiles always on, the dev walks drop from 16 to 10 and the held-out walks rise from 5 to 7. False go stays 0 everywhere. The variant is kept opt-in and unshipped. Small samples: one clip frame moves a rate by several points.

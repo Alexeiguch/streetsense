@@ -117,6 +117,8 @@ StreetSense is not a thin chat wrapper:
 3. **SAM 3.1** as a text-prompted crosswalk prior when classical stripes fail  
 4. **Voice Transcribe** so a blind user can ask “can I cross?” without finding a button  
 
+5. **SAM 3.1 + Muse Spark as an offline labelling helper**: SAM proposes pedestrian-signal boxes, Muse Spark checks each crop, and the agreed boxes help fine-tune an opt-in detector (see below)  
+
 Together that is a glasses-ready perception stack on the same Meta Model API key.
 
 
@@ -185,3 +187,34 @@ Latency finding: chaining turns with `previous_response_id` made the second
 turn take 12 to 20 s (total 15 to 26 s). Resending the conversation each turn
 (`WonderConfig.stateless=True`, now the default) brought the second turn to
 about 3 s. First turns take 1.5 to 3.4 s.
+
+## SAM 3.1 + Muse Spark as a labelling helper (1 Nov 2026, offline, opt-in result)
+
+The stock YOLO11s misses most pedestrian heads in PTLD (it finds 76 of 217 walk heads on the PTLD test images). We used the Meta API offline to make detector labels. Nothing here runs on a user's crossing, and the safety rule is unchanged: **go only if the local reader says walk AND Muse Spark says yes. SAM can never authorise a crossing.**
+
+Pipeline (`scripts/pedsig/`):
+
+1. `find_misses.py` runs the stock detector on train/valid frames only (PTLD train + valid, Commons train stills, Commons-video train clips). It never touches the PTLD test split, our crop test split, dev clips or held-out clips.
+2. `sam_muse_label.py` sends each frame to **SAM 3.1** with the text prompt `pedestrian traffic signal` (frame max side 768, boxes with confidence >= 0.3, up to 6). Each box is cropped (padding 0.6 x box size), resized to 320 px, and sent as an image to **Muse Spark** (`muse-spark-1.3`, reasoning effort minimal, max_tokens 256), which answers yes/no: "is this a pedestrian signal head?". We keep a box only when SAM proposes it and Muse says yes. Every call is logged to `outputs/meta_usage.jsonl` and cached on disk, so nothing is paid twice.
+3. `score_labels.py` scores the boxes against ground truth on frames that have it. `build_yolo_ds.py` + `train_yolo.py` fine-tune YOLO11s.
+
+**Did Muse see the crop?** Yes. The ledger rows say `images=0` only because `usage_from_openai_response` never fills that field for chat calls (the same is true of the older crossing-eval rows). A control on one crop showed 92 prompt tokens for the text alone (empty answer), 193 with the 320 px crop (`yes`), and 158 with a plain grey 200 px image (`no`). The prompt text is identical on every call, yet Muse said yes to 92 of the 105 SAM boxes that matched GT and to only 18 of 142 that didn't, so it was answering from the image. The script now records `images=1` for these calls.
+
+### Label quality (measured against GT; IoU >= 0.5)
+
+| Frames | GT boxes | SAM recall | SAM precision | SAM+Muse recall | SAM+Muse precision | Muse agrees with GT |
+|---|---|---|---|---|---|---|
+| Pilot, 20 PTLD train frames the detector misses | 21 | 0.714 | 0.441 | 0.667 | 0.824 | 0.882 |
+| Same 20, prompt `traffic light` | 21 | 0.762 | 0.444 | 0.667 | 0.875 | 0.889 |
+| 120 PTLD train miss frames (includes the pilot) | 139 | 0.755 | 0.425 | 0.662 | 0.836 | 0.874 |
+| 40 Commons train stills with GT but no stock light | 42 | 0.548 | 0.458 | 0.452 | 0.704 | 0.771 |
+
+Muse roughly doubles precision (0.43 to 0.84 on PTLD) and costs a little recall. 14 % of Muse answers were still "unclear" (the reasoning ran past 256 tokens); those count as no. In the first pilot pass max_tokens was 64 and 33 of 34 answers were truncated. Those 34 calls ($0.018) were wasted and re-run.
+
+### Labels made and spend
+
+- SAM boxes (conf >= 0.3): 247 on 120 PTLD frames, 211 on 330 Commons stills with no stock light, 377 on 116 Commons-video train frames. Muse said yes to 110, 107 and 62 of them.
+- In training, PTLD frames use their GT, not SAM boxes. SAM+Muse boxes were added only on Commons stills and video frames, where they did not overlap an existing light: **128 boxes**, next to 6,940 GT boxes and 1,984 stock-detector lights. So the detector gain below comes mainly from PTLD train GT. SAM+Muse added a small amount of extra data plus a measured view of how good automatic labels are.
+- Spend for this task, from the ledger: **$2.2123** (586 SAM calls $1.465; 882 Muse verify calls $0.7449; 3 Muse control calls $0.0024), under the $5 cap set with `STREETSENSE_META_BUDGET_USD`. That works out to about $0.0025 per SAM image and $0.00084 per Muse verify call.
+
+Detector training and the comparison with the default are in [DETECTORS.md](DETECTORS.md#opt-in-pedestrian-signal-detector-pedsig_ptld-1-nov-2026). Short version: walk-head detection on the PTLD test goes from 76 to 215 of 217, walk read only from 28 to 34. The light reader is now the bottleneck. Our own dev/held-out clips show no gain, and with tiles the dev walks fall. It stays opt-in and unshipped (the PTLD licence is unconfirmed).

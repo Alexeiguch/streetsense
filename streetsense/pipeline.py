@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import time
 from collections import defaultdict
 from dataclasses import dataclass, field
@@ -26,8 +27,32 @@ from .traffic_light import LightStateSmoother, apply_signal_cnn, cnn_hold_veto, 
 from .types import Alert, Detection, Priority
 
 
+# Opt-in detector variants, selected with STREETSENSE_DETECTOR_VARIANT. The default (unset,
+# "" or "default") keeps cfg.detector.weights unchanged. "pedsig_ptld" is YOLO11s fine-tuned
+# with PTLD train GT + SAM 3.1/Muse Spark pedestrian-signal labels (scripts/pedsig/, docs/META.md).
+# PTLD licence is unconfirmed: that variant is research-only, never shipped, never the default.
+DETECTOR_VARIANTS = {"pedsig_ptld": "models/yolo11s_pedsig_ptld.pt"}
+DEFAULT_DETECTOR_WEIGHTS = "models/yolo11s.pt"
+
+
+def apply_detector_variant(cfg: Config) -> Config:
+    """Swap in opt-in variant weights when STREETSENSE_DETECTOR_VARIANT asks for one.
+
+    Only replaces the stock default weights, so an explicit --weights still wins.
+    """
+    v = os.environ.get("STREETSENSE_DETECTOR_VARIANT", "").strip().lower()
+    if v in ("", "default", "yolo11s"):
+        return cfg
+    if v not in DETECTOR_VARIANTS:
+        raise ValueError(f"unknown STREETSENSE_DETECTOR_VARIANT={v!r}; known: {sorted(DETECTOR_VARIANTS)}")
+    if cfg.detector.weights == DEFAULT_DETECTOR_WEIGHTS:
+        cfg.detector.weights = DETECTOR_VARIANTS[v]
+    return cfg
+
+
 def build_detector(cfg: Config):
     """YOLO (Ultralytics) by default; RF-DETR when --weights rfdetr-nano|rfdetr-small."""
+    apply_detector_variant(cfg)
     w = (cfg.detector.weights or "").strip().lower()
     if "rfdetr" in w:
         from .rfdetr_detector import RfDetrDetector
