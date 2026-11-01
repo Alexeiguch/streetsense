@@ -55,7 +55,8 @@ def test_promote_only_above_threshold(state):
 
 
 @pytest.mark.parametrize("state", ["red", "yellow", "countdown"])
-def test_never_promote_red_yellow_countdown(state):
+def test_never_promote_red_yellow_countdown(state, monkeypatch):
+    monkeypatch.delenv("STREETSENSE_READER_YELLOW_PROMOTE", raising=False)
     assert apply_signal_cnn(rd(state), P(0.999), "pedestrian", T).state == state
 
 

@@ -485,7 +485,13 @@ class LightStateSmoother:
         return confirmed
 
 
-def apply_signal_cnn(reading: LightReading, probs, kind: str, t_walk: float, t_veto: float = 0.8) -> LightReading:
+def yellow_promote_enabled() -> bool:
+    """STREETSENSE_READER_YELLOW_PROMOTE=1 lets a confident classifier walk override an HSV 'yellow' head (opt-in)."""
+    return os.environ.get("STREETSENSE_READER_YELLOW_PROMOTE", "0").strip().lower() in {"1", "true", "yes", "on"}
+
+
+def apply_signal_cnn(reading: LightReading, probs, kind: str, t_walk: float, t_veto: float = 0.8,
+                     promote_yellow: bool | None = None) -> LightReading:
     """Combine the hand-rule reading with the crop classifier (streetsense/signal_cnn.py).
 
     ``probs`` = (p_walk, p_stop, p_countdown, p_other) or None (classifier off / failed).
@@ -495,6 +501,10 @@ def apply_signal_cnn(reading: LightReading, probs, kind: str, t_walk: float, t_v
     * promote: a non-vehicle head the hand rules read as green/unknown (no red, yellow or
       countdown seen) becomes a figure walk only when p_walk >= ``t_walk`` (calibrated for
       zero false walk on validation). figure_walk_guard and the 3-of-5 smoother still apply.
+    * opt-in yellow promote (``promote_yellow``, default STREETSENSE_READER_YELLOW_PROMOTE=0):
+      also promote a non-vehicle head the hand rules read as yellow, at the same ``t_walk``.
+      US-style heads have yellow-painted housings that win the hue vote over a lit green/white
+      walk figure. Red and countdown are never promoted.
     """
     if probs is None:
         return reading
@@ -505,7 +515,10 @@ def apply_signal_cnn(reading: LightReading, probs, kind: str, t_walk: float, t_v
                 return replace(reading, state="countdown", countdown=True)
             return replace(reading, state="unknown")
         return reading
-    if kind == "vehicle" or reading.state not in ("green", "unknown") or reading.countdown:
+    if promote_yellow is None:
+        promote_yellow = yellow_promote_enabled()
+    states = ("green", "unknown", "yellow") if promote_yellow else ("green", "unknown")
+    if kind == "vehicle" or reading.state not in states or reading.countdown:
         return reading
     if pw >= t_walk:
         return replace(reading, state="walk", confidence=pw, figure=True)
