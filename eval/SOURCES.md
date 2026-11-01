@@ -45,9 +45,9 @@ These files are only for checking the local light reader (`scripts/eval_local_re
 |---|---|---|---|---|---|
 | `pex6415590` | pexels_6415590.mp4 | https://www.pexels.com/video/6415590/ ("Close Up Shot of a Pedestrian Light Signal") | Davlat Tursunov | Pexels License | Close-up dotted LED two-lamp head with countdown digits. Red, dark, then green man. |
 | `nz` | nz.ogv | https://commons.wikimedia.org/wiki/File:Pedestrian_signals_in_New_Zealand.ogv | Wikimedia Commons uploader (see file page) | CC BY-SA 3.0 | Green man, then flashing red man with countdown. |
-| `uk_green` | uk_green.jpg | Wikimedia Commons, UK green man photo | C.Ford | CC BY-SA 3.0 | Still. |
-| `uk_red` | uk_red_shrews.jpg | Wikimedia Commons, Shrewsbury red man photo | Tk420 | CC BY-SA 4.0 | Still. |
-| `basel` | basel.jpg | Flickr via Wikimedia Commons, Basel footballer green man | see file page | CC BY-SA 4.0 | Still. Non-standard figure. |
+| `uk_green` | uk_green.jpg | [Wikimedia Commons, Green man uk.jpg](https://commons.wikimedia.org/wiki/File:Green_man_uk.jpg) | C.Ford | CC BY-SA 3.0 | Still. |
+| `uk_red` | uk_red_shrews.jpg | [Wikimedia Commons, Shrewsbury red man](https://commons.wikimedia.org/wiki/File:Red_man_at_pelican_crossing_on_Mytton_Oak_Road,_Shrewsbury,_August_2025.jpg) | Tk420 | CC BY-SA 4.0 | Still. |
+| `basel` | basel.jpg | [Wikimedia Commons, UEFA Women’s Euro Basel traffic light](https://commons.wikimedia.org/wiki/File:UEFA_Women%27s_Euro_Basel_traffic_light.jpg) | see file page | CC BY-SA 4.0 | Still. Non-standard figure. |
 | `ffm` | ffm_vehicle.webm → ffm_vehicle.mp4 | https://commons.wikimedia.org/wiki/File:FFM_-_M%C3%BCnchener_Stra%C3%9Fe,_Gr%C3%BCnschaltung_Auto-_und_Stra%C3%9Fenbahnampel.webm | ManuelB701 | CC0 | Vehicle and tram heads only. Round green vehicle lamp at 5.3 s; it must never read walk. |
 
 sha256:
