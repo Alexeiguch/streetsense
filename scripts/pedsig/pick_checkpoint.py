@@ -21,7 +21,7 @@ def seq(p):
     return re.sub(r"-\(F\d+\)", "", os.path.splitext(os.path.basename(p))[0])
 
 
-train_dates = {seq(f)[:8] for f in json.load(open("/workspace/datasets/pedsig/frames.json")) if f["src"] == "ptld" and f["split"] == "train"}
+train_dates = {seq(f["path"])[:8] for f in json.load(open("/workspace/datasets/pedsig/frames.json")) if f["src"] == "ptld" and f["split"] == "train"}
 IOUS = [float(x) for x in os.environ.get("PICK_IOUS", "0.3").split(",")]
 res = {}
 for w in [x for x in sys.argv[1:] if not x.startswith("--")]:

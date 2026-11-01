@@ -96,6 +96,8 @@ Recipe (`scripts/pedsig/build_yolo_ds.py`, `train_yolo.py`):
 - Checkpoint picked on PTLD-valid GT signal recall only (`pick_checkpoint.py`: class traffic light, conf 0.35, IoU >= 0.3): epoch index 6 (the 7th epoch). It scores 488/488, against 127/488 for the stock model. Epochs 2–10 all score 486–488, so the metric is saturated.
 - Weights are not in git (`models/*.pt` and `*_openvino_model/` are ignored). sha256: `.pt` d300fcbc…4b5f, OpenVINO `.bin` 9417e702…dfdbf, `.xml` 253ac2ec…4f0a. The full hashes and the not-for-shipping note are in `models/yolo11s_pedsig_ptld.json`.
 
+Re-score of the pick (`PICK_IOUS=0.3,0.5`): epoch6 still hits 488/488 at IoU >= 0.5, against 118/488 for stock. On the 83 valid GT boxes from videos whose shooting date is not in train, it hits 83/83, against 34/83 for stock at IoU 0.3 and 32/83 at IoU 0.5. Lights that match no GT go from 210 to 234 (PTLD GT has no vehicle lights, so these are not all false positives).
+
 **Same-domain caveat.** PTLD is split by video, and no image or video id is shared across splits. But 383 of 478 valid images and 294 of 478 test images come from videos shot on the same dates as train videos (same walks, often the same crossings). So the PTLD valid and test numbers are in-domain and flatter this model. Our own dev and held-out clips are the out-of-domain check.
 
 PTLD test, 478 full images, 217 with a walk head (v1 reader, SAM fallback off):
@@ -106,6 +108,7 @@ PTLD test, 478 full images, 217 with a walk head (v1 reader, SAM fallback off):
 | default yolo11s | 2x3 always | 74/217 | 29/217 | 0/0/0 | 137.6 / 184.1 |
 | pedsig_ptld | off | 215/217 | 34/217 | 0/0/0 | 27.4 / 39.4 |
 | pedsig_ptld | 2x3 always | 216/217 | 34/217 | 0/0/0 | 138.5 / 181.4 |
+| pedsig_ptld + `signal_cnn` v5_ptld_hn (both PTLD-trained, opt-in) | off | 215/217 | **114/217** | 0/0/0 | 26.2 / 38.1 |
 
 The no-tile run is faster with pedsig because lights are found at full size, so the zoom-out fallback runs less often.
 
@@ -117,5 +120,10 @@ Own clips (`eval_local_reader.py --dense`, cached Muse answers, SAM fallback off
 | pedsig_ptld | off | 16/22, 0/37, 16/22, 0 | 1/14, 0/35, 0/5, 0 | 17/36, 0/72, go 16/27, false go 0 | 0 |
 | default | 2x3 always | 16/22, 1/37, 15/22, 0 | 5/14, 0/35, 0/5, 0 | 21/36, 1/72, go 15/27, false go 0 | 0 |
 | pedsig_ptld | 2x3 always | 10/22, 0/37, 10/22, 0 | 7/14, 0/35, 1/5, 0 | 17/36, 0/72, go 11/27, false go 0 | 0 |
+
+Where the found PTLD walk heads are lost (`scripts/pedsig/walk_loss.py`, the 240 GT walk crops of the test split used as the detected box):
+- With v1, the CNN calls 131 of 240 heads "countdown" and puts 63 below t_walk 0.952; only 27 pass. The HSV rules call 165 heads "green" (a lit lamp, not a walking figure) and 40 "yellow". The final count is 31 walk. Heads 40–80 px tall: 0 of 95 read walk.
+- With v5_ptld_hn (t_walk 0.935), the CNN passes 153 and the final count is 134 walk. The remaining losses: 40 stay "yellow", which the HSV rules decide and the CNN does not override, and 62 end as "green". Separately, 85 crops have walk as the CNN argmax but below t_walk; 52 of them are heads 40–80 px tall.
+- So the reader, not the detector, is now the limit. The pedsig detector plus the v5 reader reads 114 of 217 test images, with 0 false walks. Both models are PTLD-trained and in-domain, so this is an upper bound for PTLD-like imagery, not a field number.
 
 Verdict: a large detection gain on in-domain PTLD, but only +6 walks read, because the light reader cannot read most of the newly found PTLD heads. On our own clips there is no gain without tiles. With tiles always on, the dev walks drop from 16 to 10 and the held-out walks rise from 5 to 7. False go stays 0 everywhere. The variant is kept opt-in and unshipped. Small samples: one clip frame moves a rate by several points.
