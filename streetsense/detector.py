@@ -245,6 +245,20 @@ class YoloDetector:
                 im, imgsz=self.cfg.imgsz, conf=conf, iou=self.cfg.iou, device=self.cfg.device, verbose=False)[0])])
 
 
+    def focused_lights(self, frame_bgr: np.ndarray, lights: list[Detection], conf: float = .5) -> list[Detection]:
+        """One opt-in tile near a found head, using the untracked prediction handle."""
+        def predict(im):
+            if getattr(self, "_zoom_model", None) is None:
+                from ultralytics import YOLO
+
+                self._zoom_model = YOLO(self.model_path)
+            result = self._zoom_model.predict(im, imgsz=self.cfg.imgsz, conf=conf, iou=self.cfg.iou,
+                                               device=self.cfg.device, verbose=False)[0]
+            return [(b, self.names[int(c)], float(p)) for b, c, p in _boxes(result)]
+
+        return focused_detections(frame_bgr, lights, conf, predict)
+
+
 def _boxes(res):
     if res.boxes is None:
         return []
@@ -273,6 +287,64 @@ def tile_detections(frame: np.ndarray, grid: tuple[int, int], conf: float, predi
             if box.w >= 4 and box.h >= 4:
                 out.append(Detection("traffic light", box, float(p), None, {"tile": i}))
     return out
+
+
+def light_focus_enabled(cfg: DetectorConfig | None = None) -> bool:
+    """Experimental single-tile refinement. Off unless explicitly enabled."""
+    import os
+
+    value = os.environ.get("STREETSENSE_LIGHT_FOCUS")
+    if value is None:
+        return bool(getattr(cfg, "light_focus", False))
+    return value.strip().lower() in ("1", "true", "yes", "on")
+
+
+def focused_tile_window(frame: np.ndarray, lights: list[Detection]):
+    """Choose one 2x3 tile by lit pixels inside the highest-confidence found head.
+
+    Hue is ignored: colour only schedules a detector pass and never decides WALK.
+    No head or no lit pixels means no extra inference.
+    """
+    import cv2
+
+    lights = [d for d in lights if d.label == "traffic light"]
+    if not lights:
+        return None
+    h, w = frame.shape[:2]
+    b = max(lights, key=lambda d: d.conf).box.clip(w, h)
+    x1, y1, x2, y2 = map(int, (b.x1, b.y1, b.x2, b.y2))
+    if x2 <= x1 or y2 <= y1:
+        return None
+    hsv = cv2.cvtColor(frame[y1:y2, x1:x2], cv2.COLOR_BGR2HSV)
+    mask = np.zeros((h, w), np.uint8)
+    mask[y1:y2, x1:x2] = (hsv[:, :, 1] >= 70) & (hsv[:, :, 2] >= 120)
+    windows = tile_windows(w, h, (2, 3))
+    scores = [int(mask[y:y+th, x:x+tw].sum()) for x, y, tw, th in windows]
+    return (windows[int(np.argmax(scores))], b) if max(scores) > 0 else None
+
+
+def focused_detections(frame: np.ndarray, lights: list[Detection], conf: float, predict) -> list[Detection]:
+    """Extra boxes only. Preserve the original parent for red/countdown/CNN vetoes."""
+    chosen = focused_tile_window(frame, lights)
+    if chosen is None:
+        return []
+    (x, y, tw, th), parent = chosen
+    h, w = frame.shape[:2]
+    extra = []
+    for coords, label, p in predict(frame[y:y+th, x:x+tw]):
+        if label != "traffic light" or p < conf:
+            continue
+        box = Box(float(coords[0])+x, float(coords[1])+y,
+                  float(coords[2])+x, float(coords[3])+y).clip(w, h)
+        if box.w < 4 or box.h < 4:
+            continue
+        if not (parent.x1 <= box.cx <= parent.x2 and parent.y1 <= box.cy <= parent.y2):
+            continue
+        if any(_iou(box, old.box) >= .5 for old in lights):
+            continue
+        extra.append(Detection("traffic light", box, float(p), None, {
+            "source": "focus", "focus_parent_box": [parent.x1, parent.y1, parent.x2, parent.y2]}))
+    return nms_lights(extra)
 
 
 def _iou(a: Box, b: Box) -> float:

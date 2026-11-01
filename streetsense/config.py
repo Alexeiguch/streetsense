@@ -36,6 +36,7 @@ class DetectorConfig:
     light_zoom_conf: float = 0.35
     # Opt-in tiled light pass (env STREETSENSE_LIGHT_TILES=2x3); tile boxes below this are dropped.
     light_tile_conf: float = 0.5
+    light_focus: bool = False  # experimental one-tile refinement; STREETSENSE_LIGHT_FOCUS=1
 
 
 @dataclass

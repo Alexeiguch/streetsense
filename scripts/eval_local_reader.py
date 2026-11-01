@@ -40,7 +40,7 @@ import eval_muse_crossing as ev  # noqa: E402
 from streetsense.answers import local_signal_state  # noqa: E402
 from streetsense.config import Config  # noqa: E402
 from streetsense.pipeline import Pipeline  # noqa: E402
-from streetsense.detector import light_tiles, light_zoom_scales  # noqa: E402
+from streetsense.detector import light_focus_enabled, light_tiles, light_zoom_scales  # noqa: E402
 from streetsense import signal_cnn  # noqa: E402
 from streetsense.signal_trace import summarise_signals  # noqa: E402
 
@@ -125,6 +125,7 @@ def eval_configuration(*, no_tiles: bool = False) -> dict:
         "versions": versions,
         "tiles": {"grid": list(grid), "mode": mode, "every_n_frames": every},
         "zoom_scales": list(light_zoom_scales(cfg.detector)),
+        "focus": light_focus_enabled(cfg.detector),
         "detector": {"weights": cfg.detector.weights, "requested_backend": cfg.detector.backend},
         "signal_cnn": {"enabled": signal_cnn.enabled(), "model": model_dir.name},
         "reset_on_veto": os.environ.get("STREETSENSE_SIGNAL_RESET_ON_VETO", "0"),
@@ -139,7 +140,9 @@ def heads(out) -> list[dict]:
              "source": d.attrs.get("source") or ("tile" if "tile" in d.attrs else
                                                   "zoom" if "zoom" in d.attrs else "local"),
              "box": [d.box.x1, d.box.y1, d.box.x2, d.box.y2],
-             "cnn_probs": d.attrs.get("signal_cnn_probs")}
+             "cnn_probs": d.attrs.get("signal_cnn_probs"),
+             "focus_parent_box": d.attrs.get("focus_parent_box"),
+             "focus_parent_veto": d.attrs.get("focus_parent_veto", False)}
             for d in out.detections if d.label == "traffic light"]
 
 

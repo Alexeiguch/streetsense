@@ -30,6 +30,8 @@ def summarise_signals(out, width: int, height: int) -> dict:
             "walk_blocked": a.get("light_walk_blocked", False),
             "reset_on_veto": a.get("light_reset_on_veto", False),
             "state": a.get("light_state"),
+            "focus_parent_box": a.get("focus_parent_box"),
+            "focus_parent_veto": a.get("focus_parent_veto", False),
         })
     return {
         "frame": out.index, "t": float(out.t),

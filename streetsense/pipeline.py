@@ -4,14 +4,14 @@ from __future__ import annotations
 
 import time
 from collections import defaultdict
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 import numpy as np
 
 from .alerts import AlertManager
 from .config import Config
 from .crosswalk import CrosswalkHysteresis, CrosswalkResult, detect_crosswalk
-from .detector import ApproachTracker, YoloDetector, light_tiles, light_zoom_scales, nms_lights
+from .detector import ApproachTracker, YoloDetector, light_focus_enabled, light_tiles, light_zoom_scales, nms_lights
 from .geometry import estimate_distance_m
 from .meta_api import MetaSamSegmenter, MetaVisionAssistant, sam_boxes_to_crosswalk
 from .open_vocab import OpenVocabHazardDetector
@@ -85,6 +85,8 @@ class Pipeline:
         self.alerts = AlertManager(self.cfg.alerts, clock=clock)
         self.approach = ApproachTracker()
         self.smoother = LightStateSmoother(clock=self.clock)
+        # Refinements never share votes with parent boxes; parent/CNN vetoes discard their WALK votes.
+        self.focus_smoother = LightStateSmoother(clock=self.clock, reset_walk_on_veto=True)
         self.signal_dist_cfg = signal_distance.SignalDistanceConfig.from_env()
         self.cw_hyst = CrosswalkHysteresis()
         self._kinds: dict[int, str] = {}
@@ -226,12 +228,25 @@ class Pipeline:
                 dets = [d for d in dets if d.label != "traffic light"] + extra
             tm["detect_zoom"] = (time.perf_counter() - t0) * 1000
 
+        if (light_focus_enabled(dcfg) and "detect_tiles" not in tm
+                and hasattr(self.detector, "focused_lights")):
+            t0 = time.perf_counter()
+            lights = [d for d in dets if d.label == "traffic light"]
+            # Original boxes stay first: their current red/countdown/CNN veto is read before children.
+            dets = list(dets) + self.detector.focused_lights(frame, lights, .5)
+            tm["detect_focus"] = (time.perf_counter() - t0) * 1000
+
         if self.sam_fallback is not None:
             t0 = time.perf_counter()
             dets = self._inject_sam_lights(frame, t, dets, W, H)
             tm["sam_fallback"] = (time.perf_counter() - t0) * 1000
 
         t0 = time.perf_counter()
+        parent_heads = {}
+        for head in dets:
+            if head.label == "traffic light" and "focus_parent_box" not in head.attrs:
+                box = head.box.clip(W, H)
+                parent_heads[(box.x1, box.y1, box.x2, box.y2)] = head
         for d in dets:
             if d.label == "traffic light":
                 b = d.box.clip(W, H)
@@ -250,6 +265,18 @@ class Pipeline:
                     d.attrs["signal_cnn_t_veto"] = cnn.t_veto
                     r = apply_signal_cnn(r, pred.probs, kind, cnn.t_walk, cnn.t_veto)
                 r = figure_walk_guard(r, frame, b)
+                parent_box = d.attrs.get("focus_parent_box")
+                if parent_box is not None:
+                    parent = parent_heads.get(tuple(parent_box))
+                    blocked_parent = (
+                        parent is None
+                        or parent.attrs.get("light_raw") in ("red", "yellow", "countdown")
+                        or parent.attrs.get("countdown", False)
+                        or parent.attrs.get("light_walk_blocked", False)
+                    )
+                    d.attrs["focus_parent_veto"] = blocked_parent
+                    if blocked_parent:
+                        r = replace(r, state="unknown", figure=False)
                 if r.state == "walk" or getattr(r, "figure", False):
                     kind = "pedestrian"
                 kind = self._track_kind(d.track_id, kind)
@@ -258,13 +285,18 @@ class Pipeline:
                 d.attrs["light_raw"] = r.state
                 d.attrs["figure"] = bool(getattr(r, "figure", False))
                 blocked = pred is not None and cnn_rejects_walk(pred.probs, cnn.t_veto)
+                if parent_box is not None:
+                    blocked = blocked or d.attrs.get("focus_parent_veto", False)
+                smoother = self.focus_smoother if parent_box is not None else self.smoother
                 d.attrs["light_walk_blocked"] = blocked
-                d.attrs["light_reset_on_veto"] = self.smoother.reset_walk_on_veto
-                st = self.smoother.update(d.track_id, r.state, box=b, t=t, walk_blocked=blocked)
+                d.attrs["light_reset_on_veto"] = smoother.reset_walk_on_veto
+                st = smoother.update(d.track_id, r.state, box=b, t=t, walk_blocked=blocked)
                 d.attrs["light_smoothed"] = st
                 if pred is not None:
                     st = cnn_hold_veto(st, r.state, pred.probs, cnn.t_veto)
                 d.attrs["light_cnn_veto"] = st != d.attrs["light_smoothed"]
+                if d.attrs.get("focus_parent_veto") and st == "walk":
+                    st = "unknown"
                 d.attrs["light_state"] = st
             if d.label == "traffic light" or "sign" in d.label:
                 est = signal_distance.estimate(d.box, d.label, d.attrs.get("signal_kind", "unknown"),

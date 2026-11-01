@@ -23,6 +23,7 @@ from streetsense.types import Box, Detection
 
 def replay(records, *, reset_on_veto=False):
     smoother = LightStateSmoother(reset_walk_on_veto=reset_on_veto)
+    focus_smoother = LightStateSmoother(reset_walk_on_veto=True)
     previous = None
     for rec in records:
         height, width = rec["shape"]
@@ -32,9 +33,11 @@ def replay(records, *, reset_on_veto=False):
         for head in rec["heads"]:
             probs = tuple(head["cnn_probs"][c] for c in CLASSES) if head["cnn_probs"] else None
             threshold = head.get("cnn_t_veto") or 0.8
-            blocked = cnn_rejects_walk(probs, threshold)
+            focused = head.get("focus_parent_box") is not None
+            blocked = cnn_rejects_walk(probs, threshold) or (focused and head.get("focus_parent_veto", False))
+            active = focus_smoother if focused else smoother
             box = Box(*head["box"])
-            st = smoother.update(head["track_id"], head["raw"], box.clip(width, height),
+            st = active.update(head["track_id"], head["raw"], box.clip(width, height),
                                  t=rec["t"], walk_blocked=blocked)
             final = cnn_hold_veto(st, head["raw"], probs, threshold)
             attrs = {
@@ -42,7 +45,9 @@ def replay(records, *, reset_on_veto=False):
                 "light_heuristic": head["heuristic"], "signal_cnn_probs": head["cnn_probs"],
                 "signal_cnn_t_walk": head.get("cnn_t_walk"), "signal_cnn_t_veto": threshold,
                 "light_smoothed": st, "light_cnn_veto": final != st,
-                "light_walk_blocked": blocked, "light_reset_on_veto": reset_on_veto,
+                "light_walk_blocked": blocked, "light_reset_on_veto": active.reset_walk_on_veto,
+                "focus_parent_box": head.get("focus_parent_box"),
+                "focus_parent_veto": head.get("focus_parent_veto", False),
                 "source": head["source"],
             }
             attrs.update(head.get("distance") or {})

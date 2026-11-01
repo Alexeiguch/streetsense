@@ -16,6 +16,7 @@ import json
 import os
 from pathlib import Path
 import statistics
+import subprocess
 import sys
 import time
 from unittest.mock import patch
@@ -32,7 +33,7 @@ from streetsense.detector import YoloDetector, _boxes, nms_lights, tile_windows,
 from streetsense import pipeline as sp
 from streetsense.types import Box, Detection
 
-METHODS = ('baseline', 'zoom_always', 'roi', 'clahe', 'saliency_tile', 'tiles1x2', 'tiles2x3')
+METHODS = ('baseline', 'zoom_always', 'roi', 'clahe', 'saliency_tile', 'focused', 'tiles1x2', 'tiles2x3')
 
 
 def roi_windows(lights, width, height, limit=2):
@@ -59,7 +60,6 @@ class PairedDetector:
         self.method = 'baseline'
         self.index = 0
         self.frame_ms = 0.0
-        self.frame_calls = 0
 
     def reset(self):
         self.cache.clear()
@@ -75,7 +75,6 @@ class PairedDetector:
         result, ms = self.cache[key]
         if key not in self.charged:
             self.frame_ms += ms
-            self.frame_calls += 1
             self.charged.add(key)
         return deepcopy(result)
 
@@ -93,12 +92,11 @@ class PairedDetector:
                 if self.base.names[int(cls)] == 'traffic light' and float(p) >= .5]
 
     def __call__(self, img):
-        self.frame_ms = self.frame_calls = 0
+        self.frame_ms = 0
         self.charged = set()
         dets = self.cached(('full', self.index), lambda: self.base(img))
         lights = [d for d in dets if d.label == 'traffic light']
         start = time.perf_counter()
-        calls = 0
         extra = []
         if self.method == 'zoom_always':
             extra = self.zoomed_lights(img, self.base.cfg.light_zoom_scales,
@@ -107,12 +105,10 @@ class PairedDetector:
             h, w = img.shape[:2]
             for x1, y1, x2, y2 in roi_windows(lights, w, h):
                 extra += self.predict_lights(img[y1:y2, x1:x2], 'roi', (x1, y1))
-                calls += 1
         elif self.method == 'clahe':
             lab = cv2.cvtColor(img, cv2.COLOR_BGR2LAB)
             lab[:, :, 0] = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8)).apply(lab[:, :, 0])
             extra = self.predict_lights(cv2.cvtColor(lab, cv2.COLOR_LAB2BGR), 'clahe')
-            calls = 1
         elif self.method == 'saliency_tile' and lights:
             # Pick one ordinary tile by bright saturated pixels inside a found head.
             # Hue is deliberately ignored. This schedules a detector pass, not WALK.
@@ -129,19 +125,22 @@ class PairedDetector:
                 extra = self.predict_lights(img[y:y+th, x:x+tw], 'saliency_tile', (x, y))
                 # Keep original heads: a small candidate must not erase a red parent.
                 extra = [d for d in extra if all(_iou(d.box, old.box) < .5 for old in lights)]
-                calls = 1
         elif self.method.startswith('tiles'):
             grid = (1, 2) if self.method == 'tiles1x2' else (2, 3)
             extra = self.base.tiled_lights(img, grid, .5)
-            calls = grid[0] * grid[1]
         if self.method != 'zoom_always':
             self.frame_ms += (time.perf_counter()-start)*1000
-            self.frame_calls += calls
         if not extra:
             return dets
         if self.method == 'saliency_tile':
             return dets + nms_lights(extra)
         return [d for d in dets if d.label != 'traffic light'] + nms_lights(lights + extra)
+
+    def focused_lights(self, img, lights, conf):
+        start = time.perf_counter()
+        result = self.base.focused_lights(img, lights, conf)
+        self.frame_ms += (time.perf_counter()-start)*1000
+        return result
 
     def zoomed_lights(self, img, scales, conf):
         if self.method.startswith('tiles'):
@@ -161,7 +160,8 @@ def run_sequence(detector, frames, methods):
     results = {}
     for method in methods:
         detector.method = method
-        hist, trace, times, calls = [], [], [], []
+        os.environ['STREETSENSE_LIGHT_FOCUS'] = '1' if method == 'focused' else '0'
+        hist, trace, times = [], [], []
         with patch.object(sp, 'build_detector', return_value=detector):
             pipe = sp.Pipeline(local_config(), use_surface=False)
         for i, (t, img) in enumerate(frames):
@@ -170,9 +170,8 @@ def run_sequence(detector, frames, methods):
             hist.append(local_signal_state(out, img.shape))
             trace.append(ev.heads(out))
             times.append(detector.frame_ms)
-            calls.append(detector.frame_calls)
         results[method] = {'state': hist[-1], 'history': hist, 'heads': trace[-1],
-                           'trace': trace, 'detector_ms': times, 'detector_call_groups': calls}
+                           'trace': trace, 'detector_ms': times}
     return results
 
 
@@ -213,15 +212,18 @@ def main():
     ap.add_argument('--clips', default='', help='comma-separated clip names; omitted means all labels')
     ap.add_argument('--allow-missing', action='store_true')
     ap.add_argument('--dense', action='store_true')
+    ap.add_argument('--dense-only', action='store_true', help='skip labelled rows; run dense spans only')
     ap.add_argument('--dense-methods', default='', help='subset of methods for the longer dense scan')
     ap.add_argument('--out', required=True)
     args = ap.parse_args()
+    if args.dense_only:
+        args.dense = True
     methods = args.methods.split(',')
     if not methods or any(m not in METHODS for m in methods) or len(methods) != len(set(methods)):
         ap.error('choose distinct methods from '+','.join(METHODS))
     # Explicit settings avoid inherited tile/CNN experiments contaminating a baseline.
     for name, value in {'STREETSENSE_SAM_FALLBACK': '0', 'STREETSENSE_LIGHT_TILES': '0',
-                        'STREETSENSE_LIGHT_TILES_EVERY': '0', 'STREETSENSE_LIGHT_ZOOM': '0.5,0.3',
+                        'STREETSENSE_LIGHT_TILES_EVERY': '0', 'STREETSENSE_LIGHT_FOCUS': '0', 'STREETSENSE_LIGHT_ZOOM': '0.5,0.3',
                         'STREETSENSE_SIGNAL_CNN_VERSION': 'v1', 'STREETSENSE_SIGNAL_CNN': '1',
                         'STREETSENSE_SIGNAL_RESET_ON_VETO': '0'}.items():
         os.environ[name] = value
@@ -236,6 +238,7 @@ def main():
     if detector.backend != 'openvino':
         raise RuntimeError('this experiment requires OpenVINO; refusing a silent backend change')
     rows, missing, dense = [], [], {}
+    complete = False
     target = Path(args.out)
     target.parent.mkdir(parents=True, exist_ok=True)
 
@@ -246,16 +249,16 @@ def main():
             ms = [x for r in rows[1:] for x in r['methods'][m]['detector_ms']]
             timing[m] = {'frames': len(ms), 'median_ms': statistics.median(ms) if ms else None,
                          'p95_ms': float(np.percentile(ms, 95)) if ms else None}
-        target.write_text(json.dumps({'configuration': configuration, 'methods': methods,
+        target.write_text(json.dumps({'complete': complete, 'configuration': configuration, 'methods': methods,
             'rows': rows, 'summary': aggregate(rows, methods), 'timing': timing,
             'missing': missing, 'dense_methods': dense_methods, 'dense': dense}, indent=2)+'\n')
 
-    for r in ev.load_rows():
+    for r in ([] if args.dense_only else ev.load_rows()):
         if selected and r['clip'] not in selected:
             continue
         try:
             frames = frames_for(r)
-        except (FileNotFoundError, RuntimeError, __import__('subprocess').CalledProcessError):
+        except (FileNotFoundError, RuntimeError, subprocess.CalledProcessError):
             if not args.allow_missing:
                 raise
             missing.append(r['id'])
@@ -300,6 +303,7 @@ def main():
                 detector.index = i
                 for m in dense_methods:
                     detector.method = m
+                    os.environ['STREETSENSE_LIGHT_FOCUS'] = '1' if m == 'focused' else '0'
                     out = pipes[m].process(img, annotate=False, t=t)
                     st = local_signal_state(out, img.shape)
                     counts[m]['frames'] += 1
@@ -313,6 +317,8 @@ def main():
             dense[f'{clip}@{a}-{b}'] = counts
             print('dense', clip, {m: dense[f'{clip}@{a}-{b}'][m]['walk'] for m in dense_methods}, flush=True)
             save()
+    complete = True
+    save()
     print(json.dumps(aggregate(rows, methods), indent=2), flush=True)
 
 
