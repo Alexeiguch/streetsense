@@ -23,7 +23,7 @@ from streetsense.types import Box, Detection
 
 def replay(records, *, reset_on_veto=False):
     smoother = LightStateSmoother(reset_walk_on_veto=reset_on_veto)
-    focus_smoother = LightStateSmoother(reset_walk_on_veto=True)
+    focus_smoother = LightStateSmoother(reset_walk_on_veto=True, iou_match=.5)
     previous = None
     for rec in records:
         height, width = rec["shape"]

@@ -159,3 +159,15 @@ def test_focus_can_confirm_a_steady_walk_on_sparse_frames(focus_pipeline, gap):
     _, _, step = focus_pipeline
     states = [step(t).detections[1].attrs['light_state'] for t in (0, gap, 2*gap)]
     assert states == ['unknown', 'unknown', 'walk']
+
+
+def test_two_refinements_cannot_share_votes_within_one_frame(focus_pipeline):
+    _, pipe, step = focus_pipeline
+    def refinements(*args):
+        return [Detection('traffic light', Box(x, 90, x+30, 160), .9, None, {
+            'source': 'focus', 'focus_parent_box': [120, 20, 200, 180]}) for x in (140, 152)]
+    # IoU .429: both survive NMS (.5), but would share a smoother key at .4.
+    pipe.detector.focused_lights = refinements
+    assert all(d.attrs['light_state'] != 'walk' for d in step(0).detections)
+    assert all(d.attrs['light_state'] != 'walk' for d in step(.25).detections)
+    assert all(d.attrs['light_state'] == 'walk' for d in step(.5).detections[1:])

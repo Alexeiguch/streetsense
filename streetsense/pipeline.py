@@ -86,7 +86,8 @@ class Pipeline:
         self.approach = ApproachTracker()
         self.smoother = LightStateSmoother(clock=self.clock)
         # Refinements never share votes with parent boxes; parent/CNN vetoes discard their WALK votes.
-        self.focus_smoother = LightStateSmoother(clock=self.clock, reset_walk_on_veto=True)
+        # Match NMS: two surviving refinements cannot share a key in the same frame.
+        self.focus_smoother = LightStateSmoother(clock=self.clock, reset_walk_on_veto=True, iou_match=.5)
         self.signal_dist_cfg = signal_distance.SignalDistanceConfig.from_env()
         self.cw_hyst = CrosswalkHysteresis()
         self._kinds: dict[int, str] = {}
