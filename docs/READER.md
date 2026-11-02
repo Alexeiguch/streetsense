@@ -387,3 +387,93 @@ each model on `signal_ds_v3` test crops (tight box), measured together on 31 Oct
 reader count, while keeping most of v4's recall gain (PTLD crops 134/240 vs v1 31/240). It is still not equal to v1: one CNN-alone
 false walk on our test split where v1 has none (the reader count matches v1's 1, but on a different crop), and the train split shows
 reader false walks 19 (v1 12, v4 15) on crops the model saw. It stays opt-in, licence unconfirmed, not for shipping; v1 stays default.
+
+## Opt-in yellow promote (2 Nov 2026): STREETSENSE_READER_YELLOW_PROMOTE=1 (default off)
+
+**What it does.** `apply_signal_cnn` may promote a non-vehicle head that the HSV rules read as **yellow** to a figure walk,
+at the model's own `t_walk` (no threshold change). Red, countdown (state or flag) and vehicle-shaped heads are never
+promoted; the veto, `figure_walk_guard`, the 3-of-5 smoother, `cnn_hold_veto`, rules.py and the Muse gate are unchanged.
+Default stays off and `DEFAULT_VERSION` stays v1.
+
+**Why.** On PTLD valid, the walk heads stuck on HSV "yellow" are US-style heads with **yellow-painted housings**: the housing
+wins the hue vote over the lit green/white walk figure. Tuning used PTLD valid and own val crops only.
+
+**PTLD valid crops (`eval_ptld.py --split valid`, figure guard on):**
+
+| Reader | Flag off: walk / false walk | Flag on: walk / false walk |
+|---|---|---|
+| v1 | 0/201 / 0/287 | 0/201 / 0/287 |
+| v5_ptld_hn | 59/201 / 0/287 | 76/201 / 0/287 |
+
+Own labelled crop sets (`eval_signal_cnn_falsewalk.py`, every split, v1 and v5): flag on adds **zero** reader false walks in
+any split; walk recall +3 (v1) / +4 (v5) on train crops only, unchanged on val and test.
+
+**PTLD test: 0 gain.** The 4 test heads the flag could promote sit next to a lit countdown digit display, so
+`figure_walk_guard` correctly downgrades them to green. The other yellow-stuck test heads do not reach `t_walk`.
+
+**Why v1 misses PTLD walks (mostly by design).** Most PTLD "go" heads show the walk figure **plus countdown digits**. Our
+classifier labels "walk + digits" as countdown, and the reader treats countdown as not walk. Many remaining misses are
+washed-out heads where "unclear means wait" is the right answer. Treating walk + digits as walk would be a safety policy
+change and was not made.
+
+**Tried and not shipped (validation only):**
+* Size-aware threshold for 40-80 px heads (t=0.9 in that band): on val, v1 own +4/36, v5 PTLD +13/120 with 0 false walks,
+  but only 178 eligible non-walk val crops and v5's top non-walk p_walk was 0.868, a 0.03 margin. Not clearly safe.
+* Upscaling (the CNN letterbox already resizes to 64 px), 10% context padding, sharpening, flip averaging: no gain or added
+  false walks on val.
+* Multi-frame agreement for lower thresholds: not measurable on PTLD stills (every "frame" is identical); not tried.
+
+### Full matrix (new venv: ultralytics 8.4.197, openvino 2026.4.1; flag off = before, flag on = after)
+
+### PTLD test, 478 full images (217 walk, 261 non-walk)
+
+| Detector + reader | Tiles | Flag | Walk heads found | Walk read | **False walks** | Crop walk read (of 240) | Crop false walks (of 284) | Median / p90 ms |
+|---|---|---|---|---|---|---|---|---|
+| default + v1 | off | off | 75 | 28 | **0/261** | 31 | 0/284 | 35.8 / 74.0 |
+| default + v1 | off | on | 75 | 27 | **0/261** | 31 | 0/284 | 36.4 / 74.2 |
+| default + v5 | off | off | 75 | 38 | **0/261** | 134 | 0/284 | 33.8 / 68.9 |
+| default + v5 | off | on | 75 | 38 | **0/261** | 134 | 0/284 | 34.3 / 65.4 |
+| default + v1 | 2x3 | off | 76 | 30 | **0/261** | 31 | 0/284 | 115.7 / 149.9 |
+| default + v1 | 2x3 | on | 75 | 29 | **0/261** | 31 | 0/284 | 115.3 / 147.3 |
+| default + v5 | 2x3 | off | 73 | 39 | **0/261** | 134 | 0/284 | 111.4 / 151.1 |
+| default + v5 | 2x3 | on | 74 | 38 | **0/261** | 134 | 0/284 | 113.5 / 148.5 |
+| pedsig + v1 | off | off | 215 | 33 | **0/261** | 31 | 0/284 | 25.7 / 37.2 |
+| pedsig + v1 | off | on | 215 | 34 | **0/261** | 31 | 0/284 | 27.0 / 40.0 |
+| pedsig + v5 | off | off | 215 | 115 | **0/261** | 134 | 0/284 | 27.4 / 38.6 |
+| pedsig + v5 | off | on | 215 | 115 | **0/261** | 134 | 0/284 | 28.7 / 40.4 |
+| pedsig + v1 | 2x3 | off | 216 | 33 | **0/261** | 31 | 0/284 | 139.8 / 187.8 |
+| pedsig + v1 | 2x3 | on | 216 | 31 | **0/261** | 31 | 0/284 | 113.0 / 158.5 |
+| pedsig + v5 | 2x3 | off | 216 | 107 | **0/261** | 134 | 0/284 | 116.5 / 156.5 |
+| pedsig + v5 | 2x3 | on | 216 | 106 | **0/261** | 134 | 0/284 | 111.2 / 147.5 |
+
+### Own clips (36 walk, 72 non-walk labelled frames; dev 22 / held-out 14 walks)
+
+| Detector + reader | Tiles | Flag | Walks read | **False walks** | Go (cached Muse) | **False go** | Dev walks | Held-out walks | Dense dc non-walk walk decisions |
+|---|---|---|---|---|---|---|---|---|---|
+| default + v1 | off | off | 17/36 | **1/72** (dc_48.72) | 15/27 | **0** | 16/22 | 1/14 | 0 |
+| default + v1 | off | on | 17/36 | **1/72** (dc_48.72) | 15/27 | **0** | 16/22 | 1/14 | 0 |
+| default + v5 | off | off | 20/36 | **1/72** (dc_48.72) | 17/27 | **0** | 17/22 | 3/14 | 0 |
+| default + v5 | off | on | 21/36 | **1/72** (dc_48.72) | 18/27 | **0** | 18/22 | 3/14 | 0 |
+| default + v1 | 2x3 | off | 18/36 | **1/72** (dc_48.72) | 13/27 | **0** | 13/22 | 5/14 | 0 |
+| default + v1 | 2x3 | on | 20/36 | **1/72** (dc_48.72) | 14/27 | **0** | 15/22 | 5/14 | 0 |
+| default + v5 | 2x3 | off | 22/36 | **1/72** (dc_48.72) | 16/27 | **0** | 17/22 | 5/14 | 0 |
+| default + v5 | 2x3 | on | 22/36 | **1/72** (dc_48.72) | 16/27 | **0** | 17/22 | 5/14 | 0 |
+| pedsig + v1 | off | off | 17/36 | **1/72** (dc_48.72) | 16/27 | **0** | 16/22 | 1/14 | 0 |
+| pedsig + v1 | off | on | 17/36 | **0/72** | 16/27 | **0** | 16/22 | 1/14 | 0 |
+| pedsig + v5 | off | off | 19/36 | **1/72** (dc_48.72) | 16/27 | **0** | 17/22 | 2/14 | 0 |
+| pedsig + v5 | off | on | 19/36 | **1/72** (dc_48.72) | 16/27 | **0** | 17/22 | 2/14 | 0 |
+| pedsig + v1 | 2x3 | off | 17/36 | **0/72** | 11/27 | **0** | 10/22 | 7/14 | 0 |
+| pedsig + v1 | 2x3 | on | 17/36 | **0/72** | 11/27 | **0** | 10/22 | 7/14 | 0 |
+| pedsig + v5 | 2x3 | off | 18/36 | **0/72** | 12/27 | **0** | 10/22 | 8/14 | 0 |
+| pedsig + v5 | 2x3 | on | 18/36 | **0/72** | 11/27 | **0** | 11/22 | 7/14 | 0 |
+
+**Summary.** False walks were 0/261 in every PTLD test row. On own clips the only false walk is dc_48.72, present with the
+flag off as well. Full-pipeline false go is 0 in all 16 own runs. Dense dc non-walk stretch: 0 walk decisions everywhere.
+
+**Caveats.**
+* Run-to-run noise is about 1 frame: the flag can only add walks, yet some flag-on rows are 1 lower (for example PTLD
+  default + v1 28 vs 27) and dc_48.72 appears in one run and not the next. Own-clip gains of 1-2 frames are within noise.
+* Rows differ slightly from the earlier baseline (old venv, ultralytics 8.4.191), for example default + v1 2x3 own 18/36
+  vs 21/36 before; pedsig + v1 tiles off showed dc_48.72 in one run.
+* Latency is from a shared box. The last pedsig 2x3 PTLD runs took 35-40 min each vs about 9 min for default 2x3, so treat their ms as noisy.
+* The flag only helps the opt-in, PTLD-trained v5 reader (licence unconfirmed). No Meta API calls were made.
