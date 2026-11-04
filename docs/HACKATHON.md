@@ -1,6 +1,6 @@
 # Meta Global AI Developer Hackathon: key facts
 
-Sources: https://cerebralvalley.ai/e/meta-ai-developer-hackathon/details (event page plus the Official Rules / waiver text embedded in it), Cerebral Valley emails to Alex (26 Oct 2026), Meta Model API docs at https://dev.meta.ai/docs. Checked 26 Oct 2026.
+Sources: https://cerebralvalley.ai/e/meta-ai-developer-hackathon/details and the official waiver, organizer emails through 4 Nov 2026, the signed-in submission form, and Meta Model API docs at https://dev.meta.ai/docs. Submission requirements rechecked 4 Nov 2026. See [the submission checklist](SUBMISSION_2026_11_04.md).
 
 ## Dates
 - Hackathon: Mon 26 Oct 12:00 PM ET to Wed 4 Nov 9:00 PM ET (remote).
@@ -50,7 +50,9 @@ The event now centres on the **Muse** model family through **Meta Model API**, n
 ## Submission
 - Through the portal at https://cerebralvalley.ai/e/meta-ai-developer-hackathon/hackathon/submit (needs login; we couldn't see the form fields).
 - Indie track: one Representative submits and names all teammates.
-- A demo video is expected (it's part of the Demo score). **Length, repo requirement, and required written fields aren't visible publicly.** Check the submit form or Discord.
+- **3-Minute Demo Video** link and **Public GitHub Repository** are explicit fields in the signed-in form. The 3 Nov organizer email also says the GitHub must be open source, mandatory for all projects.
+- Team name/members, track, problem statement, project description (3,000 characters), use of Meta products (3,000), why Meta's models matter (3,000), and partner feedback (150) appear in the form, followed by survey questions and a permission checkbox. See the checklist for the exact prompts.
+- Optional Most Viral entry: publish a demo on X and provide its post link in the form. The 4 Nov organizer email announces a $20,000 prize for engagement through 8 Nov 11:59 PM ET (9 Nov 04:59 London).
 
 ## Pre-existing code / IP
 - The submission must be the entrant's original work. Third-party technical help is allowed if you own the result. Open-source software is allowed if its licences are followed and the submission "enhances or builds upon" it.
@@ -60,5 +62,5 @@ The event now centres on the **Muse** model family through **Meta Model API**, n
 
 ## What we could not see
 - The problem statements list. Judging mentions "fits one of the problem statements", but the public page only shows the two themes. It may sit behind login, on Discord, or in the kickoff stream.
-- The submit form fields, video length limit, and whether a public repo is needed.
+- The exact external video-host restrictions, if any. The form presents a link field but no visible hosting or file-size specification. Use a judge-accessible link and verify playback.
 - Discord content and the kickoff recording.

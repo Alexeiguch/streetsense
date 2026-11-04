@@ -20,3 +20,5 @@ models/depth_anything_v2_small_openvino/
 models/rfdetr_nano_openvino/
 output/
 *.egg-info/
+.venv-3d/
+.cache/reconstruction/

@@ -11,6 +11,12 @@ Built for the Meta Global AI Developer Hackathon (Oct 26 – Nov 4, 2026). Theme
 
 [UK/European signal mode](docs/SIGNAL_PROFILES.md): `serve --signal-country GB` enables green-figure priors and bounded head refinement, with measured recall and CPU costs.
 
+[Offline 3D experiment](docs/RECONSTRUCTION_EXPERIMENT.md): separate MapAnything module, a real street point-cloud demo, depth comparison and measured rejection cases.
+
+[Submission checklist](docs/SUBMISSION_2026_11_04.md) · [Draft submission answers](docs/SUBMISSION_ANSWERS.md)
+
+StreetSense's original source code is licensed under [AGPL-3.0](LICENSE). Third-party code, model weights, fonts, datasets and footage retain their own licenses and notices.
+
 ## Architecture
 
 Two loops. The fast local loop handles safety-critical alerts at camera rate on a CPU. The slow loop calls Meta models for reasoning the local models can't do.
