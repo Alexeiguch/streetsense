@@ -46,6 +46,8 @@ def cmd_run(a: argparse.Namespace) -> int:
         cap.set(cv2.CAP_PROP_POS_MSEC, a.start * 1000)
 
     cfg = Config()
+    if getattr(a, "signal_country", None):
+        cfg.reader.country = a.signal_country
     cfg.detector.imgsz = a.imgsz
     cfg.detector.weights = a.weights
     cfg.detector.backend = a.backend
@@ -131,6 +133,11 @@ def cmd_run(a: argparse.Namespace) -> int:
         "mean_stage_ms": {k: round(v / max(1, n), 1) for k, v in pipe.timing_totals.items()},
         "input_resolution": list(last_shape[1::-1]) if last_shape else None,
         "yolo_imgsz": cfg.detector.imgsz,
+        "signal_reader": {"country": cfg.reader.country, "profile": pipe.signal_profile,
+                          "refine_heads": cfg.reader.refine_heads,
+                          "refine_interval_s": cfg.reader.refine_interval_s,
+                          "refine_min_width_fraction": cfg.reader.refine_min_width_fraction,
+                          "refinement_error": pipe.signal_refiner.error},
         "surface_every_n_frames": cfg.surface.every_n_frames if pipe.surface_seg else None,
         "sam_fallback": pipe.sam_fallback_summary(),
     }
@@ -201,6 +208,8 @@ def _local_config(a: argparse.Namespace):
     from .config import Config
 
     cfg = Config()
+    if getattr(a, "signal_country", None):
+        cfg.reader.country = a.signal_country
     cfg.detector.weights = getattr(a, "weights", cfg.detector.weights)
     cfg.detector.backend = getattr(a, "backend", "openvino")
     cfg.surface.backend = getattr(a, "backend", "openvino")
@@ -341,7 +350,8 @@ def cmd_serve(a: argparse.Namespace) -> int:
     from .web import create_app
 
     app = create_app(no_surface=a.no_surface, backend=a.backend,
-                    surface_backend=getattr(a, "surface_backend", None))
+                    surface_backend=getattr(a, "surface_backend", None),
+                    signal_country=getattr(a, "signal_country", None))
     app.run(host=a.host, port=a.port, threaded=True)
     return 0
 
@@ -438,6 +448,9 @@ def main(argv: list[str] | None = None) -> int:
     gs.add_argument("--no-surface", action="store_true")
     gs.add_argument("--stats", help="write stats JSON here")
     gs.set_defaults(fn=cmd_glasses_sim)
+    for local_parser in (r, s, g, gs):
+        local_parser.add_argument("--signal-country", default=None, type=str.upper,
+                                  help="signal style prior: ISO code (GB/DE/US), EU, or auto")
     from .maps.demo import add_parser as add_walk_sim
 
     add_walk_sim(sub)

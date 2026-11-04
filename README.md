@@ -9,6 +9,8 @@ Built for the Meta Global AI Developer Hackathon (Oct 26 – Nov 4, 2026). Theme
 
 [4 November perception review](docs/REVIEW_2026_11_04.md): temporal-state fixes, local performance measurements, live Meta checks, and a 3D reconstruction assessment.
 
+[UK/European signal mode](docs/SIGNAL_PROFILES.md): `serve --signal-country GB` enables green-figure priors and bounded head refinement, with measured recall and CPU costs.
+
 ## Architecture
 
 Two loops. The fast local loop handles safety-critical alerts at camera rate on a CPU. The slow loop calls Meta models for reasoning the local models can't do.

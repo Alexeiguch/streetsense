@@ -42,6 +42,15 @@ class DetectorConfig:
 
 
 @dataclass
+class ReaderConfig:
+    # A symbol-style prior only: never relaxes confidence or authorises WALK.
+    country: str = field(default_factory=lambda: os.environ.get("STREETSENSE_SIGNAL_COUNTRY", "auto").strip().upper())
+    refine_heads: bool = True  # figure profiles: one local tile, at most four passes per second
+    refine_interval_s: float = 0.25  # cached boxes are re-read from current pixels, never cached states
+    refine_min_width_fraction: float = 0.33  # close-up housings; avoid extra inference on ordinary distant heads
+
+
+@dataclass
 class SurfaceConfig:
     enabled: bool = True
     model_id: str = "nvidia/segformer-b0-finetuned-cityscapes-512-1024"
@@ -206,6 +215,7 @@ class MapsConfig:
 @dataclass
 class Config:
     detector: DetectorConfig = field(default_factory=DetectorConfig)
+    reader: ReaderConfig = field(default_factory=ReaderConfig)
     surface: SurfaceConfig = field(default_factory=SurfaceConfig)
     open_vocab: OpenVocabConfig = field(default_factory=OpenVocabConfig)
     depth: DepthConfig = field(default_factory=DepthConfig)

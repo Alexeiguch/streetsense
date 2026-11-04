@@ -5,14 +5,14 @@ from __future__ import annotations
 import os
 import time
 from collections import defaultdict
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 
 import numpy as np
 
 from .alerts import AlertManager
 from .config import Config
 from .crosswalk import CrosswalkHysteresis, CrosswalkResult, detect_crosswalk
-from .detector import ApproachTracker, YoloDetector, light_tiles, light_zoom_scales, nms_lights
+from .detector import ApproachTracker, SignalHeadRefiner, YoloDetector, _iou, light_tiles, light_zoom_scales, nms_lights
 from .geometry import estimate_distance_m
 from .meta_api import MetaSamSegmenter, MetaVisionAssistant, sam_boxes_to_crosswalk, validate_crossing_reply
 from .open_vocab import OpenVocabHazardDetector
@@ -23,8 +23,11 @@ from .frame_history import FrameHistory
 from . import signal_cnn, signal_distance
 from .rules import FrameFacts, build_alerts, select_crossing_signal
 from .surface import SIDEWALK, ROAD, SurfaceResult
-from .traffic_light import LightStateSmoother, apply_signal_cnn, cnn_hold_veto, cnn_rejects_walk, classify_light, figure_walk_guard, signal_kind
-from .types import Alert, Detection, Priority
+from .traffic_light import (
+    LightStateSmoother, apply_signal_cnn, apply_signal_profile, cnn_hold_veto,
+    cnn_rejects_walk, classify_light, figure_walk_guard, signal_kind, signal_profile,
+)
+from .types import Alert, Box, Detection, Priority
 
 
 # Opt-in detector variants, selected with STREETSENSE_DETECTOR_VARIANT. The default (unset,
@@ -110,6 +113,9 @@ class Pipeline:
         self.alerts = AlertManager(self.cfg.alerts, clock=clock)
         self.approach = ApproachTracker()
         self.smoother = LightStateSmoother(clock=self.clock)
+        self.signal_profile = signal_profile(self.cfg.reader.country)
+        self.signal_refiner = SignalHeadRefiner(self.cfg.reader.refine_interval_s,
+                                               self.cfg.reader.refine_min_width_fraction)
         self.signal_dist_cfg = signal_distance.SignalDistanceConfig.from_env()
         self.cw_hyst = CrosswalkHysteresis()
         self._kinds: dict[int, str] = {}
@@ -229,6 +235,7 @@ class Pipeline:
             reset()
         self.approach.reset()
         self.smoother.reset()
+        self.signal_refiner.reset()
         self.cw_hyst = CrosswalkHysteresis()
         self._kinds.clear()
         self._last_surface = self._last_cw = self._last_depth = None
@@ -293,6 +300,13 @@ class Pipeline:
             dets = self._inject_sam_lights(frame, t, dets, W, H)
             tm["sam_fallback"] = (time.perf_counter() - t0) * 1000
 
+        if (self.signal_profile == "green_figure" and self.cfg.reader.refine_heads
+                and not grid[0] and hasattr(self.detector, "focused_lights")):
+            t0 = time.perf_counter()
+            lights = [d for d in dets if d.label == "traffic light"]
+            dets = list(dets) + self.signal_refiner.update(frame, t, lights, self.detector)
+            tm["signal_refine"] = (time.perf_counter() - t0) * 1000
+
         t0 = time.perf_counter()
         for d in dets:
             if d.label == "traffic light":
@@ -312,6 +326,19 @@ class Pipeline:
                     d.attrs["signal_cnn_t_veto"] = cnn.t_veto
                     r = apply_signal_cnn(r, pred.probs, kind, cnn.t_walk, cnn.t_veto)
                 r = figure_walk_guard(r, frame, b)
+                r = apply_signal_profile(r, crop, self.signal_profile)
+                d.attrs["signal_profile"] = self.signal_profile
+                parent_coords = d.attrs.get("refine_parent")
+                if parent_coords:
+                    parent_box = Box(*parent_coords)
+                    veto = next((p.attrs.get("light_raw") for p in dets if p is not d
+                                 and p.label == "traffic light" and not p.attrs.get("refine_parent")
+                                 and _iou(p.box, parent_box) >= .8
+                                 and p.attrs.get("light_raw") in {"red", "yellow", "countdown"}), None)
+                    if veto is not None:
+                        self.smoother.discard_walk(d.track_id, b)
+                        r = replace(r, state="unknown", countdown=False, figure=False)
+                        d.attrs["light_parent_veto"] = veto
                 if r.state == "walk" or getattr(r, "figure", False):
                     kind = "pedestrian"
                 kind = self._track_kind(d.track_id, kind)

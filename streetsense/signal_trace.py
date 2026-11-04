@@ -18,6 +18,9 @@ def summarise_signals(out, width: int, height: int) -> dict:
             "confidence": float(d.conf),
             "selected": bool(sel is not None and sel.detection is d),
             "kind": a.get("signal_kind"),
+            "profile": a.get("signal_profile", "auto"),
+            "refine_age_s": a.get("refine_age_s"),
+            "parent_veto": a.get("light_parent_veto"),
             "distance": {k: v for k, v in a.items() if k.startswith("signal_distance_")
                          or k in ("signal_bearing_deg", "signal_band", "signal_depth_rel")},
             "heuristic": a.get("light_heuristic"),

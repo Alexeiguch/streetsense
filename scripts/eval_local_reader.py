@@ -43,6 +43,7 @@ from streetsense.pipeline import Pipeline  # noqa: E402
 from streetsense.detector import light_tiles, light_zoom_scales  # noqa: E402
 from streetsense import signal_cnn  # noqa: E402
 from streetsense.signal_trace import summarise_signals  # noqa: E402
+from streetsense.traffic_light import signal_profile  # noqa: E402
 
 HELDOUT_DIR = ROOT / "samples" / "heldout"
 FRAME_DIR = ROOT / "outputs" / "muse_eval_frames"
@@ -127,6 +128,10 @@ def eval_configuration(*, no_tiles: bool = False) -> dict:
         "zoom_scales": list(light_zoom_scales(cfg.detector)),
         "detector": {"weights": cfg.detector.weights, "requested_backend": cfg.detector.backend},
         "signal_cnn": {"enabled": signal_cnn.enabled(), "model": model_dir.name},
+        "reader": {"country": cfg.reader.country, "profile": signal_profile(cfg.reader.country),
+                   "refine_heads": cfg.reader.refine_heads,
+                   "refine_interval_s": cfg.reader.refine_interval_s,
+                   "refine_min_width_fraction": cfg.reader.refine_min_width_fraction},
         "reset_on_veto": os.environ.get("STREETSENSE_SIGNAL_RESET_ON_VETO", "0"),
         "remote_models": False,
     }
