@@ -82,9 +82,10 @@ def crossing_answer(
     )
     spoken = render_crossing_speech(validated, local_state=local, now=clock())
     fused = fuse_crossing_decision(local, validated.get("data") if validated.get("ok") else None)
-    if not validated.get("ok"):
+    if not validated.get("ok") or spoken == SAFE_CROSSING_FALLBACK:
         spoken = SAFE_CROSSING_FALLBACK
-        fused = {**fused, "decision": "unsure" if fused["decision"] == "go" else fused["decision"]}
+        if fused["decision"] == "go":
+            fused = {**fused, "decision": "unsure", "reason": "invalid or stale crossing evidence"}
     return {
         "muse_raw": muse_raw if isinstance(muse_raw, dict) else {},
         "local_light": local,

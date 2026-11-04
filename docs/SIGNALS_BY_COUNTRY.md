@@ -96,9 +96,9 @@ Licences as stated on each dataset's own page, checked 29 to 30 Oct in `docs/DAT
 | All (global street) | Mapillary Vistas | CC BY-NC-SA, research licence |
 | FG (UK, Uruguay) | none found | record our own clips |
 
-### Proposed config shape (not wired into the reader)
+### Family reference data and runtime profiles
 
-`data/signal_families.json` maps ISO country codes to a family plus flags. The reader code is unchanged. Today nothing reads this file.
+`data/signal_families.json` maps ISO country codes to a family plus flags and remains a documentation reference. The [UK/European reader profile](SIGNAL_PROFILES.md) now uses an explicit country hint to select symbol-style checks and bounded local head refinement. It does not consume this file's phase policies. The style hint can only restrict an existing WALK; refinement supplies additional current-image detections to the unchanged reader and confirmation rules.
 
 ```json
 {

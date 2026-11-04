@@ -197,9 +197,11 @@ def camera_health(img: np.ndarray, last_frame_ts: float | None = None) -> dict |
 
 
 def create_app(no_surface: bool = False, backend: str | None = None, weights: str | None = None,
-               surface_backend: str | None = None) -> Flask:
+               surface_backend: str | None = None, signal_country: str | None = None) -> Flask:
     app = Flask(__name__)
     cfg = Config()
+    if signal_country is not None:
+        cfg.reader.country = signal_country
     if backend is not None:
         cfg.detector.backend = backend
         if surface_backend is None:

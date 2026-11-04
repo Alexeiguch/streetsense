@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import json
 import os
+import threading
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -79,11 +80,16 @@ class SignalCNN:
         model = core.read_model(str(model_dir / "signal_cnn.onnx"))
         self._compiled = core.compile_model(model, "CPU", {"INFERENCE_NUM_THREADS": 1})
         self._out = self._compiled.output(0)
+        self._infer_lock = threading.Lock()
 
     def __call__(self, crop: np.ndarray) -> SignalPrediction:
         t0 = time.perf_counter()
         x = preprocess(crop)[None]
-        logits = np.asarray(self._compiled([x])[self._out], np.float64)[0]
+        # CompiledModel.__call__ reuses an infer request. The shared classifier is
+        # reached by multiple browser-session pipelines, so serialize that request
+        # and copy its output before another session can overwrite the tensor.
+        with self._infer_lock:
+            logits = np.array(self._compiled([x])[self._out], dtype=np.float64, copy=True)[0]
         e = np.exp(logits - logits.max())
         p = e / e.sum()
         return SignalPrediction(tuple(float(v) for v in p), (time.perf_counter() - t0) * 1000)
@@ -91,6 +97,7 @@ class SignalCNN:
 
 _INSTANCE: SignalCNN | None = None
 _FAILED = False
+_INIT_LOCK = threading.Lock()
 
 
 def get() -> SignalCNN | None:
@@ -99,10 +106,14 @@ def get() -> SignalCNN | None:
     if not enabled() or _FAILED:
         return None
     if _INSTANCE is None:
-        try:
-            _INSTANCE = SignalCNN()
-        except Exception as e:  # missing model file or runtime: never fatal, never walk
-            print(f"[signal-cnn] disabled: {type(e).__name__}: {e}")
-            _FAILED = True
-            return None
+        with _INIT_LOCK:
+            if _FAILED:
+                return None
+            if _INSTANCE is None:
+                try:
+                    _INSTANCE = SignalCNN()
+                except Exception as e:  # missing model file or runtime: never fatal, never walk
+                    print(f"[signal-cnn] disabled: {type(e).__name__}: {e}")
+                    _FAILED = True
+                    return None
     return _INSTANCE

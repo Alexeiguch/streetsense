@@ -1,0 +1,442 @@
+{
+  "label": "before",
+  "host": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "python": "3.14.0",
+  "versions": {
+    "ultralytics": "8.4.202",
+    "torch": "2.14.1",
+    "openvino": "2026.4.1",
+    "numpy": "2.4.3",
+    "transformers": "5.18.0"
+  },
+  "resolution_width": 1280,
+  "annotate": false,
+  "model_sha256": "85a76fe86dd8afe384648546b56a7a78580c7cb7b404fc595f97969322d502d5",
+  "api_calls": 0,
+  "rows": [
+    {
+      "clip": "dc_red",
+      "repeat": 0,
+      "source_fps": 25.0,
+      "pipeline": {
+        "n": 60,
+        "mean_ms": 72.0037,
+        "p50_ms": 58.8133,
+        "p95_ms": 124.9125
+      },
+      "fps": 13.888,
+      "stages": {
+        "detect": {
+          "n": 60,
+          "mean_ms": 61.1855,
+          "p50_ms": 53.4887,
+          "p95_ms": 81.182
+        },
+        "lights": {
+          "n": 60,
+          "mean_ms": 2.9958,
+          "p50_ms": 2.7715,
+          "p95_ms": 3.7494
+        },
+        "open_vocab": {
+          "n": 60,
+          "mean_ms": 0.0001,
+          "p50_ms": 0.0001,
+          "p95_ms": 0.0002
+        },
+        "surface": {
+          "n": 60,
+          "mean_ms": 7.0646,
+          "p50_ms": 0.0008,
+          "p95_ms": 41.7423
+        },
+        "depth": {
+          "n": 60,
+          "mean_ms": 0.0002,
+          "p50_ms": 0.0002,
+          "p95_ms": 0.0003
+        },
+        "crosswalk": {
+          "n": 60,
+          "mean_ms": 0.6364,
+          "p50_ms": 0.5188,
+          "p95_ms": 1.4383
+        }
+      },
+      "detection_counts": {
+        "traffic light": 120,
+        "car": 3
+      },
+      "light_states": {
+        "red": 120
+      },
+      "alerts": [],
+      "continuity_proxy": {
+        "matched_pairs": 120,
+        "id_changes": 0
+      },
+      "backends": {
+        "detector": "openvino",
+        "surface": "openvino"
+      }
+    },
+    {
+      "clip": "dc_red",
+      "repeat": 1,
+      "source_fps": 25.0,
+      "pipeline": {
+        "n": 60,
+        "mean_ms": 56.3455,
+        "p50_ms": 49.707,
+        "p95_ms": 87.8205
+      },
+      "fps": 17.748,
+      "stages": {
+        "detect": {
+          "n": 60,
+          "mean_ms": 47.0092,
+          "p50_ms": 46.1062,
+          "p95_ms": 53.3744
+        },
+        "lights": {
+          "n": 60,
+          "mean_ms": 2.6501,
+          "p50_ms": 2.6241,
+          "p95_ms": 2.8406
+        },
+        "open_vocab": {
+          "n": 60,
+          "mean_ms": 0.0001,
+          "p50_ms": 0.0001,
+          "p95_ms": 0.0002
+        },
+        "surface": {
+          "n": 60,
+          "mean_ms": 6.0587,
+          "p50_ms": 0.0007,
+          "p95_ms": 36.4325
+        },
+        "depth": {
+          "n": 60,
+          "mean_ms": 0.0001,
+          "p50_ms": 0.0001,
+          "p95_ms": 0.0003
+        },
+        "crosswalk": {
+          "n": 60,
+          "mean_ms": 0.537,
+          "p50_ms": 0.5129,
+          "p95_ms": 1.1295
+        }
+      },
+      "detection_counts": {
+        "traffic light": 120,
+        "car": 3
+      },
+      "light_states": {
+        "red": 120
+      },
+      "alerts": [],
+      "continuity_proxy": {
+        "matched_pairs": 120,
+        "id_changes": 0
+      },
+      "backends": {
+        "detector": "openvino",
+        "surface": "openvino"
+      }
+    },
+    {
+      "clip": "dc_walk",
+      "repeat": 0,
+      "source_fps": 25.0,
+      "pipeline": {
+        "n": 60,
+        "mean_ms": 59.1457,
+        "p50_ms": 51.3343,
+        "p95_ms": 88.3562
+      },
+      "fps": 16.907,
+      "stages": {
+        "detect": {
+          "n": 60,
+          "mean_ms": 49.5453,
+          "p50_ms": 47.0385,
+          "p95_ms": 65.6093
+        },
+        "lights": {
+          "n": 60,
+          "mean_ms": 2.816,
+          "p50_ms": 2.7839,
+          "p95_ms": 2.9712
+        },
+        "open_vocab": {
+          "n": 60,
+          "mean_ms": 0.0001,
+          "p50_ms": 0.0001,
+          "p95_ms": 0.0002
+        },
+        "surface": {
+          "n": 60,
+          "mean_ms": 6.1516,
+          "p50_ms": 0.0007,
+          "p95_ms": 36.7626
+        },
+        "depth": {
+          "n": 60,
+          "mean_ms": 0.0001,
+          "p50_ms": 0.0002,
+          "p95_ms": 0.0002
+        },
+        "crosswalk": {
+          "n": 60,
+          "mean_ms": 0.5361,
+          "p50_ms": 0.5072,
+          "p95_ms": 1.1267
+        }
+      },
+      "detection_counts": {
+        "traffic light": 120,
+        "car": 60
+      },
+      "light_states": {
+        "green": 60,
+        "countdown": 36,
+        "walk": 24
+      },
+      "alerts": [
+        {
+          "t": 11.6,
+          "text": "crossing signals unclear, wait"
+        }
+      ],
+      "continuity_proxy": {
+        "matched_pairs": 177,
+        "id_changes": 0
+      },
+      "backends": {
+        "detector": "openvino",
+        "surface": "openvino"
+      }
+    },
+    {
+      "clip": "dc_walk",
+      "repeat": 1,
+      "source_fps": 25.0,
+      "pipeline": {
+        "n": 60,
+        "mean_ms": 62.0994,
+        "p50_ms": 52.2867,
+        "p95_ms": 97.1787
+      },
+      "fps": 16.103,
+      "stages": {
+        "detect": {
+          "n": 60,
+          "mean_ms": 52.0011,
+          "p50_ms": 47.7671,
+          "p95_ms": 65.8229
+        },
+        "lights": {
+          "n": 60,
+          "mean_ms": 2.9207,
+          "p50_ms": 2.796,
+          "p95_ms": 3.4773
+        },
+        "open_vocab": {
+          "n": 60,
+          "mean_ms": 0.0001,
+          "p50_ms": 0.0001,
+          "p95_ms": 0.0002
+        },
+        "surface": {
+          "n": 60,
+          "mean_ms": 6.5223,
+          "p50_ms": 0.0007,
+          "p95_ms": 37.8963
+        },
+        "depth": {
+          "n": 60,
+          "mean_ms": 0.0001,
+          "p50_ms": 0.0002,
+          "p95_ms": 0.0002
+        },
+        "crosswalk": {
+          "n": 60,
+          "mean_ms": 0.5501,
+          "p50_ms": 0.5129,
+          "p95_ms": 1.1652
+        }
+      },
+      "detection_counts": {
+        "traffic light": 120,
+        "car": 60
+      },
+      "light_states": {
+        "green": 60,
+        "countdown": 36,
+        "walk": 24
+      },
+      "alerts": [
+        {
+          "t": 11.6,
+          "text": "crossing signals unclear, wait"
+        }
+      ],
+      "continuity_proxy": {
+        "matched_pairs": 177,
+        "id_changes": 0
+      },
+      "backends": {
+        "detector": "openvino",
+        "surface": "openvino"
+      }
+    },
+    {
+      "clip": "tyumen",
+      "repeat": 0,
+      "source_fps": 30.0,
+      "pipeline": {
+        "n": 60,
+        "mean_ms": 61.2517,
+        "p50_ms": 53.9279,
+        "p95_ms": 93.4965
+      },
+      "fps": 16.326,
+      "stages": {
+        "detect": {
+          "n": 60,
+          "mean_ms": 49.207,
+          "p50_ms": 47.6077,
+          "p95_ms": 57.754
+        },
+        "lights": {
+          "n": 60,
+          "mean_ms": 4.6945,
+          "p50_ms": 4.6048,
+          "p95_ms": 5.4038
+        },
+        "open_vocab": {
+          "n": 60,
+          "mean_ms": 0.0001,
+          "p50_ms": 0.0001,
+          "p95_ms": 0.0002
+        },
+        "surface": {
+          "n": 60,
+          "mean_ms": 6.2611,
+          "p50_ms": 0.0007,
+          "p95_ms": 36.9018
+        },
+        "depth": {
+          "n": 60,
+          "mean_ms": 0.0001,
+          "p50_ms": 0.0001,
+          "p95_ms": 0.0002
+        },
+        "crosswalk": {
+          "n": 60,
+          "mean_ms": 0.7598,
+          "p50_ms": 0.7093,
+          "p95_ms": 1.5989
+        }
+      },
+      "detection_counts": {
+        "car": 381,
+        "traffic light": 201,
+        "person": 558
+      },
+      "light_states": {
+        "unknown": 143,
+        "green": 58
+      },
+      "alerts": [
+        {
+          "t": 9.5,
+          "text": "pole ahead"
+        }
+      ],
+      "continuity_proxy": {
+        "matched_pairs": 1059,
+        "id_changes": 4
+      },
+      "backends": {
+        "detector": "openvino",
+        "surface": "openvino"
+      }
+    },
+    {
+      "clip": "tyumen",
+      "repeat": 1,
+      "source_fps": 30.0,
+      "pipeline": {
+        "n": 60,
+        "mean_ms": 61.5088,
+        "p50_ms": 53.0634,
+        "p95_ms": 95.9209
+      },
+      "fps": 16.258,
+      "stages": {
+        "detect": {
+          "n": 60,
+          "mean_ms": 49.907,
+          "p50_ms": 47.1537,
+          "p95_ms": 61.5841
+        },
+        "lights": {
+          "n": 60,
+          "mean_ms": 4.7477,
+          "p50_ms": 4.3331,
+          "p95_ms": 5.5126
+        },
+        "open_vocab": {
+          "n": 60,
+          "mean_ms": 0.0001,
+          "p50_ms": 0.0001,
+          "p95_ms": 0.0002
+        },
+        "surface": {
+          "n": 60,
+          "mean_ms": 5.9455,
+          "p50_ms": 0.0007,
+          "p95_ms": 36.2779
+        },
+        "depth": {
+          "n": 60,
+          "mean_ms": 0.0001,
+          "p50_ms": 0.0002,
+          "p95_ms": 0.0002
+        },
+        "crosswalk": {
+          "n": 60,
+          "mean_ms": 0.76,
+          "p50_ms": 0.7118,
+          "p95_ms": 1.6328
+        }
+      },
+      "detection_counts": {
+        "car": 381,
+        "traffic light": 201,
+        "person": 558
+      },
+      "light_states": {
+        "unknown": 143,
+        "green": 58
+      },
+      "alerts": [
+        {
+          "t": 9.5,
+          "text": "pole ahead"
+        }
+      ],
+      "continuity_proxy": {
+        "matched_pairs": 1059,
+        "id_changes": 4
+      },
+      "backends": {
+        "detector": "openvino",
+        "surface": "openvino"
+      }
+    }
+  ]
+}

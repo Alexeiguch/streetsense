@@ -289,6 +289,17 @@ def test_history_never_overrides_local_red():
     assert ans["fuse"]["decision"] != "go" and ans["spoken"] != "Walk signal looks clear. Still listen and check."
 
 
+@pytest.mark.parametrize('capture_ts,now', [(0, 9), (10, 9)])
+def test_crossing_result_and_speech_both_reject_stale_or_future_evidence(capture_ts, now):
+    from streetsense.meta_api import SAFE_CROSSING_FALLBACK
+
+    ans = crossing_answer(_Pipe(0), _f(5), out=_out(capture_ts),
+                          capture_ts=capture_ts, clock=lambda: now)
+    assert ans['validated']  # schema is valid; capture time is not
+    assert ans['spoken'] == SAFE_CROSSING_FALLBACK
+    assert ans['fuse']['decision'] == 'unsure'
+
+
 def test_history_on_but_empty_falls_back_to_single_frame():
     p = _Pipe(2, FrameHistory())
     crossing_answer(p, _f(5), out=_out(10.0))

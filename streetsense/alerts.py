@@ -85,6 +85,11 @@ class AlertManager:
 
         drop = []
         for k, a in self._pending.items():
+            if a.data.get("source") == "muse":
+                age = self.clock() - a.data.get("capture_ts", float('-inf'))
+                if not 0 <= age <= a.data.get("max_age_s", 0):
+                    drop.append(k)
+                    continue
             family = a.data.get("family") or ""
             if not family.startswith("light:"):
                 continue

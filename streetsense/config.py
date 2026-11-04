@@ -29,6 +29,9 @@ class DetectorConfig:
     iou: float = 0.5
     device: str = "cpu"
     track: bool = True  # ByteTrack ids -> lets us tell "approaching" from "standing still"
+    # Optional ByteTrack association floor (try .10). Keep the established floor
+    # until low-score association is validated for pedestrian recall on labelled video.
+    track_conf: float | None = None
     # Zoom-out fallback for traffic lights: when no light scores >= light_zoom_conf, shrink the
     # frame onto a grey canvas at these scales and look again (close-up heads that fill the frame
     # are missed at full size). Env STREETSENSE_LIGHT_ZOOM="0" turns it off, "0.5,0.3" sets scales.
@@ -39,11 +42,21 @@ class DetectorConfig:
 
 
 @dataclass
+class ReaderConfig:
+    # A symbol-style prior only: never relaxes confidence or authorises WALK.
+    country: str = field(default_factory=lambda: os.environ.get("STREETSENSE_SIGNAL_COUNTRY", "auto").strip().upper())
+    refine_heads: bool = True  # figure profiles: one local tile, at most four passes per second
+    refine_interval_s: float = 0.25  # cached boxes are re-read from current pixels, never cached states
+    refine_min_width_fraction: float = 0.33  # close-up housings; avoid extra inference on ordinary distant heads
+
+
+@dataclass
 class SurfaceConfig:
     enabled: bool = True
     model_id: str = "nvidia/segformer-b0-finetuned-cityscapes-512-1024"
     backend: str = "openvino"  # "openvino" (default) or "torch"; falls back to torch if OV unavailable
     every_n_frames: int = 6  # segmentation is the slowest local stage; refresh it periodically
+    max_age_s: float = 0.5  # a slow camera must not reuse an old road/sidewalk map for seconds
     input_width: int = 512
 
 
@@ -121,6 +134,7 @@ class VisionLLMConfig:
     base_url: str = "https://api.meta.ai/v1"
     model: str = "muse-spark-1.3"
     interval_s: float = 10.0
+    report_max_age_s: float = 3.0  # measured from image capture, not API completion
     timeout_s: float = 30.0
     max_image_side: int = 512  # keep images small for cost/latency
     # Must cover reasoning + JSON (docs/META.md). At 512, 1-3 of 40 crossing replies were cut
@@ -201,6 +215,7 @@ class MapsConfig:
 @dataclass
 class Config:
     detector: DetectorConfig = field(default_factory=DetectorConfig)
+    reader: ReaderConfig = field(default_factory=ReaderConfig)
     surface: SurfaceConfig = field(default_factory=SurfaceConfig)
     open_vocab: OpenVocabConfig = field(default_factory=OpenVocabConfig)
     depth: DepthConfig = field(default_factory=DepthConfig)

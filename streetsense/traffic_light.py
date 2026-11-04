@@ -325,6 +325,44 @@ def beside_display(frame_bgr: np.ndarray, box: Box) -> bool:
     return False
 
 
+_FIGURE_COUNTRIES = frozenset("GB UK EU IE FR DE AT BE NL LU CH ES PT IT GR DK SE NO FI IS PL CZ SK HU SI HR EE LV LT RO BG CY MT".split())
+
+
+def signal_profile(country: str | None) -> str:
+    """Map an explicit country/region hint to symbol style; unknown stays automatic.
+
+    This is not a traffic-law or phase model: a country can have multiple layouts.
+    """
+    country = (country or "").strip().upper()
+    if country in _FIGURE_COUNTRIES:
+        return "green_figure"
+    if country in {"US", "CA"}:
+        return "white_person"
+    return "auto"
+
+
+def apply_signal_profile(reading: LightReading, crop_bgr: np.ndarray, profile: str) -> LightReading:
+    """A country hint can only reject a WALK, never create one or alter stop evidence."""
+    if reading.state != "walk" or profile == "auto":
+        return reading
+    if crop_bgr is None or not crop_bgr.size:
+        return replace(reading, state="unknown")
+    if profile == "green_figure":
+        # Accept a pale/night green halo too; a white core alone is insufficient.
+        h, w = crop_bgr.shape[:2]
+        scale = 128 / max(h, w)
+        small = cv2.resize(crop_bgr, (max(1, round(w * scale)), max(1, round(h * scale))))
+        hsv = cv2.cvtColor(small, cv2.COLOR_BGR2HSV)
+        green = _hue_mask(hsv, HUE_RANGES["green"]) & (hsv[..., 1] >= 30) & (hsv[..., 2] >= 80)
+        if int(green.sum()) < max(3, 0.005 * green.size):
+            return replace(reading, state="unknown")
+    elif profile == "white_person":
+        white = _classify_colour(crop_bgr, "unknown")
+        if white.state != "walk" or white.figure:
+            return replace(reading, state="unknown")
+    return reading
+
+
 def figure_walk_guard(reading: LightReading, frame_bgr: np.ndarray, box: Box) -> LightReading:
     """Downgrade an EU figure walk to green when a lit display sits beside the head."""
     if reading.state == "walk" and reading.figure and beside_display(frame_bgr, box):
@@ -386,6 +424,14 @@ class LightStateSmoother:
         self._last_walk_vote_ts: dict[int | str, float] = {}
         self._countdown_since_walk: set[int | str] = set()
 
+    def reset(self) -> None:
+        """Clear evidence in the old camera coordinate system, preserving reader policy."""
+        for mapping in (self._hist, self._last_positive_ts, self._last_positive_state,
+                        self._untracked_boxes, self._last_seen, self._last_walk_vote_ts):
+            mapping.clear()
+        self._countdown_since_walk.clear()
+        self._next_uid = 0
+
     def _expire(self, now: float) -> None:
         # A fixed gap limit is opt-in: applying one to slow streams prevents confirmation.
         for key, seen in list(self._last_seen.items()):
@@ -408,6 +454,12 @@ class LightStateSmoother:
         if clear_hold and self._last_positive_state.get(key) == "walk":
             self._last_positive_ts.pop(key, None)
             self._last_positive_state.pop(key, None)
+
+    def discard_walk(self, track_id: int | None, box: Box | None = None) -> None:
+        """A parent-head veto cancels a refined child's WALK evidence immediately."""
+        key = track_id if track_id is not None else self._key_for_untracked(box)
+        self._discard_walk(key)
+        self._countdown_since_walk.discard(key)
 
     def _key_for_untracked(self, box: Box | None) -> str:
         if box is None:
