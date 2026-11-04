@@ -10,10 +10,14 @@ OUT=ROOT/'renders';OUT.mkdir(exist_ok=True)
 MODEL=Path(os.environ.get('KOKORO_MODELS','/private/tmp/streetsense-neural-models'))
 k=Kokoro(str(MODEL/'kokoro-v1.0.onnx'),str(MODEL/'voices-v1.0.bin'))
 stats=[]
+cache_path=ROOT/'voice-takes.json'
+cache=json.loads(cache_path.read_text()) if cache_path.exists() else {}
+next_cache={}
 for i,(start,end,text,kind) in enumerate(COPY):
- voice='af_heart' if kind=='narrator' else 'am_michael'
+ voice=os.environ.get('NARRATOR_VOICE','am_fenrir') if kind=='narrator' else 'am_michael'
  path=OUT/f'voice-{i:02}.wav'
- if path.exists():
+ identity={'text':text,'voice':voice,'available_s':end-start}
+ if path.exists() and cache.get(str(i))==identity:
   with wave.open(str(path),'rb') as f:duration=f.getnframes()/f.getframerate()
  else:
   speed=1.0
@@ -29,5 +33,7 @@ for i,(start,end,text,kind) in enumerate(COPY):
    f.setnchannels(1);f.setsampwidth(2);f.setframerate(sr)
    f.writeframes((np.clip(a,-.999,.999)*32767).astype('<i2').tobytes())
  stats.append({'line':i,'start':start,'end':start+duration,'text':text,'kind':kind,'voice':voice,'duration':duration})
+ next_cache[str(i)]=identity
  print(i,round(duration,2),text,flush=True)
 (ROOT/'narration.json').write_text(json.dumps(stats,indent=2))
+cache_path.write_text(json.dumps(next_cache,indent=2)+'\n')

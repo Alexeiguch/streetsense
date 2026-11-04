@@ -4,8 +4,8 @@ from pathlib import Path
 from PIL import Image,ImageDraw
 from config import ROOT,FF
 R=ROOT/'renders'
-items=[('StreetSense-hackathon-3min.mp4',180,(1920,1080),5400),('StreetSense-social-50s.mp4',50,(1080,1920),1500)]
-checks=[]
+items=[('StreetSense-hackathon-3min-v3.mp4',180,(1920,1080),5400),('StreetSense-social-50s-v3.mp4',50,(1080,1920),1500)]
+checks=[];caption_checks=[]
 for name,duration,size,count in items:
  path=ROOT/name
  p=subprocess.run([FF,'-hide_banner','-i',str(path),'-map','0:v:0','-map','0:a:0','-f','null','-'],capture_output=True,text=True)
@@ -24,7 +24,17 @@ for name,duration,size,count in items:
    'full_decode':'pass','faststart':True,'bytes':path.stat().st_size,'sha256':hashlib.sha256(raw).hexdigest(),
    'measured_lufs':audio['input_i'],'measured_true_peak_dbtp':audio['input_tp']})
  print(json.dumps(checks[-1]),flush=True)
-times=[2.4,11,22,34,45,57,72,88,103,115,128,147.6,154,166,176]
+for name,duration in [('master',180),('social',50)]:
+ blocks=(ROOT/f'{name}-captions.srt').read_text().strip().split('\n\n');previous=0.
+ def seconds(stamp):
+  hh,mm,ss=re.split('[:,]',stamp)[:3];ms=stamp.rsplit(',',1)[1]
+  return int(hh)*3600+int(mm)*60+int(ss)+int(ms)/1000
+ for block in blocks:
+  a,b=map(seconds,block.splitlines()[1].split(' --> '))
+  assert previous<=a<b<=duration,(name,block)
+  previous=b
+ caption_checks.append({'file':f'{name}-captions.srt','phrases':len(blocks),'chronological_and_in_bounds':True})
+times=[2.4,8,22,34,45,57,72,88,103,115,128,147.6,154,166,176]
 frames=[]
 for t in times:
  path=R/f'encoded-{t:.1f}.jpg'
@@ -33,12 +43,13 @@ for t in times:
 sheet=Image.new('RGB',(1440,1350))
 for i,im in enumerate(frames):sheet.paste(im,((i%3)*480,(i//3)*270))
 sheet.save(ROOT/'review-contact-sheet.jpg',quality=94)
-subprocess.run([FF,'-y','-v','error','-ss','2.4','-i',str(ROOT/items[0][0]),'-frames:v','1','-q:v','2',str(ROOT/'thumbnail.jpg')],check=True)
+subprocess.run([FF,'-y','-v','error','-ss','8','-i',str(ROOT/items[0][0]),'-frames:v','1','-q:v','2',str(ROOT/'thumbnail.jpg')],check=True)
 allowed={x['spoken'] for x in json.loads((ROOT/'assets/recorded-meta.json').read_text()).values()}
+allowed.update(r['spoken'] for p in (ROOT/'captures').glob('*.json') for r in json.loads(p.read_text())['rows'] if r.get('spoken'))
 for n in json.loads((ROOT/'narration.json').read_text()):
  assert n['end']<=180
  if n['kind']=='cue':assert n['text'] in allowed
-result={'exports':checks,'cue_text_matches_recorded_renderer':True,'encoded_frames_extracted':len(times),
+result={'exports':checks,'captions':caption_checks,'cue_text_matches_recorded_renderer':True,'encoded_frames_extracted':len(times),
  'caption_timing':'Phrase timing estimated from generated take durations; not word alignment.',
  'subjective_listening_review':'Unavailable in this host; requires viewer review.',
  'continuous_motion_review':'Full decode and browser playback checked separately; still inspection alone is not full-motion quality review.'}

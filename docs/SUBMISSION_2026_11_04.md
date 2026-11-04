@@ -29,8 +29,8 @@ The form does not visibly specify a video host, upload size or aspect ratio. A j
 ## Current release blockers
 
 - Completed with the owner's authorization: [GitHub is public](https://github.com/Alexeiguch/streetsense), and [AGPL-3.0 is on the default branch](https://github.com/Alexeiguch/streetsense/blob/main/LICENSE). A credential scan covered 713 history blobs with no findings; `.env` was not tracked.
-- Use the [latest hackathon build](https://github.com/Alexeiguch/streetsense/tree/codex/hackathon-demo-2026-11-04) when reviewing the country-reader improvements, offline 3D experiment and demo-production source. Keep experimental reconstruction outside the live decision path.
-- Upload the final three-minute video to an accessible host and put that link in the form. A local MP4 is not a hosted submission link.
+- Use the [latest hackathon build](https://github.com/Alexeiguch/streetsense/tree/codex/hackathon-demo-2026-11-04) when reviewing the country-reader improvements and the initial demo-production source. Final demo files and production sources are packaged in the [hackathon release](https://github.com/Alexeiguch/streetsense/releases/tag/hackathon-2026-11-04).
+- The owner authorized upload and submission on 4 November. The final British-voice three-minute demo, X cut, captions, covers, credits and editable sources are prepared for the public hackathon release. Verify the release URLs in the form before final submission.
 - Complete personal survey answers and review the promotion permission; these cannot be inferred from code.
 - Submit and verify confirmation before the deadline. Reading or drafting the form is not submission.
 
@@ -40,6 +40,14 @@ The 4 November organizer email announces **$20,000** for the demo with the most 
 
 ## Demo emphasis
 
-The rubric gives Impact 30%, Meta AI tooling 25%, Demo 25% and Technical Depth & Execution 20%. Lead with a concrete street decision, show real outputs, make the Meta contribution visible, and demonstrate a disagreement or uncertain case. Clearly label recorded/cached evaluations and experimental features. Do not present the offline 3D pilot as live navigation.
+The rubric gives Impact 30%, Meta AI tooling 25%, Demo 25% and Technical Depth & Execution 20%. Lead with a concrete street decision, show real outputs, make the Meta contribution visible, and demonstrate a disagreement or uncertain case. Clearly label recorded/cached evaluations and rule replays. The revised video omits the separate reconstruction research.
 
 Production brief: three-minute landscape judge demo, with a fast cold open, large captions, natural neural narration, original ducked music, actual local perception runs, recorded Muse/SAM evidence, and the precise crossing rule. A shorter portrait edit supports the optional X entry.
+
+## Final links
+
+- [Hackathon media release](https://github.com/Alexeiguch/streetsense/releases/tag/hackathon-2026-11-04)
+- [Published X post](https://x.com/GuchinAlexei/status/2118111290027847819)
+- Three-minute video: https://github.com/Alexeiguch/streetsense/releases/download/hackathon-2026-11-04/StreetSense-hackathon-3min.mp4
+
+Submission status is recorded separately after the portal confirms receipt.
