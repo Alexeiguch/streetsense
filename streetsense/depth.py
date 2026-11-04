@@ -193,6 +193,11 @@ class DepthEstimator:
             return None
         return float(np.median(patch))
 
+    def reset(self) -> None:
+        """A changed camera cannot inherit the previous frame's scale calibration."""
+        self._scale = None
+        self.last_map = None
+
     def calibrate(self, depth: np.ndarray, detections: list[Detection], frame_w: int, frame_h: int, hfov_deg: float) -> float | None:
         """Update EMA scale from person/vehicle boxes that also have a box-height distance."""
         ratios = []

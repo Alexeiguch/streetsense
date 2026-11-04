@@ -31,7 +31,7 @@ class SignalBoxes:
     error: str | None = None
 
     def fresh(self, now: float, max_age_s: float) -> bool:
-        return self.error is None and (now - self.capture_ts) <= max_age_s
+        return self.error is None and 0 <= now - self.capture_ts <= max_age_s
 
 
 @dataclass
@@ -69,6 +69,12 @@ class SamSignalFallback:
         self._busy = False
         self._last_start = -1e9
         self._latest: SignalBoxes | None = None
+        self._generation = 0
+
+    def invalidate(self) -> None:
+        with self._lock:
+            self._generation += 1
+            self._latest = None
 
     def maybe_request(self, frame_bgr: np.ndarray, capture_ts: float, *, have_confident_light: bool) -> bool:
         """Start a background call if no confident local light, not busy, and rate limit allows."""
@@ -80,19 +86,25 @@ class SamSignalFallback:
                 return False
             self._busy = True
             self._last_start = now
-        crop = np.ascontiguousarray(frame_bgr[: max(1, int(frame_bgr.shape[0] * self.cfg.top_fraction))])
-        threading.Thread(target=self._run, args=(crop, capture_ts), daemon=True).start()
+            generation = self._generation
+        try:
+            crop = frame_bgr[: max(1, int(frame_bgr.shape[0] * self.cfg.top_fraction))].copy()
+            threading.Thread(target=self._run, args=(crop, capture_ts, generation), daemon=True).start()
+        except Exception:
+            with self._lock:
+                self._busy = False
+            return False
         return True
 
     def run_sync(self, frame_bgr: np.ndarray, capture_ts: float) -> SignalBoxes:
         crop = np.ascontiguousarray(frame_bgr[: max(1, int(frame_bgr.shape[0] * self.cfg.top_fraction))])
         return self._compute(crop, capture_ts)
 
-    def _run(self, crop: np.ndarray, capture_ts: float) -> None:
+    def _run(self, crop: np.ndarray, capture_ts: float, generation: int) -> None:
         try:
             res = self._compute(crop, capture_ts)
             with self._lock:
-                if self._latest is None or res.capture_ts >= self._latest.capture_ts:
+                if generation == self._generation and (self._latest is None or res.capture_ts >= self._latest.capture_ts):
                     self._latest = res
         finally:
             with self._lock:
@@ -261,6 +273,18 @@ class SamFallbackController:
 
     def note_crossing_distance(self, meters: float | None) -> None:
         self._maps_m = meters
+
+    def invalidate(self) -> None:
+        """Drop old-scene evidence without resetting spend or rate-limit accounting."""
+        if self.fb is not None:
+            self.fb.invalidate()
+        if self.in_crossing:
+            self._end_crossing(self._now)
+        self._last_thumb = self._last_res = None
+        self._pending.clear()
+        self._stable = 0
+        self._check_until = self._ctx_last = -1e9
+        self._maps_m = None
 
     def _ctx_active(self, t: float, crosswalk_ahead: bool) -> bool:
         maps = self._maps_m is not None and self._maps_m <= self.cfg.crossing_radius_m

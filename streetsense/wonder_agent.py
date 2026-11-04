@@ -103,6 +103,7 @@ TOOLS: list[dict] = [
 _FORBIDDEN = [
     re.compile(p, re.I)
     for p in (
+        r"^\s*(please\s+)?(go|cross|walk|proceed|start)\b",
         r"\b(safe|clear|ok|okay|fine|good)\s+to\s+(cross|go|walk|proceed)\b",
         r"\b(can|may|could|should|must)\s+(now\s+|safely\s+)?(cross|go|walk|proceed|start)\b",
         r"\bgo\s+ahead\b",

@@ -13,6 +13,7 @@ from __future__ import annotations
 import sys
 import time
 from collections import deque
+from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
@@ -171,6 +172,10 @@ class YoloDetector:
 
     def __call__(self, frame_bgr: np.ndarray) -> list[Detection]:
         floor = self._conf_floor()
+        if self.cfg.track and self.cfg.track_conf is not None:
+            # ByteTrack needs low-score boxes to recover existing tracks. They are
+            # association evidence only: _accept still applies the public class thresholds.
+            floor = min(floor, self.cfg.track_conf)
         kw = dict(imgsz=self.cfg.imgsz, conf=floor, iou=self.cfg.iou, device=self.cfg.device, verbose=False)
         if self.cfg.track:
             res = self.model.track(frame_bgr, persist=True, tracker="bytetrack.yaml", **kw)[0]
@@ -191,6 +196,12 @@ class YoloDetector:
                 continue
             out.append(Detection(label, Box(*map(float, b)), float(p), None if tid is None else int(tid)))
         return out
+
+    def reset_tracking(self) -> None:
+        """Forget pixel-coordinate tracks after a camera geometry change or video rewind."""
+        predictor = getattr(self.model, "predictor", None)
+        for tracker in getattr(predictor, "trackers", ()):
+            tracker.reset()
 
     def zoomed_lights(self, frame_bgr: np.ndarray, scales: tuple[float, ...], conf: float) -> list[Detection]:
         """Traffic lights found on zoomed-out copies of the frame, mapped back to frame pixels.
@@ -283,11 +294,17 @@ def _iou(a: Box, b: Box) -> float:
 
 
 def nms_lights(dets: list[Detection], iou: float = 0.5) -> list[Detection]:
-    """Greedy NMS by confidence; on overlap the higher-confidence box wins (track ids kept if it had one)."""
+    """Keep the best box/score and retain an overlapping local track's identity."""
     keep: list[Detection] = []
     for d in sorted(dets, key=lambda d: -d.conf):
-        if all(_iou(d.box, k.box) < iou for k in keep):
+        overlaps = [i for i, k in enumerate(keep) if _iou(d.box, k.box) >= iou]
+        if not overlaps:
             keep.append(d)
+        elif d.track_id is not None:
+            # Transfer only to the closest retained duplicate, never to another signal.
+            i = max(overlaps, key=lambda i: _iou(d.box, keep[i].box))
+            if keep[i].track_id is None:
+                keep[i] = replace(keep[i], track_id=d.track_id, attrs=dict(keep[i].attrs))
     return keep
 
 
@@ -356,16 +373,31 @@ class ApproachTracker:
         self.ratio = ratio
         self.max_tracks = max_tracks
         self._hist: dict[int, deque[tuple[float, float]]] = {}
+        self._labels: dict[int, str] = {}
+
+    def reset(self) -> None:
+        self._hist.clear()
+        self._labels.clear()
 
     def update(self, t: float, detections: list[Detection]) -> set[int]:
         approaching: set[int] = set()
+        for tid, q in list(self._hist.items()):
+            if t < q[-1][0] or t - q[-1][0] > self.window_s:
+                del self._hist[tid]
+                self._labels.pop(tid, None)
         seen = set()
         for d in detections:
             if d.track_id is None:
                 continue
             seen.add(d.track_id)
             q = self._hist.setdefault(d.track_id, deque(maxlen=64))
-            q.append((t, d.box.h))
+            if self._labels.get(d.track_id, d.label) != d.label:
+                q.clear()
+            self._labels[d.track_id] = d.label
+            # A fixed 64-frame buffer loses the entire time window above 128 FPS.
+            # Sample in time instead, while comparing the current box on every call.
+            if not q or t - q[-1][0] >= self.window_s / 32:
+                q.append((t, d.box.h))
             while len(q) > 2 and t - q[1][0] >= self.window_s:
                 q.popleft()
             t0, h0 = q[0]
@@ -374,4 +406,5 @@ class ApproachTracker:
         if len(self._hist) > self.max_tracks:
             for k in [k for k in self._hist if k not in seen][: len(self._hist) - self.max_tracks]:
                 del self._hist[k]
+                self._labels.pop(k, None)
         return approaching

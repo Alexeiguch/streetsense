@@ -203,7 +203,7 @@ def render_crossing_speech(
     if not validated or not validated.get("ok") or not validated.get("data"):
         return SAFE_CROSSING_FALLBACK
     cap = validated.get("capture_ts")
-    if cap is not None and now is not None and (now - cap) > max_age_s:
+    if cap is not None and now is not None and not 0 <= now - cap <= max_age_s:
         return SAFE_CROSSING_FALLBACK
     fused = fuse_crossing_decision(local_state, validated["data"])
     return {
@@ -274,6 +274,10 @@ class SceneReport:
     latency_s: float
     data: dict
     question: str
+    capture_ts: float | None = None
+
+    def fresh(self, now: float, max_age_s: float) -> bool:
+        return self.capture_ts is not None and 0 <= now - self.capture_ts <= max_age_s
 
 
 class MetaVisionAssistant:
@@ -282,6 +286,8 @@ class MetaVisionAssistant:
         self.enabled = bool(cfg.enabled and cfg.api_key)
         self._client = None
         self._busy = threading.Lock()
+        self._state_lock = threading.Lock()
+        self._generation = 0
         self._last_request = -1e9
         self.latest: SceneReport | None = None
         self.error: str | None = None
@@ -300,11 +306,25 @@ class MetaVisionAssistant:
             return False
         if not self._busy.acquire(blocking=False):
             return False
-        self._last_request = now
-        img = encode_jpeg_data_url(frame_bgr, self.cfg.max_image_side)
-        q = question or "Describe what matters for walking safely right now."
-        threading.Thread(target=self._run, args=(img, q), daemon=True).start()
+        try:
+            img = encode_jpeg_data_url(frame_bgr, self.cfg.max_image_side)
+            q = question or "Describe what matters for walking safely right now."
+            with self._state_lock:
+                generation = self._generation
+            self._last_request = now
+            threading.Thread(target=self._run, args=(img, q, now, generation), daemon=True).start()
+        except Exception as e:
+            self._busy.release()
+            self.error = mask_secret(f"{type(e).__name__}: {e}", self.cfg.api_key)[:200]
+            return False
         return True
+
+    def reset(self) -> None:
+        """Invalidate pending results when the camera scene or video clock resets."""
+        with self._state_lock:
+            self._generation += 1
+            self.latest = None
+            self._last_request = -1e9
 
     @property
     def system_prompt(self) -> str:
@@ -399,12 +419,14 @@ class MetaVisionAssistant:
         assert last_err is not None
         raise last_err
 
-    def _run(self, img_url: str, question: str) -> None:
+    def _run(self, img_url: str, question: str, capture_ts: float, generation: int) -> None:
         t0 = time.monotonic()
         try:
             data = self._call(img_url, question)
-            self.latest = SceneReport(time.time(), time.monotonic() - t0, data, question)
-            self.error = None
+            with self._state_lock:
+                if generation == self._generation:
+                    self.latest = SceneReport(time.time(), time.monotonic() - t0, data, question, capture_ts)
+                    self.error = None
         except Exception as e:  # network / quota errors must never crash the fast loop
             self.error = mask_secret(f"{type(e).__name__}: {str(e)[:120]}", self.cfg.api_key)
         finally:
@@ -609,26 +631,37 @@ def overlay_sam_segments(
         "sidewalk": (0, 200, 0),
     }
     out = frame_bgr.copy()
-    overlay = out.copy()
+    height, width = out.shape[:2]
     for seg in segments:
         color = colors.get(seg.prompt, (200, 200, 200))
+        boxes_by_id = {b.get("id"): b for b in seg.boxes}
+
+        def scale_for(box):
+            return width / (box.get("w") or width), height / (box.get("h") or height)
+
         for m in seg.masks:
             raster = m["raster"]
-            x1, y1, x2, y2 = m["bounds"]
-            # Place raster into bounds region (may be smaller than box).
+            source = boxes_by_id.get(m.get("id"), seg.boxes[0] if seg.boxes else {})
+            sx, sy = scale_for(source)
+            left, top, _, _ = m["bounds"]
             rh, rw = raster.shape[:2]
-            x2 = min(out.shape[1], x1 + rw)
-            y2 = min(out.shape[0], y1 + rh)
-            region = overlay[y1:y2, x1:x2]
-            mask = raster[: y2 - y1, : x2 - x1] > 0
+            x1, y1 = round(left * sx), round(top * sy)
+            x2, y2 = round((left + rw) * sx), round((top + rh) * sy)
+            if x2 <= x1 or y2 <= y1:
+                continue
+            mask = cv2.resize(raster, (x2 - x1, y2 - y1), interpolation=cv2.INTER_NEAREST) > 0
+            cx1, cy1, cx2, cy2 = max(0, x1), max(0, y1), min(width, x2), min(height, y2)
+            if cx2 <= cx1 or cy2 <= cy1:
+                continue
+            region = out[cy1:cy2, cx1:cx2]
+            mask = mask[cy1 - y1:cy2 - y1, cx1 - x1:cx2 - x1]
             if mask.any():
-                region[mask] = (0.45 * np.array(color, dtype=np.float32) + 0.55 * region[mask]).astype(np.uint8)
+                region[mask] = (0.315 * np.array(color, dtype=np.float32) + 0.685 * region[mask]).astype(np.uint8)
         for b in seg.boxes:
-            x1, y1, x2, y2 = int(b["x1"]), int(b["y1"]), int(b["x2"]), int(b["y2"])
+            sx, sy = scale_for(b)
+            x1, y1, x2, y2 = round(b["x1"] * sx), round(b["y1"] * sy), round(b["x2"] * sx), round(b["y2"] * sy)
             cv2.rectangle(out, (x1, y1), (x2, y2), color, 2)
             cv2.putText(out, seg.prompt, (x1, max(15, y1 - 4)), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1, cv2.LINE_AA)
-    if any(s.masks for s in segments):
-        cv2.addWeighted(overlay, 0.7, out, 0.3, 0, out)
     return out
 
 

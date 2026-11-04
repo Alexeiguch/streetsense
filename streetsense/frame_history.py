@@ -32,6 +32,9 @@ class FrameHistory:
     def __len__(self) -> int:
         return len(self._buf)
 
+    def clear(self) -> None:
+        self._buf.clear()
+
     def add(self, t: float, frame: np.ndarray, local_state: str) -> None:
         if self._buf and t - self._buf[-1].t < self.min_gap_s:
             return

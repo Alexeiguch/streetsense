@@ -14,7 +14,7 @@ from .config import Config
 from .crosswalk import CrosswalkHysteresis, CrosswalkResult, detect_crosswalk
 from .detector import ApproachTracker, YoloDetector, light_tiles, light_zoom_scales, nms_lights
 from .geometry import estimate_distance_m
-from .meta_api import MetaSamSegmenter, MetaVisionAssistant, sam_boxes_to_crosswalk
+from .meta_api import MetaSamSegmenter, MetaVisionAssistant, sam_boxes_to_crosswalk, validate_crossing_reply
 from .open_vocab import OpenVocabHazardDetector
 from .observations import ObservationLog, summarise_frame
 from .open_vocab_sched import OpenVocabScheduler
@@ -152,6 +152,11 @@ class Pipeline:
             self.sam_fallback = None
         self._i = 0
         self._last_surface: SurfaceResult | None = None
+        self._last_surface_ts = -1e9
+        self._ground_mask: np.ndarray | None = None
+        self._frame_shape: tuple[int, int] | None = None
+        self._frame_ts: float | None = None
+        self._last_muse_report = None
         self._last_cw: CrosswalkResult | None = None
         self._last_hazards: list[Detection] = []
         self._ov_sched = OpenVocabScheduler(
@@ -217,10 +222,42 @@ class Pipeline:
             self._kinds[track_id] = kind
         return self._kinds.get(track_id, "unknown")
 
+    def _reset_perception_state(self) -> None:
+        """Cached pixels, votes and tracks cannot cross a geometry change or rewind."""
+        reset = getattr(self.detector, "reset_tracking", None)
+        if callable(reset):
+            reset()
+        self.approach.reset()
+        self.smoother.reset()
+        self.cw_hyst = CrosswalkHysteresis()
+        self._kinds.clear()
+        self._last_surface = self._last_cw = self._last_depth = None
+        self._ground_mask = None
+        self._last_surface_ts = self._sam_last = -1e9
+        self._sam_segments = []
+        self._sam_prev_state = "unknown"
+        self._last_hazards = []
+        self._ov_sched = OpenVocabScheduler(every_n_frames=self._ov_sched.every_n_frames)
+        self.recent.clear()
+        self.alerts = AlertManager(self.cfg.alerts, clock=self.clock)
+        self.observations = ObservationLog()
+        self._last_muse_report = None
+        self.vlm.reset()
+        if self.frame_history is not None:
+            self.frame_history.clear()
+        if self.depth is not None:
+            self.depth.reset()
+        if self.sam_fallback is not None:
+            self.sam_fallback.invalidate()
+
     def process(self, frame: np.ndarray, annotate: bool = True, t: float | None = None) -> FrameOutput:
         t = self.clock() if t is None else t
         tm: dict[str, float] = {}
         H, W = frame.shape[:2]
+        if ((self._frame_shape is not None and self._frame_shape != (H, W))
+                or (self._frame_ts is not None and t < self._frame_ts)):
+            self._reset_perception_state()
+        self._frame_shape, self._frame_ts = (H, W), t
 
         t0 = time.perf_counter()
         dets = self.detector(frame)
@@ -313,8 +350,12 @@ class Pipeline:
         tm["open_vocab"] = (time.perf_counter() - t0) * 1000
 
         t0 = time.perf_counter()
-        if self.surface_seg is not None and (self._i % self.cfg.surface.every_n_frames == 0 or self._last_surface is None):
+        if self.surface_seg is not None and (self._i % max(1, self.cfg.surface.every_n_frames) == 0
+                or self._last_surface is None or t - self._last_surface_ts > self.cfg.surface.max_age_s):
             self._last_surface = self.surface_seg(frame)
+            self._last_surface_ts = t
+            labels = self._last_surface.labels
+            self._ground_mask = (labels == ROAD) | (labels == SIDEWALK)
         tm["surface"] = (time.perf_counter() - t0) * 1000
 
         t0 = time.perf_counter()
@@ -344,9 +385,8 @@ class Pipeline:
         tm["depth"] = (time.perf_counter() - t0) * 1000
 
         t0 = time.perf_counter()
-        if self._i % self.cfg.crosswalk_every_n_frames == 0 or self._last_cw is None:
-            ground = np.isin(self._last_surface.labels, (ROAD, SIDEWALK)) if self._last_surface is not None else None
-            self._last_cw = self.cw_hyst.update(detect_crosswalk(frame, ground_mask=ground))
+        if self._i % max(1, self.cfg.crosswalk_every_n_frames) == 0 or self._last_cw is None:
+            self._last_cw = self.cw_hyst.update(detect_crosswalk(frame, ground_mask=self._ground_mask))
         # Optional SAM 3.1 boost (slow): if classical missed a crosswalk, accept a text-prompted box.
         if self.sam is not None and (t - self._sam_last) >= self.cfg.sam.interval_s:
             self._sam_last = t
@@ -379,20 +419,30 @@ class Pipeline:
         self.vlm.maybe_request(frame, t)
         # Route validated Muse hazard phrases into AlertManager (low priority).
         latest = self.vlm.latest
-        if latest and isinstance(latest.data, dict):
-            for i, phrase in enumerate(latest.data.get("hazards") or []):
+        latest_fresh = latest is not None and latest.fresh(t, self.cfg.vlm.report_max_age_s)
+        if latest_fresh and latest is not self._last_muse_report:
+            self._last_muse_report = latest
+            validated = validate_crossing_reply(latest.data, capture_ts=latest.capture_ts)
+            data = validated.get("data") if validated.get("ok") else {}
+            from .wonder_agent import sanitize_guidance
+
+            for phrase in data.get("hazards") or []:
                 if isinstance(phrase, str) and phrase.strip():
+                    phrase, _ = sanitize_guidance(phrase, max_words=15)
+                    if not phrase:
+                        continue
                     self.alerts.submit(Alert(
                         f"muse_hazard:{phrase.strip().lower()[:40]}",
                         phrase.strip()[:80],
                         Priority.INFO,
-                        data={"source": "muse"},
+                        data={"source": "muse", "capture_ts": latest.capture_ts,
+                              "max_age_s": self.cfg.vlm.report_max_age_s},
                     ))
 
         ann = None
         if annotate:
             t0 = time.perf_counter()
-            vlm_text = self.vlm.latest.data.get("summary") if self.vlm.latest else None
+            vlm_text = latest.data.get("summary") if latest_fresh else None
             depth_ms = tm.get("depth", 0.0)
             fps_txt = f"detect {tm['detect']:.0f}ms surface {tm['surface']:.0f}ms"
             if self.depth is not None:

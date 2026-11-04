@@ -386,6 +386,14 @@ class LightStateSmoother:
         self._last_walk_vote_ts: dict[int | str, float] = {}
         self._countdown_since_walk: set[int | str] = set()
 
+    def reset(self) -> None:
+        """Clear evidence in the old camera coordinate system, preserving reader policy."""
+        for mapping in (self._hist, self._last_positive_ts, self._last_positive_state,
+                        self._untracked_boxes, self._last_seen, self._last_walk_vote_ts):
+            mapping.clear()
+        self._countdown_since_walk.clear()
+        self._next_uid = 0
+
     def _expire(self, now: float) -> None:
         # A fixed gap limit is opt-in: applying one to slow streams prevents confirmation.
         for key, seen in list(self._last_seen.items()):

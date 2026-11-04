@@ -1,0 +1,358 @@
+{
+  "note": "Smoke check only; four samples, not dataset accuracy or live safety validation.",
+  "model": "muse-spark-1.3",
+  "max_tokens": 768,
+  "crossing_image_side": 1024,
+  "rows": [
+    {
+      "kind": "muse",
+      "sample": "dc_red",
+      "label": "red",
+      "repeat": 0,
+      "local_state": "red",
+      "wall_s": 3.931,
+      "validated": true,
+      "reply": {
+        "signal_description": "Red raised hand on pedestrian head on left pole",
+        "pedestrian_signal": "red",
+        "countdown_seconds": null,
+        "summary": "Do not cross, red hand showing",
+        "hazards": [
+          "red pedestrian signal"
+        ],
+        "crossing_visible": false,
+        "safe_to_cross": "no",
+        "_latency_s": 3.92,
+        "_model": "muse-spark-1.3",
+        "_finish_reason": "stop",
+        "_usage": {
+          "prompt_tokens": 1228,
+          "completion_tokens": 228,
+          "estimated_cost_usd": 0.002504,
+          "ledger_total_usd": 0.002504
+        }
+      },
+      "fusion": {
+        "decision": "stop",
+        "reason": "local or Muse indicates stop",
+        "local": "red",
+        "muse_safe": "no",
+        "muse_signal": "red"
+      }
+    },
+    {
+      "kind": "muse",
+      "sample": "dc_red",
+      "label": "red",
+      "repeat": 1,
+      "local_state": "red",
+      "wall_s": 3.218,
+      "validated": true,
+      "reply": {
+        "signal_description": "Pedestrian head shows steady red hand",
+        "pedestrian_signal": "red",
+        "countdown_seconds": null,
+        "summary": "Red hand do not cross",
+        "hazards": [
+          "red pedestrian signal"
+        ],
+        "crossing_visible": false,
+        "safe_to_cross": "no",
+        "_latency_s": 3.198,
+        "_model": "muse-spark-1.3",
+        "_finish_reason": "stop",
+        "_usage": {
+          "prompt_tokens": 1228,
+          "completion_tokens": 271,
+          "estimated_cost_usd": 0.002687,
+          "ledger_total_usd": 0.005191
+        }
+      },
+      "fusion": {
+        "decision": "stop",
+        "reason": "local or Muse indicates stop",
+        "local": "red",
+        "muse_safe": "no",
+        "muse_signal": "red"
+      }
+    },
+    {
+      "kind": "muse",
+      "sample": "dc_walk",
+      "label": "walk",
+      "repeat": 0,
+      "local_state": "walk",
+      "wall_s": 6.503,
+      "validated": true,
+      "reply": {
+        "signal_description": "Lit walking person with red 45 countdown",
+        "pedestrian_signal": "green",
+        "countdown_seconds": 45,
+        "summary": "Walk signal on with 45 seconds, street clear",
+        "hazards": [],
+        "crossing_visible": false,
+        "safe_to_cross": "yes",
+        "_latency_s": 6.491,
+        "_model": "muse-spark-1.3",
+        "_finish_reason": "stop",
+        "_usage": {
+          "prompt_tokens": 1228,
+          "completion_tokens": 255,
+          "estimated_cost_usd": 0.002213,
+          "ledger_total_usd": 0.007404
+        }
+      },
+      "fusion": {
+        "decision": "go",
+        "reason": "local walk/green and Muse yes",
+        "local": "walk",
+        "muse_safe": "yes",
+        "muse_signal": "green"
+      }
+    },
+    {
+      "kind": "muse",
+      "sample": "dc_walk",
+      "label": "walk",
+      "repeat": 1,
+      "local_state": "walk",
+      "wall_s": 2.121,
+      "validated": true,
+      "reply": {
+        "signal_description": "White walking person lit with red 45 countdown",
+        "pedestrian_signal": "green",
+        "countdown_seconds": 45,
+        "summary": "Walk signal with 45 seconds, street clear ahead",
+        "hazards": [],
+        "crossing_visible": false,
+        "safe_to_cross": "yes",
+        "_latency_s": 2.097,
+        "_model": "muse-spark-1.3",
+        "_finish_reason": "stop",
+        "_usage": {
+          "prompt_tokens": 1228,
+          "completion_tokens": 194,
+          "estimated_cost_usd": 0.001109,
+          "ledger_total_usd": 0.008513
+        }
+      },
+      "fusion": {
+        "decision": "go",
+        "reason": "local walk/green and Muse yes",
+        "local": "walk",
+        "muse_safe": "yes",
+        "muse_signal": "green"
+      }
+    },
+    {
+      "kind": "sam",
+      "sample": "dc_walk",
+      "prompt": "traffic light",
+      "wall_s": 2.565,
+      "api_s": 2.506,
+      "estimated_cost_usd": 0.0025,
+      "boxes": [
+        {
+          "frame": 0,
+          "id": 0,
+          "x1": 256,
+          "y1": 272,
+          "x2": 273,
+          "y2": 305,
+          "w": 768,
+          "h": 432,
+          "c": 0.7928802371025085
+        },
+        {
+          "frame": 0,
+          "id": 1,
+          "x1": 228,
+          "y1": 195,
+          "x2": 252,
+          "y2": 247,
+          "w": 768,
+          "h": 432,
+          "c": 0.8750000596046448
+        }
+      ],
+      "mask_count": 2,
+      "preview": "dc_walk-sam.jpg"
+    },
+    {
+      "kind": "muse",
+      "sample": "dc_countdown",
+      "label": "countdown_ending",
+      "repeat": 0,
+      "local_state": "green",
+      "wall_s": 2.325,
+      "validated": true,
+      "reply": {
+        "signal_description": "walking person lit with red countdown 1",
+        "pedestrian_signal": "green",
+        "countdown_seconds": 1,
+        "summary": "Do not cross, countdown 1 second left",
+        "hazards": [
+          "cyclist approaching",
+          "countdown expiring"
+        ],
+        "crossing_visible": false,
+        "safe_to_cross": "no",
+        "_latency_s": 2.313,
+        "_model": "muse-spark-1.3",
+        "_finish_reason": "stop",
+        "_usage": {
+          "prompt_tokens": 1228,
+          "completion_tokens": 214,
+          "estimated_cost_usd": 0.002039,
+          "ledger_total_usd": 0.013052
+        }
+      },
+      "fusion": {
+        "decision": "stop",
+        "reason": "local or Muse indicates stop",
+        "local": "green",
+        "muse_safe": "no",
+        "muse_signal": "green"
+      }
+    },
+    {
+      "kind": "muse",
+      "sample": "dc_countdown",
+      "label": "countdown_ending",
+      "repeat": 1,
+      "local_state": "green",
+      "wall_s": 3.905,
+      "validated": true,
+      "reply": {
+        "signal_description": "Walk person lit white with red countdown 1",
+        "pedestrian_signal": "green",
+        "countdown_seconds": 1,
+        "summary": "Walk lit but only 1 second left, do not cross",
+        "hazards": [
+          "countdown expiring",
+          "cyclist approaching left"
+        ],
+        "crossing_visible": false,
+        "safe_to_cross": "no",
+        "_latency_s": 3.881,
+        "_model": "muse-spark-1.3",
+        "_finish_reason": "stop",
+        "_usage": {
+          "prompt_tokens": 1228,
+          "completion_tokens": 274,
+          "estimated_cost_usd": 0.001449,
+          "ledger_total_usd": 0.014501
+        }
+      },
+      "fusion": {
+        "decision": "stop",
+        "reason": "local or Muse indicates stop",
+        "local": "green",
+        "muse_safe": "no",
+        "muse_signal": "green"
+      }
+    },
+    {
+      "kind": "muse",
+      "sample": "tyumen",
+      "label": "unclear",
+      "repeat": 0,
+      "local_state": "unclear",
+      "wall_s": 5.15,
+      "validated": true,
+      "reply": {
+        "signal_description": "green walking person lit on pole ahead",
+        "pedestrian_signal": "green",
+        "countdown_seconds": null,
+        "summary": "Walk signal green, pedestrians crossing, no immediate hazard",
+        "hazards": [
+          "vehicles waiting on roadway"
+        ],
+        "crossing_visible": true,
+        "safe_to_cross": "yes",
+        "_latency_s": 5.135,
+        "_model": "muse-spark-1.3",
+        "_finish_reason": "stop",
+        "_usage": {
+          "prompt_tokens": 1228,
+          "completion_tokens": 390,
+          "estimated_cost_usd": 0.002787,
+          "ledger_total_usd": 0.017288
+        }
+      },
+      "fusion": {
+        "decision": "stop",
+        "reason": "disagree or incomplete evidence",
+        "local": "unclear",
+        "muse_safe": "yes",
+        "muse_signal": "green"
+      }
+    },
+    {
+      "kind": "muse",
+      "sample": "tyumen",
+      "label": "unclear",
+      "repeat": 1,
+      "local_state": "unclear",
+      "wall_s": 5.337,
+      "validated": true,
+      "reply": {
+        "signal_description": "small green pedestrian light showing walk figure",
+        "pedestrian_signal": "green",
+        "countdown_seconds": null,
+        "summary": "Walk signal lit, people crossing, road clear",
+        "hazards": [
+          "traffic on right"
+        ],
+        "crossing_visible": true,
+        "safe_to_cross": "yes",
+        "_latency_s": 5.312,
+        "_model": "muse-spark-1.3",
+        "_finish_reason": "stop",
+        "_usage": {
+          "prompt_tokens": 1228,
+          "completion_tokens": 382,
+          "estimated_cost_usd": 0.002753,
+          "ledger_total_usd": 0.020041
+        }
+      },
+      "fusion": {
+        "decision": "stop",
+        "reason": "disagree or incomplete evidence",
+        "local": "unclear",
+        "muse_safe": "yes",
+        "muse_signal": "green"
+      }
+    },
+    {
+      "kind": "sam",
+      "sample": "tyumen",
+      "prompt": "crosswalk",
+      "wall_s": 1.334,
+      "api_s": 1.165,
+      "estimated_cost_usd": 0.0025,
+      "boxes": [
+        {
+          "frame": 0,
+          "id": 0,
+          "x1": 0,
+          "y1": 325,
+          "x2": 371,
+          "y2": 415,
+          "w": 768,
+          "h": 432,
+          "c": 0.7037037014961243
+        }
+      ],
+      "mask_count": 1,
+      "preview": "tyumen-sam.jpg"
+    }
+  ],
+  "usage": {
+    "n_calls": 10,
+    "total_usd": 0.022541,
+    "budget_usd": 1.0,
+    "remaining_usd": 0.977459,
+    "ledger": "outputs/review/meta-usage.jsonl"
+  }
+}
